@@ -1,0 +1,6 @@
+#!/bin/sh
+
+OVERWRITE_EXTENSION='.git-overwrite'
+find ~ -name "*$OVERWRITE_EXTENSION" | while read f; do
+	cp $f $(echo $f | sed -r -e "s/$OVERWRITE_EXTENSION$//")
+done

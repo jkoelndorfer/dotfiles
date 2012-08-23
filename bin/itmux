@@ -1,0 +1,5 @@
+#!/bin/sh
+
+unset TMUX
+export ITMUX='y'
+tmux -L itmux "$@"

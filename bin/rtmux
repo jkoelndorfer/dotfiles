@@ -1,0 +1,18 @@
+#!/bin/sh
+
+SERVER=$1
+SSH_OPTS='-X'
+if [ "$TMUX" ]; then
+	LOCAL_TMUX_CMD='itmux'
+else
+	LOCAL_TMUX_CMD='tmux'
+fi
+[ "$TMUX" ] && tmux rename-window "$SERVER"
+REMOTE_TMUX=$(ssh "$SERVER" 'which tmux' 2>&1 | grep -e 'not found' -e 'no tmux')
+if [ -z "$REMOTE_TMUX" ]; then
+	ssh -t $SSH_OPTS "$SERVER" "tmux new -s $SERVER || tmux attach -t $SERVER"
+else
+	$LOCAL_TMUX_CMD new-session -d -s "$SERVER" "exec ssh $SSH_OPTS $SERVER"
+	$LOCAL_TMUX_CMD set-option -t "$SERVER" default-command "ssh $SSH_OPTS $SERVER"
+	exec $LOCAL_TMUX_CMD attach -t "$SERVER"
+fi

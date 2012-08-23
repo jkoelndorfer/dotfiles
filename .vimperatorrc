@@ -1,0 +1,3 @@
+set gui=none,tabs
+set tabnumbers
+set noprivate

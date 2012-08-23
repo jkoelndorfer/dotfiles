@@ -1,0 +1,101 @@
+#!/bin/zsh
+DEFAULT_UMASK=0077
+umask $DEFAULT_UMASK
+
+export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
+
+setopt noclobber
+autoload colors; colors
+autoload -U compinit; compinit
+zmodload zsh/zutil
+zmodload zsh/complist
+
+function repos_need_up {
+	NEEDUP_DISPLAYED=0
+	find ~/repos -type l 2>/dev/null | while read r; do
+		if [[ -d "$r/.git" && ! -z $(cd $r; git status -s 2>/dev/null) ]]; then
+			if [[ $NEEDUP_DISPLAYED -ne 1 ]]; then
+				echo "NEEDS UPDATE:"
+				NEEDUP_DISPLAYED=1
+			fi
+			echo "* $r" | sed -e "s#$HOME/##"
+		fi
+	done
+	echo
+}
+
+function prompt_repos_need_up {
+	if [[ ! -z $(repos_need_up) ]]; then
+		echo "*"
+	fi
+}
+
+function prompt {
+	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%F{blue}%~%b %F{red}$(prompt_repos_need_up)%f
+%# "
+}
+
+set -o vi
+typeset -a precmd_functions
+precmd_functions+='prompt'
+
+export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
+
+which ssh-agent-persistent >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+	eval "$(ssh-agent-persistent)"
+fi
+
+if [[ $UID = "0" ]]; then
+	USERNAMECOLOR="red"
+else
+	USERNAMECOLOR="green"
+fi
+
+HOSTNAME="$(hostname)"
+if [[ ! -z "$(uname -a | grep CYGWIN)" ]]; then
+	HOSTNAME="${HOSTNAME}-WIN"
+	# Set PATH to include system32
+	PATH="$PATH:/cygdrive/c/Windows/System32"
+	# Set solarized colors for mintty
+	echo -ne "\e]P0073642\a"
+	echo -ne "\e]P8002b36\a"
+	echo -ne "\e]P1dc322f\a"
+	echo -ne "\e]P9cb4b16\a"
+	echo -ne "\e]P2859900\a"
+	echo -ne "\e]PA586e75\a"
+	echo -ne "\e]P3b58900\a"
+	echo -ne "\e]PB657b83\a"
+	echo -ne "\e]P4268bd2\a"
+	echo -ne "\e]PC839496\a"
+	echo -ne "\e]P5d33682\a"
+	echo -ne "\e]PD6c71c4\a"
+	echo -ne "\e]P62aa198\a"
+	echo -ne "\e]PE93a1a1\a"
+	echo -ne "\e]P7eee8d5\a"
+	echo -ne "\e]PFfdf6e3\a"
+fi
+
+prompt
+
+alias ack="ack --color --pager='$PAGER'"
+alias ls='ls --color=auto'
+alias ll='ls -l --color=auto'
+alias sru="sync-usb ~/repos /media/jkusb/repos"
+alias srp="sync-usb ~/repos /media/3831-3565/repos"
+alias rm='rm -i'
+alias rdesktop='rdesktop -K'
+# yum uses a different cache for users and root.  It does not make sense to
+# maintain two caches, so use `sudo yum` instead.
+alias yum='sudo yum'
+alias gminix='ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"'
+
+if [[ $TERM = "linux" ]]; then
+	alias tmux="tmux -L 8color"
+fi
+
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*:*:kill:*' verbose yes
+zstyle ':completion:*:processes' command ps -u $USER -o pid,args --sort pid
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:list' yes

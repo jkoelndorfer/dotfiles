@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$ITMUX" ]; then
+	true
+else
+	date '+%a %F %H:%M'
+fi

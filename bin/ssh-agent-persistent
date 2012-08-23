@@ -1,0 +1,15 @@
+#!/bin/sh
+
+SSH_AGENT_VARS="SSH_AUTH_SOCK SSH_AGENT_PID"
+SSH_PERSIST_FILE="$HOME/.ssh-agent-persistent"
+
+if [ -f $SSH_PERSIST_FILE ]; then
+	. $SSH_PERSIST_FILE
+fi
+ssh-add -l >/dev/null 2>&1; [ $? -eq 0 -o $? -eq 1 ] && cat $SSH_PERSIST_FILE && exit 0
+eval $(ssh-agent) >/dev/null 2>&1
+for i in $SSH_AGENT_VARS; do
+	eval "echo $i=\$$i"
+	echo "export $i"
+done > $SSH_PERSIST_FILE
+cat $SSH_PERSIST_FILE
