@@ -10,8 +10,7 @@ autoload -U compinit; compinit
 zmodload zsh/zutil
 zmodload zsh/complist
 
-function repos_need_up {
-	NEEDUP_DISPLAYED=0
+function nup {
 	find ~/repos -type l 2>/dev/null | while read r; do
 		# Don't show untracked files in the home repo
 		if [[ -n "$(echo "$r" | grep 'home$')" ]]; then
@@ -20,24 +19,19 @@ function repos_need_up {
 			GIT_STATUS_FLAGS=""
 		fi
 		if [[ -d "$r/.git" && ! -z $(cd $r; git status $GIT_STATUS_FLAGS -s 2>/dev/null) ]]; then
-			if [[ $NEEDUP_DISPLAYED -ne 1 ]]; then
-				echo "NEEDS UPDATE:"
-				NEEDUP_DISPLAYED=1
-			fi
-			echo "* $r" | sed -e "s#$HOME/##"
+			echo "$r" | sed -e "s#$HOME/##"
 		fi
 	done
-	echo
 }
 
-function prompt_repos_need_up {
-	if [[ ! -z $(repos_need_up) ]]; then
+function prompt_nup {
+	if [[ -n "$(nup)" ]]; then
 		echo "*"
 	fi
 }
 
 function prompt {
-	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%F{blue}%~%b %F{red}$(prompt_repos_need_up)%f
+	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%F{blue}%~%b %F{red}$(prompt_nup)%f
 %# "
 }
 
