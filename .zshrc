@@ -13,7 +13,13 @@ zmodload zsh/complist
 function repos_need_up {
 	NEEDUP_DISPLAYED=0
 	find ~/repos -type l 2>/dev/null | while read r; do
-		if [[ -d "$r/.git" && ! -z $(cd $r; git status -s 2>/dev/null) ]]; then
+		# Don't show untracked files in the home repo
+		if [[ -n "$(echo "$r" | grep 'home$')" ]]; then
+			GIT_STATUS_FLAGS="-uno"
+		else
+			GIT_STATUS_FLAGS=""
+		fi
+		if [[ -d "$r/.git" && ! -z $(cd $r; git status $GIT_STATUS_FLAGS -s 2>/dev/null) ]]; then
 			if [[ $NEEDUP_DISPLAYED -ne 1 ]]; then
 				echo "NEEDS UPDATE:"
 				NEEDUP_DISPLAYED=1
