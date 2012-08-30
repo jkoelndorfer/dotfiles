@@ -4,6 +4,10 @@ BoldIntense=true
 ColorScheme=Solarized Dark
 Font=Bitstream Vera Sans Mono,12,-1,5,50,0,0,0,0,0
 
+[Cursor Options]
+CustomCursorColor=255,255,255
+UseCustomCursorColor=true
+
 [General]
 Command=/bin/zsh
 Environment=TERM=xterm-256color
