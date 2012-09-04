@@ -18,5 +18,5 @@ Font=Bitstream Vera Sans Mono
 FontSmoothing=default
 Locale=en_US
 Charset=UTF-8
-BoldAsColour=yes
+BoldAsColour=no
 Transparency=off
