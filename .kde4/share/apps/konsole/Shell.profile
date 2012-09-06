@@ -20,6 +20,9 @@ RemoteTabTitleFormat=%h : %u
 TabBarMode=1
 TabBarPosition=1
 
+[Interaction Options]
+UnderlineLinksEnabled=false
+
 [Scrolling]
 HistoryMode=2
 ScrollBarPosition=2
