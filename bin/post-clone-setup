@@ -1,0 +1,7 @@
+#!/bin/sh
+
+function downloadVimSolarizedColorscheme {
+	solarizedRepo='git://github.com/altercation/vim-colors-solarized.git'
+	cd ~/.vim/bundle
+	git clone $solarizedRepo
+}
