@@ -31,7 +31,7 @@ function prompt_nup {
 }
 
 function prompt {
-	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%F{blue}%~%b %F{red}$(prompt_nup)%f
+	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %F{red}$(prompt_nup)%f
 %# "
 }
 
