@@ -3,5 +3,3 @@
 [user]
 	name = John Koelndorfer
 	email = jkoelndorfer@gmail.com
-[core]
-	editor = "vim '+syntax off'"
