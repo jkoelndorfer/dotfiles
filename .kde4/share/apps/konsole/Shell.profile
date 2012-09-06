@@ -6,7 +6,7 @@ Font=Bitstream Vera Sans Mono,12,-1,5,50,0,0,0,0,0
 
 [Cursor Options]
 CustomCursorColor=255,255,255
-UseCustomCursorColor=true
+UseCustomCursorColor=false
 
 [General]
 Command=/bin/zsh
