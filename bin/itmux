@@ -2,4 +2,4 @@
 
 unset TMUX
 export ITMUX='y'
-tmux -L itmux "$@"
+exec tmux -L itmux "$@"
