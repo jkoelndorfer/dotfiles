@@ -1,7 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+
+vimBundle=$HOME/.vim/bundle
+
+function initVim {
+	[[ ! -d $vimBundle ]] && mkdir -p $vimBundle
+}
 
 function downloadVimSolarizedColorscheme {
 	solarizedRepo='git://github.com/altercation/vim-colors-solarized.git'
-	cd ~/.vim/bundle
+	cd $vimBundle
 	git clone $solarizedRepo
 }
+
+initVim
+downloadVimSolarizedColorscheme
