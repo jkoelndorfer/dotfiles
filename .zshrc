@@ -86,6 +86,7 @@ if [[ $TERM = "linux" ]]; then
 fi
 
 zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' hosts off
 zstyle ':completion:*:*:kill:*' verbose yes
 zstyle ':completion:*:processes' command ps -u $USER -o pid,args --sort pid
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
