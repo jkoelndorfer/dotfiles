@@ -24,21 +24,7 @@ function nup {
 	done
 }
 
-function prompt_nup {
-	if [[ -n "$(nup)" ]]; then
-		echo "*"
-	fi
-}
-
-function prompt {
-	PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %F{red}$(prompt_nup)%f
-%# "
-}
-
 set -o vi
-typeset -a precmd_functions
-precmd_functions+='prompt'
-
 export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 
 which ssh-agent-persistent >/dev/null 2>&1
@@ -76,7 +62,8 @@ if [[ ! -z "$(uname -a | grep CYGWIN)" ]]; then
 	echo -ne "\e]PFfdf6e3\a"
 fi
 
-prompt
+PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
+%# "
 
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto'
