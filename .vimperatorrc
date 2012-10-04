@@ -1,3 +1,4 @@
 set gui=none,tabs
 set tabnumbers
 set noprivate
+set complete=b
