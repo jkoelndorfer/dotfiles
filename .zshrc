@@ -10,6 +10,10 @@ autoload -U compinit; compinit
 zmodload zsh/zutil
 zmodload zsh/complist
 
+function __git_files {
+	_wanted files expl 'local files' _files
+}
+
 function nup {
 	find ~/repos -type l 2>/dev/null | while read r; do
 		# Don't show untracked files in the home repo
