@@ -2,3 +2,7 @@ set gui=none,tabs
 set tabnumbers
 set noprivate
 set complete=b
+" Vimperator's RC file is not flexible enough to set our editor correctly
+" on startup across multiple operating systems.  To have gvim start up
+" as the editor on Windows, set the Path environment variable to something
+" like C:\Program Files (x86)\Vim\vim73
