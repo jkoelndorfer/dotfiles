@@ -1,3 +1,6 @@
+if has("win32")
+	let &runtimepath=expand('$HOME'). '/.vim,' . &runtimepath
+end
 set nocompatible
 call pathogen#infect()
 filetype plugin on
