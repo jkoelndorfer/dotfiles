@@ -1,5 +1,5 @@
-call pathogen#infect()
 set nocompatible
+call pathogen#infect()
 filetype plugin on
 " Line numbers
 set number
