@@ -27,6 +27,7 @@ set statusline=#%n\ %-F\ %r\ %m\ %=\ [ASCII=%03.3b]\ [HEX=%02.2B]\ [POS=%04l,%04
 set laststatus=2
 set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
+set bs=2
 
 " Always show the tab line.
 if version >= 700
