@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BUNDLE_DIR="$HOME/.vim/bundle"
+BUNDLE_FILE="$HOME/.vim/bundles"
+
+test -d "$BUNDLE_DIR" || mkdir -p "$BUNDLE_DIR"
+cd "$BUNDLE_DIR"
+while read repo; do
+	git clone "$repo"
+done < "$BUNDLE_FILE"
