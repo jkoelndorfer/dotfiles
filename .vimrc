@@ -42,13 +42,4 @@ let g:solarized_italic=0
 let g:solarized_visibility='med'
 colorscheme solarized
 
-" Tag List
-" let Tlist_Display_Tag_Scope=1
-
-" Keybinds
-
-" E-mail signatures
-nmap <buffer> <Leader>Sp o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-personal<Return>
-nmap <buffer> <Leader>Sc o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-cems<Return>
-nmap <buffer> <Leader>Su o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-umn<Return>
 ca w!! w !sudo tee "%" > /dev/null
