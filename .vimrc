@@ -32,6 +32,19 @@ set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set bs=2
 
+" Special setup for Python if we're using that
+function! PythonSettings()
+	setlocal tabstop=4
+	setlocal softtabstop=4
+	setlocal shiftwidth=4
+	setlocal smarttab
+	setlocal expandtab
+	setlocal textwidth=80
+	setlocal nosmartindent
+	setlocal foldmethod=indent
+endfunction
+autocmd FileType python call PythonSettings()
+
 " Always show the tab line.
 if version >= 700
     runtime tablinesetup.vim
