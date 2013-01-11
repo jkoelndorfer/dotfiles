@@ -1,0 +1,10 @@
+#!/bin/bash
+
+JAVA_BINARY=''
+if echo "$@" | grep -q 'mobilessl.generalmills.com'; then
+	JAVA_BINARY=/opt/java/32/jre1.7.0_05/bin/java
+else
+	JAVA_BINARY=/opt/java/64/jre1.7.0_10/bin/java.real
+fi
+
+exec "$JAVA_BINARY" $@
