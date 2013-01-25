@@ -1,5 +1,5 @@
 #!/bin/zsh
-DEFAULT_UMASK=0077
+DEFAULT_UMASK=0022
 umask $DEFAULT_UMASK
 
 setopt noclobber
