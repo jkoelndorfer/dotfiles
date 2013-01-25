@@ -5,7 +5,7 @@ if [ -d "$HOME/bin" ] ; then
    export PATH="$HOME/bin:$PATH"
 fi
 
-if [[ ! -z $(env | grep KDE) ]]; then
+if [[ -n "$(env | grep KDE)" ]]; then
 	export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
 fi
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
