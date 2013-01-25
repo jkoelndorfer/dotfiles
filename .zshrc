@@ -2,8 +2,6 @@
 DEFAULT_UMASK=0077
 umask $DEFAULT_UMASK
 
-export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
-
 setopt noclobber
 autoload colors; colors
 autoload -U compinit; compinit
@@ -29,7 +27,6 @@ function nup {
 }
 
 set -o vi
-export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 
 which ssh-agent-persistent >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
