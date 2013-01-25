@@ -10,7 +10,6 @@ if [[ ! -z $(env | grep KDE) ]]; then
 fi
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
 export SUDO_PROMPT="[sudo] password for %p: "
-export CDPATH=".:~/umn/2011/fall"
 export WINEARCH="win32"
 export EDITOR="vim"
 export VISUAL=$EDITOR
