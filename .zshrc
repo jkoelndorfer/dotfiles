@@ -12,20 +12,6 @@ function __git_files {
 	_wanted files expl 'local files' _files
 }
 
-function nup {
-	find ~/repos -type l 2>/dev/null | while read r; do
-		# Don't show untracked files in the home repo
-		if [[ -n "$(echo "$r" | grep 'home$')" ]]; then
-			GIT_STATUS_FLAGS="-uno"
-		else
-			GIT_STATUS_FLAGS=""
-		fi
-		if [[ -d "$r/.git" && ! -z $(cd $r; git status $GIT_STATUS_FLAGS -s 2>/dev/null) ]]; then
-			echo "$r" | sed -e "s#$HOME/##"
-		fi
-	done
-}
-
 set -o vi
 
 which ssh-agent-persistent >/dev/null 2>&1
