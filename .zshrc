@@ -72,10 +72,7 @@ PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
-alias sru="sync-usb ~/repos /media/jkusb/repos"
-alias srp="sync-usb ~/repos /media/3831-3565/repos"
 alias rm='rm -i'
-alias rdesktop='rdesktop -K'
 # yum uses a different cache for users and root.  It does not make sense to
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
