@@ -1,10 +1,5 @@
 #!/bin/zsh
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-   export PATH="$HOME/bin:$PATH"
-fi
-
 if [[ -n "$(env | grep KDE)" ]]; then
 	export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
 fi
