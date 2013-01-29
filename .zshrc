@@ -19,22 +19,14 @@ function mintty_title {
 
 set -o vi
 
-which ssh-agent-persistent >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-	eval "$(ssh-agent-persistent)"
-fi
-
-if [[ $UID = "0" ]]; then
-	USERNAMECOLOR="red"
-else
-	USERNAMECOLOR="green"
+cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
+if [[ -n "$cygwin" ]]; then
+	export PATH="/bin:/usr/bin:/sbin:/usr/sbin:$PATH:/cygdrive/c/Windows/System32"
 fi
 
 HOSTNAME="$(hostname)"
-if [[ ! -z "$(uname -a | grep CYGWIN)" ]]; then
+if [[ -n "$cygwin" ]]; then
 	HOSTNAME="${HOSTNAME}-WIN"
-	# Set PATH to include system32
-	PATH="$PATH:/cygdrive/c/Windows/System32"
 	# Set solarized colors for mintty
 	echo -ne "\e]P0073642\a"
 	echo -ne "\e]P8002b36\a"
@@ -52,6 +44,17 @@ if [[ ! -z "$(uname -a | grep CYGWIN)" ]]; then
 	echo -ne "\e]PE93a1a1\a"
 	echo -ne "\e]P7eee8d5\a"
 	echo -ne "\e]PFfdf6e3\a"
+fi
+
+which ssh-agent-persistent >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+	eval "$(ssh-agent-persistent)"
+fi
+
+if [[ $UID = "0" ]]; then
+	USERNAMECOLOR="red"
+else
+	USERNAMECOLOR="green"
 fi
 
 PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
