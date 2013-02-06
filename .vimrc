@@ -23,11 +23,27 @@ syntax on
 set foldmethod=indent
 " Eliminate linebreaks where there aren't any
 set nowrap
+" But if we do turn wrapping on, break on word boundaries
+" Unfortunately, tihs only works if we :set nolist
+set linebreak
 set statusline=#%n\ %-F\ %r\ %m\ %=\ [ASCII=%03.3b]\ [HEX=%02.2B]\ [POS=%04l,%04v,%P]
 set laststatus=2
 set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set bs=2
+
+" Special setup for Python if we're using that
+function! PythonSettings()
+	setlocal tabstop=4
+	setlocal softtabstop=4
+	setlocal shiftwidth=4
+	setlocal smarttab
+	setlocal expandtab
+	setlocal textwidth=80
+	setlocal nosmartindent
+	setlocal foldmethod=indent
+endfunction
+autocmd FileType python call PythonSettings()
 
 " Always show the tab line.
 if version >= 700
@@ -39,13 +55,4 @@ let g:solarized_italic=0
 let g:solarized_visibility='med'
 colorscheme solarized
 
-" Tag List
-" let Tlist_Display_Tag_Scope=1
-
-" Keybinds
-
-" E-mail signatures
-nmap <buffer> <Leader>Sp o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-personal<Return>
-nmap <buffer> <Leader>Sc o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-cems<Return>
-nmap <buffer> <Leader>Su o<Return>--<Esc>:r!grep -v '^\#' ~/.email-signature-umn<Return>
 ca w!! w !sudo tee "%" > /dev/null

@@ -1,8 +1,6 @@
 #!/bin/zsh
-DEFAULT_UMASK=0077
+DEFAULT_UMASK=0022
 umask $DEFAULT_UMASK
-
-export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 
 setopt noclobber
 autoload colors; colors
@@ -14,22 +12,7 @@ function __git_files {
 	_wanted files expl 'local files' _files
 }
 
-function nup {
-	find ~/repos -type l 2>/dev/null | while read r; do
-		# Don't show untracked files in the home repo
-		if [[ -n "$(echo "$r" | grep 'home$')" ]]; then
-			GIT_STATUS_FLAGS="-uno"
-		else
-			GIT_STATUS_FLAGS=""
-		fi
-		if [[ -d "$r/.git" && ! -z $(cd $r; git status $GIT_STATUS_FLAGS -s 2>/dev/null) ]]; then
-			echo "$r" | sed -e "s#$HOME/##"
-		fi
-	done
-}
-
 set -o vi
-export PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 
 which ssh-agent-persistent >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
@@ -72,10 +55,7 @@ PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
-alias sru="sync-usb ~/repos /media/jkusb/repos"
-alias srp="sync-usb ~/repos /media/3831-3565/repos"
 alias rm='rm -i'
-alias rdesktop='rdesktop -K'
 # yum uses a different cache for users and root.  It does not make sense to
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
