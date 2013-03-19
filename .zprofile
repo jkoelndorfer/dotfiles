@@ -17,6 +17,7 @@ export LESS="-R"
 export JAVA_HOME="/usr/lib/jvm/java-6-sun/"
 export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
 if [[ "$(uname)" == "Linux" ]]; then
 	export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi

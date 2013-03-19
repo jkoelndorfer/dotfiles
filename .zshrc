@@ -3,6 +3,7 @@ DEFAULT_UMASK=0022
 umask $DEFAULT_UMASK
 
 setopt noclobber
+setopt sharehistory
 autoload colors; colors
 autoload -U compinit; compinit
 zmodload zsh/zutil
