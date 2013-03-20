@@ -13,6 +13,10 @@ function __git_files {
 	_wanted files expl 'local files' _files
 }
 
+function mintty_title {
+	echo -ne "\033]2;"$1"\007"
+}
+
 set -o vi
 
 which ssh-agent-persistent >/dev/null 2>&1
