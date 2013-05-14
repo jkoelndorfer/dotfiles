@@ -13,6 +13,7 @@ export JAVA_HOME="/usr/lib/jvm/java-6-sun/"
 export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
+export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 if [[ "$(uname)" == "Linux" ]]; then
 	export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi
