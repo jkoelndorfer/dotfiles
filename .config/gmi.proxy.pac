@@ -1,8 +1,10 @@
 function FindProxyForURL(url, host) {
 	var proxyString;
-	if (dnsDomainIs(host, ".generalmills.com")      ||
-	    dnsDomainIs(host, ".genmills.com")          ||
-	    dnsDomainIs(host, ".emc.com")               ||
+	if (
+		host.indexOf('.') == -1                     ||
+		dnsDomainIs(host, ".generalmills.com")      ||
+		dnsDomainIs(host, ".genmills.com")          ||
+		dnsDomainIs(host, ".emc.com")               ||
 		isInNet(host, "146.217.0.0", "255.255.0.0") ||
 		isInNet(host, "10.0.0.0", "255.255.255.0")  ||
 		isInNet(host, "172.16.0.0", "255.240.0.0")  ||
