@@ -55,4 +55,9 @@ let g:solarized_italic=0
 let g:solarized_visibility='med'
 colorscheme solarized
 
+" Configure the IndentGuides plugin
+" https://github.com/nathanaelkane/vim-indent-guides
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+
 ca w!! w !sudo tee "%" > /dev/null
