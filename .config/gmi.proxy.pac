@@ -5,6 +5,10 @@ function FindProxyForURL(url, host) {
 		dnsDomainIs(host, ".generalmills.com")      ||
 		dnsDomainIs(host, ".genmills.com")          ||
 		dnsDomainIs(host, ".emc.com")               ||
+		dnsDomainIs(host, ".ibm.com")               ||
+		dnsDomainIs(host, ".hp.com")                ||
+		dnsDomainIs(host, ".oracle.com")            ||
+		dnsDomainIs(host, ".sap.com")               ||
 		isInNet(host, "146.217.0.0", "255.255.0.0") ||
 		isInNet(host, "10.0.0.0", "255.255.255.0")  ||
 		isInNet(host, "172.16.0.0", "255.240.0.0")  ||
