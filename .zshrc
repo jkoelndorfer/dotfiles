@@ -23,7 +23,7 @@ cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
 if [[ -n "$cygwin" ]]; then
 	export PATH="/bin:/usr/bin:/sbin:/usr/sbin:$PATH:/cygdrive/c/Windows/System32"
 fi
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$PATH:$HOME/.rvm/bin"
 
 HOSTNAME="$(hostname)"
 if [[ -n "$cygwin" ]]; then
