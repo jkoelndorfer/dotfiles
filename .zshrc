@@ -17,6 +17,16 @@ function mintty_title {
 	echo -ne "\033]2;"$1"\007"
 }
 
+function user_color {
+	if [[ $UID = "0" ]]; then
+		echo 'red'
+	elif ! getent passwd | awk -F: '$1 == "'$(whoami)'" { print $5 }' | grep -i -q 'John'; then
+		echo 'yellow'
+	else
+		echo 'green'
+	fi
+}
+
 set -o vi
 
 cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
@@ -52,12 +62,7 @@ if [[ $? -eq 0 ]]; then
 	eval "$(ssh-agent-persistent)"
 fi
 
-if [[ $UID = "0" ]]; then
-	USERNAMECOLOR="red"
-else
-	USERNAMECOLOR="green"
-fi
-
+USERNAMECOLOR="$(user_color)"
 PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
 %# "
 
