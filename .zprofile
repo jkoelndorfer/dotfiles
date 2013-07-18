@@ -17,3 +17,6 @@ export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 if [[ "$(uname)" == "Linux" ]]; then
 	export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi
+# Load RVM if it exists
+RVM="$HOME/.rvm/scripts/rvm"
+[[ -s "$RVM" ]] && source "$RVM"
