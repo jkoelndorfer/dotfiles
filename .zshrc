@@ -20,7 +20,7 @@ function mintty_title {
 function user_color {
 	if [[ $UID = "0" ]]; then
 		echo 'red'
-	elif ! getent passwd | awk -F: '$1 == "'$(whoami)'" { print $5 }' | grep -i -q 'John'; then
+	elif ! getent passwd "$(whoami)" | awk -F: '{ print $5 }' | grep -i -q 'John'; then
 		echo 'yellow'
 	else
 		echo 'green'
