@@ -13,6 +13,10 @@ function __git_files {
 	_wanted files expl 'local files' _files
 }
 
+function gminix {
+	ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"
+}
+
 function mintty_title {
 	echo -ne "\033]2;"$1"\007"
 }
@@ -73,12 +77,10 @@ alias rm='rm -i'
 # yum uses a different cache for users and root.  It does not make sense to
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
-alias gminix='ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"'
 
 if [[ $TERM = "linux" ]]; then
 	alias tmux="tmux -L 8color"
 fi
-
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' hosts off
 zstyle ':completion:*:*:kill:*' verbose yes
