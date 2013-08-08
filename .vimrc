@@ -26,7 +26,7 @@ set nowrap
 " But if we do turn wrapping on, break on word boundaries
 " Unfortunately, this only works if we :set nolist
 set linebreak
-set statusline=#%n\ %-F\ %r\ %m\ %=\ [ASCII=%03.3b]\ [HEX=%02.2B]\ [POS=%04l,%04v,%P]
+set statusline=#%n\ %-F\ %r\ %m\ %=\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\"}\ [ASCII=%03.3b]\ [HEX=%02.2B]\ [POS=%04l,%04v,%P]
 set laststatus=2
 set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
