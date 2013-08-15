@@ -7,6 +7,8 @@ function FindProxyForURL(url, host) {
 	    dnsDomainIs(host, ".youtube.com")           ||
 	    dnsDomainIs(host, ".gmail.com")             ||
 	    dnsDomainIs(host, ".google.com")            ||
+	    dnsDomainIs(host, ".generalmills.com")      ||
+	    dnsDomainIs(host, ".minecraftforum.net")    ||
 		isInNet(host, "10.0.0.0", "255.255.255.0")  ||
 		isInNet(host, "172.16.0.0", "255.240.0.0")  ||
 		isInNet(host, "192.168.0.0", "255.255.0.0")) {
