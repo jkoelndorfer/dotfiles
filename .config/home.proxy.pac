@@ -10,7 +10,7 @@ function FindProxyForURL(url, host) {
 	    dnsDomainIs(host, ".google.com")                  ||
 	    dnsDomainIs(host, ".generalmills.com")            ||
 	    dnsDomainIs(host, ".minecraftforum.net")          ||
-	    isInNet(resolvedIp, "10.0.0.0", "255.255.255.0")  ||
+	    isInNet(resolvedIp, "10.0.0.0", "255.0.0.0")      ||
 	    isInNet(resolvedIp, "172.16.0.0", "255.240.0.0")  ||
 	    isInNet(resolvedIp, "192.168.0.0", "255.255.0.0")) {
 		proxyString = "DIRECT";
