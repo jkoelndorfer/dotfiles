@@ -31,6 +31,7 @@ set laststatus=2
 set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set bs=2
+set encoding=utf8
 
 " Special setup for Python if we're using that
 function! PythonSettings()
