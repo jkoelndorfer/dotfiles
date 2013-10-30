@@ -18,5 +18,6 @@ find "$source_dir" -type f | egrep -v "$EXCLUDE_PATTERN" | while read f; do
 	done
 	link_target="${dirs_up}${link_target}"
 	link_path="${target_dir}/${file_path}"
+	[ -L "$link_path" ] && rm -f "$link_path"
 	ln -s "$link_target" "$link_path"
 done
