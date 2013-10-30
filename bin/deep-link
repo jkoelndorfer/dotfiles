@@ -5,7 +5,7 @@ source_dir="$(realpath --relative-to="$target_dir" -e "$1")"
 
 SED_EXPR="s#^${source_dir}#${target_dir}#"
 EXCLUDE_PATTERN="/[.]git($|/)"
-find "$source_dir" -type d | egrep -v "$EXCLUDE_PATTERN" | sed -e "$SED_EXPR" | xargs mkdir -p
+find "$source_dir" -type d | egrep -v "$EXCLUDE_PATTERN" | sed -e "$SED_EXPR" | xargs mkdir -p 2>/dev/null
 find "$source_dir" -type f | egrep -v "$EXCLUDE_PATTERN" | while read f; do
 	link_target="$f"
 	file_path="${f#${source_dir}/}"
