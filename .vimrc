@@ -1,5 +1,5 @@
 if has("win32")
-	let &runtimepath=expand('$HOME'). '/.vim,' . &runtimepath
+	let &runtimepath=expand('$HOME') . '/dotfiles/.vim,' . &runtimepath
 end
 set nocompatible
 call pathogen#infect()
