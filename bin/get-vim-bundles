@@ -1,7 +1,12 @@
 #!/bin/sh
 
-BUNDLE_DIR="$HOME/.vim/bundle"
-BUNDLE_FILE="$HOME/.vim/bundles"
+vim_dir="$1"
+if [ -z "$vim_dir" ]; then
+	echo "You must specify the path to the vim directory" 1>&2
+	exit 1
+fi
+BUNDLE_DIR="$vim_dir/bundle"
+BUNDLE_FILE="$(readlink -f "$vim_dir/bundles")"
 
 test -d "$BUNDLE_DIR" || mkdir -p "$BUNDLE_DIR"
 cd "$BUNDLE_DIR"
