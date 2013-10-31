@@ -6,3 +6,4 @@ git://github.com/jistr/vim-nerdtree-tabs.git
 git://github.com/Lokaltog/vim-easymotion.git
 git://github.com/scrooloose/syntastic.git
 git://github.com/tomtom/tcomment_vim.git
+git://github.com/PProvost/vim-ps1.git
