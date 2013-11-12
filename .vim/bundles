@@ -7,4 +7,4 @@ git://github.com/Lokaltog/vim-easymotion.git
 git://github.com/scrooloose/syntastic.git
 git://github.com/tomtom/tcomment_vim.git
 git://github.com/PProvost/vim-ps1.git
-git://github.com/fidian/hexmode.git
+git://github.com/jkoelndorfer/hexmode.git
