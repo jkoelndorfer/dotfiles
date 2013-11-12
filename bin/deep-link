@@ -1,7 +1,29 @@
 #!/bin/zsh
 
-target_dir="$(realpath -e "$2")"
-source_dir="$(realpath --relative-to="$target_dir" -e "$1")"
+# Hack mode accomodates RHEL machines, which don't have realpath.
+# The case we use it for is hardcoded.
+hack_mode=0
+args="$(getopt -o 'k' -l 'hack' -n "$0" -- "$@")"
+eval set -- "$args"
+while true; do
+	case "$1" in
+		-k|--hack)
+			hack_mode=1
+			shift
+			;;
+		--)
+			shift
+			break
+			;;
+	esac
+done
+if [ "$hack_mode" -eq 0 ]; then
+	target_dir="$(realpath -e "$2")"
+	source_dir="$(realpath --relative-to="$target_dir" -e "$1")"
+else
+	target_dir="$HOME"
+	source_dir="dotfiles"
+fi
 
 SED_EXPR="s#^${source_dir}#${target_dir}#"
 EXCLUDE_PATTERN="/[.]git($|/)"
