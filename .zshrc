@@ -67,7 +67,7 @@ if [[ $? -eq 0 ]]; then
 fi
 
 USERNAMECOLOR="$(user_color)"
-PROMPT="[%D{%Y/%m/%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
+PROMPT="[%D{%Y-%m-%d %T}] %F{$USERNAMECOLOR}%n%f @ %B$HOSTNAME:%b%F{blue}%~ %f
 %# "
 
 alias ack="ack --color --pager='$PAGER'"
