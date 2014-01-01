@@ -1,6 +1,5 @@
-set gui=none,tabs
+set gui=all,nobookmarks,noaddons
 set tabnumbers
-set noprivate
 set complete=b
 " Vimperator's RC file is not flexible enough to set our editor correctly
 " on startup across multiple operating systems.  To have gvim start up
