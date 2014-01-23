@@ -33,12 +33,6 @@ function user_color {
 
 set -o vi
 
-cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
-if [[ -n "$cygwin" ]]; then
-	export PATH="/bin:/usr/bin:/sbin:/usr/sbin:$PATH:/cygdrive/c/Windows/System32"
-fi
-export PATH="$HOME/bin:$PATH:$HOME/.rvm/bin"
-
 HOSTNAME="$(hostname)"
 if [[ -n "$cygwin" ]]; then
 	HOSTNAME="${HOSTNAME}-WIN"
@@ -59,11 +53,6 @@ if [[ -n "$cygwin" ]]; then
 	echo -ne "\e]PE93a1a1\a"
 	echo -ne "\e]P7eee8d5\a"
 	echo -ne "\e]PFfdf6e3\a"
-fi
-
-which ssh-agent-persistent >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-	eval "$(ssh-agent-persistent)"
 fi
 
 USERNAMECOLOR="$(user_color)"
