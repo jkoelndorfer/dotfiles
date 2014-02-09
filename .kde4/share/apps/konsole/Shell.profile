@@ -2,11 +2,14 @@
 AntiAliasFonts=true
 BoldIntense=true
 ColorScheme=Solarized Dark
-Font=Bitstream Vera Sans Mono,12,-1,5,50,0,0,0,0,0
+Font=DejaVu Sans Mono,12,-1,5,50,0,0,0,0,0
 
 [Cursor Options]
 CustomCursorColor=255,255,255
 UseCustomCursorColor=false
+
+[Encoding Options]
+DefaultEncoding=UTF-8
 
 [General]
 Command=/bin/zsh
@@ -24,5 +27,6 @@ TabBarPosition=1
 UnderlineLinksEnabled=false
 
 [Scrolling]
-HistoryMode=2
+HistoryMode=1
+HistorySize=10000
 ScrollBarPosition=2
