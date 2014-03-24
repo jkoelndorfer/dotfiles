@@ -9,7 +9,7 @@ set number
 " Dark background terminal
 set background=dark
 " Setup tabs
-set noexpandtab
+set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
