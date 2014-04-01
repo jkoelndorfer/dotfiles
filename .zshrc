@@ -69,7 +69,6 @@ RVM="$HOME/.rvm/scripts/rvm"
 
 HOSTNAME="$(hostname)"
 if [[ -n "$cygwin" ]]; then
-	HOSTNAME="${HOSTNAME}-WIN"
 	# Set solarized colors for mintty
 	echo -ne "\e]10;#839496\a" # foreground
 	echo -ne "\e]11;#002B36\a" # background
