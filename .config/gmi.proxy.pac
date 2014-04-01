@@ -11,6 +11,7 @@ function FindProxyForURL(url, host) {
 		dnsDomainIs(host, ".oracle.com")                  ||
 		dnsDomainIs(host, ".sap.com")                     ||
 		isInNet(resolvedIp, "146.217.0.0", "255.255.0.0") ||
+		isInNet(resolvedIp, "153.13.0.0", "255.255.0.0")  ||
 		isInNet(resolvedIp, "10.0.0.0", "255.0.0.0")      ||
 		isInNet(resolvedIp, "172.16.0.0", "255.240.0.0")  ||
 		isInNet(resolvedIp, "192.168.0.0", "255.255.0.0")) {
