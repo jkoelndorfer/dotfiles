@@ -71,6 +71,9 @@ HOSTNAME="$(hostname)"
 if [[ -n "$cygwin" ]]; then
 	HOSTNAME="${HOSTNAME}-WIN"
 	# Set solarized colors for mintty
+	echo -ne "\e]10;#839496\a" # foreground
+	echo -ne "\e]11;#002B36\a" # background
+	echo -ne "\e]12;#FFFFFF\a" # cursor
 	echo -ne "\e]P0073642\a"
 	echo -ne "\e]P8002b36\a"
 	echo -ne "\e]P1dc322f\a"
