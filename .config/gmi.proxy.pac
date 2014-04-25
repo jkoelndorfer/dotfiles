@@ -5,6 +5,7 @@ function FindProxyForURL(url, host) {
 		isPlainHostName(host)                             ||
 		dnsDomainIs(host, ".generalmills.com")            ||
 		dnsDomainIs(host, ".genmills.com")                ||
+		dnsDomainIs(host, ".fishnetsecurity.com")         ||
 		dnsDomainIs(host, ".emc.com")                     ||
 		dnsDomainIs(host, ".ibm.com")                     ||
 		dnsDomainIs(host, ".hp.com")                      ||
