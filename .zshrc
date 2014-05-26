@@ -41,6 +41,7 @@ export WINEARCH="win32"
 export EDITOR="vim"
 export VISUAL=$EDITOR
 export PAGER="less"
+export LANG="en_US.UTF-8"
 export LESS="-R"
 export JAVA_HOME="/usr/lib/jvm/java-6-sun/"
 export HISTFILE="$HOME/.zhistory"
