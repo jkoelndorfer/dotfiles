@@ -1,4 +1,6 @@
 #!/bin/bash
 
+# Kills mosh sessions which are not currently active
+
 who | awk '$1 == "'$(whoami)'" { print $0 }' | grep 'mosh' | grep -v 'via' |
     grep -E -o '\[[0-9]+\]' | sed -r -e 's#\[|\]##g' | xargs kill
