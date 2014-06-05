@@ -1,7 +1,11 @@
 #!/bin/sh
 
+umask 077
 SSH_AGENT_VARS="SSH_AUTH_SOCK SSH_AGENT_PID"
-SSH_PERSIST_FILE="$HOME/.ssh-agent-persistent"
+TEMPDIR="/tmp/ssh-agent-persistent-${UID}"
+SSH_PERSIST_FILE="${TEMPDIR}/env"
+
+mkdir "$TEMPDIR" >/dev/null 2>&1
 
 if [ -f $SSH_PERSIST_FILE ]; then
 	. $SSH_PERSIST_FILE
