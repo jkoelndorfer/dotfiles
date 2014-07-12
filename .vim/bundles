@@ -7,3 +7,7 @@ git://github.com/Lokaltog/vim-easymotion.git
 git://github.com/scrooloose/syntastic.git
 git://github.com/tomtom/tcomment_vim.git
 git://github.com/PProvost/vim-ps1.git
+git://github.com/nvie/vim-flake8.git
+git://github.com/majutsushi/tagbar
+git://github.com/techlivezheng/vim-plugin-minibufexpl.git
+git://github.com/davidhalter/jedi-vim.git

@@ -43,8 +43,10 @@ function! PythonSettings()
 	setlocal textwidth=80
 	setlocal nosmartindent
 	setlocal foldmethod=indent
+	autocmd VimEnter * TagbarToggle
 endfunction
 autocmd FileType python call PythonSettings()
+autocmd FileType python IndentGuidesEnable
 
 " Always show the tab line.
 if version >= 700
@@ -62,3 +64,5 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
 ca w!! w !sudo tee "%" > /dev/null
+autocmd VimEnter * NERDTree
+autocmd VimEnter * wincmd l
