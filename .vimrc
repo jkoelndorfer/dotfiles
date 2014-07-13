@@ -63,6 +63,11 @@ colorscheme solarized
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 
+" Always show MiniBufExplorer
+" If we don't always show MiniBufExplorer, vim-jedi gets very angry when it
+" attempts to autocomplete.  vim becomes completely broken.
+let g:miniBufExplBuffersNeeded=1
+
 ca w!! w !sudo tee "%" > /dev/null
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd l
