@@ -30,7 +30,7 @@ set statusline=#%n\ %-F\ %r\ %m\ %=\ %{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\
 set laststatus=2
 set completeopt=menu,longest,preview
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
-set bs=2
+set backspace=indent,eol,start
 set encoding=utf8
 
 " Special setup for Python if we're using that
