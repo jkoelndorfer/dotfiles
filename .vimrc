@@ -43,7 +43,7 @@ function! PythonSettings()
 	setlocal textwidth=80
 	setlocal nosmartindent
 	setlocal foldmethod=indent
-	autocmd VimEnter * TagbarToggle
+	autocmd VimEnter * TagbarOpen
 endfunction
 autocmd FileType python call PythonSettings()
 autocmd FileType python IndentGuidesEnable
