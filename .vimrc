@@ -68,6 +68,8 @@ let g:indent_guides_guide_size=1
 " attempts to autocomplete.  vim becomes completely broken.
 let g:miniBufExplBuffersNeeded=1
 
+let g:syntastic_python_checkers = ['python']
+
 ca w!! w !sudo tee "%" > /dev/null
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd l
