@@ -10,31 +10,31 @@ zmodload zsh/zutil
 zmodload zsh/complist
 
 function __git_files {
-	_wanted files expl 'local files' _files
+    _wanted files expl 'local files' _files
 }
 
 function gminix {
-	ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"
+    ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"
 }
 
 function mintty_title {
-	echo -ne "\033]2;"$1"\007"
+    echo -ne "\033]2;"$1"\007"
 }
 
 function user_color {
-	if [[ $UID = "0" ]]; then
-		echo 'red'
-	elif ! getent passwd "$(whoami)" | awk -F: '{ print $5 }' | grep -i -q 'John'; then
-		echo 'yellow'
-	else
-		echo 'green'
-	fi
+    if [[ $UID = "0" ]]; then
+        echo 'red'
+    elif ! getent passwd "$(whoami)" | awk -F: '{ print $5 }' | grep -i -q 'John'; then
+        echo 'yellow'
+    else
+        echo 'green'
+    fi
 }
 
 set -o vi
 
 if [[ -n "$(env | grep KDE)" ]]; then
-	export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
+    export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
 fi
 export SUDO_PROMPT="[sudo] password for %p: "
 export WINEARCH="win32"
@@ -51,17 +51,17 @@ export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 export PATH="$HOME/bin:/bin:/usr/bin:/sbin:/usr/sbin:$HOME/.rvm/bin"
 
 if [[ "$(uname)" == "Linux" ]]; then
-	export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
+    export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi
 
 cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
 if [[ -n "$cygwin" ]]; then
-	export PATH="$PATH:/cygdrive/c/Windows/System32"
+    export PATH="$PATH:/cygdrive/c/Windows/System32"
 fi
 
 which ssh-agent-persistent >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
-	eval "$(ssh-agent-persistent)"
+    eval "$(ssh-agent-persistent)"
 fi
 
 # Load RVM if it exists
@@ -70,26 +70,26 @@ RVM="$HOME/.rvm/scripts/rvm"
 
 HOSTNAME="$(hostname)"
 if [[ -n "$cygwin" ]]; then
-	# Set solarized colors for mintty
-	echo -ne "\e]10;#839496\a" # foreground
-	echo -ne "\e]11;#002B36\a" # background
-	echo -ne "\e]12;#FFFFFF\a" # cursor
-	echo -ne "\e]P0073642\a"
-	echo -ne "\e]P8002b36\a"
-	echo -ne "\e]P1dc322f\a"
-	echo -ne "\e]P9cb4b16\a"
-	echo -ne "\e]P2859900\a"
-	echo -ne "\e]PA586e75\a"
-	echo -ne "\e]P3b58900\a"
-	echo -ne "\e]PB657b83\a"
-	echo -ne "\e]P4268bd2\a"
-	echo -ne "\e]PC839496\a"
-	echo -ne "\e]P5d33682\a"
-	echo -ne "\e]PD6c71c4\a"
-	echo -ne "\e]P62aa198\a"
-	echo -ne "\e]PE93a1a1\a"
-	echo -ne "\e]P7eee8d5\a"
-	echo -ne "\e]PFfdf6e3\a"
+    # Set solarized colors for mintty
+    echo -ne "\e]10;#839496\a" # foreground
+    echo -ne "\e]11;#002B36\a" # background
+    echo -ne "\e]12;#FFFFFF\a" # cursor
+    echo -ne "\e]P0073642\a"
+    echo -ne "\e]P8002b36\a"
+    echo -ne "\e]P1dc322f\a"
+    echo -ne "\e]P9cb4b16\a"
+    echo -ne "\e]P2859900\a"
+    echo -ne "\e]PA586e75\a"
+    echo -ne "\e]P3b58900\a"
+    echo -ne "\e]PB657b83\a"
+    echo -ne "\e]P4268bd2\a"
+    echo -ne "\e]PC839496\a"
+    echo -ne "\e]P5d33682\a"
+    echo -ne "\e]PD6c71c4\a"
+    echo -ne "\e]P62aa198\a"
+    echo -ne "\e]PE93a1a1\a"
+    echo -ne "\e]P7eee8d5\a"
+    echo -ne "\e]PFfdf6e3\a"
 fi
 
 USERNAMECOLOR="$(user_color)"
@@ -105,7 +105,7 @@ alias rm='rm -i'
 alias yum='sudo yum'
 
 if [[ $TERM = "linux" ]]; then
-	alias tmux="tmux -L 8color"
+    alias tmux="tmux -L 8color"
 fi
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' hosts off
