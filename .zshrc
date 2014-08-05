@@ -4,17 +4,20 @@ umask $DEFAULT_UMASK
 
 setopt noclobber
 setopt sharehistory
+setopt vi
 autoload colors; colors
 autoload -U compinit; compinit
 zmodload zsh/zutil
 zmodload zsh/complist
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' hosts off
+zstyle ':completion:*:*:kill:*' verbose yes
+zstyle ':completion:*:processes' command ps -u $USER -o pid,args --sort pid
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:list' yes
 
 function __git_files {
     _wanted files expl 'local files' _files
-}
-
-function gminix {
-    ssh -tY xterm1.genmills.com "tmux attach -t gmi || tmux new -s gmi"
 }
 
 function mintty_title {
@@ -31,11 +34,8 @@ function user_color {
     fi
 }
 
-set -o vi
-
-if [[ -n "$(env | grep KDE)" ]]; then
-    export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
-fi
+PROMPT="[%D{%Y-%m-%d %T}] %F{$(user_color)}%n%f @ %B%m:%b%F{blue}%~ %f
+%# "
 export SUDO_PROMPT="[sudo] password for %p: "
 export WINEARCH="win32"
 export EDITOR="vim"
@@ -48,28 +48,19 @@ export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
-export PATH="$HOME/bin:/bin:/usr/bin:/sbin:/usr/sbin:$HOME/.rvm/bin"
+export PATH="$HOME/bin:/bin:/usr/bin:/sbin:/usr/sbin"
 
 if [[ "$(uname)" == "Linux" ]]; then
     export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi
 
+if [[ -n "$(env | grep KDE)" ]]; then
+    export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
+fi
+
 cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
 if [[ -n "$cygwin" ]]; then
     export PATH="$PATH:/cygdrive/c/Windows/System32"
-fi
-
-which ssh-agent-persistent >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    eval "$(ssh-agent-persistent)"
-fi
-
-# Load RVM if it exists
-RVM="$HOME/.rvm/scripts/rvm"
-[[ -s "$RVM" ]] && source "$RVM"
-
-HOSTNAME="$(hostname)"
-if [[ -n "$cygwin" ]]; then
     # Set solarized colors for mintty
     echo -ne "\e]10;#839496\a" # foreground
     echo -ne "\e]11;#002B36\a" # background
@@ -92,9 +83,10 @@ if [[ -n "$cygwin" ]]; then
     echo -ne "\e]PFfdf6e3\a"
 fi
 
-USERNAMECOLOR="$(user_color)"
-PROMPT="[%D{%Y-%m-%d %T}] %F{$USERNAMECOLOR}%n%f @ %B%m:%b%F{blue}%~ %f
-%# "
+which ssh-agent-persistent >/dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+    eval "$(ssh-agent-persistent)"
+fi
 
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto'
@@ -107,9 +99,3 @@ alias yum='sudo yum'
 if [[ $TERM = "linux" ]]; then
     alias tmux="tmux -L 8color"
 fi
-zstyle ':completion:*' completer _complete _ignored _approximate
-zstyle ':completion:*' hosts off
-zstyle ':completion:*:*:kill:*' verbose yes
-zstyle ':completion:*:processes' command ps -u $USER -o pid,args --sort pid
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:list' yes
