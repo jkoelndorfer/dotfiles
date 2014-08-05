@@ -96,6 +96,12 @@ alias rm='rm -i'
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
 
+alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gpc='git status | less; git diff --staged'
+alias gc='git commit'
+
 if [[ $TERM = "linux" ]]; then
     alias tmux="tmux -L 8color"
 fi
