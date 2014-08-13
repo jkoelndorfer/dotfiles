@@ -43,7 +43,6 @@ function! PythonSettings()
 	setlocal textwidth=80
 	setlocal nosmartindent
 	setlocal foldmethod=indent
-	autocmd VimEnter * TagbarOpen
 endfunction
 autocmd FileType python call PythonSettings()
 autocmd FileType python IndentGuidesEnable
@@ -71,9 +70,5 @@ let g:miniBufExplBuffersNeeded=1
 let g:syntastic_python_checkers = ['python']
 
 ca w!! w !sudo tee "%" > /dev/null
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd l
-" Toggle the tagbar twice on vim resize so that it gets recreated with the
-" correct size
-autocmd VimResized * TagbarToggle
-autocmd VimResized * TagbarToggle
+nmap <F8> :NERDTreeTabsToggle<CR>
+nmap <F9> :TagbarToggle<CR>
