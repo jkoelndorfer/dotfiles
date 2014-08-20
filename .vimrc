@@ -6,6 +6,7 @@ call pathogen#infect()
 filetype plugin on
 " Line numbers
 set number
+set cursorline
 " Dark background terminal
 set background=dark
 " Setup tabs
