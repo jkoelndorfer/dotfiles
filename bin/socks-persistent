@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while true; do
+    ssh -o ExitOnForwardFailure=yes -o ConnectTimeout=2 -o TCPKeepAlive=yes -o ServerAliveInterval=2 -o ServerAliveCountMax=2 -N t.segv.us
+    sleep 1
+done & disown
