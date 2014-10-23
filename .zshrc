@@ -88,7 +88,7 @@ if [[ $? -eq 0 ]]; then
 fi
 
 alias ack="ack --color --pager='$PAGER'"
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l --color=auto'
 alias rm='rm -i'
 # yum uses a different cache for users and root.  It does not make sense to
