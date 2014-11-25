@@ -74,3 +74,7 @@ let g:pymode_rope = 0
 ca w!! w !sudo tee "%" > /dev/null
 nmap <F8> :NERDTreeTabsToggle<CR>
 nmap <F9> :TagbarToggle<CR>
+
+" Slimux configuration
+map <Leader>s :SlimuxREPLSendLine<CR>
+vmap <Leader>s :SlimuxREPLSendSelection<CR>
