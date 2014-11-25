@@ -11,3 +11,5 @@ git://github.com/nvie/vim-flake8.git
 git://github.com/majutsushi/tagbar
 git://github.com/techlivezheng/vim-plugin-minibufexpl.git
 git://github.com/davidhalter/jedi-vim.git
+git://github.com/klen/python-mode.git
+git://github.com/epeli/slimux.git
