@@ -69,6 +69,7 @@ let g:indent_guides_guide_size=1
 let g:miniBufExplBuffersNeeded=1
 
 let g:syntastic_python_checkers = ['python']
+let g:pymode_rope = 0
 
 ca w!! w !sudo tee "%" > /dev/null
 nmap <F8> :NERDTreeTabsToggle<CR>
