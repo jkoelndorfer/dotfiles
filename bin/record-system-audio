@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sox_file_args='--type raw --encoding signed-integer --rate 44100 --endian little --bits 16 --channels 2'
-parec_args='--rate=44100 --format=s16le --channels=2'
+sox_file_args='--type raw --encoding signed-integer --rate 44100 --endian little --bits 16'
+parec_args='--rate=44100 --format=s16le'
 steelseries_mic='alsa_input.usb-SteelSeries_SteelSeries_H_Wireless-00-Wireless.analog-mono'
 steelseries_audio='alsa_output.usb-SteelSeries_SteelSeries_H_Wireless-00-Wireless.analog-stereo.monitor'
-sox --combine merge $sox_file_args <(parec -d $steelseries_mic $parec_args) $sox_file_args --channels 2 <(parec -d $steelseries_audio $parec_args) "$@"
+sox --combine merge $sox_file_args --channels 1 <(parec -d $steelseries_mic $parec_args --channels=1) $sox_file_args --channels 2 <(parec -d $steelseries_audio $parec_args --channels=2) "$@"
