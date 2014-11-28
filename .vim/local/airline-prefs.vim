@@ -2,7 +2,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " We need to set timeoutlen to a low value so that airline
 " updates the current mode somewhat quickly.
-set timeoutlen=50
+set ttimeoutlen=50
 
 " We don't want vim showing us the current mode, since airline
 " does that for us.
