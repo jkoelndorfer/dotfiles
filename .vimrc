@@ -6,9 +6,9 @@ set nocompatible
 
 runtime neobundle.vim
 runtime prefs.vim
+runtime airline-prefs.vim
 runtime indentguides-prefs.vim
 runtime python-prefs.vim
 runtime minibufexpl-prefs.vim
 runtime mappings.vim
-runtime tablinesetup.vim
 runtime colorscheme-prefs.vim

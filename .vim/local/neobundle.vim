@@ -18,5 +18,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'klen/python-mode'
     NeoBundle 'epeli/slimux'
     NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'bling/vim-airline'
 call neobundle#end()
 NeoBundleCheck

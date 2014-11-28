@@ -1,5 +1,7 @@
 filetype plugin on
 
+let mapleader=" "
+
 " Line numbers
 set number
 set cursorline
