@@ -13,7 +13,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'PProvost/vim-ps1'
     NeoBundle 'nvie/vim-flake8'
     NeoBundle 'majutsushi/tagbar'
-    NeoBundle 'techlivezheng/vim-plugin-minibufexpl'
     NeoBundle 'davidhalter/jedi-vim'
     NeoBundle 'klen/python-mode'
     NeoBundle 'epeli/slimux'
