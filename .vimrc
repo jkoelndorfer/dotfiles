@@ -22,6 +22,8 @@ set nocindent
 syntax on
 " Code folding enabled based on indents
 set foldmethod=indent
+" But leave folds open by default
+set foldlevelstart=99
 " Eliminate linebreaks where there aren't any
 set nowrap
 " But if we do turn wrapping on, break on word boundaries
