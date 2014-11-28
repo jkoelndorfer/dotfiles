@@ -13,3 +13,4 @@ git://github.com/techlivezheng/vim-plugin-minibufexpl.git
 git://github.com/davidhalter/jedi-vim.git
 git://github.com/klen/python-mode.git
 git://github.com/epeli/slimux.git
+git://github.com/tpope/vim-fugitive.git
