@@ -48,6 +48,7 @@ export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 export PATH="$HOME/bin:/bin:/usr/bin:/sbin:/usr/sbin"
+export VIM_BUNDLE_DIR="$HOME/.vim/bundle"
 
 if [[ "$(uname)" == "Linux" ]]; then
     export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
