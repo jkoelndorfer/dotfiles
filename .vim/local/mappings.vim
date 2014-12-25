@@ -1,4 +1,3 @@
-ca w!! w !sudo tee "%" > /dev/null
 nmap <F8> :NERDTreeTabsToggle<CR>
 nmap <F9> :TagbarToggle<CR>
 

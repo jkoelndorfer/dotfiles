@@ -19,5 +19,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'tpope/vim-fugitive'
     NeoBundle 'bling/vim-airline'
     NeoBundle 'dhruvasagar/vim-table-mode'
+    NeoBundle 'tpope/vim-eunuch'
 call neobundle#end()
 NeoBundleCheck
