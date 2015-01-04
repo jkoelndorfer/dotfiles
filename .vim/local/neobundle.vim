@@ -20,5 +20,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'bling/vim-airline'
     NeoBundle 'dhruvasagar/vim-table-mode'
     NeoBundle 'tpope/vim-eunuch'
+    NeoBundle 'freitass/todo.txt-vim'
 call neobundle#end()
 NeoBundleCheck
