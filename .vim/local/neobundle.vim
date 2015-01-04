@@ -21,5 +21,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'dhruvasagar/vim-table-mode'
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'freitass/todo.txt-vim'
+    NeoBundle 'ervandew/supertab'
 call neobundle#end()
 NeoBundleCheck
