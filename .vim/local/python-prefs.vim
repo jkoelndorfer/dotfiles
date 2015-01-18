@@ -11,6 +11,8 @@ endfunction
 autocmd FileType python call PythonSettings()
 autocmd FileType python IndentGuidesEnable
 
+let g:jedi#show_call_signatures = 0
+let g:jedi#show_function_definition = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 let g:jedi#auto_close_doc = 0
