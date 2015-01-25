@@ -18,3 +18,12 @@ let g:jedi#auto_close_doc = 0
 
 let g:syntastic_python_checkers = ['python']
 let g:pymode_rope = 0
+
+
+function SlimuxPre_python(target_pane)
+    call system("tmux send-keys -t " . a:target_pane . " '%cpaste\n'")
+endfunction
+
+function SlimuxPost_python(target_pane)
+    call system("tmux send-keys -t " . a:target_pane . " '\n--\n'")
+endfunction
