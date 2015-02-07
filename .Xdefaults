@@ -1,8 +1,8 @@
 /* xterm settings */
 XTerm*eightBitInput: false
 XTerm*selectToClipboard: true
-XTerm*faceName: Terminus
-XTerm*faceSize: 11
+XTerm*faceName: DejaVu Sans Mono for Powerline
+XTerm*faceSize: 12
 XTerm*termName: xterm-256color
 XTerm*toolBar: false
 *VT100*translations: #override \
@@ -10,6 +10,21 @@ Ctrl Shift <Key> C: select-end(CLIPBOARD)\n\
 Ctrl Shift <Key> V: insert-selection(CLIPBOARD)\n\
 Ctrl <Key> +: larger-vt-font()\n\
 Ctrl <Key> -: smaller-vt-font()
+
+URxvt.font: xft:DejaVu Sans Mono for Powerline:size=12:antialias=true
+URxvt.termName: xterm-256color
+URxvt.letterSpace: -1
+URxvt.scrollBar: False
+
+URxvt.perl-ext-common: clipboard
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+Xft.antialias: true
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.rgba: subpixel
 
 /* general X settings */
 Xcursor.theme: Vanilla-DMZ
@@ -36,9 +51,7 @@ Xcursor.theme: Vanilla-DMZ
 !!green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
 
 *background:            #002b36
-*foreground:            #657b83
-*fading:                40
-*fadeColor:             #002b36
+*foreground:            #839496
 *cursorColor:           #ffffff
 *pointerColorBackground:#586e75
 *pointerColorForeground:#93a1a1
