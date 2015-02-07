@@ -1,4 +1,5 @@
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 " We need to set timeoutlen to a low value so that airline
 " updates the current mode somewhat quickly.
