@@ -19,6 +19,8 @@ zstyle ':completion:*:processes' command ps -u $USER -o pid,args --sort pid
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:list' yes
 
+source $HOME/.zfunctions
+
 function __git_files {
     _wanted files expl 'local files' _files
 }
