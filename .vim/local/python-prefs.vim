@@ -10,6 +10,7 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 autocmd FileType python IndentGuidesEnable
+autocmd FileType python set colorcolumn=120
 
 let g:jedi#show_call_signatures = 0
 let g:jedi#popup_on_dot = 0
@@ -18,7 +19,7 @@ let g:jedi#auto_close_doc = 0
 
 let g:syntastic_python_checkers = ['python']
 let g:pymode_rope = 0
-
+let g:pymode_options_max_line_length = 120
 
 function SlimuxPre_python(target_pane)
     call system("tmux send-keys -t " . a:target_pane . " '%cpaste\n'")
