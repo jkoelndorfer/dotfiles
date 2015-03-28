@@ -22,5 +22,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'freitass/todo.txt-vim'
     NeoBundle 'ervandew/supertab'
+    NeoBundle 'edkolev/tmuxline.vim'
 call neobundle#end()
 NeoBundleCheck
