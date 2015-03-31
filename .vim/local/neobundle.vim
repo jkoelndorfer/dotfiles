@@ -23,5 +23,17 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'freitass/todo.txt-vim'
     NeoBundle 'ervandew/supertab'
     NeoBundle 'edkolev/tmuxline.vim'
+
+    " Needed for poshcomplete-vim
+    NeoBundle 'mattn/webapi-vim'
+    NeoBundle 'Shougo/vimproc.vim', {
+        \ 'build' : {
+        \     'windows' : 'tools\\update-dll-mingw',
+        \     'cygwin'  : 'make -f make_cygwin.mak',
+        \     'mac'     : 'make -f make_mac.mak',
+        \     'linux'   : 'make',
+        \     'unix'    : 'gmake',
+        \    },
+        \ }
 call neobundle#end()
 NeoBundleCheck
