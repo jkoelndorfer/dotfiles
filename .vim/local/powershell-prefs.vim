@@ -11,5 +11,3 @@ function! PowerShellSettings()
 endfunction
 autocmd FileType ps1 call PowerShellSettings()
 autocmd FileType ps1 IndentGuidesEnable
-
-runtime poshcomplete-vim.vim
