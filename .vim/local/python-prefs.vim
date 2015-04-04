@@ -4,7 +4,7 @@ function! PythonSettings()
     setlocal shiftwidth=4
     setlocal smarttab
     setlocal expandtab
-    setlocal textwidth=80
+    setlocal textwidth=120
     setlocal nosmartindent
     setlocal foldmethod=indent
 endfunction
