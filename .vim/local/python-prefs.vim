@@ -21,6 +21,8 @@ let g:syntastic_python_checkers = ['python']
 let g:pymode_rope = 0
 let g:pymode_options_max_line_length = 120
 
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
 function SlimuxPre_python(target_pane)
     call system("tmux send-keys -t " . a:target_pane . " '%cpaste\n'")
 endfunction

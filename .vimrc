@@ -12,3 +12,4 @@ runtime powershell-prefs.vim
 runtime python-prefs.vim
 runtime mappings.vim
 runtime colorscheme-prefs.vim
+runtime supertab.vim
