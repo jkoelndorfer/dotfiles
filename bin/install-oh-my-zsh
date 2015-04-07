@@ -1,0 +1,5 @@
+#!/bin/bash
+
+oh_my_zsh_repo='git://github.com/robbyrussell/oh-my-zsh.git'
+
+git clone --depth 1 "$oh_my_zsh_repo" "$HOME/.oh-my-zsh"
