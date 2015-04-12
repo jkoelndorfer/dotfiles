@@ -7,6 +7,7 @@ export ZSH
 
 ZSH_THEME="agnoster"
 DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_TITLE="true"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
