@@ -1,7 +1,7 @@
 # Path to installation of oh-my-zsh
 ZSH="$HOME/.oh-my-zsh"
 if [[ -n "$SUDO_USER" ]]; then
-    ZSH="$(getent passwd "$SUDO_USER") | awk -F: '{ print $6 }')/.oh-my-zsh"
+    ZSH="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')/.oh-my-zsh"
 fi
 export ZSH
 
