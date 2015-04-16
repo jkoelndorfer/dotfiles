@@ -23,5 +23,6 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'freitass/todo.txt-vim'
     NeoBundle 'ervandew/supertab'
     NeoBundle 'edkolev/tmuxline.vim'
+    NeoBundle 'airblade/vim-gitgutter'
 call neobundle#end()
 NeoBundleCheck
