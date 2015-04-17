@@ -38,5 +38,9 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'nvie/vim-flake8'
     NeoBundle 'davidhalter/jedi-vim'
     NeoBundle 'klen/python-mode'
+
+    " ruby
+    NeoBundle 'tpope/vim-rails'
+    NeoBundle 'vim-ruby/vim-ruby'
 call neobundle#end()
 NeoBundleCheck
