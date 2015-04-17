@@ -77,6 +77,10 @@ if [[ -n "$cygwin" ]]; then
     echo -ne "\e]PFfdf6e3\a"
 fi
 
+# RVM Configuration
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 which ssh-agent-persistent >/dev/null 2>&1
 if [[ $? -eq 0 ]]; then
     eval "$(ssh-agent-persistent)"
