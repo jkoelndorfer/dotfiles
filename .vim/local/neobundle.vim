@@ -14,6 +14,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'dhruvasagar/vim-table-mode'
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'Lokaltog/vim-easymotion'
+    NeoBundle 'tpope/vim-surround'
 
     " styling, syntax highlighting
     NeoBundle 'bling/vim-airline'
