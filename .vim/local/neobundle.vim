@@ -15,6 +15,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'tpope/vim-eunuch'
     NeoBundle 'Lokaltog/vim-easymotion'
     NeoBundle 'tpope/vim-surround'
+    NeoBundle 'kien/ctrlp.vim'
 
     " styling, syntax highlighting
     NeoBundle 'bling/vim-airline'
