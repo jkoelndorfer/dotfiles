@@ -48,6 +48,10 @@ if [[ "$(uname)" == "Linux" ]]; then
     export MAKEFLAGS="-j$(cat /proc/cpuinfo | grep processor | wc -l)"
 fi
 
+if [[ "$(uname)" == 'Darwin' ]]; then
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
+fi
+
 if [[ -n "$(env | grep KDE)" ]]; then
     export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
 fi
