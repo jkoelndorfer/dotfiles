@@ -52,7 +52,7 @@ if [[ -n "$(env | grep KDE)" ]]; then
     export GTK2_RC_FILES=$HOME/.themes/kde4/gtk-2.0/gtkrc
 fi
 
-cygwin="$(/bin/uname -a | /bin/grep CYGWIN)"
+cygwin="$(/bin/uname -a 2>/dev/null | /bin/grep CYGWIN 2>&1)"
 if [[ -n "$cygwin" ]]; then
     export PATH="$PATH:/cygdrive/c/Windows/System32"
     # Set solarized colors for mintty
