@@ -8,6 +8,7 @@ runtime neobundle.vim
 runtime prefs.vim
 runtime airline-prefs.vim
 runtime indentguides-prefs.vim
+runtime minibufexpl-prefs.vim
 runtime powershell-prefs.vim
 runtime python-prefs.vim
 runtime ruby-prefs.vim
