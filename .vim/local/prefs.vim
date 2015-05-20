@@ -1,6 +1,8 @@
 filetype plugin on
 
 let mapleader=" "
+nnoremap j gj
+nnoremap k gk
 
 " Line numbers
 set number
