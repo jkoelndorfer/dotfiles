@@ -17,9 +17,10 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-" No smart / C indenting -- use auto-identing, which is language agnostic
+" Indenting options
 set autoindent
-set nosmartindent
+set smartindent
+filetype indent on
 set nocindent
 
 " Syntax highlighting
