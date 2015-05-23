@@ -5,6 +5,13 @@ nmap <F9> :TagbarToggle<CR>
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
 
+" Easier way to break out of neovim's terminal
+if has('nvim')
+    " C-@ is equivalent to C-Space, but it actually works
+    " (C-Space doesn't for some reason)
+    tnoremap <C-@><C-@> <C-\><C-n>
+endif
+
 " Easier moving between splits
 if has('nvim')
     nmap <BS> <C-w>h
