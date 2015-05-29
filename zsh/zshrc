@@ -1,18 +1,12 @@
-# Path to installation of oh-my-zsh
+#!/usr/bin/env zsh
+
 REALHOME="$HOME"
 if [[ -n "$SUDO_USER" ]]; then
     export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
 fi
-export DOTFILE_DIR="$REALHOME/.dotfiles"
+DOTFILE_DIR="$REALHOME/.dotfiles"
 ZSH="$DOTFILE_DIR/zsh/oh-my-zsh"
-export ZSH
-
-ZSH_THEME="powerlevel9k"
-DISABLE_AUTO_UPDATE="true"
-DISABLE_AUTO_TITLE="true"
-POWERLEVEL9K_TIME_FORMAT='%D{%F %H:%M:%S}'
-plugins=(git)
-
 ZSH_CUSTOM="$DOTFILE_DIR/zsh/custom"
+export DOTFILE_DIR ZSH ZSH_CUSTOM
 
 source $ZSH/oh-my-zsh.sh
