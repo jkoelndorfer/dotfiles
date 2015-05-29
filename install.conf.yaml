@@ -1,8 +1,11 @@
 - clean: ['~']
 
 - link:
-    ~/.vim: vim/vimdir
+    ~/.dotfiles: ''
+    ~/.vim: vim/vimdir/
     ~/.vimrc: vim/vimrc
+    ~/.zshrc: zsh/zshrc
+    ~/.zprofile: zsh/zprofile
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
