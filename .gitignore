@@ -3,3 +3,6 @@
 
 # Ignore bundle files. NeoBundle checks out plugins for us.
 vim/vimdir/bundle
+
+# Ignore vim's netrwhist.
+vim/.netrwhist
