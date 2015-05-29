@@ -1,2 +1,0 @@
-#!/bin/bash
-xrdb -load $HOME/.Xdefaults
