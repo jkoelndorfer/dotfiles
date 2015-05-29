@@ -1,8 +1,9 @@
 # Path to installation of oh-my-zsh
-ZSH="$HOME/.oh-my-zsh"
+REALHOME="$HOME"
 if [[ -n "$SUDO_USER" ]]; then
-    ZSH="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')/.oh-my-zsh"
+    export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
 fi
+ZSH="$REALHOME/.oh-my-zsh"
 export ZSH
 
 ZSH_THEME="powerlevel9k"
