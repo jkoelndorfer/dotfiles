@@ -4,6 +4,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule "vim/bundle/neobundle.vim"]
-	path = vim/bundle/neobundle.vim
+[submodule "vim/vimdir/bundle/neobundle.vim"]
+	path = vim/vimdir/bundle/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim.git
