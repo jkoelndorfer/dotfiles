@@ -19,6 +19,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'fholgado/minibufexpl.vim'
     NeoBundle 'Raimondi/delimitMate'
     NeoBundle 'tpope/vim-endwise'
+    NeoBundle 'junegunn/vim-easy-align.git'
 
     " styling, syntax highlighting
     NeoBundle 'bling/vim-airline'
