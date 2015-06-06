@@ -1,4 +1,7 @@
 filetype plugin on
+if &omnifunc == ''
+    set omnifunc=syntaxcomplete#Complete
+endif
 
 let mapleader=" "
 nnoremap j gj
