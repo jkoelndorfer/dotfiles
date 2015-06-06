@@ -45,6 +45,9 @@ set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set backspace=indent,eol,start
 set encoding=utf8
 
+" Show normal mode command keys as they are being entered.
+set showcmd
+
 " Configure undo sanely
 set hidden
 
