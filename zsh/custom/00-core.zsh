@@ -16,5 +16,15 @@ export VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/vimdir/local"
 # of uname to make it not stupid.
 export OS="$(uname)"
 
+# Determine hostname.
+#
+# Dunno why OS X has to be so special...
+for cmd in 'hostname -s' 'uname -n' 'scutil --get LocalHostName'; do
+    export HOSTNAME="$(eval "$cmd 2>/dev/null")"
+    if [[ -n "$HOSTNAME" ]]; then
+        break
+    fi
+done
+
 # Configure a basic path. Should be fine for most use cases.
 export PATH="/usr/bin:/usr/sbin:/bin:/sbin"
