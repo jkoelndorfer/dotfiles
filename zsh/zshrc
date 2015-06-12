@@ -10,3 +10,4 @@ ZSH_CUSTOM="$DOTFILE_DIR/zsh/custom"
 export DOTFILE_DIR ZSH ZSH_CUSTOM
 
 source $ZSH/oh-my-zsh.sh
+[[ -f "$REALHOME/.zshrc.local" ]] && source "$REALHOME/.zshrc.local"
