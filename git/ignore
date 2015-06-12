@@ -1,5 +1,5 @@
 # vim swap files
-.*.sw*
+*.sw?
 
 # vim netrwhist
 .netrwhist
