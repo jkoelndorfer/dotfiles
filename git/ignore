@@ -3,3 +3,7 @@
 
 # vim netrwhist
 .netrwhist
+
+# Platform specific trash
+.DS_Store
+Thumbs.db
