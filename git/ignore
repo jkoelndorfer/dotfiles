@@ -1,6 +1,9 @@
 # vim swap files
 *.sw?
 
+# ctags files
+/tags
+
 # vim netrwhist
 .netrwhist
 
