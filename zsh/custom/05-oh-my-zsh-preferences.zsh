@@ -2,7 +2,7 @@
 
 function prompt_elements {
     elements=(context dir vcs rbenv)
-    if which rvm_prompt_info > /dev/null 2>&1; then
+    if which rvm-prompt > /dev/null 2>&1; then
         elements+=(rvm)
     fi
     elements+=(time longstatus)
