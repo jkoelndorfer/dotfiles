@@ -1,3 +1,0 @@
-#!/bin/bash
-
-synclient TouchpadOff=$((! $(synclient -l | grep TouchpadOff | awk -F ' ' '{ print $3 }') ))
