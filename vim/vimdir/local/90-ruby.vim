@@ -1,4 +1,4 @@
-function! RubySettings()
+function! RubyCommonSettings()
     setlocal tabstop=2
     setlocal softtabstop=2
     setlocal shiftwidth=2
@@ -8,10 +8,19 @@ function! RubySettings()
     setlocal nosmartindent
     setlocal foldmethod=indent
     setlocal colorcolumn=120
-    let g:rubycomplete_buffer_loading = 1
-    let g:rubycomplete_classes_in_global = 1
-    let g:rubycomplete_rails = 1
     IndentGuidesEnable
 endfunction
 
+function! YamlSettings()
+    call RubyCommonSettings()
+endfunction
+
+function! RubySettings()
+    call RubyCommonSettings()
+    let g:rubycomplete_buffer_loading = 1
+    let g:rubycomplete_classes_in_global = 1
+    let g:rubycomplete_rails = 1
+endfunction
+
 autocmd FileType ruby,eruby call RubySettings()
+autocmd FileType yaml call YamlSettings()
