@@ -3,7 +3,6 @@ if &omnifunc == ''
     set omnifunc=syntaxcomplete#Complete
 endif
 
-let mapleader=" "
 nnoremap j gj
 nnoremap k gk
 
