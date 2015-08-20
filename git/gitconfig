@@ -4,4 +4,4 @@
 	name = John Koelndorfer
 	email = jkoelndorfer@gmail.com
 [push]
-	default = simple
+	default = upstream
