@@ -11,8 +11,6 @@ function zipnosis_env {
         fi
     elif [[ "$(hostname)" = 'Johns-MacBook-Pro.local' ]]; then
         echo 'local'
-    elif [[ "$(whoami)" = 'vagrant' ]]; then
-        echo 'vagrant'
     else
         echo 'unknown'
     fi
@@ -20,7 +18,7 @@ function zipnosis_env {
 
 function zipnosis_env_color {
     env_name="$1"
-    if [[ "$env_name" = 'local' || "$env_name" = 'vagrant' ]]; then
+    if [[ "$env_name" = 'local' || "$env_name" = 'localdev' ]]; then
         echo 'green'
     elif echo "$env_name" | grep -E -q '^(demo|training)$'; then
         echo 'yellow'
