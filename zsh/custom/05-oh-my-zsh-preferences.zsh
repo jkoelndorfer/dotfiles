@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
 function prompt_elements {
-    elements=(context dir vcs rbenv)
+    elements=(context)
+    if [[ -n "${custom_env[(r)zipnosis]}" ]]; then
+        elements+=(zipnosis_env)
+    fi
+    elements+=(dir vcs rbenv)
     if which rvm-prompt > /dev/null 2>&1; then
         elements+=(rvm)
     fi
