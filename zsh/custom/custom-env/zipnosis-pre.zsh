@@ -3,6 +3,12 @@
 function zipnosis_env {
     if [[ "$(hostname -f)" =~ '\.([^.]+)\.zipnosis.com$' ]]; then
         echo "${match[1]}"
+    elif [[ "$(hostname -f)" =~ '^([^.]+)\.zipnosis.com$' ]]; then
+        if [[ "${match[1]}" = 'demo' || "${match[1]}" = 'training' ]]; then
+            echo "${match[1]}"
+        else
+            echo 'production'
+        fi
     elif [[ "$(hostname)" = 'Johns-MacBook-Pro.local' ]]; then
         echo 'local'
     elif [[ "$(whoami)" = 'vagrant' ]]; then
