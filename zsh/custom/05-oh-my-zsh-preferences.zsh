@@ -1,15 +1,18 @@
 #!/usr/bin/env zsh
 
+# Only attempts to display an rvm prompt if rvm-prompt can be found
+function prompt_rvm_conditional {
+    if which rvm-prompt > /dev/null 2>&1; then
+        prompt_rvm "$@"
+    fi
+}
+
 function prompt_elements {
     elements=(context)
     if [[ -n "${custom_env[(r)zipnosis]}" ]]; then
         elements+=(zipnosis_env)
     fi
-    elements+=(dir vcs rbenv)
-    if which rvm-prompt > /dev/null 2>&1; then
-        elements+=(rvm)
-    fi
-    elements+=(time longstatus)
+    elements+=(dir vcs rbenv rvm_conditional time longstatus)
     echo $elements
 }
 
