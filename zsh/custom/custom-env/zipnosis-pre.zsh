@@ -30,7 +30,7 @@ function zipnosis_env_color {
 function prompt_zipnosis_env {
     side="$1"
 
-    ${side}_prompt_segment "$DEFAULT_COLOR" "$(zipnosis_env_color "$(zipnosis_env)")" "$(zipnosis_env)"
+    ${side}_prompt_segment 'prompt_zipnosis_env' "$DEFAULT_COLOR" "$(zipnosis_env_color "$(zipnosis_env)")" "$(zipnosis_env)"
 }
 
 export ZIPNOSIS_SOURCE="$REALHOME/src/zipnosis"
