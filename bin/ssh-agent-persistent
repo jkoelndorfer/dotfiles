@@ -6,6 +6,7 @@ TEMPDIR="/tmp/ssh-agent-persistent-${UID}"
 SSH_PERSIST_FILE="${TEMPDIR}/env"
 
 mkdir "$TEMPDIR" >/dev/null 2>&1
+[ -O "$TEMPDIR" -a -d "$TEMPDIR" ] || exit 1
 
 if [ -f $SSH_PERSIST_FILE ]; then
 	. $SSH_PERSIST_FILE
