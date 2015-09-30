@@ -1,0 +1,12 @@
+name: zip
+root: ~/
+
+pre: cd ~/projects/vagrant; vagrant up db01; cd
+
+windows:
+  - dev:
+      layout: main-vertical
+      panes:
+        - cd ~/src/zipnosis; vim
+        - cd ~/src/zipnosis; rails c
+        - cd ~/src/zipnosis
