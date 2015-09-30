@@ -10,8 +10,8 @@ ZSH_CUSTOM="$DOTFILE_DIR/zsh/custom"
 DISABLE_AUTO_UPDATE='true'
 export DOTFILE_DIR DISABLE_AUTO_UPDATE ZSH ZSH_CUSTOM
 
+[[ -f "$REALHOME/.zshenv.local" ]] && source "$REALHOME/.zshenv.local"
+
 # oh-my-zsh handles a lot of environment setup for us and shouldn't be dumping crap
 # to stdout, so let's source it all the time.
 source $ZSH/oh-my-zsh.sh
-
-[[ -f "$REALHOME/.zshenv.local" ]] && source "$REALHOME/.zshenv.local"
