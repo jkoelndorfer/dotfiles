@@ -1,12 +1,11 @@
 #!/usr/bin/env zsh
 
 # Use GNU coreutils over BSD coreutils.
-PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
+pathmunge_reorder '/usr/local/bin'
+pathmunge_reorder '/usr/local/opt/coreutils/libexec/gnubin'
 
 # Include Python 2.7 binaries in PATH.
-PATH="$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin"
-
-export PATH
+pathmunge '/Library/Frameworks/Python.framework/Versions/2.7/bin'
 
 vim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 # OS X's builtin version of vim has a tendency to crash, so let's use MacVim

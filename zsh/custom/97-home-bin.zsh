@@ -1,3 +1,4 @@
 #!/usr/bin/env zsh
 
-export PATH="$REALHOME/bin:$DOTFILE_DIR/bin:$PATH"
+pathmunge "$DOTFILE_DIR/bin"
+pathmunge "$REALHOME/bin"

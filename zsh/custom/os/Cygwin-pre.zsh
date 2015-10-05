@@ -3,7 +3,8 @@
 function mintty_title {
     echo -ne "\033]2;"$1"\007"
 }
-export PATH="$PATH:/cygdrive/c/Windows/System32"
+
+pathmunge '/cygdrive/c/Windows/System32' 'after'
 # Set solarized colors for mintty
 echo -ne "\e]10;#839496\a" # foreground
 echo -ne "\e]11;#002B36\a" # background
