@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+source $ZSH/oh-my-zsh.sh
+
 [[ -f "$REALHOME/.zshrc.local" ]] && source "$REALHOME/.zshrc.local"
 
 # Clear status code from anything else that may have executed previously
