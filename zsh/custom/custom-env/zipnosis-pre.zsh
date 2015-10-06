@@ -1,7 +1,9 @@
 #!/bin/zsh
 
 function zipnosis_env {
-    if [[ "$(hostname -f)" =~ '\.([^.]+)\.zipnosis.com$' ]]; then
+    if [[ -n "$ZIPNOSIS_ENV" ]]; then
+        echo "$ZIPNOSIS_ENV"
+    elif [[ "$(hostname -f)" =~ '\.([^.]+)\.zipnosis.com$' ]]; then
         echo "${match[1]}"
     elif [[ "$(hostname -f)" =~ '^([^.]+)\.zipnosis.com$' ]]; then
         if [[ "${match[1]}" = 'demo' || "${match[1]}" = 'training' ]]; then
@@ -9,8 +11,6 @@ function zipnosis_env {
         else
             echo 'production'
         fi
-    elif [[ "$(hostname)" = 'Johns-MacBook-Pro.local' ]]; then
-        echo 'local'
     else
         echo 'unknown'
     fi
