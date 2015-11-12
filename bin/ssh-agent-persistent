@@ -11,7 +11,7 @@ mkdir "$TEMPDIR" >/dev/null 2>&1
 if [ -f $SSH_PERSIST_FILE ]; then
 	. $SSH_PERSIST_FILE
 fi
-ssh-add -l >/dev/null 2>&1; [ $? -eq 0 -o $? -eq 1 ] && cat $SSH_PERSIST_FILE && exit 0
+ssh-add -l >/dev/null 2>&1; [ $? -eq 0 -o $? -eq 1 ] && cat $SSH_PERSIST_FILE 2>/dev/null && exit 0
 eval $(ssh-agent) >/dev/null 2>&1
 for i in $SSH_AGENT_VARS; do
 	eval "echo $i=\$$i"
