@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-ssh-add "$REALHOME"/.ssh/paas-keys/*~*.pub &> /dev/null
+ssh-add "$REALHOME"/.ssh/multideploy-keys/*~*.pub &> /dev/null
