@@ -13,12 +13,14 @@ macvim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 # OS X's builtin version of vim has a tendency to crash, so let's use nvim
 # if available, else MacVim.
 if [[ -n "$nvim_path" ]]; then
-    alias vim="$nvim_path"
-    alias vi="$nvim_path"
+    vim_path="$nvim_path"
 elif [[ -x "$macvim_path" ]]; then
-    alias vim="$macvim_path"
-    alias vi="$macvim_path"
+    vim_path="$macvim_path"
+else
+    vim_path="$(which vim 2>/dev/null)"
 fi
 
+alias vim="$vim_path"
+alias vi="$vim_path"
 export EDITOR="$vim_path"
 export VISUAL="$vim_path"
