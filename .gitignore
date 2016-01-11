@@ -6,3 +6,6 @@ vim/vimdir/bundle
 
 # Ignore vim's netrwhist.
 vim/.netrwhist
+
+# Ignore symlink for neovim configuration
+vim/vimdir/init.vim
