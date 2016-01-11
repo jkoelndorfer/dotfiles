@@ -1,5 +1,6 @@
 name: zip-railsconsoles
 root: ~/
+post: tmux set-window-option -t zip-railsconsoles:consoles synchronize-panes on
 
 windows:
   - consoles:
