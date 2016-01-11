@@ -3,6 +3,9 @@ if &omnifunc == ''
     set omnifunc=syntaxcomplete#Complete
 endif
 
+" Huge performance boost if working in a terminal
+set ttyfast
+
 nnoremap j gj
 nnoremap k gk
 
