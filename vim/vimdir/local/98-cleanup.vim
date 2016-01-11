@@ -5,4 +5,6 @@
 
 " This fixes any terminal settings that may have been screwed with.
 " We're gonna trust that our termcap is right.
-set term=$TERM
+if !has('nvim')
+    set term=$TERM
+endif
