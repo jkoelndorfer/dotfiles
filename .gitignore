@@ -9,3 +9,6 @@ vim/.netrwhist
 
 # Ignore symlink for neovim configuration
 vim/vimdir/init.vim
+
+# Ignore neovim undo directory
+vim/vimdir/undo
