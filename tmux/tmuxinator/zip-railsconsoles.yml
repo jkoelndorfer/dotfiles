@@ -6,9 +6,9 @@ windows:
   - consoles:
       layout: tiled
       panes:
-        <% %w(app01.zipnosis.com app01.northecare.zipnosis.com app01.fairview.zipnosis.com app01.demo.zipnosis.com).each do |s| %>
+        <% %w(app01.zipnosis.com app01.northecare.zipnosis.com app01.demo.zipnosis.com).each do |s| %>
         - ssh -t <%= s %> '$SHELL -l -c "export RAILS_ENV=\"$(/opt/zipnosis/tools/rails/nginx-railsenv)\"; cd /srv/app/current; bundle exec rails console"'
         <% end %>
-        <% %w(zipnosis-test zipnosis-training zipnosis-centracare zipnosis-uabmedicine Group\ Health\ -\ Application).each do |s| %>
+        <% %w(zipnosis-stage zipnosis-training zipnosis-centracare zipnosis-fairview zipnosis-uabmedicine Group\ Health\ -\ Application).each do |s| %>
         - cd ~/src/zipnosis; catalyze -E '<%= s %>' console app01 'bundle exec rails console'
         <% end %>
