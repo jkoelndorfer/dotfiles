@@ -23,6 +23,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
 
     " styling, syntax highlighting
     NeoBundle 'vim-airline/vim-airline'
+    NeoBundle 'vim-airline/vim-airline-themes'
     NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'altercation/vim-colors-solarized'
 
