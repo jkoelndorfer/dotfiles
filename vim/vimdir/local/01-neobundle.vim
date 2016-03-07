@@ -22,7 +22,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
     NeoBundle 'junegunn/vim-easy-align.git'
 
     " styling, syntax highlighting
-    NeoBundle 'bling/vim-airline'
+    NeoBundle 'vim-airline/vim-airline'
     NeoBundle 'nathanaelkane/vim-indent-guides'
     NeoBundle 'altercation/vim-colors-solarized'
 
