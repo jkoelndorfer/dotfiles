@@ -5,6 +5,9 @@ nmap <F9> :TagbarToggle<CR>
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
 
+" Quick search a list of open buffers with CtrlP
+nmap <C-b> :CtrlPBuffer<CR>
+
 " Easier way to break out of neovim's terminal
 if has('nvim')
     " C-@ is equivalent to C-Space, but it actually works
