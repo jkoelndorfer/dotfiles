@@ -1,2 +1,6 @@
+[general]
+channels = stereo
+drivers = pulse
+
 [pulse]
 allow-moves = true
