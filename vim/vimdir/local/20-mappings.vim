@@ -25,3 +25,7 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
 nmap ; :
+
+" Ex mode? Who even uses that?
+nnoremap Q <Nop>
+nnoremap gQ <Nop>
