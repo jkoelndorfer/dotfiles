@@ -4,6 +4,7 @@ nmap <F9> :TagbarToggle<CR>
 " Slimux configuration
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
+nmap <Leader>l :SlimuxREPLSendBuffer<CR>
 
 " Quick search a list of open buffers with CtrlP
 nmap <C-b> :CtrlPBuffer<CR>
