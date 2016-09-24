@@ -1,8 +1,14 @@
 #!/usr/bin/env zsh
 
+function is_ansible {
+    echo "$SUDO_COMMAND" | grep -q 'BECOME-SUCCESS'
+}
+
 REALHOME="$HOME"
 if [[ -n "$SUDO_USER" ]]; then
-    export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
+    if !is_ansible; then
+        export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
+    fi
 fi
 DOTFILE_DIR="$REALHOME/.dotfiles"
 ZSH="$DOTFILE_DIR/zsh/oh-my-zsh"
