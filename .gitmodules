@@ -2,7 +2,7 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule "vim/vimdir/bundle/neobundle.vim"]
-	path = vim/vimdir/bundle/neobundle.vim
+	path = vim/bundle/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim.git
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh

@@ -2,13 +2,10 @@
 *.sw*
 
 # Ignore bundle files. NeoBundle checks out plugins for us.
-vim/vimdir/bundle
+vim/bundle
 
 # Ignore vim's netrwhist.
 vim/.netrwhist
 
-# Ignore symlink for neovim configuration
-vim/vimdir/init.vim
-
 # Ignore neovim undo directory
-vim/vimdir/undo
+vim/undo
