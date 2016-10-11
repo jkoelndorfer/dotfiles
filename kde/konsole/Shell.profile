@@ -2,7 +2,7 @@
 AntiAliasFonts=true
 BoldIntense=true
 ColorScheme=Solarized Dark
-Font=DejaVu Sans Mono for Powerline,9,-1,5,50,0,0,0,0,0
+Font=Noto Mono,12,-1,5,50,0,0,0,0,0
 
 [Cursor Options]
 CustomCursorColor=255,255,255
