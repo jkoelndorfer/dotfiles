@@ -26,6 +26,9 @@ TabBarPosition=1
 [Interaction Options]
 UnderlineLinksEnabled=false
 
+[Keyboard]
+KeyBindings=linux
+
 [Scrolling]
 HistoryMode=1
 HistorySize=10000
