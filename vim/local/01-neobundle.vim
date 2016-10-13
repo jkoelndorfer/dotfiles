@@ -34,6 +34,7 @@ call neobundle#begin(expand('$VIM_BUNDLE_DIR'))
 
     " programming-specific productivity
     NeoBundle 'Shougo/neocomplcache.vim'
+    NeoBundle 'Shougo/deoplete.nvim'
     NeoBundle 'ervandew/supertab'
     NeoBundle 'scrooloose/syntastic'
     NeoBundle 'majutsushi/tagbar'
