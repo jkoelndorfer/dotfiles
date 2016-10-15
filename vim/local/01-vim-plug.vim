@@ -29,6 +29,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'altercation/vim-colors-solarized'
 
     " tmux integration
+    Plug 'christoomey/vim-tmux-navigator'
     Plug 'epeli/slimux'
     Plug 'edkolev/tmuxline.vim'
 
