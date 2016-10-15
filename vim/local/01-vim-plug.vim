@@ -34,7 +34,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " programming-specific productivity
     Plug 'Shougo/neocomplcache.vim'
-    Plug 'Shougo/deoplete.nvim'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'ervandew/supertab'
     Plug 'scrooloose/syntastic'
     Plug 'majutsushi/tagbar'
