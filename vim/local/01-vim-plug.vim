@@ -1,6 +1,3 @@
-if empty(glob(expand('$VIM_BUNDLE_DIR')))
-    autocmd VimEnter * PlugInstall | silent! source $MYVIMRC
-endif
 call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " git
     Plug 'tpope/vim-fugitive'
