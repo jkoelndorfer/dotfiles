@@ -14,3 +14,10 @@ export LESS="-R"
 export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
+
+function _reset-prompt-and-accept-line {
+    zle reset-prompt
+    zle .accept-line
+}
+
+zle -N accept-line _reset-prompt-and-accept-line
