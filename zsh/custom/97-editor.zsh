@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
-vim_path="$(which vim 2>/dev/null)"
-nvim_path="$(which nvim 2>/dev/null)"
+if which nvim >/dev/null 2>&1; then
+    nvim_path="$(which nvim)"
+fi
+if which vim >/dev/null 2>&1; then
+    vim_path="$(which vim 2>/dev/null)"
+fi
 if [[ -n "$nvim_path" ]]; then
     alias vi="$nvim_path"
     alias vim="$nvim_path"
