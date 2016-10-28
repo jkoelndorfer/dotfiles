@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ "$(uname)" == 'Darwin' ]]; then
+    clipboard_copy='pbcopy'
+    clipboard_copy_args=''
+else
+    clipboard_copy='xclip'
+    clipboard_copy_args='-selection'
+fi
+
+if [[ -n "$1" ]]; then
+    copy_content="$@"
+else
+    copy_content="$(cat <&0)"
+fi
+
+if which "$clipboard_copy" >/dev/null 2>&1; then
+    echo -n "$copy_content" | "$clipboard_copy" $clipboard_copy_args
+else
+    echo "Couldn't find utility to copy to clipboard!" >&2
+    exit 1
+fi
