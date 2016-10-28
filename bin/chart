@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# bash on OS X is still version 3.2, which doesn't support associative arrays. So I use
+# zsh instead. How is Apple so consistently terrible?
+
+art_to_copy="$1"
+
+typeset -A arts
+arts[lenny_face]='( ͡° ͜ʖ ͡° )'
+arts[shrug]='¯\_(ツ)_/¯'
+
+echo -n "${arts[$art_to_copy]}" | copy-to-clipboard
