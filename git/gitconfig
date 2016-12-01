@@ -1,7 +1,0 @@
-[color]
-	ui = auto
-[user]
-	name = John Koelndorfer
-	email = jkoelndorfer@gmail.com
-[push]
-	default = upstream
