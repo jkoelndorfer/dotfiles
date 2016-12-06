@@ -45,7 +45,7 @@ set linebreak
 " Always show the status line
 set laststatus=2
 
-set completeopt=menuone,longest,preview,noinsert
+set completeopt=menuone,preview,noinsert,noselect
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set backspace=indent,eol,start
 set encoding=utf8
