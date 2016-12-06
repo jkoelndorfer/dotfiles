@@ -8,9 +8,12 @@ function! PythonSettings()
     setlocal textwidth=120
     setlocal nosmartindent
     setlocal foldmethod=indent
-    IndentGuidesEnable
-    NERDTree
-    TagbarOpen
+    autocmd VimEnter * IndentGuidesEnable
+    autocmd VimEnter * NERDTree
+    " NERDTree grabs focus when it opens, so switch back to the file
+    " we're editing.
+    autocmd VimEnter * execute "normal \<C-W>l"
+    autocmd VimEnter * TagbarOpen
     autocmd BufWritePost *.py call Flake8()
 endfunction
 autocmd FileType python call PythonSettings()
