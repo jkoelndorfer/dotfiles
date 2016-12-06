@@ -9,6 +9,8 @@ function! PythonSettings()
     setlocal nosmartindent
     setlocal foldmethod=indent
     IndentGuidesEnable
+    NERDTree
+    TagbarOpen
     autocmd BufWritePost *.py call Flake8()
 endfunction
 autocmd FileType python call PythonSettings()
