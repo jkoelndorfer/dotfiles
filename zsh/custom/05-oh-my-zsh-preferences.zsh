@@ -12,7 +12,7 @@ function prompt_elements {
     if [[ -n "${custom_env[(r)zipnosis]}" ]]; then
         elements+=(zipnosis_env)
     fi
-    elements+=(dir vcs rbenv rvm_conditional time status)
+    elements+=(dir vcs time status)
     echo $elements
 }
 
