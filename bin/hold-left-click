@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo 'ButtonPress 1' | xmacroplay
