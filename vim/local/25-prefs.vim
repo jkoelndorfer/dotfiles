@@ -63,5 +63,14 @@ set undoreload=10000
 
 set clipboard^=unnamed
 
-" Trim all trailing whitespace before saving
-autocmd BufWritePre * %s/\s\+$//e
+" Trim all trailing whitespace before saving by default.
+let g:trim_trailing_whitespace = 1
+function TrimTrailingWhitespace()
+    " Sometimes I work on projects that have lots of pre-existing trailing
+    " whitespace and don't want those changes getting mixed in with my commits.
+    if g:trim_trailing_whitespace == 1
+        execute '%s/\s\+$//e'
+    endif
+endfunction
+
+autocmd BufWritePre * call TrimTrailingWhitespace()
