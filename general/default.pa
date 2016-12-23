@@ -2,11 +2,19 @@
 
 .fail
 
+# This keeps streams from being automatically assigned to devices that they
+# were on previously. Good when you have a hotkey to switch between speakers
+# and headphones easily.
+load-module module-stream-restore restore_device=false
+
+# This prevents streams from becoming subject to Phonon (KDE's audio backend)
+# device prioritization. Also good when you have a hotkey to switch between
+# speakers and headphones easily.
+load-module module-device-manager do_routing=false
+
 ### Automatically restore the volume of streams and devices
 load-module module-device-restore
-load-module module-stream-restore restore_device=false
 load-module module-card-restore
-load-module module-device-manager do_routing=false
 
 ### Automatically augment property information from .desktop files
 ### stored in /usr/share/application
