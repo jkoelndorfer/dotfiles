@@ -6,6 +6,7 @@
 load-module module-device-restore
 load-module module-stream-restore restore_device=false
 load-module module-card-restore
+load-module module-device-manager do_routing=false
 
 ### Automatically augment property information from .desktop files
 ### stored in /usr/share/application
