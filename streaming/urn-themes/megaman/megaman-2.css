@@ -1,0 +1,93 @@
+.attempt-count {
+    padding-top: 6px;
+}
+
+.header {
+    background-image: url("megaman.png"), url("dr-wily.png"), linear-gradient(#333, #111);
+    background-position: left center, right center;
+    background-repeat: no-repeat;
+
+    border-bottom: 2px solid #fff;
+    margin-bottom: 2px;
+
+    min-height: 30px;
+
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+
+.splits > *:nth-child(even):not(.current-split) {
+    background-color: #111;
+}
+
+.splits > * {
+    border: 0px;
+    padding-left: 12px;
+
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+/* Flash Man */
+.splits > *:nth-child(1) {
+}
+
+/* Air Man */
+.splits > *:nth-child(2) .current-split {
+    background-image: url("air-man.png"), linear-gradient(#fff, #ccc);
+}
+
+/* Air Man */
+.splits > *:nth-child(2) {
+    background-image: url("air-man.png")
+}
+
+/* Quick Man */
+.splits > *:nth-child(3) {
+}
+
+/* Metal Man */
+.splits > *:nth-child(4) {
+}
+
+/* Bubble Man */
+.splits > *:nth-child(5) {
+}
+
+/* Heat Man */
+.splits > *:nth-child(6) {
+    background-image: url("heat-man.png");
+}
+
+/* Wood Man */
+.splits > *:nth-child(7) {
+}
+
+/* Crash Man */
+.splits > *:nth-child(8) {
+}
+
+/* Wily 1 */
+.splits > *:nth-child(9) {
+}
+
+/* Wily 2 */
+.splits > *:nth-child(10) {
+}
+
+/* Wily 3 */
+.splits > *:nth-child(11) {
+}
+
+/* Wily 4 */
+.splits > *:nth-child(12) {
+}
+
+/* Wily 5 */
+.splits > *:nth-child(13) {
+}
+
+/* Alien */
+.splits > *:nth-child(14) {
+}
