@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -eu
+
+root_device="$(mount | grep 'on / ' | grep 'type btrfs' | awk '{ print $1 }')"
+subvolume="$(mount | grep "^$root_device " | sed -r -e 's#.*subvol=/(.*)[,\)].*#\1#')"
+tmpdir="$(mktemp --tmpdir -d)"
+
+if [[ "$(id -u)" != "0" ]]; then
+    echo "You need to be root to run this script." >&2
+    exit 1
+fi
+
+if [[ -z "$root_device" ]]; then
+    echo "Couldn't find a btrfs root device." >&2
+    exit 2
+fi
+
+# Take the snapshot
+mount -t btrfs "$root_device" "$tmpdir"
+pushd "$tmpdir" >/dev/null
+datestamp="$(date --iso-8601='seconds')"
+btrfs subvolume snapshot -r "$subvolume" "$subvolume-$datestamp"
+popd > /dev/null
+umount "$tmpdir"
+rmdir "$tmpdir"
+
+# Update!
+pacman -Syu
