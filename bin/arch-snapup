@@ -3,7 +3,7 @@
 set -eu
 
 root_device="$(mount | grep 'on / ' | grep 'type btrfs' | awk '{ print $1 }')"
-subvolume="$(mount | grep "^$root_device " | sed -r -e 's#.*subvol=/(.*)[,\)].*#\1#')"
+subvolume="$(mount | grep 'on / ' | sed -r -e 's#.*subvol=/(.*)[,\)].*#\1#')"
 tmpdir="$(mktemp --tmpdir -d)"
 
 if [[ "$(id -u)" != "0" ]]; then
