@@ -31,12 +31,11 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " programming-specific productivity
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'ervandew/supertab'
-    Plug 'scrooloose/syntastic'
+    Plug 'neomake/neomake'
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
 
     " python
-    Plug 'nvie/vim-flake8'
     Plug 'davidhalter/jedi-vim'
     Plug 'klen/python-mode'
 

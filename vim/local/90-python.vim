@@ -14,7 +14,7 @@ function! PythonSettings()
     " we're editing.
     autocmd VimEnter * execute "normal \<C-W>l"
     autocmd VimEnter * TagbarOpen
-    autocmd BufWritePost *.py call Flake8()
+    autocmd BufWritePost *.py Neomake
 endfunction
 autocmd FileType python call PythonSettings()
 
@@ -23,7 +23,12 @@ let g:jedi#popup_on_dot = 1
 let g:jedi#popup_select_first = 1
 let g:jedi#auto_close_doc = 1
 
-let g:syntastic_python_checkers = ['python']
+let g:neomake_open_list = 2
+let g:neomake_python_flake8_maker = {
+    \ 'exe': 'flake8',
+    \ 'errorformat': '%f:%l:%c: %m'
+\ }
+
 let g:pymode_folding = 1
 let g:pymode_lint = 0
 let g:pymode_rope = 0
