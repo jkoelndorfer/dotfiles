@@ -38,6 +38,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " python
     Plug 'davidhalter/jedi-vim'
     Plug 'klen/python-mode'
+    Plug 'zchee/deoplete-jedi'
 
     " ruby
     Plug 'tpope/vim-rails'
