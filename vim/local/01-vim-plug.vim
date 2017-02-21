@@ -6,7 +6,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " motion, productivity
     Plug 'scrooloose/nerdtree'
-    Plug 'freitass/todo.txt-vim'
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'dhruvasagar/vim-table-mode'
     Plug 'tpope/vim-eunuch'
@@ -14,7 +13,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'tpope/vim-surround'
     Plug 'kien/ctrlp.vim'
     Plug 'fholgado/minibufexpl.vim'
-    Plug 'Raimondi/delimitMate'
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
 
@@ -31,15 +29,11 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'edkolev/tmuxline.vim'
 
     " programming-specific productivity
-    Plug 'Shougo/neocomplcache.vim'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'ervandew/supertab'
     Plug 'scrooloose/syntastic'
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
-
-    " powershell
-    Plug 'PProvost/vim-ps1'
 
     " python
     Plug 'nvie/vim-flake8'
