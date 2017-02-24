@@ -9,9 +9,6 @@ function prompt_rvm_conditional {
 
 function prompt_elements {
     elements=(context)
-    if [[ -n "${custom_env[(r)zipnosis]}" ]]; then
-        elements+=(zipnosis_env)
-    fi
     elements+=(dir vcs time status)
     echo $elements
 }
@@ -19,12 +16,15 @@ function prompt_elements {
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 plugins=(git)
+POWERLEVEL9K_MODE='compatible'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=($(prompt_elements))
 POWERLEVEL9K_DISABLE_RPROMPT='true'
 POWERLEVEL9K_PROMPT_ON_NEWLINE='true'
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX='%# '
 POWERLEVEL9K_TIME_FORMAT='%D{%F %H:%M:%S}'
+POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
 
 # Some applications that start a shell but don't allocate a TTY
 # cause powerlevel9k to spit errors, so let's not load the theme
