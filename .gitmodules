@@ -6,7 +6,7 @@
 	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "zsh/powerlevel9k"]
 	path = zsh/powerlevel9k
-	url = https://github.com/jkoelndorfer/powerlevel9k.git
+	url = https://github.com/bhilburn/powerlevel9k.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
