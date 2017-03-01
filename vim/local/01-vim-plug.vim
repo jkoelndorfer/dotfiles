@@ -26,7 +26,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " tmux integration
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'epeli/slimux'
-    Plug 'edkolev/tmuxline.vim'
 
     " programming-specific productivity
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
