@@ -34,6 +34,9 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
 
+    " ansible
+    Plug 'pearofducks/ansible-vim'
+
     " python
     Plug 'davidhalter/jedi-vim'
     Plug 'klen/python-mode'
@@ -42,4 +45,8 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " ruby
     Plug 'tpope/vim-rails'
     Plug 'vim-ruby/vim-ruby'
+
+    " yaml
+    " vim's builtin yaml syntax highlighting has a bug dealing with quotes
+    Plug 'stephpy/vim-yaml'
 call plug#end()
