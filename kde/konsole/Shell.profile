@@ -1,7 +1,7 @@
 [Appearance]
 AntiAliasFonts=true
 BoldIntense=true
-ColorScheme=Solarized Dark
+ColorScheme=Solarized
 Font=Noto Mono,9,-1,5,50,0,0,0,0,0,Regular
 
 [Cursor Options]
