@@ -20,6 +20,7 @@ netns="$vpn_name"
 netns_dir="/etc/netns/$vpn_name"
 macvlan_if="$vpn_name"
 default_gateway="$(ip route | grep '^default' | awk '{ print $3 }' | head -n 1)"
+inet_if="$(ip route | grep '^default' | grep -E -o 'dev \S+' | awk '{ print $2 }')"
 
 mkdir -p "$netns_dir"
 grep 'nameserver' /etc/resolv.conf > "$netns_dir/resolv.conf"
@@ -43,7 +44,7 @@ ip netns exec "$netns" bash <<EOF &
     openconnect --config "$vpnconfig" "$server" < /dev/tty
 EOF
 
-ip link add link "$host_if" name "$macvlan_if" type macvlan
+ip link add link "$inet_if" name "$macvlan_if" type macvlan
 ip link set dev "$macvlan_if" netns "$netns"
 
 fg
