@@ -1,8 +1,8 @@
 [Appearance]
 AntiAliasFonts=true
 BoldIntense=true
-ColorScheme=Solarized
-Font=Noto Mono,12,-1,5,50,0,0,0,0,0
+ColorScheme=Solarized Dark
+Font=Noto Mono,9,-1,5,50,0,0,0,0,0,Regular
 
 [Cursor Options]
 CustomCursorColor=255,255,255
