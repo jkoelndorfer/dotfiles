@@ -6,7 +6,7 @@ Font=Noto Mono,12,-1,5,50,0,0,0,0,0
 
 [Cursor Options]
 CustomCursorColor=255,255,255
-UseCustomCursorColor=false
+UseCustomCursorColor=true
 
 [Encoding Options]
 DefaultEncoding=UTF-8
