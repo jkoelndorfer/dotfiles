@@ -10,8 +10,9 @@
 sudo sh <<EOF
     systemctl stop bluetooth
     rmmod btusb
-    sleep 3
+    sleep 10
     modprobe btusb
     systemctl start bluetooth
+    sleep 5
 EOF
 pulseaudio -k
