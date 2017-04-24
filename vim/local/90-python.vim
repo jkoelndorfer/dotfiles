@@ -24,7 +24,7 @@ let g:jedi#popup_select_first = 1
 let g:jedi#auto_close_doc = 1
 
 let g:neomake_open_list = 2
-let g:python_enabled_makers = ["flake8"]
+let g:neomake_python_enabled_makers = ["flake8"]
 
 let g:pymode_folding = 1
 let g:pymode_lint = 0
