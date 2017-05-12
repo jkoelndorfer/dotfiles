@@ -26,6 +26,8 @@ let g:jedi#auto_close_doc = 1
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ["flake8"]
 
+let g:pymode_doc_bind = "<leader>PK"
+let g:pymode_run_bind = "<leader>Pr"
 let g:pymode_folding = 1
 let g:pymode_lint = 0
 let g:pymode_rope = 0
