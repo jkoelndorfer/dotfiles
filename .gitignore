@@ -9,3 +9,6 @@ vim/.netrwhist
 
 # Ignore neovim undo directory
 vim/undo
+
+# Ignore downloaded vim spell files
+vim/spell
