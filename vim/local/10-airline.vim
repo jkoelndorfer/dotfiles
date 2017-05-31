@@ -17,6 +17,13 @@ let g:airline_right_sep = ''
 " For some reason the branch symbol is broken when I use Noto Mono.
 let g:airline_symbols.branch = ''
 
+" Remove the nontexists symbol.
+"
+" This symbol is used to indicate a file that is not tracked in the current
+" version control repository. Unfortunately, it only works after you actually
+" save the file so it's less useful. Also, it's kinda ugly.
+let g:airline_symbols.notexists = ''
+
 " We need to set timeoutlen to a low value so that airline
 " updates the current mode somewhat quickly.
 set ttimeoutlen=50
