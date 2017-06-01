@@ -19,7 +19,7 @@ endfunction
 autocmd FileType python call PythonSettings()
 
 let g:jedi#show_call_signatures = 1
-let g:jedi#popup_on_dot = 1
+let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 1
 let g:jedi#auto_close_doc = 1
 

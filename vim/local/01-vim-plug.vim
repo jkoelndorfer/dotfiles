@@ -29,7 +29,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " programming-specific productivity
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'ervandew/supertab'
     Plug 'neomake/neomake'
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
