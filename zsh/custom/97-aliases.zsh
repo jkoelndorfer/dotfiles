@@ -9,6 +9,7 @@ alias rm='rm -i'
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
 
+alias gco='git checkout'
 alias gs='git status'
 alias gd='git diff'
 alias gds='git diff --staged'
