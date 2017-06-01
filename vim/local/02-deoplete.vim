@@ -1,7 +1,14 @@
 if has('nvim')
     let g:deoplete#enable_at_startup = 1
 
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+    inoremap <silent><expr> <Tab>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ deoplete#mappings#manual_complete()
+        function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
 
     " Make vim-jedi completions show up first in deoplete's
     " completion list.
