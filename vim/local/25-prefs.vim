@@ -45,7 +45,11 @@ set linebreak
 " Always show the status line
 set laststatus=2
 
-set completeopt=menuone,preview,noinsert,noselect
+if !has('nvim') || v:version < 800
+    set completeopt=menuone,preview,longest
+else
+    set completeopt=menuone,preview,noinsert,noselect
+endif
 set list listchars=tab:\|-,trail:_,extends:>,precedes:<
 set backspace=indent,eol,start
 set encoding=utf8
