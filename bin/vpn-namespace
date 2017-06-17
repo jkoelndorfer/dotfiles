@@ -12,8 +12,6 @@ function cleanup {
 
 confdir="$1"
 
-vpnconfig="$confdir/openconnect.conf"
-
 source "$confdir/vpnns.conf"
 
 netns="$vpn_name"
@@ -29,6 +27,7 @@ chmod 644 "$netns_dir/resolv.conf"
 
 ip netns add "$netns"
 ip netns exec "$netns" bash <<EOF &
+    cd "$confdir"
     while true; do
         if ip link show "$macvlan_if" >/dev/null 2>&1; then
             ip link set dev "$vpn_name" up
@@ -41,7 +40,10 @@ ip netns exec "$netns" bash <<EOF &
         fi
         sleep 1
     done
-    openconnect --config "$vpnconfig" "$server" < /dev/tty
+    if [[ -n "$nameserver" ]]; then
+        echo "nameserver $nameserver" > /etc/resolv.conf
+    fi
+    $vpn_command < /dev/tty
 EOF
 
 ip link add link "$inet_if" name "$macvlan_if" type macvlan
