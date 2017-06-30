@@ -16,6 +16,17 @@ set cursorline
 " Dark background terminal
 set background=dark
 
+" Don't change the cursor style.
+"
+" vim attempts to change the cursor style depending on what
+" mode you're in. This change is not reset when you switch panes
+" or similar in tmux, so let's turn it off so that the cursor
+" is consistent everywhere.
+"
+" TODO: Is it possible to reset the cursor style when leaving the
+" vim window?
+set guicursor=
+
 " Setup tabs
 set expandtab
 set tabstop=4
