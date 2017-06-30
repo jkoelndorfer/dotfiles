@@ -2,7 +2,8 @@
 AntiAliasFonts=true
 BoldIntense=true
 ColorScheme=Solarized
-Font=Noto Mono,9,-1,5,50,0,0,0,0,0,Regular
+Font=Noto Mono,9,-1,0,50,0,0,0,0,0,Regular
+UseFontLineChararacters=true
 
 [Cursor Options]
 CustomCursorColor=255,255,255
@@ -13,7 +14,7 @@ DefaultEncoding=UTF-8
 
 [General]
 Command=/bin/zsh
-Environment=TERM=xterm-256color
+Environment=TERM=xterm-256color,COLORTERM=truecolor
 Icon=utilities-terminal
 LocalTabTitleFormat=%d : %n
 MenuIndex=1
@@ -24,6 +25,8 @@ TabBarMode=1
 TabBarPosition=1
 
 [Interaction Options]
+MiddleClickPasteMode=1
+TrimTrailingSpacesInSelectedText=true
 UnderlineLinksEnabled=false
 
 [Keyboard]
