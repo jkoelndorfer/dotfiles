@@ -16,16 +16,21 @@ set cursorline
 " Dark background terminal
 set background=dark
 
-" Don't change the cursor style.
+" Configure the cursor settings when entering/leaving vim.
 "
-" vim attempts to change the cursor style depending on what
-" mode you're in. This change is not reset when you switch panes
-" or similar in tmux, so let's turn it off so that the cursor
-" is consistent everywhere.
-"
-" TODO: Is it possible to reset the cursor style when leaving the
-" vim window?
-set guicursor=
+" vim can't reset the cursor settings when it loses focus or quits
+" (see https://github.com/neovim/neovim/issues/6665), so we need
+" to tell it to do that ourselves.
+let s:gcvim=&guicursor . ',a:blinkon1-blinkoff0'
+let s:gcnovim='a:block-blinkon1-blinkoff0'
+
+" Apply vim cursor settings when vim is started or gains focus
+autocmd VimEnter    *  let &guicursor = s:gcvim
+autocmd FocusGained *  let &guicursor = s:gcvim
+
+" Apply global default settings when vim is quit or loses focus
+autocmd VimLeave    *  let &guicursor = s:gcnovim
+autocmd FocusLost   *  let &guicursor = s:gcnovim
 
 " Setup tabs
 set expandtab
