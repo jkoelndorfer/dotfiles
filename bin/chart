@@ -8,5 +8,6 @@ art_to_copy="$1"
 typeset -A arts
 arts[lenny_face]='( ͡° ͜ʖ ͡° )'
 arts[shrug]='¯\\_(ツ)_/¯'
+arts[puts_on_sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
 
 echo -n "${arts[$art_to_copy]}" | copy-to-clipboard
