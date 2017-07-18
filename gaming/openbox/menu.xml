@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="root-menu" label="Openbox 3">
+  <separator label="Applications" />
+  <item label="Konsole">
+    <action name="Execute">
+      <command>konsole</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Steam">
+    <action name="Execute">
+      <command>steam</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <separator label="System" />
+  <item label="Reload Configuration">
+    <action name="Reconfigure" />
+  </item>
+  <item label="Kill Gaming Session">
+    <action name="Execute">
+      <command>pkill openbox</command>
+    </action>
+  </item>
+</menu>
+
+</openbox_menu>
