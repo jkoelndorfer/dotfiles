@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# This script raises or lowers the volume of the default
+# PulseAudio sink depending on how it is invoked.
+#
+# Create a symlink to this script with "up" in the name to
+# raise the volume. Otherwise invoke it without "up" in the
+# name to lower the volume.
+
+if [[ "$0" =~ "up" ]]; then
+    mode="+"
+else
+    mode="-"
+fi
+magnitude="$1"
+if [[ -z "$magnitude" ]]; then
+    magnitude="5"
+fi
+
+default_sink="$(pacmd list-sinks | grep -E '\* index' | awk '{ print $3 }')"
+pactl set-sink-volume "$default_sink" "${mode}${magnitude}"%
