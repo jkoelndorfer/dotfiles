@@ -178,6 +178,17 @@
   </dock>
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
+    <!-- Custom Keybinds -->
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute">
+          <command>pavoldown</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute">
+          <command>pavolup</command>
+      </action>
+    </keybind>
     <!-- Keybindings for desktop switching -->
     <keybind key="C-A-Left">
       <action name="GoToDesktop">
