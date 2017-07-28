@@ -5,8 +5,8 @@ function is_ansible {
 }
 
 REALHOME="$HOME"
-if [[ -n "$SUDO_USER" ]]; then
-    if !is_ansible; then
+if [[ -n "$SUDO_USER" && "$EUID" == 0 ]]; then
+    if ! is_ansible; then
         export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
     fi
 fi
