@@ -1,6 +1,0 @@
-#!/bin/bash
-
-synergyc --name 'deathwing-gaming' localhost &
-synergyc_pid=$!
-openbox-session
-kill "$synergyc_pid"

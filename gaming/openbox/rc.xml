@@ -189,6 +189,11 @@
           <command>pavolup</command>
       </action>
     </keybind>
+    <keybind key="C-A-Tab">
+      <action name="Execute">
+          <command>swap-input-to-primary</command>
+      </action>
+    </keybind>
     <!-- Keybindings for desktop switching -->
     <keybind key="C-A-Left">
       <action name="GoToDesktop">
