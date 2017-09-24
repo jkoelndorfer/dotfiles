@@ -43,6 +43,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " go
     Plug 'fatih/vim-go'
+    Plug 'zchee/deoplete-go'
 
     " ruby
     Plug 'tpope/vim-rails'
