@@ -15,6 +15,7 @@ function! PythonSettings()
     autocmd VimEnter * execute "normal \<C-W>l"
     autocmd VimEnter * TagbarOpen
     autocmd BufWritePost *.py Neomake
+    setlocal omnifunc=syntaxcomplete#Complete
 endfunction
 autocmd FileType python call PythonSettings()
 
