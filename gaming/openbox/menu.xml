@@ -20,6 +20,14 @@
       </startupnotify>
     </action>
   </item>
+  <item label="Retroarch">
+    <action name="Execute">
+      <command>retroarch</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <separator label="System" />
   <item label="Reload Configuration">
     <action name="Reconfigure" />
