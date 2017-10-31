@@ -1,5 +1,6 @@
 nmap <C-p> :Files<return>
 nmap <C-M-p> :GFiles<return>
+nmap <C-b> :Buffers<return>
 
 function! s:fzf_statusline()
     highlight fzf1 ctermbg=0
