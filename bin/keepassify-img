@@ -1,0 +1,56 @@
+#!/bin/bash
+
+function check_binary {
+    bin_name="$1"
+    provider="$2"
+    if [[ -z "$(which "$bin_name" 2>/dev/null)" ]]; then
+        echo "Could not find '$bin_name' binary - is $provider installed?" >&2
+        exit 1
+    fi
+}
+
+function image_max_dimension {
+    image_path="$1"
+    resolution="$(identify "$image_path" | awk '{ print $3 }')"
+    x_px="$(echo "$resolution" | awk -Fx '{ print $1 }')"
+    y_px="$(echo "$resolution" | awk -Fx '{ print $2 }')"
+    if [[ "$x_px" -gt "$y_px" ]]; then
+        echo "$x_px"
+    else
+        echo "$y_px"
+    fi
+}
+
+function get_scale_factor {
+    px="$1"
+    desired_px="$2"
+
+    printf '%d' "$( awk "BEGIN { print (${desired_px}.0 / $px) * 100 }" )"
+}
+
+check_binary identify imagemagick
+check_binary convert imagemagick
+
+image_path="$1"
+if [[ -z "$image_path" ]]; then
+    echo 'You must provide a path to the image to convert!' >&2
+    exit 2
+fi
+
+if echo "$image_path" | grep -qE '^http'; then
+    echo 'Image path seems to be a URL, will download' >&2
+    check_binary curl curl
+    ext="$(basename "$image_path" | awk -F. '{ print $NF }')"
+    if echo "$ext" | grep -qiE '^(png|gif|jpg|jpeg)$'; then
+        tmpfile_ext=".${ext}"
+    else
+        tmpfile_ext=''
+    fi
+    download_image_path="$(mktemp --tmpdir "keepassify-img.XXXXXX${tmpfile_ext}")"
+    curl -L "$image_path" > "$download_image_path"
+    echo "Downloaded image $image_path to $download_image_path" >&2
+    image_path="$download_image_path"
+fi
+
+scaled_image_path="$(mktemp --tmpdir "keepassify-scaled.XXXXXX${tmpfile_ext}")"
+convert -scale "$(get_scale_factor "$(image_max_dimension "$image_path")" 128)"% "$image_path" "$scaled_image_path" >/dev/null && echo "$scaled_image_path"
