@@ -13,7 +13,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'tpope/vim-surround'
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
-    Plug 'fholgado/minibufexpl.vim'
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
 
