@@ -9,11 +9,6 @@ function! PythonSettings()
     setlocal nosmartindent
     setlocal foldmethod=indent
     autocmd VimEnter * IndentGuidesEnable
-    autocmd VimEnter * NERDTree
-    " NERDTree grabs focus when it opens, so switch back to the file
-    " we're editing.
-    autocmd VimEnter * execute "normal \<C-W>l"
-    autocmd VimEnter * TagbarOpen
     autocmd BufWritePost *.py Neomake
     setlocal omnifunc=syntaxcomplete#Complete
 endfunction
