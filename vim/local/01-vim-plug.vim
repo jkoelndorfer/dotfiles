@@ -5,8 +5,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'gregsexton/gitv'
 
     " motion, productivity
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'francoiscabrol/ranger.vim'
     Plug 'dhruvasagar/vim-table-mode'
     Plug 'tpope/vim-eunuch'
     Plug 'Lokaltog/vim-easymotion'
