@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This script enables or disables mouse acceleration
+# for the mouse on the current X server. It is assumed
+# that only one mouse is attached.
+
+X11_ACCEL_PROP='libinput Accel Profile Enabled'
+
+function determine_device_id {
+    xinput --list | grep -Eo 'id=[0-9]+' | awk -F= '{ print $2 }' | while read id; do
+        if xinput --list-props "$id" | grep -q "$X11_ACCEL_PROP"; then
+            echo "$id"
+            return
+        fi
+    done
+}
+
+function str_to_bool {
+    str="$1"
+    if echo "$str" | grep -qiE '^(1|on|yes|y|true|t)$'; then
+        echo '1'
+    elif echo "$str" | grep -qiE '^(0|off|no|n|false|f)$'; then
+        echo '0'
+    else
+        echo "Could not convert '$str' to a boolean value" >&2
+        exit 1
+    fi
+}
+
+state="$(str_to_bool "$1")"
+mouse_id="$(determine_device_id)"
+
+if [[ "$state" == '1' ]]; then
+    xinput --set-prop "$mouse_id" "$X11_ACCEL_PROP" 1 0
+else
+    xinput --set-prop "$mouse_id" "$X11_ACCEL_PROP" 0 1
+fi
