@@ -4,7 +4,6 @@ function mintty_title {
     echo -ne "\033]2;"$1"\007"
 }
 
-pathmunge '/cygdrive/c/Windows/System32' 'after'
 # Set solarized colors for mintty
 echo -ne "\e]10;#839496\a" # foreground
 echo -ne "\e]11;#002B36\a" # background
@@ -25,3 +24,5 @@ echo -ne "\e]P62aa198\a"
 echo -ne "\e]PE93a1a1\a"
 echo -ne "\e]P7eee8d5\a"
 echo -ne "\e]PFfdf6e3\a"
+
+mintty_title zsh
