@@ -16,21 +16,7 @@ set cursorline
 " Dark background terminal
 set background=dark
 
-" Configure the cursor settings when entering/leaving vim.
-"
-" vim can't reset the cursor settings when it loses focus or quits
-" (see https://github.com/neovim/neovim/issues/6665), so we need
-" to tell it to do that ourselves.
-let s:gcvim=&guicursor . ',a:blinkon1-blinkoff0'
-let s:gcnovim='a:block-blinkon1-blinkoff0'
-
-" Apply vim cursor settings when vim is started or gains focus
-autocmd VimEnter    *  let &guicursor = s:gcvim
-autocmd FocusGained *  let &guicursor = s:gcvim
-
-" Apply global default settings when vim is quit or loses focus
-autocmd VimLeave    *  let &guicursor = s:gcnovim
-autocmd FocusLost   *  let &guicursor = s:gcnovim
+set guicursor=
 
 " Setup tabs
 set expandtab
