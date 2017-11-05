@@ -17,6 +17,15 @@ let g:airline_right_sep = ''
 " For some reason the branch symbol is broken when I use Noto Mono.
 let g:airline_symbols.branch = ''
 
+" The typical line number symbol, '☰', actually screws up text rendering
+" in some instances with Konsole and Noto Mono fonts.
+"
+" Not sure why, just gonna nix it.
+let g:airline_symbols.linenr = ''
+
+" Fix the line number glyph.
+let g:airline_symbols.maxlinenr = ''
+
 " Remove the nontexists symbol.
 "
 " This symbol is used to indicate a file that is not tracked in the current
