@@ -18,10 +18,12 @@ let g:airline_right_sep = ''
 let g:airline_symbols.branch = ''
 
 " The typical line number symbol, '☰', actually screws up text rendering
-" in some instances with Konsole and Noto Mono fonts.
+" in some instances with Konsole and Noto Mono fonts. The whitespace symbol,
+" "☲", also suffers from this problem.
 "
-" Not sure why, just gonna nix it.
+" Not sure why, just gonna nix them.
 let g:airline_symbols.linenr = ''
+let g:airline_symbols.whitespace = ''
 
 " Fix the line number glyph.
 let g:airline_symbols.maxlinenr = ''
