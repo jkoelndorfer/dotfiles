@@ -41,7 +41,7 @@ if echo "$image_path" | grep -qE '^http'; then
     echo 'Image path seems to be a URL, will download' >&2
     check_binary curl curl
     ext="$(basename "$image_path" | awk -F. '{ print $NF }')"
-    if echo "$ext" | grep -qiE '^(png|gif|jpg|jpeg)$'; then
+    if echo "$ext" | grep -qiE '^(png|gif|jpg|jpeg|ico)$'; then
         tmpfile_ext=".${ext}"
     else
         tmpfile_ext=''
