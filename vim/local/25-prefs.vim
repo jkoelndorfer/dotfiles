@@ -6,6 +6,9 @@ endif
 " Huge performance boost if working in a terminal
 set ttyfast
 
+" Makes global search/replace nicer
+set inccommand=nosplit
+
 nnoremap j gj
 nnoremap k gk
 
