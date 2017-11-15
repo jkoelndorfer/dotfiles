@@ -26,4 +26,5 @@ umount "$tmpdir"
 rmdir "$tmpdir"
 
 # Update!
-pacman -Syu
+pacman -Sy archlinux-keyring
+pacman -Su
