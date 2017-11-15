@@ -7,7 +7,9 @@ endif
 set ttyfast
 
 " Makes global search/replace nicer
-set inccommand=nosplit
+if has('nvim')
+    set inccommand=nosplit
+endif
 
 nnoremap j gj
 nnoremap k gk
