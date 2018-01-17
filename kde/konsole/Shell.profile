@@ -30,7 +30,7 @@ TrimTrailingSpacesInSelectedText=true
 UnderlineLinksEnabled=false
 
 [Keyboard]
-KeyBindings=linux
+KeyBindings=default
 
 [Scrolling]
 HistoryMode=1
