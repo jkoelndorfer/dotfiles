@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+from __future__ import division, print_function
+import argparse
+import sys
+
+
+class BannerApp(object):
+    RC_OK = 0
+    RC_TOOLONG = 1
+    def __init__(self):
+        self.argparser = self._configure_argparse()
+
+    def _configure_argparse(self):
+        a = argparse.ArgumentParser()
+        a.add_argument("-c", "--char", default="#", help="The character to use in the banner")
+        a.add_argument("-l", "--length", default=80, type=int, help="The length of the banner, in characters")
+        a.add_argument("text", help="The text in the banner")
+        return a
+
+    def run(self, argv):
+        args = self.argparser.parse_args(argv)
+        f = sys.stdout
+        if len(args.text) > args.length:
+            print("Text too long for banner", file=sys.stderr)
+            return self.RC_TOOLONG
+
+        left_pad = (args.length - len(args.text) - 2) // 2
+        if (len(args.text) + 2 + left_pad * 2) == args.length:
+            right_pad = left_pad
+        else:
+            right_pad = left_pad + 1
+
+        print("#" * args.length)
+        print("#", end="")
+        print(" " * left_pad, end="")
+        print(args.text, end="")
+        print(" " * right_pad, end="")
+        print("#")
+        print("#" * args.length)
+        return self.RC_OK
+
+if __name__ == "__main__":
+    sys.exit(BannerApp().run(sys.argv[1:]))
