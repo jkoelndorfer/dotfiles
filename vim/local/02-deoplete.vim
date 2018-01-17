@@ -1,6 +1,7 @@
 if has('nvim')
     let g:deoplete#enable_at_startup = 1
 
+    inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "<S-Tab>"
     inoremap <silent><expr> <Tab>
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<Tab>" :
