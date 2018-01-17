@@ -14,6 +14,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'junegunn/fzf.vim'
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
+    Plug 'SirVer/ultisnips'
 
     " styling, syntax highlighting
     Plug 'vim-scripts/diffchar.vim'
