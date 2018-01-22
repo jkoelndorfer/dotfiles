@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -f ~/.local/share/mime/packages/x-wine* ~/.local/share/applications/wine-extension* ~/.local/share/icons/hicolor/*/*/application-x-wine-extension* ~/.local/share/mime/application/x-wine-extension*
