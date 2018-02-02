@@ -1,3 +1,14 @@
+" Inserts the current directory into vim's Python instance's path.
+" This is needed for completion on our current project to work correctly.
+let g:py_path_fix_script = 'from os import getcwd; import sys; sys.path.insert(0, getcwd())'
+
+if has('python')
+    execute 'py ' . g:py_path_fix_script
+endif
+if has('python3')
+    execute 'py3 ' . g:py_path_fix_script
+endif
+
 function! PythonSettings()
     setlocal tabstop=4
     setlocal softtabstop=4
