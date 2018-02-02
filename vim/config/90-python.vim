@@ -25,10 +25,10 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 
-let g:jedi#show_call_signatures = 1
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 1
-let g:jedi#auto_close_doc = 1
+" deoplete-jedi handles this
+let g:jedi#completions_enabled = 0
+
+let g:deoplete#sources#jedi#extra_path = ["."]
 
 let g:neomake_open_list = 2
 let g:neomake_python_enabled_makers = ["flake8"]

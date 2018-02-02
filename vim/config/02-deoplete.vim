@@ -15,7 +15,7 @@ if has('nvim')
     call deoplete#custom#set('ultisnips', 'rank', 9999)
     call deoplete#custom#set('ultisnips', 'matchers', ['matcher_full_fuzzy'])
 
-    " Make vim-jedi completions show up second in deoplete's
+    " Make deoplete-jedi completions show up second in deoplete's
     " completion list.
     call deoplete#custom#set('jedi', 'rank', 9998)
 
