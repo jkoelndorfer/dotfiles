@@ -24,6 +24,10 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'altercation/vim-colors-solarized'
 
     " tmux integration
+
+    " NOTE: vim-tmux-navigator does NOT work properly inside `pipenv shell`.
+    "
+    " See tmux/tmux.conf for more information.
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'epeli/slimux'
 
