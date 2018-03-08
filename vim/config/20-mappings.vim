@@ -6,6 +6,10 @@ map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
 nmap <Leader>l :SlimuxREPLSendBuffer<CR>
 
+" Open the quickfix list
+" tag: error fix lint warning
+nmap <Leader>e :lopen<CR>
+
 " Easier way to break out of neovim's terminal
 if has('nvim')
     " C-@ is equivalent to C-Space, but it actually works
