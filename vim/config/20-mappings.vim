@@ -5,6 +5,7 @@ nmap <F9> :TagbarToggle<CR>
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
 nmap <Leader>l :SlimuxREPLSendBuffer<CR>
+nmap <Leader>p :set paste!<CR>
 
 " Open the quickfix list
 " tag: error fix lint warning
