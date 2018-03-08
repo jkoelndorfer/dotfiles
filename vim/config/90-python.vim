@@ -30,7 +30,7 @@ let g:jedi#completions_enabled = 0
 
 let g:deoplete#sources#jedi#extra_path = ["."]
 
-let g:neomake_open_list = 2
+let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ["flake8"]
 
 let g:pymode_doc_bind = "<leader>PK"
