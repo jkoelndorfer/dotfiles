@@ -1,5 +1,5 @@
-nmap <C-p> :Files<return>
-nmap <C-M-p> :GFiles<return>
+nmap <C-p> :GFiles<return>
+nmap <C-M-p> :Files<return>
 nmap <C-b> :Buffers<return>
 
 function! s:fzf_statusline()
