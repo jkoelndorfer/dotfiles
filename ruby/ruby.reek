@@ -1,0 +1,4 @@
+UncommunicativeVariableName:
+    accept: e  # Using `rescue Exception => e` is a pretty common pattern
+
+# vim: ft=yaml
