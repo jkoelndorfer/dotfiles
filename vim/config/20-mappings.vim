@@ -6,6 +6,7 @@ map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
 nmap <Leader>l :SlimuxREPLSendBuffer<CR>
 nmap <Leader>p :set paste!<CR>
+nmap <Leader>P :r! paste-from-clipboard<CR>
 
 " Open the quickfix list
 " tag: error fix lint warning
