@@ -7,6 +7,10 @@ pathmunge_reorder '/usr/local/Cellar/coreutils/8.29/libexec/gnubin'
 # Include Python 2.7 binaries in PATH.
 pathmunge '/Library/Frameworks/Python.framework/Versions/2.7/bin'
 
+# Add a directory to override specific binaries. Some things, like stty,
+# work better with the native version.
+pathmunge "$DOTFILE_DIR/macos/binoverride"
+
 nvim_path="$(which nvim 2>/dev/null)"
 macvim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 
