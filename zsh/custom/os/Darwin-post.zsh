@@ -11,7 +11,6 @@ pathmunge '/Library/Frameworks/Python.framework/Versions/2.7/bin'
 # work better with the native version.
 pathmunge "$DOTFILE_DIR/macos/binoverride"
 
-nvim_path="$(which nvim 2>/dev/null)"
 macvim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 if [[ -z "$(ls --version 2>&1 | /usr/bin/grep 'GNU')" ]]; then
