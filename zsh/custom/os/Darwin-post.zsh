@@ -9,7 +9,7 @@ pathmunge '/Library/Frameworks/Python.framework/Versions/2.7/bin'
 
 # Add a directory to override specific binaries. Some things, like stty,
 # work better with the native version.
-pathmunge "$DOTFILE_DIR/macos/binoverride"
+pathmunge_reorder "$DOTFILE_DIR/macos/binoverride"
 
 macvim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 
