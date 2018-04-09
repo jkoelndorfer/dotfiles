@@ -49,6 +49,9 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'fatih/vim-go'
     Plug 'zchee/deoplete-go'
 
+    " markdown
+    Plug 'JamshedVesuna/vim-markdown-preview'
+
     " ruby
     Plug 'tpope/vim-rails'
     Plug 'vim-ruby/vim-ruby'
