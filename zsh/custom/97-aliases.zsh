@@ -1,5 +1,17 @@
 #!/usr/bin/env zsh
 
+function c() {
+    search_path=("$1")
+    if [[ -z "$search_path" ]]; then
+        search_path=(${c_default_search_directories[@]})
+    fi
+    cd "$(
+        find $search_path -type d -mindepth "$c_search_mindepth" -maxdepth "$c_search_maxdepth" 2>/dev/null |
+            grep -Ev '/.git(/|$)' |
+            fzf
+    )"
+}
+
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l --color=auto'

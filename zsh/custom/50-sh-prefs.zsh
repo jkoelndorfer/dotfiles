@@ -15,6 +15,14 @@ export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
 
+c_default_search_directories=(
+    $HOME/dotfiles
+    $HOME/src
+    $HOME/projects
+)
+c_search_maxdepth=5
+c_search_mindepth=1
+
 function _reset-prompt-and-accept-line {
     zle reset-prompt
     zle .accept-line
