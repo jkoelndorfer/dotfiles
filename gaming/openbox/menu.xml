@@ -14,7 +14,7 @@
   </item>
   <item label="Steam">
     <action name="Execute">
-      <command>steam</command>
+      <command>steam-runtime</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
