@@ -8,7 +8,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'francoiscabrol/ranger.vim'
     Plug 'dhruvasagar/vim-table-mode'
     Plug 'tpope/vim-eunuch'
-    Plug 'Lokaltog/vim-easymotion'
+    Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-surround'
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
