@@ -12,14 +12,14 @@ if has('nvim')
     endfunction"}}}
 
     " Make ultisnips completions show up first in deoplete's completion list.
-    call deoplete#custom#set('ultisnips', 'rank', 9999)
-    call deoplete#custom#set('ultisnips', 'matchers', ['matcher_full_fuzzy'])
+    call deoplete#custom#source('ultisnips', 'rank', 9999)
+    call deoplete#custom#source('ultisnips', 'matchers', ['matcher_full_fuzzy'])
 
     " Make deoplete-jedi completions show up second in deoplete's
     " completion list.
-    call deoplete#custom#set('jedi', 'rank', 9998)
+    call deoplete#custom#source('jedi', 'rank', 9998)
 
-    call deoplete#custom#set('jedi', 'matchers', ['matcher_full_fuzzy'])
+    call deoplete#custom#source('jedi', 'matchers', ['matcher_full_fuzzy'])
 
     " Show function signatures in the function preview window
     let g:deoplete#sources#jedi#show_docstring = 1
