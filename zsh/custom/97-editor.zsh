@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
+# This tells neovim not to change the terminal cursor, no matter what.
+# Some poorly behaved neovim plugins may not abide by the guicursor
+# setting. This is a way of forcibly fixing that.
+#
+# easymotion, I'm looking at you.
+export VTE_VERSION=100
+
 if which nvim >/dev/null 2>&1; then
     nvim_path="$(which nvim)"
 fi
