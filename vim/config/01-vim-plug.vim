@@ -36,6 +36,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'neomake/neomake'
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
+    Plug 'scrooloose/nerdcommenter'
 
     " ansible
     Plug 'pearofducks/ansible-vim'
