@@ -30,11 +30,19 @@ function ta() {
 }
 
 function tn() {
-    session_name="$1"
-    if [[ -n "$session_name" ]]; then
-        tmux new-session -s "$session_name"
+    session="$1"
+    if [[ -n "$TMUX" ]]; then
+        detached_arg='-d'
     else
-        tmux new-session
+        detached_arg=''
+    fi
+    if [[ -n "$session" ]]; then
+        tmux new-session $detached_arg -s "$session"
+    else
+        tmux new-session $detached_arg
+    fi
+    if [[ -n "$detached_arg" ]]; then
+        tmux-flexattach "$session"
     fi
 }
 
