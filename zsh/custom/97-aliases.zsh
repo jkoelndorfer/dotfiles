@@ -12,6 +12,31 @@ function c() {
     )"
 }
 
+function tmux-flexattach() {
+    session="$1"
+    if [[ -n "$TMUX" ]]; then
+        tmux_cmd=(tmux switch-client -t)
+    else
+        tmux_cmd=(tmux attach-session -t)
+    fi
+    "${tmux_cmd[@]}" "$session"
+}
+
+function ta() {
+    selected_session_desc="$(tmux list-session | fzf)"
+    selected_session="$(echo "$selected_session_desc" | awk -F: '{ print $1 }')"
+    tmux-flexattach "$selected_session"
+}
+
+function tn() {
+    session_name="$1"
+    if [[ -n "$session_name" ]]; then
+        tmux new-session -s "$session_name"
+    else
+        tmux new-session
+    fi
+}
+
 alias ack="ack --color --pager='$PAGER'"
 alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l --color=auto'
