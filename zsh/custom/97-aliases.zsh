@@ -62,3 +62,7 @@ alias gd='git diff'
 alias gds='git diff --staged'
 alias gpc='git status | less; git diff --staged'
 alias gc='git commit --verbose'
+
+function gpu() {
+    git push -u origin "$(git current-branch)"
+}
