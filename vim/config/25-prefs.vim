@@ -14,8 +14,23 @@ endif
 nnoremap j gj
 nnoremap k gk
 
-" Line numbers
+" Line number configuration -- this uses the configuration described at
+" https://jeffkreeftmeijer.com/vim-number/ with some enhancements.
+function Toggle_relativenumber_on()
+    if &number
+        set relativenumber
+    end
+endfunction
+
 set number
+set relativenumber
+
+augroup numbertoggle
+    autocmd!
+    autocmd WinEnter,BufEnter,FocusGained,InsertLeave * call Toggle_relativenumber_on()
+    autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup end
+
 set cursorline
 
 " Dark background terminal
