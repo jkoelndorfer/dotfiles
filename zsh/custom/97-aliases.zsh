@@ -1,13 +1,20 @@
 #!/usr/bin/env zsh
 
 function c() {
+    cd "$(selectdir)"
+}
+
+function selectdir() {
     search_path=("$1")
     if [[ -z "$search_path" ]]; then
         search_path=(${c_default_search_directories[@]})
+        maxdepth_arg=(-maxdepth 1)
+    else
+        maxdepth_arg=()
     fi
-    cd "$(
-        find $search_path -type d -mindepth "$c_search_mindepth" -maxdepth "$c_search_maxdepth" 2>/dev/null |
-            grep -Ev '/.git(/|$)' |
+    echo "$(
+        find $search_path -type d -mindepth 0 ${maxdepth_arg[@]} 2>/dev/null |
+            grep -Ev '/.git(/|$)' | sort -u |
             fzf
     )"
 }
