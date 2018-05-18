@@ -61,7 +61,8 @@ function tn() {
 # prompt me to select a directory and attach to the tmux session associated with that
 # directory. If one does not exist, it will be created.
 function tnc() {
-    target_dir=$(selectdir)
+    target_dir=$(realpath "$(selectdir)")
+    [[ -n "$target_dir" ]] || return 1
     session_name=$(basename "$target_dir")
     if ! tmux-flexattach "$session_name" 2>/dev/null; then
         (cd "$target_dir"; tmux new-session -d -s "$session_name")
