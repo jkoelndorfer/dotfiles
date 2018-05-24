@@ -8,6 +8,11 @@ nmap <Leader>l :SlimuxREPLSendBuffer<CR>
 nmap <Leader>p :set paste!<CR>
 nmap <Leader>P :r! paste-from-clipboard<CR>
 
+" This is a convenience mapping for Markdown to create an underline
+" for the current line you're on. After hitting <Leader>h, press the
+" character you want the underline to be composed of.
+nmap <Leader>h V"zy"zpVr-Vr
+
 " Open the quickfix list
 " tag: error fix lint warning
 nmap <Leader>e :lopen<CR>
