@@ -87,8 +87,6 @@ set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
 
-set clipboard^=unnamed
-
 " Trim all trailing whitespace before saving by default.
 let g:trim_trailing_whitespace = 1
 function TrimTrailingWhitespace()
