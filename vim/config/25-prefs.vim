@@ -67,6 +67,9 @@ set linebreak
 " Always show the status line
 set laststatus=2
 
+" Keep some context around the cursor all the time
+set scrolloff=999
+
 if !has('nvim') || v:version < 800
     set completeopt=menuone,preview,longest
 else
