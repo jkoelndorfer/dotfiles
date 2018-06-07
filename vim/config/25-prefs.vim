@@ -70,6 +70,11 @@ set laststatus=2
 " Keep some context around the cursor all the time
 set scrolloff=999
 
+" Always show the gutter (left of line numbers, where diff information appears).
+" This keeps the line number area from resizing when a file is written in a
+" git repository.
+set signcolumn=yes
+
 if !has('nvim') || v:version < 800
     set completeopt=menuone,preview,longest
 else
