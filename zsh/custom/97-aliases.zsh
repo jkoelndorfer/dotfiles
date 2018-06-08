@@ -38,6 +38,7 @@ function ta() {
 
 function tn() {
     session="$1"
+    pushd "$HOME" >& /dev/null
     if [[ -n "$TMUX" ]]; then
         detached_arg='-d'
     else
@@ -48,6 +49,7 @@ function tn() {
     else
         tmux new-session $detached_arg
     fi
+    popd >& /dev/null
     if [[ -n "$detached_arg" ]]; then
         tmux-flexattach "$session"
     fi
