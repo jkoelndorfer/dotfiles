@@ -89,7 +89,10 @@ alias gpc='git status | less; git diff --staged'
 alias gc='git commit --verbose'
 
 function gb() {
-    branch="$(git branch -v | cut -c 3- | fzf | awk '{ print $1 }')"
+    if [[ "$1" == "-a" ]]; then
+        branch_addl_args='-a'
+    fi
+    branch="$(git branch -v $branch_addl_args | cut -c 3- | fzf | awk '{ print $1 }')"
     [[ -n "$branch" ]] || return 1
     git checkout "$branch"
 }
