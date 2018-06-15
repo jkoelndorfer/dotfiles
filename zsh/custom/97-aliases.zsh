@@ -15,7 +15,7 @@ function selectdir() {
     echo "$(
         find $search_path -type d -mindepth 0 ${maxdepth_arg[@]} 2>/dev/null |
             grep -Ev '/.git(/|$)' | sort -u |
-            fzf
+            fzf --preview 'tree -C -L 1 {}' --ansi
     )"
 }
 
@@ -92,7 +92,12 @@ function gb() {
     if [[ "$1" == "-a" ]]; then
         branch_addl_args='-a'
     fi
-    branch="$(git branch -v $branch_addl_args | cut -c 3- | fzf | awk '{ print $1 }')"
+    branch="$(
+        git branch -v $branch_addl_args --color=always |
+        cut -c 3- |
+        fzf --ansi --tiebreak length --preview='git log --color=always $(echo {} | awk "{ print \$1 }")' |
+        awk '{ print $1 }'
+    )"
     [[ -n "$branch" ]] || return 1
     git checkout "$branch"
 }
