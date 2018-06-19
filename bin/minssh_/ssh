@@ -6,7 +6,15 @@
 # some minimal settings to make the system a little more tolerable.
 
 script_dir=$(dirname "$0")
-bashrc="$script_dir/bashrc"
+
+if [[ -f "$script_dir/bashrc" ]]; then
+    bashrc="$script_dir/bashrc"
+elif [[ -f "$script_dir/minssh_/bashrc" ]]; then
+    bashrc="$script_dir/minssh_/bashrc"
+else
+    echo "minssh: couldn't find bashrc" >&2
+    exit 1
+fi
 
 hostname="$1"
 prompthostname="$2"
