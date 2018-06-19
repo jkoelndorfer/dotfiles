@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# ssh with minimal configuration for remote hosts
+#
+# This script connects to a host via ssh as normal, but applies
+# some minimal settings to make the system a little more tolerable.
+
+script_dir=$(dirname "$0")
+bashrc="$script_dir/bashrc"
+
+hostname="$1"
+prompthostname="$2"
+
+scp -q "$bashrc" "${hostname}:.bashrc" >/dev/null 2>&1
+
+if [[ -n "$prompthostname" ]]; then
+    /usr/bin/ssh -t "$hostname" "prompthostname=$prompthostname exec bash"
+else
+    /usr/bin/ssh "$hostname"
+fi
