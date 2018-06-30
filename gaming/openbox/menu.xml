@@ -20,6 +20,22 @@
       </startupnotify>
     </action>
   </item>
+  <item label="Lutris">
+    <action name="Execute">
+      <command>lutris</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="OpenMW">
+    <action name="Execute">
+      <command>openmw-launcher</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <item label="Retroarch">
     <action name="Execute">
       <command>retroarch</command>
