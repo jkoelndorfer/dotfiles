@@ -6,4 +6,9 @@ if !(expand('$TERM') == 'linux')
     silent! colorscheme solarized
     " Make visual-mode highlighting match tmux (and stand out more)
     hi Visual cterm=reverse ctermfg=3 guifg=Black guibg=Yellow
+
+    hi DiffAdd    ctermfg=2       ctermbg=NONE guifg=2      guibg=NONE term=NONE gui=NONE
+    hi DiffDelete ctermfg=1       ctermbg=1    guifg=1      guibg=1    term=NONE gui=NONE
+    hi DiffChange ctermfg=NONE    ctermbg=NONE guifg=NONE   guibg=NONE term=NONE gui=NONE
+    hi DiffText   ctermfg=3       ctermbg=NONE guifg=3      guibg=NONE term=NONE gui=NONE
 endif
