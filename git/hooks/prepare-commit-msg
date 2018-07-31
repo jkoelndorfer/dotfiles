@@ -1,0 +1,11 @@
+#!/bin/bash
+
+msg_file="$1"
+branch=$(git symbolic-ref --short HEAD)
+
+# Matches Atlassian Jira style ticket numbers, e.g. PROJ-1
+ticket=$(echo "$branch" | grep -Eo '^[A-Z]+-[0-9]+')
+
+if [[ -n "$ticket" ]]; then
+    gsed -i -e "1s/^/[$ticket]/" "$msg_file"
+fi
