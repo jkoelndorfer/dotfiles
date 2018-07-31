@@ -26,6 +26,8 @@ POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
 
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%# '
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+POWERLEVEL9K_SHORTEN_STRATEGY='truncate_to_last'
 
 # Some applications that start a shell but don't allocate a TTY
 # cause powerlevel9k to spit errors, so let's not load the theme
