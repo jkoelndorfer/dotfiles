@@ -10,3 +10,4 @@ $gcg push.default 'simple'
 git config user.email 'jkoelndorfer@gmail.com'
 
 git config --global alias.current-branch 'rev-parse --abbrev-ref HEAD'
+git config --global alias.root 'rev-parse --show-toplevel'

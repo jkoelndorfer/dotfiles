@@ -82,12 +82,30 @@ alias rm='rm -i'
 # maintain two caches, so use `sudo yum` instead.
 alias yum='sudo yum'
 
+function gc() {
+    commit_msg_hook="$(git root)/.git/hooks/prepare-commit-msg"
+    if ! [[ -x "$commit_msg_hook" ]]; then
+        cp -f "$DOTFILE_DIR/git/hooks/prepare-commit-msg" "$commit_msg_hook"
+    fi
+    git commit --verbose
+}
+
+function ga() {
+    changed_files=$(git status --porcelain=2 | awk '{ print $9 }')
+    selected_files=$(
+        echo "$changed_files" | fzf --ansi --multi --preview='git diff --color=always {}'
+    )
+    old_ifs="$IFS"
+    IFS=$'\n'
+    git add $@ ${=selected_files}
+    IFS="$old_ifs"
+}
+
 alias gco='git checkout'
 alias gs='git status'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gpc='git status | less; git diff --staged'
-alias gc='git commit --verbose'
 
 function gb() {
     if [[ "$1" == "-a" ]]; then
