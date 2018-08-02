@@ -87,7 +87,7 @@ function gc() {
     if ! [[ -x "$commit_msg_hook" ]]; then
         cp -f "$DOTFILE_DIR/git/hooks/prepare-commit-msg" "$commit_msg_hook"
     fi
-    git commit --verbose
+    git commit --verbose $@
 }
 
 function ga() {
