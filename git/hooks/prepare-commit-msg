@@ -7,5 +7,5 @@ branch=$(git symbolic-ref --short HEAD)
 ticket=$(echo "$branch" | grep -Eo '^[A-Z]+-[0-9]+')
 
 if [[ -n "$ticket" ]]; then
-    gsed -i -e "1s/^/[$ticket]/" "$msg_file"
+    sed -E -i '' -e "1s/^\\s*(\\[$ticket\\])?/[$ticket]/" "$msg_file"
 fi

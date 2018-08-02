@@ -21,3 +21,5 @@ if [[ -z "$(ls --version 2>&1 | /usr/bin/grep 'GNU')" ]]; then
     echo 'GNU coreutils is not in $PATH; you will have have problems with this zsh configuration!'
     echo 'Install coreutils using homebrew: `brew install coreutils`.'
 fi
+
+alias sed='gsed'
