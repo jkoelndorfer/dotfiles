@@ -80,7 +80,7 @@ if !has('nvim') || v:version < 800
 else
     set completeopt=menuone,preview,noinsert,noselect
 endif
-set list listchars=tab:\|-,trail:_,extends:>,precedes:<
+set list listchars=tab:\|-,extends:>,precedes:<
 set backspace=indent,eol,start
 set encoding=utf8
 
@@ -106,3 +106,6 @@ function TrimTrailingWhitespace()
 endfunction
 
 autocmd BufWritePre * call TrimTrailingWhitespace()
+
+" Also highlight trailing whitespace, because it's wrong and I hate it.
+match ErrorMsg '\s\+$'
