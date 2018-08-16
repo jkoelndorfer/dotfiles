@@ -33,28 +33,37 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'epeli/slimux'
 
     " programming-specific productivity
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'neomake/neomake'
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
     Plug 'scrooloose/nerdcommenter'
 
+    " completion
+    Plug 'ncm2/ncm2'
+
+    " nvim-yarp is required by ncm2
+    Plug 'roxma/nvim-yarp'
+
+    " ncm2 completion plugins
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-tmux'
+    Plug 'ncm2/ncm2-path'
+
     " ansible
     Plug 'pearofducks/ansible-vim'
 
     " python
-    Plug 'davidhalter/jedi-vim'
+    Plug 'ncm2/ncm2-jedi'
     Plug 'klen/python-mode'
-    Plug 'zchee/deoplete-jedi'
 
     " go
     Plug 'fatih/vim-go'
-    Plug 'zchee/deoplete-go'
 
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'
 
     " ruby
+    Plug 'roxma/ncm-rct-complete'
     Plug 'tpope/vim-rails'
     Plug 'vim-ruby/vim-ruby'
 
