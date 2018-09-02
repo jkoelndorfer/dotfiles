@@ -13,7 +13,7 @@ UseCustomCursorColor=true
 DefaultEncoding=UTF-8
 
 [General]
-Command=/bin/zsh
+Command=/bin/zsh -c 'tmux attach-session -t 0 2>/dev/null || tmux new-session -s 0'
 Environment=TERM=xterm-256color,COLORTERM=truecolor
 Icon=utilities-terminal
 LocalTabTitleFormat=%d : %n
