@@ -16,13 +16,10 @@ else
     exit 1
 fi
 
-hostname="$1"
-prompthostname="$2"
+/usr/bin/ssh "$@" "cat > ~/.bashrc" < "$bashrc" >/dev/null 2>&1
 
-scp -q "$bashrc" "${hostname}:.bashrc" >/dev/null 2>&1
-
-if [[ -n "$prompthostname" ]]; then
-    /usr/bin/ssh -t "$hostname" "prompthostname=$prompthostname exec bash"
+if [[ -n "$MINSSH_PROMPT_HOSTNAME" ]]; then
+    /usr/bin/ssh -t "$@" "prompthostname=$MINSSH_PROMPT_HOSTNAME exec bash"
 else
-    /usr/bin/ssh "$hostname"
+    /usr/bin/ssh "$@"
 fi
