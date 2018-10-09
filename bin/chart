@@ -10,4 +10,16 @@ arts[lenny_face]='( ͡° ͜ʖ ͡° )'
 arts[shrug]='¯\\_(ツ)_/¯'
 arts[puts_on_sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
 
-echo -n "${arts[$art_to_copy]}" | copy-to-clipboard
+function display_arts() {
+    for k v in ${(kv)arts}; do
+        art_display_val=$(echo "$v" | tr "\n" " ")
+        echo "${k}\t${art_display_val}"
+    done | column -s "$(echo -e '\t')" -t
+}
+
+selected_art=$(display_arts | fzf | awk '{ print $1 }')
+if [[ -z "$selected_art" ]]; then
+    echo "$0: No art selected" >&2
+    exit 1
+fi
+echo -n "${arts[$selected_art]}" | copy-to-clipboard
