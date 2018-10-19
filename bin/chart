@@ -9,6 +9,12 @@ typeset -A arts
 arts[lenny_face]='( ͡° ͜ʖ ͡° )'
 arts[shrug]='¯\\_(ツ)_/¯'
 arts[puts_on_sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
+arts[flipping_tables]='(╯°□°）╯︵ ┻━┻)'
+arts[resetting_table]='┬─┬ノ( º _ ºノ)'
+arts[look_of_disapproval]='(ಠ_ಠ)'
+arts[myth_busted]='/:€'
+arts[why1]='щ（ﾟДﾟщ）'
+arts[why2]='ლ(ಠ_ಠ ლ)'
 
 function display_arts() {
     for k v in ${(kv)arts}; do
