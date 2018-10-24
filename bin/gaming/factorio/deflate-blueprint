@@ -1,0 +1,4 @@
+#!/bin/bash
+
+blueprint_file="${1:-/dev/stdin}"
+tail -c +2 "$blueprint_file" | base64 -d | pigz -d | python -m json.tool
