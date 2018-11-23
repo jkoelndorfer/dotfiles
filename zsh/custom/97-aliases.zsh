@@ -134,6 +134,8 @@ alias gs='git status'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gpc='git status | less; git diff --staged'
+alias cbcopy="$HOME/dotfiles/bin/copy-to-clipboard"
+alias cbpaste="$HOME/dotfiles/bin/paste-from-clipboard"
 
 function gb() {
     if [[ "$1" == "-a" ]]; then
