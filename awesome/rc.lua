@@ -36,11 +36,7 @@ do
 end
 -- }}}
 
--- {{{ Theme initialization
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
--- }}}
-
--- {{{ Variable definitions
+-- {{{ Global definitions
 
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vi"
@@ -68,6 +64,20 @@ awful.layout.layouts = {
 -- }}}
 
 -- {{{ Helper functions
+local function left_screen()
+    return screen[awful.screen.getbycoord(0, 0)]
+end
+
+local function right_screen()
+    right_screen_x = left_screen().geometry.width
+    return screen[awful.screen.getbycoord(right_screen_x, 0)]
+end
+
+local function redraw_systray(w)
+    systray.set_forced_width(systray.forced_width + 1)
+    systray.set_forced_width(systray.forced_width - 1)
+end
+
 local function client_menu_toggle_fn()
     local instance = nil
 
@@ -82,11 +92,34 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
+-- {{{ Theme initialization
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.wallpaper = (function(s)
+    if s.index == left_screen().index then
+        return os.getenv("HOME") .. "/wallpapers/left.jpg"
+    elseif s.index == right_screen().index then
+        return os.getenv("HOME") .. "/wallpapers/right.jpg"
+    end
+end)
+-- }}}
+
+-- {{{ Startup programs
+do
+    local startup_cmds = {
+        "discord",
+        "pasystray",
+        "nm-applet",
+    }
+    for _, cmd in pairs(startup_cmds) do
+        awful.util.spawn(cmd)
+    end
+end
+-- }}}
+
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
@@ -103,7 +136,7 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock('%Y-%m-%d %H:%M')
+mytextclock = wibox.widget.textclock("%a %Y-%m-%d %H:%M")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -163,6 +196,10 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+systray = wibox.widget.systray()
+systray.forced_width = 128
+systray.set_base_size = 16
+systray.connect_signal("widget::redraw_needed", redraw_systray)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
@@ -190,21 +227,37 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "top", screen = s })
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
+    if s.index == left_screen().index then
+        systray.set_screen(s)
+        s.systray = systray.set_screen(s)
+        left_widgets = {
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
+        }
+        right_widgets = {
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
             mytextclock,
+            s.systray,
             s.mylayoutbox,
-        },
+        }
+    elseif s.index == right_screen().index then
+        left_widgets = {
+            layout = wibox.layout.fixed.horizontal,
+            s.mytaglist,
+            s.mypromptbox,
+        }
+        right_widgets = {
+            layout = wibox.layout.fixed.horizontal,
+            s.mylayoutbox,
+        }
+    end
+    s.mywibox:setup {
+        layout = wibox.layout.align.horizontal,
+        left_widgets,
+        s.mytasklist,
+        right_widgets,
     }
 end)
 -- }}}
