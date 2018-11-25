@@ -3,6 +3,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $ctrl Control
+set $alt Mod1
 set $prog_prefix Mod4+Mod1
 set $left h
 set $down j
@@ -19,7 +21,9 @@ bindsym $prog_prefix+f exec firefox
 bindsym $prog_prefix+space exec rofi -show run -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi"
 bindsym $prog_prefix+g exec --no-startup-id $HOME/src/local-tools/workstation/xorg-gaming/xorg-gaming-server
 bindsym $prog_prefix+w exec --no-startup-id sudo $HOME/src/local-tools/workstation/vfio/qemu-win10
-bindsym Mod1+Tab exec rofi -show window -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi"
+bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
+bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
+bindsym $alt+Tab exec rofi -show window -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi"
 
 # Multimedia control keybinds
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/pavolup
