@@ -4,9 +4,9 @@
 
 <menu id="root-menu" label="Openbox 3">
   <separator label="Applications" />
-  <item label="Konsole">
+  <item label="Terminal">
     <action name="Execute">
-      <command>konsole</command>
+      <command>alacritty</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
