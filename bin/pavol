@@ -7,6 +7,22 @@
 # raise the volume. Otherwise invoke it without "up" in the
 # name to lower the volume.
 
+if [[ -z "$XDG_RUNTIME_DIR" ]]; then
+    echo 'XDG_RUNTIME_DIR must be set!' >&2
+    exit 1
+fi
+
+lockfile="$XDG_RUNTIME_DIR/pavol"
+if ! mkdir "$lockfile"; then
+    echo "lockfile "$lockfile" exists; exiting" >&2
+    exit 1
+fi
+
+function cleanup() {
+    rm -rf "$lockfile"
+}
+trap cleanup EXIT
+
 if [[ "$0" =~ "up" ]]; then
     mode="+"
 else
@@ -17,5 +33,12 @@ if [[ -z "$magnitude" ]]; then
     magnitude="5"
 fi
 
-default_sink="$(pacmd list-sinks | grep -E '\* index' | awk '{ print $3 }')"
+pacmd_output="$(pacmd list-sinks | grep -A10 -E '\* index')"
+default_sink="$(echo "$pacmd_output" | head -n 1 | awk '{ print $3 }')"
+current_vol="$(echo "$pacmd_output" | grep 'volume:' | head -n 1 | awk '{ print $5 }' | sed -e 's/%//')"
+expected_vol="$(($current_vol $mode $magnitude))"
+if [[ "$expected_vol" -gt '100' && "$mode" == '+' ]]; then
+    exit 0
+fi
+
 pactl set-sink-volume "$default_sink" "${mode}${magnitude}"%
