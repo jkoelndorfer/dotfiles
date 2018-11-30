@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pacman -S dunst rofi i3status i3-wm
+yay -S xinit-xsession
