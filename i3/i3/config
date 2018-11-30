@@ -165,7 +165,7 @@ bar {
     output DVI-D-1
     status_command i3status
     colors {
-        background $base03
+        background $base02
         statusline $base1
         separator  $base01
         focused_workspace  $base00 $base00 $base3
@@ -178,7 +178,7 @@ bar {
 bar {
     output HDMI-1
     colors {
-        background $base03
+        background $base02
         statusline $base1
         separator  $base01
         focused_workspace  $base00 $base00 $base3
