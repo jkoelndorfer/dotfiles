@@ -1,6 +1,15 @@
 #!/bin/bash
 
 script_path="$(realpath "$0")"
-for i in "$(dirname "$script_path")"/xinitrc.d/*; do
-    [[ -x "$i" ]] && "$i"
+dotfiles_xinitrc_d="$(dirname "$script_path")/xinitrc.d"
+local_xinitrc_d="$HOME/.config/xinitrc.local.d"
+
+declare -A files
+files+=$(find "$dotfiles_xinitrc_d" "$local_xinitrc_d" -mindepth 1 -type f -printf '%P\n' | sort)
+for f in $files; do
+    if [[ -x "$local_xinitrc_d/$f" ]]; then
+        "$local_xinitrc_d/$f"
+    elif [[ -x "$dotfiles_xinitrc_d/$f" ]]; then
+        "$dotfiles_xinitrc_d/$f"
+    fi
 done
