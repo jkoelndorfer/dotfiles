@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source "$DOTFILE_DIR/colors/solarized-dark"
+
+xsetroot -solid "$SOLARIZED_BASE03"
