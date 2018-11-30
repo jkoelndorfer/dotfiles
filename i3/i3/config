@@ -170,7 +170,7 @@ bar {
         separator  $base01
         focused_workspace  $base00 $base00 $base3
         active_workspace   $base00 $base00 $base3
-        inactive_workspace $base03 $base03 $base01
+        inactive_workspace $base02 $base02 $base01
         urgent_workspace   $red $red $base3
     }
 }
@@ -183,7 +183,7 @@ bar {
         separator  $base01
         focused_workspace  $base00 $base00 $base3
         active_workspace   $base00 $base00 $base3
-        inactive_workspace $base03 $base03 $base01
+        inactive_workspace $base02 $base02 $base01
         urgent_workspace   $red $red $base3
     }
 }
