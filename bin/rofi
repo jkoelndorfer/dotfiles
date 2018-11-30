@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec /usr/bin/rofi -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi" "$@"
