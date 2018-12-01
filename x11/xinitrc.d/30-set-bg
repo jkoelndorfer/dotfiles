@@ -2,4 +2,9 @@
 
 source "$DOTFILE_DIR/colors/solarized-dark"
 
-xsetroot -solid "$SOLARIZED_BASE03"
+# `xsetroot -solid` does not work with compton. See https://github.com/chjj/compton/issues/162.
+# Rather than use the suggested hsetroot, which is an AUR package, we trick feh into doing what
+# we want by providing a 1x1 transparent background and giving it out desired background color.
+# feh is needed for setting proper wallpapers, anyhow. Why use two utilities when you can keep
+# it to one?
+feh --no-fehbg --bg-center "$DOTFILE_DIR/x11/1x1-transparent.png" --image-bg "$SOLARIZED_BASE03"
