@@ -29,6 +29,12 @@ font:
     family: 'Source Code Pro'
   size: 9.0
 
+shell:
+  program: /bin/zsh
+  args:
+    - -c
+    - (tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0
+
 key_bindings:
   - { key: V,        mods: Control|Shift,    action: Paste               }
   - { key: C,        mods: Control|Shift,    action: Copy                }
