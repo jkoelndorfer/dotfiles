@@ -195,5 +195,9 @@ client.focused_inactive $base03 $base02 $base0 $base02 $base02
 client.unfocused        $base03 $base02 $base0 $base02 $base02
 client.urgent           $base03 $red    $base3 $base03 $red
 
-default_border pixel 3
-default_floating_border pixel 3
+default_border pixel 0
+default_floating_border pixel 0
+
+# i3-gaps configuration
+gaps outer 3
+gaps inner 5
