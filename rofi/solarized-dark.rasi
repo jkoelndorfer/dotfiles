@@ -24,6 +24,8 @@
 
     background-color:    @background;
     border-color:        @base01;
+
+    font: "Source Code Pro 10";
 }
 #window {
     background-color: @background;
