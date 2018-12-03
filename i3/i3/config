@@ -19,11 +19,8 @@ exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
 
 # Program launch keybinds
 bindsym $prog_prefix+Return exec --no-startup-id alacritty
-bindsym $prog_prefix+f exec firefox
-bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/rofi -show run
+bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
 bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xchart
-bindsym $prog_prefix+g exec --no-startup-id $HOME/src/local-tools/workstation/xorg-gaming/xorg-gaming-server
-bindsym $prog_prefix+w exec --no-startup-id sudo $HOME/src/local-tools/workstation/vfio/qemu-win10
 bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
 bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
 bindsym $alt+Tab exec $DOTFILE_DIR/bin/rofi -show window -show-icons

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+declare -A quicklaunch_entries
+quicklaunch_entries=(
+    [discord]='discord'
+    [firefox]='firefox'
+    [spotify]='spotify'
+    [terminal]='alacritty'
+)
+
+if [[ "$(hostname -s)" = 'deathwing' ]]; then
+    quicklaunch_entries+=(
+        [windows gaming]="$HOME/src/local-tools/workstation/vfio/qemu-win10"
+        [x11 gaming]="$HOME/src/local-tools/workstation/xorg-gaming/xorg-gaming-server"
+    )
+fi
+
+if [[ "$(basename "$0")" =~ ^x ]]; then
+    launcher_cmd=(rofi -dmenu -no-custom -p launch)
+else
+    launcher_cmd=(fzf --prompt 'launch> ')
+fi
+
+selected="$(printf "%s\n" "${!quicklaunch_entries[@]}" | "${launcher_cmd[@]}")"
+if [[ -z "$selected" ]]; then
+    echo 'no entry selected' >&2
+    exit 1
+fi
+${quicklaunch_entries[$selected]}
