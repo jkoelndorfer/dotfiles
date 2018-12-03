@@ -1,24 +1,11 @@
 _gen_fzf_default_opts() {
-  local base03="234"
-  local base02="235"
-  local base01="240"
-  local base00="241"
-  local base0="244"
-  local base1="245"
-  local base2="254"
-  local base3="230"
-  local yellow="136"
-  local orange="166"
-  local red="160"
-  local magenta="125"
-  local violet="61"
-  local blue="33"
-  local cyan="37"
-  local green="64"
+  source "$DOTFILE_DIR/colors/solarized-dark"
 
   export FZF_DEFAULT_OPTS="
-    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$yellow,hl+:0
-    --color info:$yellow,prompt:$blue,pointer:$base3,marker:$base3,spinner:$blue
+    --color fg:-1,bg:-1,hl:$SOLARIZED_BASE3_TERM16,fg+:$SOLARIZED_BASE3_TERM16,bg+:$SOLARIZED_BASE1_TERM16,hl+:$SOLARIZED_BASE3_TERM16
+    --color info:$SOLARIZED_YELLOW_TERM16,prompt:$SOLARIZED_BLUE_TERM16,pointer:$SOLARIZED_BASE3_TERM16
+    --color marker:$SOLARIZED_BASE3_TERM16,spinner:$SOLARIZED_BLUE_TERM16
+    --no-bold
   "
 }
 _gen_fzf_default_opts
