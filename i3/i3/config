@@ -58,6 +58,12 @@ bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
 
+# move workspace to another monitor
+bindsym $mod+$ctrl+Shift+$left move workspace to output left
+bindsym $mod+$ctrl+Shift+$down move workspace to output down
+bindsym $mod+$ctrl+Shift+$up move workspace to output up
+bindsym $mod+$ctrl+Shift+$right move workspace to output right
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
