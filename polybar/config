@@ -72,10 +72,11 @@ module-margin-right = 2
 font-0 = Source Code Pro:pixelsize=10
 font-1 = Material Icons:pixelsize=10
 font-2 = Material Icons:pixelsize=12;3
+font-3 = Font Awesome 5 Free:pixelsize=10
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = pulseaudio wlan date powermenu
+modules-right = pulseaudio wlan date
 
 tray-position =
 
@@ -123,7 +124,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label =  %title:0:60:...%
+label = %{F#fdf6e3} %{F-}%title:0:60:...%
 format-underline = ${colors.selected-foreground}
 
 [module/i3]
@@ -189,14 +190,12 @@ ramp-signal-foreground = ${colors.selected-foreground}
 type = internal/date
 interval = 5
 
-date = %Y-%m-%d
+date = %a %Y-%m-%d
 time = %H:%M
 
-format-prefix = " "
-format-prefix-foreground = ${colors.selected-foreground}
 format-underline = ${colors.blue}
 
-label = %date% %time%
+label = %{F#fdf6e3} %{F-}%date%  %{F#fdf6e3} %{F-}%time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -209,31 +208,6 @@ label-volume-underline = ${colors.cyan}
 label-muted = %{T2}%{T1} muted (%percentage%%)
 label-muted-prefix-font = 2
 label-muted-foreground = ${colors.base0}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-label-open = 
-label-open-foreground = ${colors.selected-foreground}
-label-open-font = 3
-label-close = 
-label-close-foreground = ${colors.selected-foreground}
-label-separator = " | "
-label-separator-foreground = ${colors.selected-foreground}
-
-menu-0-0 =  logout
-menu-0-0-foreground = ${colors.base0}
-menu-0-0-exec = pkill i3
-
-menu-0-1 =  reboot
-menu-0-1-foreground = ${colors.yellow}
-menu-0-1-exec = sudo systemctl reboot
-
-menu-0-2 =  power off
-menu-0-2-foreground = ${colors.red}
-menu-0-2-exec = sudo systemctl poweroff
 
 [settings]
 screenchange-reload = true
