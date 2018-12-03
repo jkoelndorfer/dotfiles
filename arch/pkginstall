@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pacman -S dunst rofi i3status i3-wm
+pacman -S dunst rofi polybar i3-gaps ttf-font-awesome
 yay -S xinit-xsession

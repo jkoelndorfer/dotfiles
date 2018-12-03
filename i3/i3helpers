@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pkill polybar
+pkill compton
+
+polybar --config="$DOTFILE_DIR/polybar/config" primary &
+polybar --config="$DOTFILE_DIR/polybar/config" secondary &
+compton --config "$DOTFILE_DIR/compton/compton.conf" &
+disown

@@ -11,9 +11,11 @@ set $down j
 set $up k
 set $right l
 
-font pango:Noto Sans Mono 8
+font pango:Source Code Pro 8
 
 floating_modifier $mod
+
+exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
 
 # Program launch keybinds
 bindsym $prog_prefix+Return exec --no-startup-id alacritty
@@ -160,36 +162,6 @@ set $blue    #268bd2
 set $cyan    #2aa198
 set $green   #859900
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-    output DVI-D-1
-    tray_output primary
-    status_command i3status
-    colors {
-        background $base02
-        statusline $base1
-        separator  $base01
-        focused_workspace  $base00 $base00 $base3
-        active_workspace   $base00 $base00 $base3
-        inactive_workspace $base02 $base02 $base01
-        urgent_workspace   $red $red $base3
-    }
-}
-
-bar {
-    output HDMI-1
-    colors {
-        background $base02
-        statusline $base1
-        separator  $base01
-        focused_workspace  $base00 $base00 $base3
-        active_workspace   $base00 $base00 $base3
-        inactive_workspace $base02 $base02 $base01
-        urgent_workspace   $red $red $base3
-    }
-}
-
 client.focused          $base03 $base01 $base3 $base01 $base01
 client.focused_inactive $base03 $base02 $base0 $base02 $base02
 client.unfocused        $base03 $base02 $base0 $base02 $base02
@@ -199,5 +171,5 @@ default_border pixel 0
 default_floating_border pixel 0
 
 # i3-gaps configuration
-gaps outer 3
+gaps outer 2
 gaps inner 5
