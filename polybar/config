@@ -49,6 +49,7 @@ bar-height = 25
 
 [bar/primary]
 monitor = DVI-D-1
+monitor-strict = true
 width = 100%
 height = ${global-config.bar-height}
 fixed-center = false
@@ -85,6 +86,7 @@ cursor-scroll = ns-resize
 
 [bar/secondary]
 monitor = HDMI-1
+monitor-strict = true
 width = 100%
 height = ${global-config.bar-height}
 fixed-center = false
