@@ -6,6 +6,9 @@ quicklaunch_entries=(
     [firefox]='firefox'
     [spotify]='spotify'
     [terminal]='alacritty'
+    ['logout']='pkill i3'
+    [reboot]='sudo systemctl reboot'
+    [power off]='sudo systemctl poweroff'
 )
 
 if [[ "$(hostname -s)" = 'deathwing' ]]; then
