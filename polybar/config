@@ -76,7 +76,7 @@ font-3 = Font Awesome 5 Free:pixelsize=10
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = pulseaudio wlan date
+modules-right = syncthing pulseaudio wlan date
 
 tray-position =
 
@@ -166,6 +166,13 @@ label-urgent-padding = ${self.label-mode-padding}
 ; Separator in between workspaces
 ; label-separator = |
 
+[module/syncthing]
+type = custom/script
+exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
+interval = 5
+format-prefix = " "
+format-foreground = ${colors.base3}
+format-underline = ${colors.base3}
 
 [module/wlan]
 type = internal/network
