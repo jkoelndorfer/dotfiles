@@ -6,7 +6,7 @@ quicklaunch_entries=(
     [firefox]='firefox'
     [spotify]='spotify'
     [terminal]='alacritty'
-    ['logout']='pkill i3'
+    ['logout']='i3-msg exit'
     [reboot]='sudo systemctl reboot'
     [power off]='sudo systemctl poweroff'
 )
