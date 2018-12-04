@@ -4,6 +4,7 @@ declare -A quicklaunch_entries
 quicklaunch_entries=(
     [discord]='discord'
     [firefox]='firefox'
+    [keepass]='keepassxc'
     [spotify]='spotify'
     [terminal]='alacritty'
     ['logout']='i3-msg exit'
