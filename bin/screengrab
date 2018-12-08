@@ -1,0 +1,3 @@
+#!/bin/bash
+
+maim -f 'png' "$@" | copy-to-clipboard -t 'image/png'
