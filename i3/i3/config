@@ -30,6 +30,10 @@ bindsym $alt+Tab exec $DOTFILE_DIR/bin/rofi -show window -show-icons
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/pavolup
 bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/pavoldown
 
+# Screenshots
+bindsym Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab -s
+bindsym Shift+Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
