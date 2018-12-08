@@ -16,6 +16,7 @@ font pango:Source Code Pro 8
 floating_modifier $mod
 
 exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
+exec_always --no-startup-id syncthing -no-browser
 
 # Program launch keybinds
 bindsym $prog_prefix+Return exec --no-startup-id alacritty
