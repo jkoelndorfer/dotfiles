@@ -101,7 +101,11 @@ function TrimTrailingWhitespace()
     " Sometimes I work on projects that have lots of pre-existing trailing
     " whitespace and don't want those changes getting mixed in with my commits.
     if g:trim_trailing_whitespace == 1
-        execute '%s/\s\+$//e'
+        let v:errmsg = ""
+        silent! %s/\s\+$//
+        if v:errmsg == ""
+            normal 
+        endif
     endif
 endfunction
 
