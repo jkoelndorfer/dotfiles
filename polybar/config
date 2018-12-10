@@ -208,13 +208,14 @@ label = %{F#fdf6e3} %{F-}%date%  %{F#fdf6e3} %{F-}%time%
 type = internal/pulseaudio
 
 format-volume = <label-volume>
-label-volume = %{F#fdf6e3}%{F-} %percentage%%
+label-volume = %{F#fdf6e3}%{F-} %percentage:3%%
 label-volume-foreground = ${root.foreground}
 label-volume-underline = ${colors.cyan}
 
-label-muted = %{T2}%{T1} muted (%percentage%%)
+label-muted = %{F#dc322f}%{F-} %percentage:3%%
 label-muted-prefix-font = 2
-label-muted-foreground = ${colors.base0}
+label-muted-foreground = ${root.foreground}
+label-muted-underline = ${colors.cyan}
 
 [settings]
 screenchange-reload = true
