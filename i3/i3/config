@@ -29,6 +29,11 @@ bindsym $alt+Tab exec $DOTFILE_DIR/bin/rofi -show window -show-icons
 # Multimedia control keybinds
 bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/pavolup
 bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/pavoldown
+bindsym XF86AudioMute exec --no-startup-id $DOTFILE_DIR/bin/patogglemute
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Screenshots
 bindsym Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab -s
