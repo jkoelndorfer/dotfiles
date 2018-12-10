@@ -24,6 +24,7 @@ bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
 bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xchart
 bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
 bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
+bindsym $ctrl+$alt+l exec --no-startup-id $DOTFILE_DIR/bin/lockscreen
 bindsym $alt+Tab exec $DOTFILE_DIR/bin/rofi -show window -show-icons
 
 # Multimedia control keybinds
