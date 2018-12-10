@@ -73,10 +73,11 @@ font-0 = Source Code Pro:pixelsize=10
 font-1 = Material Icons:pixelsize=10
 font-2 = Material Icons:pixelsize=12;3
 font-3 = Font Awesome 5 Free:pixelsize=10
+font-4 = Font Awesome 5 Free:style=Solid:pixelsize=10
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = syncthing pulseaudio wlan date
+modules-right = syncthing music pulseaudio wlan date
 
 tray-position =
 
@@ -166,6 +167,16 @@ label-urgent-padding = ${self.label-mode-padding}
 ; Separator in between workspaces
 ; label-separator = |
 
+[module/music]
+type = custom/script
+exec = playerctl metadata --format "{{ artist }} - {{ title }}"
+interval = 5
+format-prefix = " "
+format-prefix-foreground = ${colors.base3}
+format-prefix-font = 4
+format-foreground = ${colors.foreground}
+format-underline = ${colors.cyan}
+
 [module/syncthing]
 type = custom/script
 exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
@@ -187,10 +198,10 @@ format-disconnected =
 format-disconnected-underline = ${colors.red}
 
 ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
 ramp-signal-foreground = ${colors.selected-foreground}
 
 [module/date]
@@ -202,19 +213,17 @@ time = %H:%M
 
 format-underline = ${colors.blue}
 
-label = %{F#fdf6e3} %{F-}%date%  %{F#fdf6e3} %{F-}%time%
+label = %{F#fdf6e3}%{T4}%{F-}%{T-} %date%  %{F#fdf6e3}%{T5}%{F-}%{T-} %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume>
-label-volume = %{F#fdf6e3}%{F-} %percentage:3%%
-label-volume-foreground = ${root.foreground}
+label-volume = %{F#fdf6e3}%{T5}%{F-} %{T-}%percentage:3%%
+label-volume-foreground = ${colors.foreground}
 label-volume-underline = ${colors.cyan}
 
-label-muted = %{F#dc322f}%{F-} %percentage:3%%
-label-muted-prefix-font = 2
-label-muted-foreground = ${root.foreground}
+label-muted = %{F#dc322f}%{T5}%{F-} %{T-}%percentage:3%%
+label-muted-foreground = ${colors.foreground}
 label-muted-underline = ${colors.cyan}
 
 [settings]
