@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source "$DOTFILE_DIR/colors/solarized-dark"
+declare -a wallpaper_args
+if [[ -n "$WALLPAPER" ]]; then
+    wallpaper_args=('-i' "$WALLPAPER")
+else
+    wallpaper_args=()
+fi
+exec i3lock "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
