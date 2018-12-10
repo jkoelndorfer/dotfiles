@@ -10,4 +10,4 @@ source "$DOTFILE_DIR/colors/solarized-dark"
 if [[ -z "$WALLPAPER" ]]; then
     WALLPAPER="$DOTFILE_DIR/x11/1x1-transparent.png"
 fi
-feh --no-fehbg --bg-center "$WALLPAPER" --image-bg "$SOLARIZED_BASE03" --no-xinerama
+feh --no-fehbg --bg-tile "$WALLPAPER" --image-bg "$SOLARIZED_BASE03" --no-xinerama
