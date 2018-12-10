@@ -7,4 +7,7 @@ source "$DOTFILE_DIR/colors/solarized-dark"
 # we want by providing a 1x1 transparent background and giving it out desired background color.
 # feh is needed for setting proper wallpapers, anyhow. Why use two utilities when you can keep
 # it to one?
-feh --no-fehbg --bg-center "$DOTFILE_DIR/x11/1x1-transparent.png" --image-bg "$SOLARIZED_BASE03"
+if [[ -z "$WALLPAPER" ]]; then
+    WALLPAPER="$DOTFILE_DIR/x11/1x1-transparent.png"
+fi
+feh --no-fehbg --bg-center "$WALLPAPER" --image-bg "$SOLARIZED_BASE03" --no-xinerama
