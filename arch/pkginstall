@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pacman -S dunst rofi polybar i3-gaps maim noto-fonts-emoji noto-fonts-cjk ttf-font-awesome adobe-source-code-pro-fonts
+pacman -S dunst rofi polybar i3-gaps maim noto-fonts-emoji noto-fonts-cjk ttf-font-awesome adobe-source-code-pro-fonts playerctl
 yay -S xinit-xsession ttf-material-icons
