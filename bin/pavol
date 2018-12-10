@@ -23,21 +23,27 @@ function cleanup() {
 }
 trap cleanup EXIT
 
+pacmd_output="$(pacmd list-sinks | grep -A10 -E '\* index')"
+default_sink="$(echo "$pacmd_output" | head -n 1 | awk '{ print $3 }')"
+
 if [[ "$0" =~ "up" ]]; then
     mode="+"
-else
+elif [[ "$0" =~ "down" ]]; then
     mode="-"
+elif [[ "$0" =~ "mute" ]]; then
+    pactl set-sink-mute "$default_sink" toggle
+    exit 0
 fi
+
 magnitude="$1"
 if [[ -z "$magnitude" ]]; then
     magnitude="5"
 fi
 
-pacmd_output="$(pacmd list-sinks | grep -A10 -E '\* index')"
-default_sink="$(echo "$pacmd_output" | head -n 1 | awk '{ print $3 }')"
 current_vol="$(echo "$pacmd_output" | grep 'volume:' | head -n 1 | awk '{ print $5 }' | sed -e 's/%//')"
 expected_vol="$(($current_vol $mode $magnitude))"
-if [[ "$expected_vol" -gt '100' && "$mode" == '+' ]]; then
+if [[ "$expected_vol" -gt '100' ]]; then
+    pactl set-sink-volume "$default_sink" '100%'
     exit 0
 fi
 
