@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# This script makes i3 windows float but aligns them to a grid.
+# Useful for having a window laying over the top of another while
+# still taking advantage of tiling features.
+
+# top, middle/center, or bottom
+cell_position_y="$1"
+
+# left, middle/center, or right
+cell_position_x="$2"
+
+margin_size=5
+active_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true)')"
+
+active_workspace_x="$(echo "$active_workspace" | jq -r '.rect.x')"
+active_workspace_y="$(echo "$active_workspace" | jq -r '.rect.y')"
+active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
+active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
+
+usable_width="$((active_workspace_width - (margin_size * 4)))"
+usable_height="$((active_workspace_height - (margin_size * 4)))"
+
+window_width="$((usable_width / 3))"
+window_height="$((usable_height / 3))"
+
+
+# For a given position descriptor, how many windows are there
+# between the window at this position and x/y = 0?
+#
+# For example, a left window has 0 windows between it and x = 0,
+# since x = 0 is the left side of the screen. A bottom window has
+# 2 windows between it and y = 0, since y = 0 is at the top of
+# the screen.
+#
+# Margins will be be this value plus one, since we have a margin
+# between the screen edge and the leftmost or topmost window.
+declare -A num_windows=(
+    ['left']=0
+    ['middle']=1
+    ['right']=2
+
+    ['top']=0
+    ['center']=1
+    ['bottom']=2
+)
+
+x_pos="$(( active_workspace_x + (${num_windows[$cell_position_x]} * window_width) +  ((${num_windows[$cell_position_x]} + 1) * margin_size) ))"
+y_pos="$(( active_workspace_y + (${num_windows[$cell_position_y]} * window_height) + ((${num_windows[$cell_position_y]} + 1) * margin_size) ))"
+
+i3-msg floating enable\; fullscreen disable\; move position "$x_pos" "$y_pos" \; resize set width "$window_width" height "$window_height"
