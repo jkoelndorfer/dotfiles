@@ -169,8 +169,8 @@ label-urgent-padding = ${self.label-mode-padding}
 
 [module/music]
 type = custom/script
-exec = playerctl metadata --format "{{ artist }} - {{ title }}"
-exec-if = [[ "$(playerctl status 2>&1)" != 'No players found' ]]
+exec = playerctl -p spotify metadata --format "{{ artist }} - {{ title }}"
+exec-if = [[ "$(playerctl -p spotify status 2>&1)" != 'No players found' ]]
 interval = 5
 format-prefix = " "
 format-prefix-foreground = ${colors.base3}
