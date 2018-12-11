@@ -7,6 +7,7 @@ quicklaunch_entries=(
     [keepass]='keepassxc'
     [spotify]='spotify'
     [terminal]='alacritty'
+    [vlc]='vlc'
     ['logout']='i3-msg exit'
     [reboot]='sudo systemctl reboot'
     [power off]='sudo systemctl poweroff'
