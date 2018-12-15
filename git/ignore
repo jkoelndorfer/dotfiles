@@ -7,6 +7,9 @@
 # vim netrwhist
 .netrwhist
 
+# syncthing ignore file
+.stignore
+
 # Platform specific trash
 
 # Linux
