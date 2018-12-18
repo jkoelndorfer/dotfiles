@@ -26,7 +26,7 @@ else
     launcher_cmd=(fzf --prompt 'launch> ')
 fi
 
-selected="$(printf "%s\n" "${!quicklaunch_entries[@]}" | "${launcher_cmd[@]}")"
+selected="$(printf "%s\n" "${!quicklaunch_entries[@]}" | sort | "${launcher_cmd[@]}")"
 if [[ -z "$selected" ]]; then
     echo 'no entry selected' >&2
     exit 1
