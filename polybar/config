@@ -182,6 +182,7 @@ format-underline = ${colors.cyan}
 type = custom/script
 exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
 interval = 5
+label = %{A1:/usr/bin/firefox http\://localhost\:8384:}%output%%{A}
 format-prefix = " "
 format-foreground = ${colors.base3}
 format-underline = ${colors.base3}
