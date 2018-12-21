@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source "$HOME/.dotfiles/zsh/zshenv"
 script_path="$(realpath "$0")"
 dotfiles_xinitrc_d="$(dirname "$script_path")/xinitrc.d"
 local_xinitrc_d="$HOME/.config/xinitrc.local.d"
