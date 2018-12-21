@@ -33,6 +33,8 @@ font pango:Source Code Pro 8
 floating_modifier $mod
 
 exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
+exec_always --no-startup-id xrdb -load $DOTFILE_DIR/x11/Xresources
+exec_always --no-startup-id xsetroot -cursor_name left_ptr
 exec_always --no-startup-id syncthing -no-browser
 
 # Program launch keybinds
