@@ -21,7 +21,7 @@ if [[ "$(hostname -s)" = 'deathwing' ]]; then
 fi
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    launcher_cmd=(rofi -dmenu -no-custom -p launch)
+    launcher_cmd=($DOTFILE_DIR/bin/rofi -dmenu -no-custom -p launch)
 else
     launcher_cmd=(fzf --prompt 'launch> ')
 fi
