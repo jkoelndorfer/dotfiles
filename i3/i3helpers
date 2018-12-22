@@ -4,8 +4,15 @@ pkill polybar
 pkill compton
 pkill dunst
 
-polybar --config="$DOTFILE_DIR/polybar/config" primary &
-polybar --config="$DOTFILE_DIR/polybar/config" secondary &
+if [[ -n "$DISPLAYNAME_LEFT" ]]; then
+    polybar --config="$DOTFILE_DIR/polybar/config" left &
+fi
+if [[ -n "$DISPLAYNAME_CENTER" ]]; then
+    polybar --config="$DOTFILE_DIR/polybar/config" center &
+fi
+if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
+    polybar --config="$DOTFILE_DIR/polybar/config" right &
+fi
 compton --config "$DOTFILE_DIR/compton/compton.conf" &
 dunst &
 disown
