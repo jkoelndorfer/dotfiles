@@ -104,7 +104,7 @@ monitor = ${env:DISPLAYNAME_RIGHT}
 
 [module/xwindow]
 type = internal/xwindow
-label = %{F#fdf6e3} %{F-}%title:0:60:...%
+label = %{F#fdf6e3} %{F-}%title:0:120:...%
 format-underline = ${colors.selected-foreground}
 
 [module/i3]
