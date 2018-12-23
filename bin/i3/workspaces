@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Dumps the list of workspaces defined with icons in the polybar configuration.
+# This is added to the list of workspaces currently active in i3 so we can have
+# some workspace consistency and make good use of our fancy icons.
+
+polybar_defs="$(grep -E '^\s*ws-icon-[0-9]+' "$DOTFILE_DIR/polybar/config" | awk -F ' = ' '{ print $2 }')"
+default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$DOTFILE_DIR/polybar/config" | sed -r -e 's#\s*ws-icon-default\s*=\s*##')"
+
+declare -A polybar_icon_map
+while read d; do
+    [[ "$d" =~ ([^\;]+)\;(%\{[^}]*\})?([^%]+) ]]
+    ws="${BASH_REMATCH[1]}"
+    icon="${BASH_REMATCH[3]}"
+    polybar_icon_map[$ws]="$icon"
+done <<< "$polybar_defs"
+
+polybar_workspaces="$(printf "%s\n" "${!polybar_icon_map[@]}")"
+i3_workspaces="$(i3-msg -t get_workspaces | jq -r '.[].name')"
+i3_only_workspaces="$(comm -23 <(echo "$i3_workspaces" | sort -u) <(echo "$polybar_workspaces" | sort -u))"
+
+{
+    while read ws; do
+        # There may not be any workspaces that aren't defined in polybar.
+        # In that case, the "icondef" loop below would still run once and
+        # hose up our workspace selector.
+        [[ -z "$ws" ]] && break
+        for icondef in "${!polybar_icon_map[@]}"; do
+            if [[ "$ws" =~ $icondef ]]; then
+                echo "$ws ${polybar_icon_map[$icondef]}"
+                continue 2
+            fi
+        done
+        echo "$ws $default_icon"
+    done <<< "$i3_only_workspaces"
+
+    while read ws; do
+        echo "$ws ${polybar_icon_map[$ws]}"
+    done <<< "$polybar_workspaces"
+} | sort | column -t

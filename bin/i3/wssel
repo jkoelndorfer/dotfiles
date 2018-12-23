@@ -1,0 +1,19 @@
+#!/bin/bash
+
+prompt="${1:-workspace}"
+workspaces="$("$DOTFILE_DIR/bin/i3/workspaces")"
+
+# There is some sort of bug in Rofi when displaying multiple fonts.
+# Without -no-show-match, space characters appear as blocks.
+# Very strange!
+selected_workspace="$(
+    echo "$workspaces" |
+    "$DOTFILE_DIR/bin/rofi" -no-show-match -dmenu -p "$prompt" |
+    awk '{ print $1 }' |
+    sed -r -e 's/\s+/-/g'
+)"
+
+if [[ -z "$selected_workspace" ]]; then
+    exit 1
+fi
+echo "$selected_workspace"
