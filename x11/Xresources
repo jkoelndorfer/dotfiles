@@ -1,2 +1,4 @@
 Xcursor.theme: Bluecurve
 Xcursor.size: 12
+
+#include "Xresources.solarized-dark"

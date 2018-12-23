@@ -17,22 +17,22 @@
 ;==========================================================
 
 [colors]
-base03 = #002b36
-base02 = #073642
-base01 = #586e75
-base00 = #657b83
-base0 = #839496
-base1 = #93a1a1
-base2 = #eee8d5
-base3 = #fdf6e3
-yellow = #b58900
-orange = #cb4b16
-red = #dc322f
-magenta = #d33682
-violet = #6c71c4
-blue = #268bd2
-cyan = #2aa198
-green = #859900
+base03  = ${xrdb:polybar.color8}
+base02  = ${xrdb:polybar.color0}
+base01  = ${xrdb:polybar.color10}
+base00  = ${xrdb:polybar.color11}
+base0   = ${xrdb:polybar.color12}
+base1   = ${xrdb:polybar.color14}
+base2   = ${xrdb:polybar.color7}
+base3   = ${xrdb:polybar.color15}
+yellow  = ${xrdb:polybar.color3}
+orange  = ${xrdb:polybar.color9}
+red     = ${xrdb:polybar.color1}
+magenta = ${xrdb:polybar.color5}
+violet  = ${xrdb:polybar.color13}
+blue    = ${xrdb:polybar.color4}
+cyan    = ${xrdb:polybar.color6}
+green   = ${xrdb:polybar.color2}
 
 background = ${colors.base02}
 foreground = ${colors.base1}

@@ -32,9 +32,9 @@ font pango:Source Code Pro 8
 
 floating_modifier $mod
 
-exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
 exec_always --no-startup-id xrdb -load $DOTFILE_DIR/x11/Xresources
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
 exec_always --no-startup-id syncthing -no-browser
 
 # Program launch keybinds
@@ -173,22 +173,22 @@ bindsym $mod+r mode "resize"
 bindsym $mod+g mode "floatgrid"
 
 # Color Scheme
-set $base03  #002b36
-set $base02  #073642
-set $base01  #586e75
-set $base00  #657b83
-set $base0   #839496
-set $base1   #93a1a1
-set $base2   #eee8d5
-set $base3   #fdf6e3
-set $yellow  #b58900
-set $orange  #cb4b16
-set $red     #dc322f
-set $magenta #d33682
-set $violet  #6c71c4
-set $blue    #268bd2
-set $cyan    #2aa198
-set $green   #859900
+set_from_resource $base03  i3wm.color8  #000000
+set_from_resource $base02  i3wm.color0  #000000
+set_from_resource $base01  i3wm.color10 #000000
+set_from_resource $base00  i3wm.color11 #000000
+set_from_resource $base0   i3wm.color12 #ffffff
+set_from_resource $base1   i3wm.color14 #ffffff
+set_from_resource $base2   i3wm.color7  #ffffff
+set_from_resource $base3   i3wm.color15 #ffffff
+set_from_resource $yellow  i3wm.color3  #ffff00
+set_from_resource $orange  i3wm.color9  #ff0000
+set_from_resource $red     i3wm.color1  #ff0000
+set_from_resource $magenta i3wm.color5  #ff0000
+set_from_resource $violet  i3wm.color13 #ff0000
+set_from_resource $blue    i3wm.color4  #0000ff
+set_from_resource $cyan    i3wm.color6  #0000ff
+set_from_resource $green   i3wm.color2  #00ff00
 
 client.focused          $base03 $base01 $base3 $base01 $base01
 client.focused_inactive $base03 $base02 $base0 $base02 $base02
