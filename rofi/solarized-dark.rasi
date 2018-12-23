@@ -17,6 +17,7 @@
     green:   #859900;
 
     background:          @base03;
+    background-alt:      @base02;
     foreground:          @base1;
 
     selected-background: @base1;
@@ -65,7 +66,7 @@
     text-color:       @selected-foreground;
 }
 #element.alternate {
-    background-color: @background;
+    background-color: @background-alt;
     text-color:       @foreground;
 }
 #scrollbar {
