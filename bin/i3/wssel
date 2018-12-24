@@ -9,7 +9,7 @@ workspaces="$("$DOTFILE_DIR/bin/i3/workspaces")"
 selected_workspace="$(
     echo "$workspaces" |
     "$DOTFILE_DIR/bin/rofi" -no-show-match -dmenu -p "$prompt" |
-    awk '{ print $1 }' |
+    awk '{ print $NF }' |
     sed -r -e 's/\s+/-/g'
 )"
 

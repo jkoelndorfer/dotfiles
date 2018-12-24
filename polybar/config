@@ -59,12 +59,9 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Source Code Pro:pixelsize=10
-font-1 = Material Icons:pixelsize=10
-font-2 = Material Icons:pixelsize=12;3
-font-3 = Font Awesome 5 Free:pixelsize=10
-font-4 = Font Awesome 5 Free:style=Solid:pixelsize=8
-font-5 = Font Awesome 5 Brands:pixelsize=10
+font-0 = SauceCodePro Nerd Font Mono:pixelsize=10
+font-1 = SauceCodePro Nerd Font Mono:pixelsize=16;2
+font-2 = SauceCodePro Nerd Font Mono:pixelsize=18;3
 
 line-size = 3
 line-color = #f00
@@ -104,7 +101,7 @@ monitor = ${env:DISPLAYNAME_RIGHT}
 
 [module/xwindow]
 type = internal/xwindow
-label = %{F#fdf6e3} %{F-}%title:0:120:...%
+label = %{F#fdf6e3}%{T2} %{T-}%{F-}%title:0:120:...%
 format-underline = ${colors.selected-foreground}
 
 [module/i3]
@@ -148,18 +145,18 @@ label-urgent-padding = ${self.label-mode-padding}
 
 ; icon configuration
 fuzzy-match = true
-ws-icon-0 = chat;%{T2}%{T-}
-ws-icon-1 = discord;%{T6}%{T-}
-ws-icon-2 = slack;%{T6}%{T-}
-ws-icon-3 = web;%{T6}%{T-}
-ws-icon-4 = spotify;%{T6}%{T-}
-ws-icon-5 = video;%{T2}%{T-}
-ws-icon-6 = mail;%{T2}%{T-}
-ws-icon-7 = steam;%{T6}%{T-}
-ws-icon-8 = term;%{T5}%{T-}
-ws-icon-9 = code;%{T5}%{T-}
-ws-icon-10 = doc;%{T5}%{T-}
-ws-icon-default = 
+ws-icon-0 = chat;%{T3}
+ws-icon-1 = slack;%{T3}%{T-}
+ws-icon-2 = web;%{T3}%{T-}
+ws-icon-3 = spotify;%{T3}%{T-}
+ws-icon-4 = video;%{T3}%{T-}
+ws-icon-5 = mail;%{T3}%{T-}
+ws-icon-6 = game;%{T3}%{T-}
+ws-icon-7 = term;%{T3}%{T-}
+ws-icon-8 = code;%{T3}%{T-}
+ws-icon-9 = doc;%{T3}%{T-}
+ws-icon-default = %{T3}%{T-}
+
 
 [module/music]
 type = custom/script
@@ -168,16 +165,17 @@ exec-if = [[ "$(playerctl -p spotify status 2>&1)" != 'No players found' ]]
 interval = 5
 format-prefix = " "
 format-prefix-foreground = ${colors.base3}
-format-prefix-font = 4
+format-prefix-font = 2
 format-foreground = ${colors.foreground}
 format-underline = ${colors.cyan}
 
 [module/syncthing]
 type = custom/script
-exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
+exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
 interval = 5
-label = %{A1:/usr/bin/firefox http\://localhost\:8384:}%output%%{A}
-format-prefix = " "
+label = %{T2}%{A1:/usr/bin/firefox http\://localhost\:8384:}%output%%{A}%{T-}
+format-prefix = "%{T2}%{T-} "
+format-prefix-font = 1
 format-foreground = ${colors.base3}
 format-underline = ${colors.base3}
 
@@ -198,6 +196,7 @@ ramp-signal-1 = 
 ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
+ramp-signal-font = 2
 ramp-signal-foreground = ${colors.selected-foreground}
 
 [module/date]
@@ -209,16 +208,16 @@ time = %H:%M
 
 format-underline = ${colors.blue}
 
-label = %{F#fdf6e3}%{T4}%{F-}%{T-} %date%  %{F#fdf6e3}%{T5}%{F-}%{T-} %time%
+label = %{F#fdf6e3}%{T2}%{F-}%{T-} %date%  %{F#fdf6e3}%{T2}%{F-}%{T-} %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume = %{F#fdf6e3}%{T5}%{F-} %{T-}%percentage:3%%
+label-volume = %{F#fdf6e3}%{T2}%{F-} %{T-}%percentage:3%%
 label-volume-foreground = ${colors.foreground}
 label-volume-underline = ${colors.cyan}
 
-label-muted = %{F#dc322f}%{T5}%{F-} %{T-}%percentage:3%%
+label-muted = %{F#dc322f}%{T2}%{F-} %{T-}%percentage:3%%
 label-muted-foreground = ${colors.foreground}
 label-muted-underline = ${colors.cyan}
 

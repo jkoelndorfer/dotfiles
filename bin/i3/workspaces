@@ -5,7 +5,9 @@
 # some workspace consistency and make good use of our fancy icons.
 
 polybar_defs="$(grep -E '^\s*ws-icon-[0-9]+' "$DOTFILE_DIR/polybar/config" | awk -F ' = ' '{ print $2 }')"
-default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$DOTFILE_DIR/polybar/config" | sed -r -e 's#\s*ws-icon-default\s*=\s*##')"
+default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$DOTFILE_DIR/polybar/config" | grep -o '[^ \t\nA-Za-z0-9{}%=-]')"
+json=0
+[[ "$1" == '-j' || "$1" == '--json' ]] && json=1
 
 declare -A polybar_icon_map
 while read d; do
@@ -27,14 +29,21 @@ i3_only_workspaces="$(comm -23 <(echo "$i3_workspaces" | sort -u) <(echo "$polyb
         [[ -z "$ws" ]] && break
         for icondef in "${!polybar_icon_map[@]}"; do
             if [[ "$ws" =~ $icondef ]]; then
-                echo "$ws ${polybar_icon_map[$icondef]}"
+                echo -e "$ws\t${polybar_icon_map[$icondef]}"
                 continue 2
             fi
         done
-        echo "$ws $default_icon"
+        echo -e "${default_icon}\t${ws}"
     done <<< "$i3_only_workspaces"
 
     while read ws; do
-        echo "$ws ${polybar_icon_map[$ws]}"
+        echo -e "${polybar_icon_map[$ws]}\t${ws}"
     done <<< "$polybar_workspaces"
-} | sort | column -t
+} | sort |
+{
+    if [[ "$json" == '1' ]]; then
+        jq -R 'split("\t") | {(.[1]): .[0]}' | jq -s add
+    else
+        column -t -o ' '
+    fi
+}
