@@ -7,4 +7,3 @@ selected_workspace="$("$script_dir/wssel" 'move window to workspace')"
 [[ -z "$selected_workspace" ]] && exit 1
 
 i3-msg move container to workspace "$selected_workspace"
-i3-msg workspace "$selected_workspace"
