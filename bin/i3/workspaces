@@ -29,7 +29,7 @@ i3_only_workspaces="$(comm -23 <(echo "$i3_workspaces" | sort -u) <(echo "$polyb
         [[ -z "$ws" ]] && break
         for icondef in "${!polybar_icon_map[@]}"; do
             if [[ "$ws" =~ $icondef ]]; then
-                echo -e "$ws\t${polybar_icon_map[$icondef]}"
+                echo -e "${polybar_icon_map[$icondef]}\t$ws"
                 continue 2
             fi
         done
