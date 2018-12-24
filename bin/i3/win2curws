@@ -2,7 +2,7 @@
 
 script_dir="$(dirname "$0")"
 current_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused) | .name')"
-win_id="$("$script_dir/winsel")"
+win_id="$("$script_dir/winsel" 'move window to current workspace')"
 [[ -z "$win_id" ]] && exit 1
 
 i3-msg "[con_id=$win_id] move container to workspace $current_workspace"
