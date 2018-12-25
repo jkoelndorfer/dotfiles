@@ -141,29 +141,29 @@ mode "resize" {
 }
 
 mode "floatgrid" {
-    bindcode $kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom left
-    bindcode $kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom center
-    bindcode $kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom right
+    bindcode $kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom left
+    bindcode $kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom center
+    bindcode $kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom right
 
-    bindcode $kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle left
-    bindcode $kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle center
-    bindcode $kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle right
+    bindcode $kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle left
+    bindcode $kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle center
+    bindcode $kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle right
 
-    bindcode $kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top left
-    bindcode $kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top center
-    bindcode $kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top right
+    bindcode $kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top left
+    bindcode $kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top center
+    bindcode $kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top right
 
-    bindcode $numlock+$kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom left
-    bindcode $numlock+$kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom center
-    bindcode $numlock+$kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid bottom right
+    bindcode $numlock+$kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom left
+    bindcode $numlock+$kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom center
+    bindcode $numlock+$kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom right
 
-    bindcode $numlock+$kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle left
-    bindcode $numlock+$kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle center
-    bindcode $numlock+$kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid middle right
+    bindcode $numlock+$kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle left
+    bindcode $numlock+$kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle center
+    bindcode $numlock+$kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle right
 
-    bindcode $numlock+$kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top left
-    bindcode $numlock+$kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top center
-    bindcode $numlock+$kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3floatgrid top right
+    bindcode $numlock+$kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top left
+    bindcode $numlock+$kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top center
+    bindcode $numlock+$kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top right
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
