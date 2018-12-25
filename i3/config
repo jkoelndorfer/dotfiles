@@ -38,6 +38,7 @@ exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
 exec_always --no-startup-id syncthing -no-browser
 
 # Program launch keybinds
+bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass
 bindsym $prog_prefix+Return exec --no-startup-id alacritty
 bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
 bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xchart

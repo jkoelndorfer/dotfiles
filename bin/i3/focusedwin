@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Prints data to stdout about the application that is currently focused
+# in i3.
+
+i3-msg -t get_tree |
+    jq -r '
+        recurse(.nodes[], .floating_nodes[].nodes[]) |
+        select(.focused == true) |
+        { "title": .window_properties.title, "class": .window_properties.class }
+    '

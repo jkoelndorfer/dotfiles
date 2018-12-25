@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# This script assists with summoning and dismissing keepassxc in i3.
+# If keepassxc is the active window, it is pushed to another workspace.
+# If keepassxc is not open at all, it is opened.
+# If keepassxc is open on another workspace, it is pulled to the current
+# workspace.
+
+pwsafe_app='keepassxc'
+script_dir="$(dirname "$0")"
+sleep_interval='0.1'
+
+function keepass_focused() {
+    [[ "$("$script_dir/focusedwin" | jq -r '.class')" == "$pwsafe_app" ]]
+}
+
+if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
+    "$pwsafe_app" >/dev/null 2>&1 & disown
+    while ! keepass_focused; do
+        "$script_dir/focusedwin"
+        sleep "$sleep_interval"
+    done
+    i3-msg floating enable
+else
+    i3-msg "[class=$pwsafe_app]" scratchpad show
+fi
+"$script_dir/floatgrid" bottom center
+while keepass_focused; do
+    sleep "$sleep_interval"
+done
+i3-msg "[class=$pwsafe_app]" move scratchpad
