@@ -9,12 +9,13 @@ i3_windows="$(("$DOTFILE_DIR/bin/i3/workspaces" -j; i3-msg -t get_tree) |
         [recurse(.nodes[]) |
         select(.type == "workspace") |
         .name as $wsname |
-        .nodes[] |
+        (.nodes[], .floating_nodes[].nodes[]) |
         .id as $id |
-        .window_properties + {"id": $id, "workspace": ($wsicons[$wsname] + " " + $wsname)}]
+        .window_properties + {"id": $id, "workspace": $wsname, "workspace_display": ($wsicons[$wsname] + " " + $wsname)} |
+        select(.workspace != "__i3_scratch")]
     '
 )"
-win_list="$(echo "$i3_windows" | jq -r '.[] | "\(.workspace)\t\(.class)\t\(.title)"' | column -o '    ' -s '	' -t)"
+win_list="$(echo "$i3_windows" | jq -r '.[] | "\(.workspace_display)\t\(.class)\t\(.title)"' | column -o '    ' -s '	' -t)"
 selected_index="$(echo "$win_list" | "$DOTFILE_DIR/bin/rofi" -dmenu -i -p "$prompt" -format i)"
 [[ -z "$selected_index" ]] && exit 1
 echo "$i3_windows" | jq -r ".[$selected_index] | .id"
