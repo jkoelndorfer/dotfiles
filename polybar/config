@@ -203,11 +203,11 @@ label = %{F#fdf6e3}%{T2}%{F-}%{T-} %date%  %{F#fdf6e3}%{T2}%{F-}%{T-} %tim
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume = %{F#fdf6e3}%{T2}%{F-} %{T-}%percentage:3%%
+label-volume = %{F#fdf6e3}%{T2}%{F-}%{T-} %percentage:3%%
 label-volume-foreground = ${colors.foreground}
 label-volume-underline = ${colors.cyan}
 
-label-muted = %{F#dc322f}%{T2}%{F-} %{T-}%percentage:3%%
+label-muted = %{F#dc322f}%{T2}%{F-}%{T-} %percentage:3%%
 label-muted-foreground = ${colors.foreground}
 label-muted-underline = ${colors.cyan}
 
