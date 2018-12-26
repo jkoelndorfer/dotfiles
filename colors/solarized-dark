@@ -12,6 +12,8 @@ for c in base00 base01 base02 base03 \
 done
 unset c uc re solarized_dark_xresources
 
+DEFAULT_DESKTOP_BG_COLOR='#333333'
+
 SOLARIZED_BASE03_XTERM='234'
 SOLARIZED_BASE02_XTERM='235'
 SOLARIZED_BASE01_XTERM='240'
