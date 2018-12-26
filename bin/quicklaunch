@@ -15,7 +15,7 @@ quicklaunch_entries=(
 
 if [[ "$(hostname -s)" = 'deathwing' ]]; then
     quicklaunch_entries+=(
-        [windows gaming]="$HOME/src/local-tools/workstation/vfio/qemu-win10"
+        [windows gaming]="sudo $HOME/src/local-tools/workstation/vfio/qemu-win10"
         [x11 gaming]="$HOME/src/local-tools/workstation/xorg-gaming/xorg-gaming-server"
     )
 fi
