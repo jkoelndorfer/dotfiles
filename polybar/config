@@ -161,13 +161,10 @@ format-underline = ${colors.cyan}
 
 [module/syncthing]
 type = custom/script
-exec = $DOTFILE_DIR/polybar/procrun syncthing  \$SOLARIZED_GREEN  \$SOLARIZED_RED
+exec = $DOTFILE_DIR/bin/i3/ststatus
 interval = 5
 label = %{T2}%{A1:/usr/bin/firefox http\://localhost\:8384:}%output%%{A}%{T-}
-format-prefix = "%{T2}%{T-} "
-format-prefix-font = 1
-format-foreground = ${colors.base3}
-format-underline = ${colors.base3}
+label-underline = ${colors.base3}
 
 [module/wlan]
 type = internal/network

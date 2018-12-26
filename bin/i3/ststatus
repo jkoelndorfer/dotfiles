@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Prints the status of syncthing to stdout suitable for use with polybar.
+
+script_dir=$(dirname "$0")
+
+source "$script_dir/../../colors/solarized-dark"
+
+st_config="$HOME/.config/syncthing/config.xml"
+st_api_key=$(xmllint "$st_config" --xpath 'configuration/gui/apikey/text()')
+
+function colorize() {
+    msg="$1"
+    color="$2"
+    echo "%{F$color}$msg%{F-}"
+}
+
+function status() {
+    icon="$1"
+    color="$2"
+    echo -n '%{T2}'
+    echo -n "$(colorize '' "$SOLARIZED_BASE3") "
+    echo -n "$(colorize "$icon" "$color")"
+    echo -n '%{T-}'
+}
+
+function s() {
+    local suburl="$1"
+    shift
+    curl -s -H "X-API-Key: $st_api_key" "$@" "http://127.0.0.1:8384/rest/$suburl"
+}
+
+st_status=$(s system/status)
+if [[ -z "$st_status" ]]; then
+    status  "$SOLARIZED_RED"
+elif [[ "$st_status" == 'CSRF Error' ]]; then
+    status  "$SOLARIZED_ORANGE"
+else
+    status  "$SOLARIZED_GREEN"
+fi
