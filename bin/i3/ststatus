@@ -30,11 +30,18 @@ function s() {
     curl -s -H "X-API-Key: $st_api_key" "$@" "http://127.0.0.1:8384/rest/$suburl"
 }
 
-st_status=$(s system/status)
-if [[ -z "$st_status" ]]; then
+if [[ -z "$ST_CENTRAL_DEVICE_ID" ]]; then
+    status  "$SOLARIZED_RED"
+    exit 0
+fi
+st_connections=$(s system/connections)
+st_status=$(s system/connections | jq -r ".connections.\"${ST_CENTRAL_DEVICE_ID}\".connected" 2>/dev/null)
+if [[ -z "$st_connections" ]]; then
     status  "$SOLARIZED_RED"
-elif [[ "$st_status" == 'CSRF Error' ]]; then
-    status  "$SOLARIZED_ORANGE"
-else
+elif [[ "$st_status" == 'true' ]]; then
     status  "$SOLARIZED_GREEN"
+elif [[ "$st_status" == 'false' ]]; then
+    status  "$SOLARIZED_ORANGE"
+else
+    status ? "$SOLARIZED_ORANGE"
 fi
