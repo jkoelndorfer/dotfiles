@@ -144,7 +144,7 @@ function gb() {
     branch="$(
         git branch -v $branch_addl_args --color=always |
         cut -c 3- |
-        fzf --ansi --tiebreak length --preview='git log --color=always $(echo {} | awk "{ print \$1 }")' |
+        fzf --ansi --tiebreak length --preview='git log -n 10 --color=always $(echo {} | awk "{ print \$1 }")' |
         awk '{ print $1 }'
     )"
     [[ -n "$branch" ]] || return 1
