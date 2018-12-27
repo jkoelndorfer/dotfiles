@@ -154,3 +154,7 @@ function gb() {
 function gpu() {
     git push -u origin "$(git current-branch)"
 }
+
+function weather() {
+    curl wttr.in/"$1"
+}
