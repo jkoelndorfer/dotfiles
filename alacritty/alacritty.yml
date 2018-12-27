@@ -27,7 +27,7 @@ colors:
 font:
   normal:
     family: 'mononoki Nerd Font Mono'
-  size: 9.0
+  size: 10.0
 
 shell:
   program: /bin/zsh
