@@ -1,0 +1,12 @@
+#!/bin/bash
+
+script_dir=$(dirname "$0")
+selected_window=$("$script_dir/winsel" -v)
+if [[ -n "$selected_window" ]]; then
+    [[ "$selected_window" =~ ^([^:]+):([0-9]+) ]]
+    session="${BASH_REMATCH[1]}"
+    window_index="${BASH_REMATCH[2]}"
+    (
+        tmux switch-client -t "$session:${window_index}"
+    )
+fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# This script allows the user to select a tmux window using `fzf`.
+
+tmux list-sessions -F '#{session_name}' |
+xargs -n1 tmux list-windows -F '#{session_name}:#{window_index} #{window_name}' -t |
+column -t | fzf | awk '{ print $1 }'
