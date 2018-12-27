@@ -52,3 +52,4 @@ function tnc() {
     fi
 }
 
+alias ti="tmux run-shell 'echo #{session_name}:#{window_index}.#{pane_index}'"
