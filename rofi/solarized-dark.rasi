@@ -26,7 +26,7 @@
     background-color:    @background;
     border-color:        @base01;
 
-    font: "SauceCodePro Nerd Font Mono 12";
+    font: "mononoki Nerd Font Mono 12";
 }
 #window {
     background-color: @background;
