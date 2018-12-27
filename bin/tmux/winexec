@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Executes a command in new tmux window.
+cmd="$1"
+
+tmux new-window "$cmd"
