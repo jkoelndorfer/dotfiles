@@ -1,5 +1,5 @@
 function c() {
-    cd "$(selectdir)"
+    cd "$(selectdir "$1")"
 }
 
 function selectdir() {
