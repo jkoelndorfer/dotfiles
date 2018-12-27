@@ -5,4 +5,4 @@
 preview_size="$(tput lines)"
 tmux list-windows -a -F '#{session_name}:#{window_index}	#{window_name}' |
 awk '$1 != "'"$(tmux display-message -p '#{session_name}:#{window_index}')"'"' |
-column -t | fzf --preview "tmux capture-pane -peJt {1} | tail -n${preview_size}" | awk '{ print $1 }'
+column -t | sort -r | fzf --preview "tmux capture-pane -peJt {1} | tail -n${preview_size}" | awk '{ print $1 }'
