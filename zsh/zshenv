@@ -1,24 +1,7 @@
-#!/usr/bin/env zsh
+DOTFILE_DIR="$HOME/.dotfiles"
 
-function is_ansible {
-    echo "$SUDO_COMMAND" | grep -q 'BECOME-SUCCESS'
-}
-
-REALHOME="$HOME"
-if [[ -n "$SUDO_USER" && "$EUID" == 0 ]]; then
-    if ! is_ansible; then
-        export REALHOME="$(getent passwd "$SUDO_USER" | awk -F: '{ print $6 }')"
-    fi
-fi
-DOTFILE_DIR="$REALHOME/.dotfiles"
-ZSH="$DOTFILE_DIR/zsh/oh-my-zsh"
-ZSH_CUSTOM="$DOTFILE_DIR/zsh/custom"
-DISABLE_AUTO_UPDATE='true'
-
-VIM_DIR="$REALHOME/.vim"
-VIM_BUNDLE_DIR="$REALHOME/.vim/bundle"
+VIM_DIR="$HOME/.vim"
+VIM_BUNDLE_DIR="$HOME/.vim/bundle"
 VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
 
-export DOTFILE_DIR DISABLE_AUTO_UPDATE ZSH ZSH_CUSTOM VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR
-
-[[ -f "$REALHOME/.zshenv.local" ]] && source "$REALHOME/.zshenv.local"
+export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR

@@ -1,10 +1,6 @@
-#!/usr/bin/env zsh
-
-[[ -f "$REALHOME/.zshrc.local.pre" ]] && source "$REALHOME/.zshrc.local.pre"
-
-source $ZSH/oh-my-zsh.sh
-
-[[ -f "$REALHOME/.zshrc.local.post" ]] && source "$REALHOME/.zshrc.local.post"
+for f in "$DOTFILE_DIR"/zsh/config/rc/*.zsh; do
+    source "$f"
+done
 
 # Clear status code from anything else that may have executed previously
 return 0
