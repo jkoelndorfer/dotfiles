@@ -12,3 +12,8 @@ if [[ -d "$host_specific_env" ]]; then
         source "$f"
     done
 fi
+
+secret_env="$HOME/.zshenv.secret"
+if [[ -f "$secret_env" ]]; then
+    source "$secret_env"
+fi
