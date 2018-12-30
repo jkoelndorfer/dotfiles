@@ -28,7 +28,7 @@ set $kp8 80
 set $kp9 81
 set $kp0 90
 
-font pango:Source Code Pro 8
+font pango:mononoki Nerd Font Mono 8
 
 floating_modifier $mod
 
