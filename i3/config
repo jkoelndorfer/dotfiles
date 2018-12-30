@@ -34,14 +34,15 @@ floating_modifier $mod
 
 exec_always --no-startup-id xrdb -load $DOTFILE_DIR/x11/Xresources
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
-exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers
-exec_always --no-startup-id pgrep -u $USER syncthing || syncthing -no-browser
+exec_always --no-startup-id $DOTFILE_DIR/bin/i3/setbg
+exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers  # PRIMARYONLY
+exec_always --no-startup-id pgrep -u $USER syncthing || syncthing -no-browser  # PRIMARYONLY
 
 # Program launch keybinds
-bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass
+bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass  # PRIMARYONLY
 bindsym $prog_prefix+Return exec --no-startup-id urxvt -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
 bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
-bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xchart
+bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xchart  # PRIMARYONLY
 bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
 bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
 bindsym $ctrl+$alt+l exec --no-startup-id $DOTFILE_DIR/bin/lockscreen

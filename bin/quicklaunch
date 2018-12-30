@@ -8,7 +8,6 @@ quicklaunch_entries=(
     [spotify]='spotify'
     [terminal]='alacritty'
     [vlc]='vlc'
-    ['logout']='i3-msg exit'
     [reboot]='sudo systemctl reboot'
     [power off]='sudo systemctl poweroff'
 )
@@ -17,6 +16,18 @@ if [[ "$(hostname -s)" = 'deathwing' ]]; then
     quicklaunch_entries+=(
         [windows gaming]="sudo $HOME/src/local-tools/workstation/vfio/qemu-win10"
         [x11 gaming]="$HOME/src/local-tools/workstation/xorg-gaming/xorg-gaming-server"
+    )
+fi
+
+i3_exit_cmd='i3-msg exit'
+if [[ "$XORG_GAMING_SESSION" == '1' ]]; then
+    quicklaunch_entries=(
+        ['kill gaming session']="$i3_exit_cmd"
+        ['steam']='steam'
+    )
+else
+    quicklaunch_entries+=(
+        ['logout']="$i3_exit_cmd"
     )
 fi
 

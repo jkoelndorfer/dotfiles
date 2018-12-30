@@ -15,5 +15,4 @@ if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
 fi
 compton --config "$DOTFILE_DIR/compton/compton.conf" &
 dunst &
-"$DOTFILE_DIR/bin/i3/setbg"
 disown
