@@ -87,7 +87,7 @@ monitor = ${env:DISPLAYNAME_CENTER}
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = syncthing music pulseaudio wlan date
+modules-right = syncthing music pulseaudio wlan date utcdate
 
 [module/xwindow]
 type = internal/xwindow
@@ -186,15 +186,17 @@ ramp-signal-font = 2
 ramp-signal-foreground = ${colors.selected-foreground}
 
 [module/date]
-type = internal/date
+type = custom/script
 interval = 5
-
-date = %a %Y-%m-%d
-time = %H:%M
+exec = $DOTFILE_DIR/bin/i3/polydate
 
 format-underline = ${colors.blue}
 
-label = %{F#fdf6e3}%{T2}%{F-}%{T-} %date%  %{F#fdf6e3}%{T2}%{F-}%{T-} %time%
+[module/utcdate]
+type = custom/script
+interval = 5
+
+format-prefix = %{F#fdf6e3}%{T2} %{F-}%{T-}
 
 [module/pulseaudio]
 type = internal/pulseaudio
