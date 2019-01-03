@@ -24,7 +24,7 @@ function display_arts() {
 }
 
 if [[ "$(basename "$0")" == 'xchart' ]]; then
-    presentation_tool=(rofi -dmenu -p "copy to clipboard")
+    presentation_tool=("$DOTFILE_DIR/bin/rofi" -dmenu -p "copy to clipboard")
 else
     presentation_tool='fzf'
 fi
