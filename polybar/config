@@ -121,7 +121,6 @@ label-unfocused-padding = ${self.label-mode-padding}
 label-visible = %icon%
 label-visible-background = ${colors.selected-background}
 label-visible-foreground = ${colors.selected-foreground}
-label-visible-underline = ${colors.selected-foreground}
 label-visible-padding = ${self.label-mode-padding}
 
 ; urgent = Workspace with urgency hint set
