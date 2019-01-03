@@ -1,3 +1,4 @@
 #!/bin/bash
 
-maim -f 'png' "$@" | copy-to-clipboard -t 'image/png'
+script_dir=$(dirname "$0")
+maim -f 'png' "$@" | "$script_dir/copy-to-clipboard" -t 'image/png'
