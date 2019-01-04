@@ -10,11 +10,11 @@ function print_config_warnings() {
 }
 
 config_warnings=$({
-    if [[ -z "$ST_CENTRAL_DEVICE_ID" ]]; then
+    if [[ -z "$ST_CENTRAL_DEVICE_ID" && -z "$SSH_CONNECTION" ]]; then
         echo '* $ST_CENTRAL_DEVICE_ID is not configured; set it in ~/.zshenv.secret'
     fi
 
-    if [[ -z "$DISPLAYNAME_CENTER" ]]; then
+    if [[ -z "$DISPLAYNAME_CENTER" && -z "$SSH_CONNECTION" ]]; then
         echo '* $DISPLAYNAME_CENTER is not configured; set it in $DOTFILE_DIR/zsh/config/hostenv/$(hostname -s)/50-display.zsh'
     fi
 })
