@@ -12,21 +12,12 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 
-" Force set the branch symbol.
-"
-" For some reason the branch symbol is broken when I use Noto Mono.
+" Configure symbols so they're compatible with Nerd Fonts.
 let g:airline_symbols.branch = ''
-
-" The typical line number symbol, '☰', actually screws up text rendering
-" in some instances with Konsole and Noto Mono fonts. The whitespace symbol,
-" "☲", also suffers from this problem.
-"
-" Not sure why, just gonna nix them.
-let g:airline_symbols.linenr = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 let g:airline_symbols.whitespace = ''
-
-" Fix the line number glyph.
-let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = ' ln'
 
 " Remove the nontexists symbol.
 "
