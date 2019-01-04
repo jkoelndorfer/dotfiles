@@ -5,7 +5,11 @@ precmd_functions=(record_lastrc "${precmd_functions[@]}")
 VIMODE='insert'
 
 function cwd_indicator() {
-    echo -n '%F{blue}%1~%f'
+    echo -n '%F{blue} %1~%f'
+}
+
+function host_indicator() {
+    [[ -n "$SSH_CONNECTION" ]] && echo -n '%F{white}力 %m%f '
 }
 
 function rc_indicator() {
@@ -60,6 +64,6 @@ function accept-line() {
     builtin zle .accept-line
 }
 
-PS1='$(cwd_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
