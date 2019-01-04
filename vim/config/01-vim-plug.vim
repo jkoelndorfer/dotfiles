@@ -16,6 +16,8 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'junegunn/vim-easy-align'
     Plug 'SirVer/ultisnips'
     Plug 'chrisbra/vim-diff-enhanced'
+    Plug 'scrooloose/nerdtree'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " styling, syntax highlighting
     Plug 'vim-scripts/diffchar.vim'
