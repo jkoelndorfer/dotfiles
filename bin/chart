@@ -34,4 +34,4 @@ if [[ -z "$selected_art" ]]; then
     echo "$0: No art selected" >&2
     exit 1
 fi
-echo -n "${arts[$selected_art]}" | copy-to-clipboard
+echo -n "${arts[$selected_art]}" | "$DOTFILE_DIR/bin/copy-to-clipboard"
