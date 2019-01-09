@@ -2,7 +2,7 @@
 
 # Prints out the current time and date to polybar, including UTC time.
 
-date=$(date '+%Y-%m-%d')
+date=$(date '+%a %Y-%m-%d')
 local_time=$(date '+%H:%M')
 utc_time=$(date -u '+%H:%M')
 echo "%{F#fdf6e3}%{T2}%{F-}%{T-} $date  %{F#fdf6e3}%{T2}%{F-}%{T-} $local_time / $utc_time @ UTC"
