@@ -6,6 +6,14 @@ VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
 
 export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR
 
+# Configure a basic path if there is not one. Should be fine for most use cases.
+[[ -z "$PATH" ]] && PATH="/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/bin:/usr/local/sbin"
+for f in "$DOTFILE_DIR"/zsh/config/rc/*lib.zsh; do
+    source "$f"
+done
+pathmunge "$DOTFILE_DIR/bin"
+[[ -d "$HOME/bin" ]] && pathmunge "$HOME/bin"
+
 host_specific_env="$DOTFILE_DIR/zsh/config/hostenv/$(hostname -s)"
 if [[ -d "$host_specific_env" ]]; then
     for f in "$host_specific_env"/*.zsh; do
