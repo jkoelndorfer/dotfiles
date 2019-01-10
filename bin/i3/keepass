@@ -14,6 +14,15 @@ function keepass_focused() {
     [[ "$("$script_dir/focusedwin" | jq -r '.class')" == "$pwsafe_app" ]]
 }
 
+function dismiss_keepass() {
+    i3-msg "[class=$pwsafe_app]" move scratchpad
+}
+
+if keepass_focused; then
+    dismiss_keepass
+    exit 0
+fi
+
 if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
     "$pwsafe_app" >/dev/null 2>&1 & disown
     while ! keepass_focused; do
@@ -28,4 +37,4 @@ fi
 while keepass_focused; do
     sleep "$sleep_interval"
 done
-i3-msg "[class=$pwsafe_app]" move scratchpad
+dismiss_keepass
