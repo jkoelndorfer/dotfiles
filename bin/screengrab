@@ -2,3 +2,12 @@
 
 script_dir=$(dirname "$0")
 maim -f 'png' "$@" | "$script_dir/copy-to-clipboard" -t 'image/png'
+
+# If we're running in our gaming Xorg session, DISPLAY will be something other
+# than 0. In that case, copy the screenshot to the primary session's clipboard
+# too.
+#
+# FIXME: Can we make this less brittle?
+if [[ "$DISPLAY" != ':0' ]]; then
+    paste-from-clipboard | DISPLAY=':0' copy-to-clipboard -t 'image/png'
+fi
