@@ -1,0 +1,4 @@
+#!/bin/bash
+
+"$DOTFILE_DIR/hdmisw/hdmisw.py" "$HDMI_SWITCH_ACCELERATED_HDMI_INPUT"
+xrandr --output "$GAMING_MONITOR_DISPLAYNAME" --off

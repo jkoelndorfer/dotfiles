@@ -1,0 +1,14 @@
+#!/bin/bash
+
+"$DOTFILE_DIR/hdmisw/hdmisw.py" "$HDMI_SWITCH_PRIMARY_HDMI_INPUT"
+
+# We have to wait for the monitor to be rediscovered by the GPU before adjusting
+# the layout using xrandr.
+sleep 3
+xrandr --output "$GAMING_MONITOR_DISPLAYNAME" --auto \
+    --"$GAMING_MONITOR_RELATIVE_POSITION" "$GAMING_MONITOR_RELATIVE_DISPLAYNAME"
+
+# Polybar doesn't always do a great job figuring out what's going on when displays
+# change.
+sleep 1
+"$DOTFILE_DIR/i3/i3helpers"
