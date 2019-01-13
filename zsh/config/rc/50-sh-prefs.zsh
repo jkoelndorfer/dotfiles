@@ -12,5 +12,6 @@ export HISTFILE="$HOME/.zhistory"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
 
+set -o vi
 c_default_search_directories=("${c_default_search_directories[@]}" "$HOME/projects" "$HOME/src")
 c_addl_directories=("$DOTFILE_DIR")
