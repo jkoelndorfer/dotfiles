@@ -4,6 +4,7 @@ declare -A quicklaunch_entries
 quicklaunch_entries=(
     [discord]='discord'
     [firefox]='firefox'
+    [pavucontrol]='pavucontrol'
     [slack]='slack'
     [spotify]='spotify'
     [terminal]='alacritty'
