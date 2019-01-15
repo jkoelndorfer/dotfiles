@@ -4,6 +4,11 @@ VIM_DIR="$HOME/.vim"
 VIM_BUNDLE_DIR="$HOME/.vim/bundle"
 VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
 
+wallpaper_file="$HOME/sync/wallpapers/$("$DOTFILE_DIR/bin/x11/scrres")/rootaccess.png"
+if [[ -f "$wallpaper_file" ]]; then
+    export WALLPAPER="$wallpaper_file"
+fi
+
 export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR
 
 # Configure a basic path if there is not one. Should be fine for most use cases.
