@@ -6,6 +6,9 @@ function tmux-flexattach() {
         tmux_cmd=(tmux attach-session -t)
     fi
     [[ -n "$session" ]] || return 1
+    if ! tmux has-session -t "$session"; then
+        return 1
+    fi
     "${tmux_cmd[@]}" "$session"
 }
 
