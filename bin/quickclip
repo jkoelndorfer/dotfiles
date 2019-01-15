@@ -1,0 +1,35 @@
+#!/bin/bash
+
+declare -A clips
+clips=(
+    [lenny face]='( ͡° ͜ʖ ͡° )'
+    [shrug]='¯\\_(ツ)_/¯'
+    [puts on sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
+    [flipping tables]='(╯°□°）╯︵ ┻━┻)'
+    [jackie chan face]='https://i.imgur.com/paqtWcJ.jpg'
+    [resetting table]='┬─┬ノ( º _ ºノ)'
+    [look of disapproval]='(ಠ_ಠ)'
+    [myth busted]='/:€'
+    [why]='щ（ﾟДﾟщ）'
+)
+
+function display_clips() {
+    for k in "${!clips[@]}"; do
+        v="${clips[$k]}"
+        clip_display_val="$(echo -e "$v" | tr "\n" " ")"
+        echo -e "${k}\t${clip_display_val}"
+    done | sort | column -s "$(echo -e '\t')" --output-separator '   ' -t
+}
+
+if [[ "$(basename "$0")" =~ ^x ]]; then
+    presentation_tool=("$DOTFILE_DIR/bin/rofi" -dmenu -p "copy to clipboard")
+else
+    presentation_tool='fzf'
+fi
+
+selected_clip=$(display_clips | "${presentation_tool[@]}" | awk -F '   ' '{ print $1 }')
+if [[ -z "$selected_clip" ]]; then
+    echo "$0: No clip selected" >&2
+    exit 1
+fi
+echo -ne "${clips["$selected_clip"]}" | "$DOTFILE_DIR/bin/copy-to-clipboard"
