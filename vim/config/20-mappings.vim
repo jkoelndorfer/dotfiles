@@ -16,7 +16,7 @@ nmap <Leader>h V"zy"zpVr-Vr
 " Shamelessly stolen from https://kinbiko.com/vim/my-shiniest-vim-gems/
 "
 " Makes moving to a specific character really easy!
-nmap F <Plug>(easymotion-prefix)s
+map F <Plug>(easymotion-prefix)s
 
 " Open the quickfix list
 " tag: error fix lint warning
