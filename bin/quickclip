@@ -1,28 +1,65 @@
 #!/bin/bash
 
 declare -A clips
+
+if [[ "$(basename "$0")" =~ 'imgquickclip' ]]; then
+    clip_mode='image'
+    selector_prompt='copy image to clipboard'
+    copied_prefix='[IMAGE] '
+else
+    clip_mode='text'
+    selector_prompt='copy to clipboard'
+    copied_prefix=''
+fi
+
 clips=(
-    [lenny face]='( ͡° ͜ʖ ͡° )'
-    [shrug]='¯\\_(ツ)_/¯'
-    [puts on sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
+    [ancient aliens / it was aliens]='https://i.imgur.com/KUbw0mz.png'
+    [doge]='https://i.imgur.com/HeGEEbu.jpg'
+    [FeelsBadMan]='https://i.imgur.com/aSVjtu7.png'
     [flipping tables]='(╯°□°）╯︵ ┻━┻)'
     [jackie chan face]='https://i.imgur.com/paqtWcJ.jpg'
-    [resetting table]='┬─┬ノ( º _ ºノ)'
+    [lenny face]='( ͡° ͜ʖ ͡° )'
     [look of disapproval]='(ಠ_ಠ)'
+    [picard facepalm]='https://i.imgur.com/iWKad22.jpg'
+    [press F to pay respects]='https://i.imgur.com/9aJeWxK.jpg'
+    [mind blown]='https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif'
     [myth busted]='/:€'
+    [puts on sunglasses]="(•_•)\n( •_•)>⌐■-■\n(⌐■_■)"
+    [quantum leap mirror]='https://media.giphy.com/media/qXHhyQpchxRXq/giphy.gif'
+    [resetting table]='┬─┬ノ( º _ ºノ)'
+    [success kid]='https://i.imgur.com/DZNXULe.png'
+    [shrug]='¯\\_(ツ)_/¯'
+    [surely OP will deliver]='http://www.quickmeme.com/img/71/714ccc2833022b259724b5ecbef9c1f1ec2e61b185e10edbd2bea50951fc57bb.jpg'
+    [surprised pikachu]='https://i.imgur.com/Zq0iBJK.jpg'
+    [top hat / monocle]="┌─┐\n┴─┴\n ಠ_ರೃ"
     [why]='щ（ﾟДﾟщ）'
 )
+
+function copy_clip() {
+    local content="$1"
+    if [[ "$clip_mode" == 'text' ]]; then
+        echo -ne "$content" | "$DOTFILE_DIR/bin/copy-to-clipboard"
+    elif [[ "$clip_mode" == 'image' ]]; then
+        curl -s -L "$content" | "$DOTFILE_DIR/bin/copy-to-clipboard" -t 'image/png'
+    else
+        echo 'Unrecognized copy mode; this is a bug!' >&2
+        exit 1
+    fi
+}
 
 function display_clips() {
     for k in "${!clips[@]}"; do
         v="${clips[$k]}"
+        if [[ "$clip_mode" == 'image' && ( ! "$v" =~ https?:// || "$v" =~ (gif|giphy) ) ]]; then
+            continue
+        fi
         clip_display_val="$(echo -e "$v" | tr "\n" " ")"
         echo -e "${k}\t${clip_display_val}"
     done | sort | column -s "$(echo -e '\t')" --output-separator '   ' -t
 }
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    presentation_tool=("$DOTFILE_DIR/bin/rofi" -dmenu -p "copy to clipboard")
+    presentation_tool=("$DOTFILE_DIR/bin/rofi" -dmenu -p "$selector_prompt")
 else
     presentation_tool='fzf'
 fi
@@ -32,4 +69,7 @@ if [[ -z "$selected_clip" ]]; then
     echo "$0: No clip selected" >&2
     exit 1
 fi
-echo -ne "${clips["$selected_clip"]}" | "$DOTFILE_DIR/bin/copy-to-clipboard"
+copy_clip "${clips["$selected_clip"]}"
+if [[ -n "$DISPLAY" ]]; then
+    notify-send -u normal -t 3000 'Copied to clipboard' "${copied_prefix}${clips["$selected_clip"]}"
+fi
