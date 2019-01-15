@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 source "$DOTFILE_DIR/colors/solarized-dark"
 declare -a wallpaper_args
