@@ -2,6 +2,7 @@
 avoidant
 bytecode
 entrypoint
+Hashicorp
 iOS
 lifecycle
 OSI
@@ -10,7 +11,9 @@ pytest
 Roseville
 smartphones
 teardown
+Terraform
 timestamp
 TODO
 tweakable
+versioned
 workflow
