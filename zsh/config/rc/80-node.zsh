@@ -1,6 +1,10 @@
 function source_nvm() {
     if [[ -f 'package.json' ]]; then
-        source "$HOME/.nvm/nvm.sh"
+        if [[ -f "$HOME/.nvm/nvm.sh" ]]; then
+            source "$HOME/.nvm/nvm.sh"
+        else
+            echo "WARN: $HOME/.nvm/nvm.sh does not exist; can't use nvm" >&2
+        fi
     fi
 }
 
