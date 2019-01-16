@@ -14,5 +14,6 @@ if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
     polybar --config="$DOTFILE_DIR/polybar/config" right &
 fi
 compton --config "$DOTFILE_DIR/compton/compton.conf" &
-dunst &
+"$DOTFILE_DIR/dunst/gen-dunst-icons.sh"
+dunst -icon_path "$HOME/.cache/dunsticons" &
 disown
