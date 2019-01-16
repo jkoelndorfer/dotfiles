@@ -96,13 +96,13 @@
 [urgency_low]
     background = "#073642"
     foreground = "#93a1a1"
-    timeout = 10
+    timeout = 5
     #icon = /path/to/icon
 
 [urgency_normal]
     background = "#073642"
     foreground = "#93a1a1"
-    timeout = 10
+    timeout = 5
     #icon = /path/to/icon
 
 [urgency_critical]
@@ -111,6 +111,9 @@
     frame_color = "#dc322f"
     timeout = 0
     #icon = /path/to/icon
+
+[slack]
+    format =
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
