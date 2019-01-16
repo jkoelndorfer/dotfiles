@@ -72,6 +72,9 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " terraform
     Plug 'hashivim/vim-terraform'
 
+    " typescript
+    Plug 'leafgarland/typescript-vim'
+
     " yaml
     " vim's builtin yaml syntax highlighting has a bug dealing with quotes
     Plug 'stephpy/vim-yaml'
