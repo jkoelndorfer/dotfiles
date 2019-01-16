@@ -7,6 +7,7 @@ VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
 wallpaper_file="$HOME/sync/wallpapers/$("$DOTFILE_DIR/bin/x11/scrres")/rootaccess.png"
 if [[ -f "$wallpaper_file" ]]; then
     export WALLPAPER="$wallpaper_file"
+    export WALLPAPER_BLURRED="$HOME/.cache/wallpaper/$(basename "$WALLPAPER" .png).png"
 fi
 
 export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR

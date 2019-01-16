@@ -2,12 +2,11 @@
 
 source "$DOTFILE_DIR/colors/solarized-dark"
 declare -a wallpaper_args
-if [[ -n "$WALLPAPER" ]]; then
-    wallpaper_args=('-i' "$WALLPAPER")
+if [[ -n "$WALLPAPER_BLURRED" ]]; then
+    wallpaper_args=('-i' "$WALLPAPER_BLURRED")
 else
     wallpaper_args=()
 fi
-
 # Sending SIGUSR1 to dunst will prevent it from displaying notifications.
 # SIGUSR2 resumes notifications again.
 #
