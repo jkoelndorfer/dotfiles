@@ -7,4 +7,11 @@ if [[ -n "$WALLPAPER" ]]; then
 else
     wallpaper_args=()
 fi
-exec i3lock "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
+
+# Sending SIGUSR1 to dunst will prevent it from displaying notifications.
+# SIGUSR2 resumes notifications again.
+#
+# Suspending notifications is handy when the screen is locked!
+pkill -SIGUSR1 dunst
+i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
+pkill -SIGUSR2 dunst
