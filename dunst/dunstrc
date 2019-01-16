@@ -47,8 +47,8 @@
     format = "<b>%s</b>\n%b"
     alignment = left
     show_age_threshold = 60
-    word_wrap = yes
-    ellipsize = middle
+    word_wrap = no
+    ellipsize = end
     ignore_newline = no
     stack_duplicates = true
     hide_duplicate_count = false
