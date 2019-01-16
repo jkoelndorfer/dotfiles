@@ -33,7 +33,7 @@ clips=(
     [surely OP will deliver]='http://www.quickmeme.com/img/71/714ccc2833022b259724b5ecbef9c1f1ec2e61b185e10edbd2bea50951fc57bb.jpg'
     [surprised pikachu]='https://i.imgur.com/Zq0iBJK.jpg'
     [top hat / monocle]="┌─┐\n┴─┴\n ಠ_ರೃ"
-    [why]='щ（ﾟДﾟщ）'
+    [why]='ლ(ಠ_ಠ ლ)'
 )
 
 function copy_clip() {
