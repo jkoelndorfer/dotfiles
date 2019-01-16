@@ -5,7 +5,7 @@ source "$DOTFILE_DIR/colors/solarized-dark"
 function generate_icon() {
     local character="$1"
     local icon_path="$2"
-    convert -size 28x32 \
+    convert -size 32x32 \
         -background "$SOLARIZED_BASE02" \
         -fill "$SOLARIZED_BASE3" \
         -pointsize 28 \
