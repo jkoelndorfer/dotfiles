@@ -7,5 +7,11 @@ i3-msg -t get_tree |
     jq -r '
         recurse(.nodes[], .floating_nodes[].nodes[]) |
         select(.focused == true) |
-        { "title": .window_properties.title, "class": .window_properties.class }
+        {
+            "id": .id,
+            "title": .window_properties.title,
+            "class": .window_properties.class,
+            "window": .window,
+            "window_rect": .window_rect
+        }
     '
