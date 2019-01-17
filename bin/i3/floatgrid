@@ -10,7 +10,38 @@ cell_position_y="$1"
 # left, middle/center, or right
 cell_position_x="$2"
 
+window_width="$3"
+window_height="$4"
+
+script_dir=$(dirname "$0")
 margin_size=5
+
+function x_pos() {
+    local cell_pos="$1"
+    local width="$2"
+
+    if [[ "$cell_pos" == 'left' ]]; then
+        echo "$(( $active_workspace_x + $margin_size ))"
+    elif [[ "$cell_pos" == 'middle' || "$cell_pos" == 'center' ]]; then
+        echo "$(( ($active_workspace_x  + $active_workspace_width / 2) - ($width / 2) ))"
+    elif [[ "$cell_pos" == 'right' ]]; then
+        echo "$(( $active_workspace_x + $active_workspace_width - $width - $margin_size ))"
+    fi
+}
+
+function y_pos() {
+    local cell_pos="$1"
+    local height="$2"
+
+    if [[ "$cell_pos" == 'top' ]]; then
+        echo "$(( $active_workspace_y + $margin_size ))"
+    elif [[ "$cell_pos" == 'middle' || "$cell_pos" == 'center' ]]; then
+        echo "$(( ($active_workspace_y  + $active_workspace_height / 2) - ($height / 2) ))"
+    elif [[ "$cell_pos" == 'bottom' ]]; then
+        echo "$(( $active_workspace_y + $active_workspace_height - $height - $margin_size ))"
+    fi
+}
+
 active_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true)')"
 
 active_workspace_x="$(echo "$active_workspace" | jq -r '.rect.x')"
@@ -18,34 +49,15 @@ active_workspace_y="$(echo "$active_workspace" | jq -r '.rect.y')"
 active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
 active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
 
-usable_width="$((active_workspace_width - (margin_size * 4)))"
-usable_height="$((active_workspace_height - (margin_size * 4)))"
+fwin=$("$script_dir/focusedwin")
+[[ -z "$window_width" ]] && window_width="$(echo "$fwin" | jq -r '.window_rect.width')"
+[[ -z "$window_height" ]] && window_height="$(echo "$fwin" | jq -r '.window_rect.height')"
+window_id="$(echo "$fwin" | jq -r '.id')"
 
-window_width="$((usable_width / 3))"
-window_height="$((usable_height / 3))"
+win_x=$(x_pos "$cell_position_x" "$window_width")
+win_y=$(y_pos "$cell_position_y" "$window_height")
 
-
-# For a given position descriptor, how many windows are there
-# between the window at this position and x/y = 0?
-#
-# For example, a left window has 0 windows between it and x = 0,
-# since x = 0 is the left side of the screen. A bottom window has
-# 2 windows between it and y = 0, since y = 0 is at the top of
-# the screen.
-#
-# Margins will be be this value plus one, since we have a margin
-# between the screen edge and the leftmost or topmost window.
-declare -A num_windows=(
-    ['left']=0
-    ['middle']=1
-    ['right']=2
-
-    ['top']=0
-    ['center']=1
-    ['bottom']=2
-)
-
-x_pos="$(( active_workspace_x + (${num_windows[$cell_position_x]} * window_width) +  ((${num_windows[$cell_position_x]} + 1) * margin_size) ))"
-y_pos="$(( active_workspace_y + (${num_windows[$cell_position_y]} * window_height) + ((${num_windows[$cell_position_y]} + 1) * margin_size) ))"
-
-i3-msg floating enable\; fullscreen disable\; move position "$x_pos" "$y_pos" \; resize set width "$window_width" height "$window_height"
+# FIXME: Some applications enforce a minimum size for their windows.
+# This positioning logic does _not_ work for windows that do not resize exactly as they are told.
+i3-msg "[con_id=\"$window_id\"]" resize set width "$window_width" height "$window_height"
+i3-msg floating enable \; fullscreen disable \; move position "$win_x" "$win_y" \; "[con_id=\"$window_id\"]" focus
