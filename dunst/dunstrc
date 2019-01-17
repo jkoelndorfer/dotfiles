@@ -1,6 +1,7 @@
 [global]
-    # Display notifications on monitor with mouse pointer.
-    follow = mouse
+    # Display notifications only on the primary screen.
+    follow = none
+    monitor = 0
 
     # The geometry of the window:
     #   [{width}]x{height}[+/-{x}+/-{y}]
