@@ -64,6 +64,39 @@ function accept-line() {
     builtin zle .accept-line
 }
 
-PS1='$(host_indicator)$(cwd_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
+function in_git_repo() {
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+function git_indicator() {
+    if in_git_repo; then
+        echo -n " %F{green} $(git_branch)%f"
+        local unpublished=$(git_unpushed_commits_indicator)
+        if [[ -n "$unpublished" ]]; then
+            echo -n " $unpublished"
+        fi
+    fi
+}
+
+function git_unpushed_commits_indicator() {
+    local num=$(git rev-list @{u}..HEAD | wc -l 2>/dev/null)
+    if [[ "$num" -gt 0 ]]; then
+        echo "%F{yellow}$num%f"
+    fi
+}
+
+function git_branch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+function git_upstream() {
+    git rev-parse --abbrev-ref --symbolic-full-name @{u}
+}
+
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
