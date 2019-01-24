@@ -13,8 +13,9 @@ function selectdir() {
         maxdepth_arg=()
     fi
     local selected_dir="$(
-        (find $search_path -type d -mindepth 0 ${maxdepth_arg[@]} 2>/dev/null; echo "${addl_search_paths[@]}") |
-            grep -Ev '/.git(/|$)' | sort -u |
+        (find $search_path -mindepth 0 ${maxdepth_arg[@]} -type d 2>/dev/null;
+            [[ -n "${addl_search_paths[@]}" ]] && echo "${addl_search_paths[@]}") |
+            grep -Ev '/.git(/|$)|^\.$' | sort -u |
             fzf --preview 'tree -C -L 1 {}' --ansi
     )"
     [[ -n "$selected_dir" ]] && echo "$selected_dir"
