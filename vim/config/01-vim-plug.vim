@@ -39,6 +39,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'majutsushi/tagbar'
     Plug 'tomtom/tcomment_vim'
     Plug 'scrooloose/nerdcommenter'
+    Plug 'PeterRincker/vim-argumentative'
 
     " completion
     Plug 'ncm2/ncm2'
