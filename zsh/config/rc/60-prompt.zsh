@@ -83,7 +83,7 @@ function git_indicator() {
 }
 
 function git_unpushed_commits_indicator() {
-    local num=$(git rev-list @{u}..HEAD | wc -l 2>/dev/null)
+    local num=$(git rev-list @{u}..HEAD 2>/dev/null | wc -l)
     if [[ "$num" -gt 0 ]]; then
         echo "%F{yellow}$num%f"
     fi
@@ -94,7 +94,7 @@ function git_branch() {
 }
 
 function git_upstream() {
-    git rev-parse --abbrev-ref --symbolic-full-name @{u}
+    git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
 PS1='$(host_indicator)$(cwd_indicator)$(git_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
