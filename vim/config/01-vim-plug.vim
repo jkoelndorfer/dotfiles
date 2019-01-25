@@ -58,6 +58,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " python
     Plug 'ncm2/ncm2-jedi'
+    Plug 'davidhalter/jedi-vim'
     Plug 'klen/python-mode'
 
     " go
