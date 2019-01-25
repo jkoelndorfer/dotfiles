@@ -2,6 +2,9 @@ let g:solarized_bold=0
 let g:solarized_italic=0
 let g:solarized_visibility='med'
 
+" Highlight groups that link to Normal can cause weird backgrounds with the
+" line highlighting (pymode specifically).
+autocmd syntax * hi clear Normal
 if !(expand('$TERM') == 'linux')
     silent! colorscheme solarized
     " Make visual-mode highlighting match tmux (and stand out more)
