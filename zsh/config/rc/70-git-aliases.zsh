@@ -5,6 +5,9 @@ function ga() {
     )
     old_ifs="$IFS"
     IFS=$'\n'
+    if [[ -z "${=selected_files}" ]]; then
+        return 1
+    fi
     git add $@ ${=selected_files}
     IFS="$old_ifs"
 }
