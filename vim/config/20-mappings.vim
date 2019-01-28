@@ -1,6 +1,9 @@
 nmap <F8> :NERDTreeTabsToggle<CR>
 nmap <F9> :TagbarToggle<CR>
 
+" Close buffers without losing the split
+nmap bd :bp \| bd #<CR>
+
 " Slimux configuration
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
