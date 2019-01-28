@@ -25,8 +25,9 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 
-" deoplete-jedi handles this
+" ncm2 handles this
 let g:jedi#completions_enabled = 0
+let g:jedi#show_call_signatures = 0
 
 let g:deoplete#sources#jedi#extra_path = ["."]
 
@@ -40,8 +41,6 @@ let g:pymode_lint = 0
 let g:pymode_rope = 0
 let g:pymode_syntax = 1
 let g:pymode_options_max_line_length = 120
-
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 function! SlimuxPre_python(target_pane)
     " This assumes ipython running with vi-keybinds.
