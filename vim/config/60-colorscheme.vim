@@ -1,6 +1,6 @@
 let g:solarized_bold=0
 let g:solarized_italic=0
-let g:solarized_visibility='med'
+let g:solarized_visibility='normal'
 
 " Highlight groups that link to Normal can cause weird backgrounds with the
 " line highlighting (pymode specifically).
