@@ -43,7 +43,7 @@ let g:pymode_options_max_line_length = 120
 
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
-function SlimuxPre_python(target_pane)
+function! SlimuxPre_python(target_pane)
     " This assumes ipython running with vi-keybinds.
     call system("tmux send-keys -t " . a:target_pane . " C-c")
     call system("tmux send-keys -t " . a:target_pane . " Escape")
@@ -51,6 +51,6 @@ function SlimuxPre_python(target_pane)
     call system("tmux send-keys -t " . a:target_pane . " '%cpaste\n'")
 endfunction
 
-function SlimuxPost_python(target_pane)
+function! SlimuxPost_python(target_pane)
     call system("tmux send-keys -t " . a:target_pane . " '\n--\n'")
 endfunction

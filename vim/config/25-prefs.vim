@@ -16,7 +16,7 @@ nnoremap k gk
 
 " Line number configuration -- this uses the configuration described at
 " https://jeffkreeftmeijer.com/vim-number/ with some enhancements.
-function Toggle_relativenumber_on()
+function! Toggle_relativenumber_on()
     if &number
         set relativenumber
     end
@@ -97,7 +97,7 @@ set undoreload=10000
 
 " Trim all trailing whitespace before saving by default.
 let g:trim_trailing_whitespace = 1
-function TrimTrailingWhitespace()
+function! TrimTrailingWhitespace()
     " Sometimes I work on projects that have lots of pre-existing trailing
     " whitespace and don't want those changes getting mixed in with my commits.
     if g:trim_trailing_whitespace == 1
