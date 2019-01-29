@@ -41,6 +41,7 @@ exec_always --no-startup-id pgrep -u $USER syncthing || syncthing -no-browser  #
 # Program launch keybinds
 bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass  # PRIMARYONLY
 bindsym $prog_prefix+Return exec --no-startup-id urxvt -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
+bindsym $prog_prefix+$ctrl+Return exec --no-startup-id urxvt
 bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
 bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xquickclip  # PRIMARYONLY
 bindsym $prog_prefix+i exec $DOTFILE_DIR/bin/ximgquickclip  # PRIMARYONLY
