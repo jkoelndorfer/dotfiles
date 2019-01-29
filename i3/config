@@ -197,17 +197,18 @@ set_from_resource $blue    i3wm.color4  #0000ff
 set_from_resource $cyan    i3wm.color6  #0000ff
 set_from_resource $green   i3wm.color2  #00ff00
 
-client.focused          $base03 $base01 $base3 $base01 $base01
-client.focused_inactive $base03 $base02 $base0 $base02 $base02
-client.unfocused        $base03 $base02 $base0 $base02 $base02
-client.urgent           $base03 $red    $base3 $base03 $red
+# <colorclass>          <border>  <background> <text>   <indicator>  <child_border>
+client.focused          $base1    $base01      $base3   $base01      $base1
+client.focused_inactive $base02   $base02      $base0   $base02      $base02
+client.unfocused        $base02   $base02      $base0   $base02      $base02
+client.urgent           $base02   $red         $base3   $base03      $red
 
-default_border pixel 0
-default_floating_border pixel 0
+default_border pixel 2
+default_floating_border pixel 2
 
 # i3-gaps configuration
 gaps outer 2
-gaps inner 5
+gaps inner 7
 
 # Make Steam windows behave better.
 # See:
