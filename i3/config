@@ -197,8 +197,11 @@ set_from_resource $blue    i3wm.color4  #0000ff
 set_from_resource $cyan    i3wm.color6  #0000ff
 set_from_resource $green   i3wm.color2  #00ff00
 
+# To make a solid, single color border, make sure border, background, indicator, and
+# child_border all have the same value.
+#
 # <colorclass>          <border>  <background> <text>   <indicator>  <child_border>
-client.focused          $base1    $base01      $base3   $base01      $base1
+client.focused          $base1    $base1       $base3   $base1       $base1
 client.focused_inactive $base02   $base02      $base0   $base02      $base02
 client.unfocused        $base02   $base02      $base0   $base02      $base02
 client.urgent           $base02   $red         $base3   $base03      $red
