@@ -24,14 +24,14 @@
     selected-foreground: @base3;
 
     background-color:    @background;
-    border-color:        @base01;
+    border-color:        @base1;
 
     font: "mononoki Nerd Font Mono 12";
 }
 #window {
     background-color: @background;
-    border:           3;
-    padding:          5;
+    border:           2px;
+    padding:          3px;
 }
 #mainbox {
     border:  0;
@@ -47,7 +47,6 @@
 }
 #listview {
     fixed-height: 0;
-    border:       2px dash 0px 0px ;
     border-color: @separatorcolor;
     spacing:      2px ;
     scrollbar:    true;
@@ -58,7 +57,7 @@
     padding: 1px ;
 }
 #element.normal {
-    background-color: @background;
+    background-color: @background-alt;
     text-color:       @foreground;
 }
 #element.selected {
@@ -66,13 +65,13 @@
     text-color:       @selected-foreground;
 }
 #element.alternate {
-    background-color: @background-alt;
+    background-color: @background;
     text-color:       @foreground;
 }
 #scrollbar {
-    width:        4px ;
+    width:        0px ;
     border:       0;
-    handle-width: 8px ;
+    handle-width: 0px ;
     padding:      0;
 }
 #sidebar {
@@ -101,7 +100,7 @@
     text-color: @foreground;
 }
 #inputbar {
-    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+    children:   [ prompt,textbox-prompt-colon,entry ];
 }
 #textbox-prompt-colon {
     expand:     false;
