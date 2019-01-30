@@ -14,7 +14,9 @@ window_width="$3"
 window_height="$4"
 
 script_dir=$(dirname "$0")
-margin_size=5
+gaps_outer=$(grep 'gaps outer' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
+gaps_inner=$(grep 'gaps inner' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
+margin_size=$((gaps_outer + gaps_inner))
 
 function x_pos() {
     local cell_pos="$1"
