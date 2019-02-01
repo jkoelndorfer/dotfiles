@@ -9,7 +9,11 @@ workspaces="$("$DOTFILE_DIR/bin/i3/workspaces")"
 selected_workspace="$(
     echo "$workspaces" |
     "$DOTFILE_DIR/bin/rofi" -no-show-match -dmenu -p "$prompt" |
-    awk '{ print $NF }' |
+    # If the workspace selected starts with a character and a space,
+    # it's one of the built-in workspaces or already exists. We need
+    # to strip the leading icon off before passing the workspace to awk.
+    sed -r -e 's/^. //' |
+    awk -F "$(echo -e "\t")" '{ print $NF }' |
     sed -r -e 's/\s+/-/g'
 )"
 
