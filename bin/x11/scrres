@@ -1,3 +1,11 @@
 #!/bin/bash
 
+if [[ -z "$DISPLAY" ]]; then
+    echo "$0: DISPLAY not set; exiting" >&2
+    exit 1
+fi
+if [[ -n "$SSH_CONNECTION" ]]; then
+    echo "$0: SSH_CONNECTION is set; exiting" >&2
+    exit 2
+fi
 xrandr -q | grep -Eo 'current [0-9]+ x [0-9]+' | head -n1 | awk '{ print $2"x"$4 }'
