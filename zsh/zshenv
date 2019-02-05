@@ -4,8 +4,11 @@ VIM_DIR="$HOME/.vim"
 VIM_BUNDLE_DIR="$HOME/.vim/bundle"
 VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
 
-wallpaper_file="$HOME/sync/wallpapers/$("$DOTFILE_DIR/bin/x11/scrres")/rootaccess.png"
-if [[ -f "$wallpaper_file" ]]; then
+x11_resolution=$("$DOTFILE_DIR/bin/x11/scrres" 2>/dev/null)
+if [[ -n "$x11_resolution" ]]; then
+    wallpaper_file="$HOME/sync/wallpapers/$x11_resolution/rootaccess.png"
+fi
+if [[ -n "$wallpaper_file" && -f "$wallpaper_file" ]]; then
     export WALLPAPER="$wallpaper_file"
     export WALLPAPER_BLURRED="$HOME/.cache/wallpaper/$(basename "$WALLPAPER" .png).png"
 fi
