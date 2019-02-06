@@ -37,6 +37,13 @@ function tn() {
     fi
 }
 
+# Reloads the environment from tmux. Useful for updating shell prompt
+# when working in a remote session or updating ssh-agent environment
+# variables, for example.
+function tenv() {
+    eval "$(tmux show-environment -s)"
+}
+
 
 # This function implements a nifty shortcut for a common workflow pattern of mine.
 #
