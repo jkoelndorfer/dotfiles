@@ -1,7 +1,8 @@
 function! TabComplete(menukey, whitespacekey)
+    let l:curcol = getcurpos()[2]
     if pumvisible()
         return a:menukey
-    elseif getline('.') =~ '^\s*$'
+    elseif getline('.')[:(l:curcol - 2)] =~ '^\s*$'
         return a:whitespacekey
     else
         return "\<Plug>(ncm2_manual_trigger)"
