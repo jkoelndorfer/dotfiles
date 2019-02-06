@@ -9,7 +9,8 @@ function! TabComplete(menukey, whitespacekey)
     endif
 endfunction
 
+" Require tab to be pressed for code completion.
+let g:ncm2#auto_popup = 0
 autocmd BufEnter * call ncm2#enable_for_buffer()
-au TextChangedI * call ncm2#auto_trigger()
 imap <expr> <Tab>   TabComplete("\<C-n>", "\<Tab>")
 imap <expr> <S-Tab> TabComplete("\<C-p>", "\<S-Tab>")
