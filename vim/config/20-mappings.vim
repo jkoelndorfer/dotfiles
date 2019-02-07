@@ -4,6 +4,10 @@ nmap <F9> :TagbarToggle<CR>
 " Close buffers without losing the split
 nmap <Leader>bd :bp \| bd #<CR>
 
+" Maintain visual mode selection when adjusting indentation
+vnoremap < <gv
+vnoremap > >gv
+
 " Slimux configuration
 map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader>s :SlimuxREPLSendSelection<CR>
