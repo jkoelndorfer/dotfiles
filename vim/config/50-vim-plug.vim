@@ -5,7 +5,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'gregsexton/gitv'
 
     " motion, productivity
-    Plug 'francoiscabrol/ranger.vim'
     Plug 'dhruvasagar/vim-table-mode'
     Plug 'tpope/vim-eunuch'
     Plug 'easymotion/vim-easymotion'
@@ -20,7 +19,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " styling, syntax highlighting
-    Plug 'vim-scripts/diffchar.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'nathanaelkane/vim-indent-guides'
@@ -37,7 +35,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " programming-specific productivity
     Plug 'neomake/neomake'
     Plug 'majutsushi/tagbar'
-    Plug 'tomtom/tcomment_vim'
     Plug 'scrooloose/nerdcommenter'
     Plug 'PeterRincker/vim-argumentative'
 
