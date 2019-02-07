@@ -1,6 +1,3 @@
-nmap <F8> :NERDTreeTabsToggle<CR>
-nmap <F9> :TagbarToggle<CR>
-
 " Close buffers without losing the split
 nmap <Leader>bd :bp \| bd #<CR>
 
@@ -8,10 +5,6 @@ nmap <Leader>bd :bp \| bd #<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" Slimux configuration
-map <Leader>s :SlimuxREPLSendLine<CR>
-vmap <Leader>s :SlimuxREPLSendSelection<CR>
-nmap <Leader>l :SlimuxREPLSendBuffer<CR>
 nmap <Leader>p :set paste!<CR>
 nmap <Leader>P :r! paste-from-clipboard<CR>
 
