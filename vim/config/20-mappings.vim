@@ -16,11 +16,6 @@ nmap <Leader>P :r! paste-from-clipboard<CR>
 " character you want the underline to be composed of.
 nmap <Leader>h V"zy"zpVr-Vr
 
-" Shamelessly stolen from https://kinbiko.com/vim/my-shiniest-vim-gems/
-"
-" Makes moving to a specific character really easy!
-map F <Plug>(easymotion-prefix)s
-
 " Open the quickfix list
 " tag: error fix lint warning
 nmap <Leader>e :lopen<CR>
