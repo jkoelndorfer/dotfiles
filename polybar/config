@@ -150,7 +150,7 @@ ws-icon-default = %{T3}%{T-}
 [module/music]
 type = custom/script
 exec = playerctl -p spotify metadata --format "{{ artist }} - {{ title }}"
-exec-if = [[ "$(playerctl -p spotify status 2>&1)" != 'No players found' ]]
+exec-if = playerctl -p spotify status 2>&1 | grep -v -e 'No players found' -e 'Could not connect to players'
 interval = 5
 format-prefix = " "
 format-prefix-foreground = ${colors.base3}
