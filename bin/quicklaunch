@@ -7,7 +7,6 @@ quicklaunch_entries=(
     [pavucontrol]='pavucontrol'
     [slack]='slack'
     [spotify]='spotify'
-    [terminal]='alacritty'
     [vlc]='vlc'
     [reboot]='sudo systemctl reboot'
     [power off]='sudo systemctl poweroff'
