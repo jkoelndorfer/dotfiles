@@ -37,6 +37,9 @@ class ColorScheme:
 
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 
+c.fonts.tabs = "10pt mononoki Nerd Font Mono"
+c.fonts.monospace = "mononoki Nerd Font Mono"
+
 ## Background color of the completion widget category headers.
 c.colors.completion.category.bg = Solarized.BASE03
 
