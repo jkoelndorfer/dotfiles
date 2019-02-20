@@ -1,3 +1,3 @@
 #!/bin/bash
 
-xdg-settings set default-web-browser firefox.desktop
+xdg-settings set default-web-browser qutebrowser.desktop
