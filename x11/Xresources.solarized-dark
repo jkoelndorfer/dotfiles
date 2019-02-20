@@ -20,6 +20,10 @@
 *foreground:            S_base0
 *fadeColor:             S_base03
 *cursorColor:           S_base3
+
+! Makes cursor reverse behavior play nicer in vim.
+URxvt.cursorColor2:     S_base0
+
 *pointerColorBackground:S_base01
 *pointerColorForeground:S_base1
 
