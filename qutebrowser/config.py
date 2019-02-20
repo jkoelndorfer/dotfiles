@@ -8,6 +8,8 @@ import os
 config = config  # type: ConfigAPI # noqa: F821
 c = c  # type: ConfigContainer # noqa: F821
 
+config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
+
 # A wrapper script at $DOTFILE_DIR/bin/qutebrowser sets these
 # values for us.
 class Solarized:
