@@ -5,6 +5,7 @@ quicklaunch_entries=(
     [discord]='discord'
     [firefox]='firefox'
     [pavucontrol]='pavucontrol'
+    [qutebrowser]='qutebrowser'
     [slack]='slack'
     [spotify]='spotify'
     [vlc]='vlc'
