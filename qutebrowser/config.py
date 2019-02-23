@@ -5,10 +5,12 @@ from qutebrowser.config.config import ConfigContainer
 
 import os
 
+dotfile_dir = os.environ["DOTFILE_DIR"]
 config = config  # type: ConfigAPI # noqa: F821
 c = c  # type: ConfigContainer # noqa: F821
 
 config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
+config.bind("m", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
 config.set("input.insert_mode.auto_leave", False)
 
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"

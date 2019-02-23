@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# qmpvl - qutebrowser mpv launcher
+# This script is intended to be invoked by qutebrowser to launch mpv.
+
+i3-msg workspace video
+exec mpv "$@"
