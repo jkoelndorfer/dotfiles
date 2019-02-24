@@ -23,6 +23,9 @@ config.set("input.insert_mode.auto_leave", False)
 # Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 
+# Set start page = google.com
+c.url.start_pages = ["https://www.google.com"]
+
 c.fonts.tabs = "10pt mononoki Nerd Font Mono"
 c.fonts.monospace = "mononoki Nerd Font Mono"
 
