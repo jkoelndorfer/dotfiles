@@ -29,6 +29,14 @@ c.url.start_pages = ["https://www.google.com"]
 c.fonts.tabs = "10pt mononoki Nerd Font Mono"
 c.fonts.monospace = "mononoki Nerd Font Mono"
 
+# Per-domain settings. Since qutebrowser currently does not save permission requests
+# for these, we need to include them in our configuration.
+#
+# See https://github.com/qutebrowser/qutebrowser/issues/832.
+
+# Needed for mailto: links.
+config.set("content.register_protocol_handler", True, "https://mail.google.com/*")
+
 ################
 # COLOR SCHEME #
 ################
