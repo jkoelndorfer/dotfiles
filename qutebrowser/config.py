@@ -9,10 +9,18 @@ dotfile_dir = os.environ["DOTFILE_DIR"]
 config = config  # type: ConfigAPI # noqa: F821
 c = c  # type: ConfigContainer # noqa: F821
 
+# Configure ctrl-p to open a fuzzy search prompt for currently open tabs.
 config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
+
+# Configure m to launch `mpvl`, which launches mpv on the i3 workspace called "video".
 config.bind("m", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
+
+# Don't automatically leave insert mode. qutebrowser will leave insert mode automatically
+# if you click off of a textbox element (and under some other conditions) which is kinda
+# annoying.
 config.set("input.insert_mode.auto_leave", False)
 
+# Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 
 c.fonts.tabs = "10pt mononoki Nerd Font Mono"
