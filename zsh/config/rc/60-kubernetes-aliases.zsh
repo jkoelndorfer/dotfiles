@@ -6,6 +6,15 @@ function kubectx() {
 }
 
 function kubesh() {
-    local selected_pod=$(kubectl get pods | fzf --header-lines=1 | awk '{ print $1 }')
+    local selected_pod=$(kubepod)
     kubectl exec -it "$selected_pod" bash
+}
+
+function kubepod() {
+    kubectl get pods | fzf --header-lines=1 | awk '{ print $1 }'
+}
+
+function kubepodlogs() {
+    local selected_pod=$(kubepod)
+    kubectl logs "$selected_pod" "$@"
 }
