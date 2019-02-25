@@ -9,8 +9,8 @@ quicklaunch_entries=(
     [slack]='slack'
     [spotify]='spotify'
     [vlc]='vlc'
-    [reboot]='sudo systemctl reboot'
-    [power off]='sudo systemctl poweroff'
+    [reboot]="$DOTFILE_DIR/bin/sysmgmt/reboot"
+    [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
 )
 
 if [[ "$(hostname -s)" = 'deathwing' ]]; then

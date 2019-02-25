@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Shuts down or reboots the system, stopping any X gaming sessions that might be active.
+
+cmd=$(basename "$0")
+if [[ "$cmd" != 'poweroff' && "$cmd" != 'reboot' ]]; then
+    echo "Unrecognized command $cmd" >&2
+    exit 1
+fi
+
+if DISPLAY="$GAMING_DISPLAY" xrandr >/dev/null 2>&1; then
+    notify-send 'Stopping gaming X session' 'Stopping gaming X session before proceeding with shutdown'
+    DISPLAY="$GAMING_DISPLAY" i3-msg exit
+    sleep 10
+fi
+sudo systemctl "$cmd"
