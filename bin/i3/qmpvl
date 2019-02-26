@@ -26,5 +26,9 @@ else
     #
     # --keep-open keeps mpv from quitting when it reaches the end of
     # the playlist.
-    exec mpv --keep-open --input-file="$mpv_ipc" --force-window='immediate' "$video"
+    #
+    # --keep-open-pause='no' prevents mpv from pausing when it reaches the
+    # end of the playlist. This is required so that mpv will automatically
+    # play a newly added video after reaching the end of its playlist.
+    exec mpv --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" --force-window='immediate' "$video"
 fi
