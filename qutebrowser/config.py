@@ -41,6 +41,9 @@ c.fonts.monospace = "mononoki Nerd Font Mono"
 # Needed for mailto: links.
 config.set("content.register_protocol_handler", True, "https://mail.google.com/*")
 
+# Needed for webcal links.
+config.set("content.register_protocol_handler", True, "https://calendar.google.com/*")
+
 ################
 # COLOR SCHEME #
 ################
