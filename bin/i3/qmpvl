@@ -6,14 +6,29 @@ video="$1"
 
 mpv_ipc="$XDG_RUNTIME_DIR/mpv.ipc"
 
-# If we already have an mpv process open, send the open command to
-# the IPC FIFO.
+# mpv does not like being given an empty playlist on initialization. Let's
+# trick it with a blank webm.
+#
+# This is a large-ish workaround to ensure that our video playback is
+# always triggered via the FIFO. It makes breakage a little more apparent
+# and less confusing.
+#
+# Also keeps video URLs from appearing in our process name. Privacy,
+# I guess.
+blank_webm=$(echo "
+1a45dfa340204286810142f7810142f2810442f38108428240047765626d4287
+81024285810218538067408d1549a96640282ad7b140030f42404d8040067768
+616d6d79574140067768616d6d7944894008408f4000000000001654ae6b4031
+ae402ed7810163c581019c810022b59c4003756e64864005565f565038258688
+4003565038838101e04006b08108ba81081f43b6754022e78100a3401c810000
+803001009d012a0800080001402625a400037000fefcf40000
+" | tr -cd '[a-z0-9]')
+
+# If mpv is already open, don't start it.
 #
 # This check isn't perfect but it should be good enough for almost
 # all use cases.
-if pgrep -fu "$USER" "$mpv_ipc"; then
-    echo "loadfile $video append-play" >> "$mpv_ipc"
-else
+if ! pgrep -fu "$USER" "$mpv_ipc"; then
     rm -f "$mpv_ipc"
     mkfifo --mode='0600' "$mpv_ipc"
 
@@ -30,5 +45,10 @@ else
     # --keep-open-pause='no' prevents mpv from pausing when it reaches the
     # end of the playlist. This is required so that mpv will automatically
     # play a newly added video after reaching the end of its playlist.
-    exec mpv --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" --force-window='immediate' "$video"
+    mpv --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" --force-window='immediate' \
+        "hex://$blank_webm" & disown
+
+    # Remove the blank video from the mpv playlist immediately.
+    echo "playlist-remove 0" >> "$mpv_ipc"
 fi
+echo "loadfile $video append-play" >> "$mpv_ipc"
