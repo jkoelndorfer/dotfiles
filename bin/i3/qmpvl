@@ -2,6 +2,29 @@
 
 # qmpvl - qutebrowser mpv launcher
 # This script is intended to be invoked by qutebrowser to launch mpv.
+video="$1"
 
-i3-msg workspace video
-exec mpv "$@"
+mpv_ipc="$XDG_RUNTIME_DIR/mpv.ipc"
+
+# If we already have an mpv process open, send the open command to
+# the IPC FIFO.
+#
+# This check isn't perfect but it should be good enough for almost
+# all use cases.
+if pgrep -fu "$USER" "$mpv_ipc"; then
+    echo "loadfile $video append-play" >> "$mpv_ipc"
+else
+    rm -f "$mpv_ipc"
+    mkfifo --mode='0600' "$mpv_ipc"
+
+    # Switch to the i3 workspace "video" so that mpv opens there
+    i3-msg workspace video
+
+    # --force-window='immediate' makes mpv open a window immediately.
+    # Typically mpv waits until it has buffered some amount of video
+    # before opening the mpv window.
+    #
+    # --keep-open keeps mpv from quitting when it reaches the end of
+    # the playlist.
+    exec mpv --keep-open --input-file="$mpv_ipc" --force-window='immediate' "$video"
+fi
