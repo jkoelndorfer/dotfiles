@@ -45,7 +45,7 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
     # --keep-open-pause='no' prevents mpv from pausing when it reaches the
     # end of the playlist. This is required so that mpv will automatically
     # play a newly added video after reaching the end of its playlist.
-    mpv --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" --force-window='immediate' \
+    mpv --force-window='immediate' --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" \
         "hex://$blank_webm" & disown
 
     # Remove the blank video from the mpv playlist immediately.
