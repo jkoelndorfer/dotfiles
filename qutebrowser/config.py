@@ -21,6 +21,9 @@ config.bind("M", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " 
 # annoying.
 config.set("input.insert_mode.auto_leave", False)
 
+# Don't show history items in completion menu.
+config.set("completion.web_history.max_items", 0)
+
 # Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 
