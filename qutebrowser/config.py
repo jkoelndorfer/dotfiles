@@ -12,8 +12,9 @@ c = c  # type: ConfigContainer # noqa: F821
 # Configure ctrl-p to open a fuzzy search prompt for currently open tabs.
 config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
 
-# Configure m to launch `mpvl`, which launches mpv on the i3 workspace called "video".
-config.bind("m", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
+# Configure m to launch `qmpvl`.
+config.bind("m", "hint links spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {hint-url}")
+config.bind("M", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
 
 # Don't automatically leave insert mode. qutebrowser will leave insert mode automatically
 # if you click off of a textbox element (and under some other conditions) which is kinda
