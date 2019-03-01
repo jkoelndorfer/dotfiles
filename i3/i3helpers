@@ -3,6 +3,7 @@
 pkill polybar
 pkill compton
 pkill dunst
+pkill mmpd
 
 if [[ -n "$DISPLAYNAME_LEFT" ]]; then
     polybar --config="$DOTFILE_DIR/polybar/config" left &
@@ -16,4 +17,5 @@ fi
 compton --config "$DOTFILE_DIR/compton/compton.conf" &
 "$DOTFILE_DIR/dunst/gen-dunst-icons.sh"
 dunst -icon_path "$HOME/.cache/dunsticons" &
+"$DOTFILE_DIR/bin/i3/mmpd" &
 disown
