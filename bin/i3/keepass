@@ -27,6 +27,13 @@ active_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == t
 active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
 active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
 
+min_keepass_width=800
+if [[ "$(( $active_workspace_width / 3 ))" -gt "$min_keepass_width" ]]; then
+    keepass_width=$(( $active_workspace_width / 3 ))
+else
+    keepass_width=$min_keepass_width
+fi
+
 if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
     "$pwsafe_app" >/dev/null 2>&1 & disown
     while ! keepass_focused; do
@@ -37,7 +44,7 @@ if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
 else
     i3-msg "[class=$pwsafe_app]" scratchpad show
 fi
-"$script_dir/floatgrid" bottom center "$(( $active_workspace_width / 3 ))" "$(( $active_workspace_height / 2 ))"
+"$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))"
 while keepass_focused; do
     sleep "$sleep_interval"
 done
