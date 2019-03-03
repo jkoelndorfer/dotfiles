@@ -162,7 +162,7 @@ format-underline = ${colors.cyan}
 type = custom/script
 exec = $DOTFILE_DIR/bin/i3/ststatus
 interval = 5
-label = %{T2}%{A1:/usr/bin/firefox --new-window http\://localhost\:8384:}%output%%{A}%{T-}
+label = %{T2}%{A1:xdg-open http\://localhost\:8384:}%output%%{A}%{T-}
 label-underline = ${colors.base3}
 
 [module/wlan]
