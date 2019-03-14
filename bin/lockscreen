@@ -12,5 +12,12 @@ fi
 #
 # Suspending notifications is handy when the screen is locked!
 pkill -SIGUSR1 dunst
+{
+    xset +dpms
+    sleep 30
+    if pgrep -s 0 i3lock; then
+        xset dpms force off
+    fi
+} &
 i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
 pkill -SIGUSR2 dunst
