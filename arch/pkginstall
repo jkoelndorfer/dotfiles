@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # TODO: Remove playerctl-git and use playerctl once the official package is updated.
-pacman -S dunst rofi polybar i3-gaps i3lock maim noto-fonts-emoji noto-fonts-cjk ttf-font-awesome adobe-source-code-pro-fonts xcursor-bluecurve
+pacman -S dunst rofi polybar i3-gaps i3lock maim noto-fonts-emoji noto-fonts-cjk ttf-font-awesome adobe-source-code-pro-fonts xautolock xcursor-bluecurve
 yay -S xinit-xsession ttf-material-icons playerctl-git
