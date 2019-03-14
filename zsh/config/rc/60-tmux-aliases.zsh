@@ -44,22 +44,4 @@ function tenv() {
     eval "$(tmux show-environment -s)"
 }
 
-
-# This function implements a nifty shortcut for a common workflow pattern of mine.
-#
-# I often find myself organizing tmux sessions based on the directory I am in. Generally
-# my tmux sessions correspond to a project (git repo) that I'm working on. This will
-# prompt me to select a directory and attach to the tmux session associated with that
-# directory. If one does not exist, it will be created.
-function tnc() {
-    selected_dir=$(selectdir)
-    [[ -n "$selected_dir" ]] || return 1
-    target_dir=$(realpath "$selected_dir")
-    session_name=$(basename "$target_dir")
-    if ! tmux-flexattach "$session_name" 2>/dev/null; then
-        (cd "$target_dir"; tmux new-session -d -s "$session_name")
-        tmux-flexattach "$session_name"
-    fi
-}
-
 alias ti="tmux run-shell 'echo #{session_name}:#{window_index}.#{pane_index}'"
