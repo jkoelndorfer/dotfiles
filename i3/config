@@ -49,7 +49,7 @@ bindsym $prog_prefix+x exec xdotool mousedown 1
 bindsym $prog_prefix+c exec xdotool mousedown 3
 bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
 bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
-bindsym $ctrl+$alt+l exec --no-startup-id $DOTFILE_DIR/bin/lockscreen
+bindsym $ctrl+$alt+l exec --no-startup-id xautolock -locknow
 bindsym $alt+Tab exec $DOTFILE_DIR/bin/i3/winfocus
 bindsym $alt+Shift+Tab exec $DOTFILE_DIR/bin/i3/win2curws
 

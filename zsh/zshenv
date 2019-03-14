@@ -13,6 +13,8 @@ if [[ -n "$wallpaper_file" && -f "$wallpaper_file" ]]; then
     export WALLPAPER_BLURRED="$HOME/.cache/wallpaper/$(basename "$WALLPAPER" .png).png"
 fi
 
+export SCREENLOCK_TIME_MINUTES=15
+
 export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR
 
 # Configure a basic path if there is not one. Should be fine for most use cases.

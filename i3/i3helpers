@@ -4,6 +4,7 @@ pkill polybar
 pkill compton
 pkill dunst
 pkill mmpd
+pkill xautolock
 
 if [[ -n "$DISPLAYNAME_LEFT" ]]; then
     polybar --config="$DOTFILE_DIR/polybar/config" left &
@@ -18,4 +19,5 @@ compton --config "$DOTFILE_DIR/compton/compton.conf" &
 "$DOTFILE_DIR/dunst/gen-dunst-icons.sh"
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
+xautolock -time "$SCREENLOCK_TIME_MINUTES" -locker "$DOTFILE_DIR/bin/lockscreen" &
 disown
