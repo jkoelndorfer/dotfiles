@@ -1,0 +1,1 @@
+export DISPLAYNAME_CENTER='LVDS-0'
