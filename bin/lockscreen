@@ -7,6 +7,9 @@ if [[ -n "$WALLPAPER_BLURRED" ]]; then
 else
     wallpaper_args=()
 fi
+
+spotifyctl=(playerctl -p spotify)
+original_spotify_status=$($spotifyctl status)
 # Sending SIGUSR1 to dunst will prevent it from displaying notifications.
 # SIGUSR2 resumes notifications again.
 #
@@ -19,5 +22,11 @@ pkill -SIGUSR1 dunst
         xset dpms force off
     fi
 } &
+if [[ "$original_spotify_status" == 'Playing' ]]; then
+    $spotifyctl pause
+fi
 i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
+if [[ "$original_spotify_status" == 'Playing' ]]; then
+    $spotifyctl play
+fi
 pkill -SIGUSR2 dunst
