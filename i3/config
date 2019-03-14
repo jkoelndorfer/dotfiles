@@ -229,3 +229,10 @@ for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [title="^Steam Keyboard$"] floating enable
+
+# Put applications on their respective workspaces.
+for_window [class="^hiri"] move container to workspace mail
+for_window [class="^qutebrowser$"] move container to workspace web
+for_window [class="^Spotify$"] move container to workspace spotify
+for_window [class="^Slack$"] move container to workspace slack
+for_window [class="^URxvt"] move container to workspace term
