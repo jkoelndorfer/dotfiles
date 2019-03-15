@@ -16,16 +16,12 @@ original_spotify_status=$($spotifyctl status)
 # Suspending notifications is handy when the screen is locked!
 pkill -SIGUSR1 dunst
 
-# NOTE: Redirecting the output of this subshell to /dev/null is
-# required so that it actually works. I have no idea why.
+# Set up a background job which will turn off the screen after a while.
 {
     xset +dpms
     sleep 30
-
-    if pgrep -s 0 i3lock; then
-        xset dpms force off
-    fi
-} > /dev/null 2>&1 &
+    xset dpms force off
+} &
 
 if [[ "$original_spotify_status" == 'Playing' ]]; then
     $spotifyctl pause
@@ -35,3 +31,9 @@ if [[ "$original_spotify_status" == 'Playing' ]]; then
     $spotifyctl play
 fi
 pkill -SIGUSR2 dunst
+
+# Kill the backgrounded job responsible for turning off the screen.
+# If the screen hasn't shut off yet but the session has been unlocked,
+# the screen could flash off if the background job were allowed to
+# run.
+kill %1
