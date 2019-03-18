@@ -27,6 +27,8 @@ config.set("completion.web_history.max_items", 0)
 config.set("tabs.position", "left")
 config.set("tabs.width", "15%")
 
+config.set("downloads.position", "bottom")
+
 # Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 
