@@ -232,6 +232,5 @@ for_window [title="^Steam Keyboard$"] floating enable
 
 # Put applications on their respective workspaces.
 for_window [class="^hiri"] move container to workspace mail
-for_window [class="^qutebrowser$"] move container to workspace web
 for_window [class="^Spotify$"] move container to workspace spotify
 for_window [class="^Slack$"] move container to workspace slack
