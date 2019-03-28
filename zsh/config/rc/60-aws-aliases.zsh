@@ -7,3 +7,23 @@ function ec2_instances_named() {
 function ec2_instance_names() {
     aws ec2 describe-instances --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' | jq -r '.[][0][0]' | sort -u
 }
+
+function ssmp() {
+    local name=$(select_ssm_param)
+    if [[ -z "$name" ]]; then
+        return 1
+    fi
+    ssm_param "$name"
+}
+
+function select_ssm_param() {
+    local tab=$(echo -e '\t')
+    aws ssm describe-parameters |
+        jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
+        column -t -s "$tab" | fzf | awk '{ print $1 }'
+}
+
+function ssm_param() {
+    local name=$1
+    aws ssm get-parameter --name "$name" --with-decryption | jq -r '.Parameter.Value'
+}
