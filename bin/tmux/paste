@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# tmux does not seem to have a way to get the current client, so instead we fake
+# it by getting the client with the most recent activity.
+#
+# client_activity is a standard Unix timestamp.
+tmux_client_pid=$(tmux list-clients -F '#{client_activity} #{client_pid}' | sort -k 1 -nr | head -n 1 | awk '{ print $2 }')
+
+tmux_client_display=$(cat "/proc/${tmux_client_pid}/environ" | xargs -0 -n1 echo | awk -F= '$1 == "DISPLAY" { print $2 }')
+
+export DISPLAY="$tmux_client_display"
+tmux set-buffer -b clipboard "$(xclip -o -sel clipboard)"
+tmux paste-buffer -b clipboard
