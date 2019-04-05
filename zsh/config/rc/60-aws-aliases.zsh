@@ -8,6 +8,10 @@ function ec2_instance_names() {
     aws ec2 describe-instances --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' | jq -r '.[][0][0]' | sort -u
 }
 
+function lsssmp() {
+    aws ssm describe-parameters --query 'Parameters[].Name' --output text | sed -e 's/\t/\n/g' | sort
+}
+
 function ssmp() {
     local name=$(select_ssm_param)
     if [[ -z "$name" ]]; then
