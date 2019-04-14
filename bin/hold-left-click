@@ -1,3 +1,24 @@
 #!/bin/bash
 
-echo 'ButtonPress 1' | xmacroplay
+left_mouse_button=1
+right_mouse_button=3
+
+script_name=$(basename "$0")
+if [[ "$script_name" == 'hold-left-click' ]]; then
+    button=$left_mouse_button
+elif [[ "$script_name" == 'hold-right-click' ]]; then
+    button=$right_mouse_button
+else
+    echo "Unknown mode: $0" >&2
+    exit 1
+fi
+
+xdotool mouseup "$button"
+
+# Grim Dawn has some trouble holding down the left mouse button
+# when mousedown/mouseup events come in too quickly - it won't
+# always hold the button down. It seems to work better if we
+# add a short delay.
+sleep 0.2
+
+xdotool mousedown "$button"
