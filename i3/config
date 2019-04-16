@@ -213,6 +213,8 @@ default_floating_border pixel 2
 gaps outer 2
 gaps inner 7
 
+focus_follows_mouse no
+
 # Make Steam windows behave better.
 # See:
 #
