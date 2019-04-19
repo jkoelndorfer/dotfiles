@@ -17,10 +17,17 @@ original_spotify_status=$($spotifyctl status)
 pkill -SIGUSR1 dunst
 
 # Set up a background job which will turn off the screen after a while.
+# The current AMDGPU code seems to have a bug where sleeping monitors
+# aren't always recovered correctly (the monitors turn on and seem to
+# be part of the X screen, but don't display anything).
 {
-    xset +dpms
-    sleep 30
-    xset dpms force off
+    if [[ "$X11_DISABLE_DPMS" == '1' ]]; then
+        xset -dpms
+    else
+        xset +dpms
+        sleep 30
+        xset dpms force off
+    fi
 } &
 
 if [[ "$original_spotify_status" == 'Playing' ]]; then

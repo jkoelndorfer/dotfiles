@@ -38,6 +38,10 @@ exec_always --no-startup-id $DOTFILE_DIR/bin/i3/setbg
 exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers  # PRIMARYONLY
 exec_always --no-startup-id pgrep -u $USER syncthing || syncthing -no-browser  # PRIMARYONLY
 
+# bin/lockscreen handles power management for us. Displays should never go to sleep
+# unless the screen is locked.
+exec_always --no-startup-id xset -dpms
+
 # Program launch keybinds
 bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass  # PRIMARYONLY
 bindsym $prog_prefix+Return exec --no-startup-id urxvt -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
