@@ -4,33 +4,16 @@ declare -A quicklaunch_entries
 quicklaunch_entries=(
     [discord]='discord'
     [firefox]='firefox'
+    ['logout']='i3-msg exit'
     [pavucontrol]='pavucontrol'
     [qutebrowser]='qutebrowser'
     [slack]='slack'
     [spotify]='spotify'
+    [steam]='steam'
     [vlc]='vlc'
     [reboot]="$DOTFILE_DIR/bin/sysmgmt/reboot"
     [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
 )
-
-if [[ "$(hostname -s)" = 'deathwing' ]]; then
-    quicklaunch_entries+=(
-        [windows gaming]="sudo $HOME/src/local-tools/workstation/vfio/qemu-win10"
-        [x11 gaming]="$DOTFILE_DIR/bin/vfio-xgaming/xorg-gaming-server"
-    )
-fi
-
-i3_exit_cmd='i3-msg exit'
-if [[ "$XORG_GAMING_SESSION" == '1' ]]; then
-    quicklaunch_entries=(
-        ['kill gaming session']="$i3_exit_cmd"
-        ['steam']='steam'
-    )
-else
-    quicklaunch_entries+=(
-        ['logout']="$i3_exit_cmd"
-    )
-fi
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
     launcher_cmd=($DOTFILE_DIR/bin/rofi -dmenu -no-custom -p launch)
