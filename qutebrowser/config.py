@@ -55,10 +55,8 @@ c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 c.url.start_pages = ["https://www.google.com"]
 
 c.fonts.monospace = "mononoki Nerd Font Mono"
-if display_profile == "HD":
-    set_ui_fonts(c, 10)
-elif display_profile == "UHD":
-    set_ui_fonts(c, 20)
+set_ui_fonts(c, 10)
+if display_profile == "UHD":
     config.set("zoom.default", "200%")
 
 # Per-domain settings. Since qutebrowser currently does not save permission requests

@@ -1,0 +1,111 @@
+#!/bin/bash
+
+xrdb -load <<'EOF'
+XTerm*faceName: xft:mononoki Nerd Font Mono:style=Regular
+URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=10
+URxvt.letterSpace: -1
+
+XTerm*faceSize: 10
+XTerm*faceSize1: 8
+XTerm*faceSize2: 9
+XTerm*faceSize3: 10
+XTerm*faceSize4: 14
+XTerm*faceSize5: 16
+XTerm*faceSize6: 20
+XTerm*termName: xterm-256color
+XTerm*toolBar: false
+
+*VT100*translations: #override \
+Ctrl Shift <Key> C: select-end(CLIPBOARD)\n\
+Ctrl Shift <Key> V: insert-selection(CLIPBOARD)\n\
+Ctrl <Key> +: larger-vt-font()\n\
+Ctrl <Key> -: smaller-vt-font()
+
+URxvt.scrollBar: false
+URxvt.perl-ext-common: resize-font
+
+! Pressing Ctrl-Shift in urxvt results in a box that says
+! "ISO 14755 Mode" or "Keycap Picture Insert Mode".
+! This setting turns that off.
+!
+! See:
+! https://wilmer.gaa.st/blog/archives/36-rxvt-unicode-and-ISO-14755-mode.html
+! https://www.reddit.com/r/urxvt/comments/35x03n/if_youve_been_vexed_by_urxvts_picture_insert_mode/
+URxvt.iso14755: false
+
+Xcursor.theme: Bluecurve
+EOF
+
+xrdb -merge <<EOF
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+*background:            S_base03
+*foreground:            S_base0
+*fadeColor:             S_base03
+*cursorColor:           S_base3
+
+! Makes cursor reverse behavior play nicer in vim.
+URxvt.cursorColor2:     S_base0
+
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
+
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
+
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
+
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
+
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
+
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
+
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
+EOF
+
+if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+    xrdb -merge <<EOF
+Xft.dpi: 200
+Xcursor.size: 48
+EOF
+elif [[ "$DISPLAY_PROFILE" == 'HD' ]]; then
+    xrdb -merge <<EOF
+Xcursor.size: 12
+EOF
+fi
