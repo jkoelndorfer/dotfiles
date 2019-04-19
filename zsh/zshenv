@@ -1,35 +1,12 @@
-DOTFILE_DIR="$HOME/.dotfiles"
+export DOTFILE_DIR="$HOME/.dotfiles"
 
-VIM_DIR="$HOME/.vim"
-VIM_BUNDLE_DIR="$HOME/.vim/bundle"
-VIM_RUNTIME_DIR="$DOTFILE_DIR/vim/config"
-
-x11_resolution=$("$DOTFILE_DIR/bin/x11/scrres" 2>/dev/null)
-if [[ -n "$x11_resolution" ]]; then
-    wallpaper_file="$HOME/sync/wallpapers/$x11_resolution/rootaccess.png"
-fi
-if [[ -n "$wallpaper_file" && -f "$wallpaper_file" ]]; then
-    export WALLPAPER="$wallpaper_file"
-    export WALLPAPER_BLURRED="$HOME/.cache/wallpaper/$(basename "$WALLPAPER" .png).png"
-fi
-
-export SCREENLOCK_TIME_MINUTES=15
-
-export DOTFILE_DIR VIM_DIR VIM_BUNDLE_DIR VIM_RUNTIME_DIR
-
-# Configure a basic path if there is not one. Should be fine for most use cases.
-[[ -z "$PATH" ]] && PATH="/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/bin:/usr/local/sbin"
-for f in "$DOTFILE_DIR"/zsh/config/rc/*lib.zsh; do
+for f in "$DOTFILE_DIR"/zsh/config/env/*.zsh; do
     source "$f"
 done
-pathmunge "$DOTFILE_DIR/bin"
-[[ -d "$HOME/bin" ]] && pathmunge "$HOME/bin"
 
-host_specific_env="$DOTFILE_DIR/zsh/config/hostenv/$(hostname -s)"
-if [[ -d "$host_specific_env" ]]; then
-    for f in "$host_specific_env"/*.zsh; do
-        source "$f"
-    done
+local_env="$HOME/.zshenv.local"
+if [[ -f "$local_env" ]]; then
+    source "$local_env"
 fi
 
 secret_env="$HOME/.zshenv.secret"
