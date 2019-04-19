@@ -5,7 +5,26 @@ from qutebrowser.config.config import ConfigContainer
 
 import os
 
+def set_ui_fonts(config, size_pt):
+    c = config
+    font_completion = (c.fonts.completion, ["category", "entry"])
+    font_messages = (c.fonts.messages, ["error", "info", "warning"])
+    fonts = (c.fonts, [
+        "debug_console",
+        "downloads",
+        "hints",
+        "keyhint",
+        "prompts",
+        "statusbar",
+        "tabs",
+    ])
+
+    for obj, attrs in [font_completion, font_messages, fonts]:
+        for attr in attrs:
+            setattr(obj, attr, "{}pt monospace".format(size_pt))
+
 dotfile_dir = os.environ["DOTFILE_DIR"]
+display_profile = os.environ["DISPLAY_PROFILE"]
 config = config  # type: ConfigAPI # noqa: F821
 c = c  # type: ConfigContainer # noqa: F821
 
@@ -35,8 +54,12 @@ c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 # Set start page = google.com
 c.url.start_pages = ["https://www.google.com"]
 
-c.fonts.tabs = "10pt mononoki Nerd Font Mono"
 c.fonts.monospace = "mononoki Nerd Font Mono"
+if display_profile == "HD":
+    set_ui_fonts(c, 10)
+elif display_profile == "UHD":
+    set_ui_fonts(c, 20)
+    config.set("zoom.default", "200%")
 
 # Per-domain settings. Since qutebrowser currently does not save permission requests
 # for these, we need to include them in our configuration.
