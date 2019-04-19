@@ -51,8 +51,8 @@ bindsym $ctrl+$alt+l exec --no-startup-id xautolock -locknow
 bindsym $alt+Tab exec $DOTFILE_DIR/bin/i3/winfocus
 bindsym $alt+Shift+Tab exec $DOTFILE_DIR/bin/i3/win2curws
 
-bindsym --whole-window $prog_prefix+button1 exec --no-startup-id $DOTFILE_DIR/bin/hold-left-click
-bindsym --whole-window $prog_prefix+button3 exec --no-startup-id $DOTFILE_DIR/bin/hold-right-click
+bindsym --whole-window $alt+button1 exec --no-startup-id $DOTFILE_DIR/bin/hold-left-click
+bindsym --whole-window $alt+button3 exec --no-startup-id $DOTFILE_DIR/bin/hold-right-click
 
 bindsym $mod+w exec $DOTFILE_DIR/bin/i3/wsswitch
 bindsym $mod+Shift+w exec $DOTFILE_DIR/bin/i3/wsmovewin
