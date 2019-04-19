@@ -147,38 +147,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-mode "floatgrid" {
-    bindcode $kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom left; mode "default"
-    bindcode $kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom center; mode "default"
-    bindcode $kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom right; mode "default"
-
-    bindcode $kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle left; mode "default"
-    bindcode $kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle center; mode "default"
-    bindcode $kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle right; mode "default"
-
-    bindcode $kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top left; mode "default"
-    bindcode $kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top center; mode "default"
-    bindcode $kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top right; mode "default"
-
-    bindcode $numlock+$kp1 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom left; mode "default"
-    bindcode $numlock+$kp2 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom center; mode "default"
-    bindcode $numlock+$kp3 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid bottom right; mode "default"
-
-    bindcode $numlock+$kp4 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle left; mode "default"
-    bindcode $numlock+$kp5 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle center; mode "default"
-    bindcode $numlock+$kp6 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid middle right; mode "default"
-
-    bindcode $numlock+$kp7 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top left; mode "default"
-    bindcode $numlock+$kp8 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top center; mode "default"
-    bindcode $numlock+$kp9 exec --no-startup-id $DOTFILE_DIR/bin/i3/floatgrid top right; mode "default"
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+g mode "default"
-}
-
 bindsym $mod+r mode "resize"
-bindsym $mod+g mode "floatgrid"
 
 # Color Scheme
 set_from_resource $base03  i3wm.color8  #000000
