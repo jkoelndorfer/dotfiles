@@ -104,7 +104,7 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
 Xft.dpi: 200
 Xcursor.size: 48
 
-polybar.barheight: 32
+polybar.barheight: 36
 polybar.textsize: 18
 polybar.iconsize: 24
 polybar.wsiconsize: 28
