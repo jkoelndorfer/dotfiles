@@ -144,6 +144,7 @@ ws-icon-6 = game;%{T3}%{T-}
 ws-icon-7 = term;%{T3}%{T-}
 ws-icon-8 = code;%{T3}%{T-}
 ws-icon-9 = doc;%{T3}%{T-}
+ws-icon-10 = steam;%{T3}%{T-}
 ws-icon-default = %{T3}%{T-}
 
 

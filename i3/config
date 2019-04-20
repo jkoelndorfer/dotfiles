@@ -209,3 +209,5 @@ for_window [title="^Steam Keyboard$"] floating enable
 for_window [class="^hiri"] move container to workspace mail
 for_window [class="^Spotify$"] move container to workspace spotify
 for_window [class="^Slack$"] move container to workspace slack
+for_window [class="^Steam$"] move container to workspace steam
+for_window [instance="^grim dawn.exe$"] move container to workspace game
