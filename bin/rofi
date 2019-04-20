@@ -1,3 +1,13 @@
 #!/bin/bash
 
-exec /usr/bin/rofi -matching fuzzy -sort -sorting-method fzf -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi" "$@"
+font_size=10
+if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+    font_size=20
+fi
+
+exec /usr/bin/rofi \
+    -matching fuzzy \
+    -sort \
+    -sorting-method fzf \
+    -theme-str "* { font: \"mononoki Nerd Font Mono $font_size\"; }" \
+    -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi" "$@"

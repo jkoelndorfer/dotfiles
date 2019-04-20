@@ -26,8 +26,6 @@
     background-color:    @background;
     border-color:        @base1;
 
-    font: "mononoki Nerd Font Mono 12";
-
     // Don't highlight the matching part of a search string.
     // The bolding that happens on the matching part of the string
     // causes alignment issues in rofi.
