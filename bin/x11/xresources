@@ -103,9 +103,39 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
     xrdb -merge <<EOF
 Xft.dpi: 200
 Xcursor.size: 48
+
+polybar.barheight: 32
+polybar.textsize: 18
+polybar.iconsize: 24
+polybar.wsiconsize: 28
+polybar.wsiconspace: 4
+polybar.wsiconunderlinesize: 3
 EOF
+    polybar_text_size=18
+    polybar_icon_size=24
+    polybar_ws_icon_size=24
+    polybar_ws_icon_spacing=4
+    polybar_ws_icon_underline_size=4
 elif [[ "$DISPLAY_PROFILE" == 'HD' ]]; then
     xrdb -merge <<EOF
 Xcursor.size: 12
+
+polybar.barheight: 25
+polybar.textsize: 10
+polybar.iconsize: 12
+polybar.wsiconsize: 18
+polybar.wsiconspace: 2
+polybar.wsiconunderlinesize: 2
 EOF
+    polybar_text_size=10
+    polybar_icon_size=12
+    polybar_ws_icon_size=18
+    polybar_ws_icon_spacing=2
+    polybar_ws_icon_underline_size=2
 fi
+
+xrdb -merge <<EOF
+polybar.textfont: mononoki Nerd Font Mono:pixelsize=${polybar_text_size}
+polybar.iconfont: mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0
+polybar.wsiconfont: mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}
+EOF

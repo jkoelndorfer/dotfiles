@@ -46,7 +46,7 @@ urgent-foreground = ${colors.base3}
 
 [barcommon]
 width = 100%
-height = 25
+height = ${xrdb:polybar.barheight}
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -59,11 +59,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = mononoki Nerd Font Mono:pixelsize=10
-font-1 = mononoki Nerd Font Mono:pixelsize=16;0
-font-2 = mononoki Nerd Font Mono:pixelsize=18;2
+font-0 = ${xrdb:polybar.textfont}
+font-1 = ${xrdb:polybar.iconfont}
+font-2 = ${xrdb:polybar.wsiconfont}
 
-line-size = 3
+line-size = ${xrdb:polybar.wsiconunderlinesize}
 line-color = #f00
 
 monitor-strict = true
