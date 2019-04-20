@@ -1,6 +1,10 @@
 # Time, in minutes, before xautolock will lock the screen.
 export SCREENLOCK_TIME_MINUTES=15
 
+# Time, in seconds, after which the mouse cursor will be hidden
+# if the mouse is not moved.
+export CURSOR_HIDE_TIME_SECONDS=5
+
 x11_resolution=$("$DOTFILE_DIR/bin/x11/scrres" 2>/dev/null)
 x11_y_resolution=$(echo "$x11_resolution" | awk -F x '{ print $2 }')
 
