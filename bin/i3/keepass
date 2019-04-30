@@ -18,6 +18,11 @@ function dismiss_keepass() {
     i3-msg "[class=$pwsafe_app]" move scratchpad
 }
 
+function keepass_win_id() {
+    local jq_query="recurse(.nodes[], .floating_nodes[].nodes[]) | select(.window_properties.class == \"$pwsafe_app\") | .id"
+    i3-msg -t get_tree | jq -r "$jq_query"
+}
+
 if keepass_focused; then
     dismiss_keepass
     exit 0
@@ -36,15 +41,12 @@ fi
 
 if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
     "$pwsafe_app" >/dev/null 2>&1 & disown
-    while ! keepass_focused; do
-        "$script_dir/focusedwin"
-        sleep "$sleep_interval"
-    done
-    i3-msg floating enable
-else
-    i3-msg "[class=$pwsafe_app]" scratchpad show
 fi
-"$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))"
+while [[ -z "$(keepass_win_id)" ]]; do
+    sleep "$sleep_interval"
+done
+i3-msg "[class=$pwsafe_app]" scratchpad show
+"$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))" "$(keepass_win_id)"
 while keepass_focused; do
     sleep "$sleep_interval"
 done
