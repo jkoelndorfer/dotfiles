@@ -7,7 +7,6 @@ selected_workspace="$("$script_dir/wssel" 'switch to workspace')"
 if [[ -z "$selected_workspace" ]]; then
     exit 1
 fi
-i3-msg workspace "$selected_workspace"
 
 # We only move the workspace to the active output if it's not already there.
 #
@@ -15,5 +14,7 @@ i3-msg workspace "$selected_workspace"
 # the workspaces in polybar.
 selected_workspace_output="$(echo "$i3_workspaces" | jq -r ".[] | select(.name == \"$selected_workspace\") | .output")"
 if [[ "$selected_workspace_output" != "$active_output" ]]; then
-    i3-msg move workspace to output "$active_output"
+    i3-msg "[workspace=$selected_workspace]" move workspace to output "$active_output"
 fi
+
+i3-msg workspace "$selected_workspace"
