@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Prints data to stdout about the given window id.
+
+win_id=$1
+
+read -r -d '' jq_query <<EOF
+    recurse(.nodes[], .floating_nodes[].nodes[]) |
+    select(.id == $win_id) |
+    {
+        "id": .id,
+        "title": .window_properties.title,
+        "class": .window_properties.class,
+        "window": .window,
+        "window_rect": .window_rect
+    }
+EOF
+i3-msg -t get_tree | jq -r "$jq_query"
