@@ -13,6 +13,8 @@ cell_position_x="$2"
 window_width="$3"
 window_height="$4"
 
+window_id="$5"
+
 script_dir=$(dirname "$0")
 gaps_outer=$(grep 'gaps outer' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
 gaps_inner=$(grep 'gaps inner' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
@@ -51,10 +53,12 @@ active_workspace_y="$(echo "$active_workspace" | jq -r '.rect.y')"
 active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
 active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
 
-fwin=$("$script_dir/focusedwin")
-[[ -z "$window_width" ]] && window_width="$(echo "$fwin" | jq -r '.window_rect.width')"
-[[ -z "$window_height" ]] && window_height="$(echo "$fwin" | jq -r '.window_rect.height')"
-window_id="$(echo "$fwin" | jq -r '.id')"
+if [[ -z "$window_id" ]]; then
+    window_id=$("$script_dir/focusedwin" | jq -r '.id')
+fi
+winfo=$("$script_dir/winfo" "$window_id")
+[[ -z "$window_width" ]] && window_width="$(echo "$winfo" | jq -r '.window_rect.width')"
+[[ -z "$window_height" ]] && window_height="$(echo "$winfo" | jq -r '.window_rect.height')"
 
 win_x=$(x_pos "$cell_position_x" "$window_width")
 win_y=$(y_pos "$cell_position_y" "$window_height")
@@ -62,4 +66,4 @@ win_y=$(y_pos "$cell_position_y" "$window_height")
 # FIXME: Some applications enforce a minimum size for their windows.
 # This positioning logic does _not_ work for windows that do not resize exactly as they are told.
 i3-msg "[con_id=\"$window_id\"]" resize set width "$window_width" height "$window_height"
-i3-msg floating enable \; fullscreen disable \; move position "$win_x" "$win_y" \; "[con_id=\"$window_id\"]" focus
+i3-msg "[con_id=\"$window_id\"]" floating enable \; "[con_id=\"$window_id\"]" fullscreen disable \; "[con_id=\"$window_id\"]" move position "$win_x" "$win_y" \; "[con_id=\"$window_id\"]" focus
