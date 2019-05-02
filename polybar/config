@@ -69,16 +69,21 @@ line-color = #f00
 monitor-strict = true
 fixed-center = false
 
-modules-left = i3
-modules-center =
-modules-right =
-
 wm-restack = i3
 
 tray-position =
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[bar/left]
+inherit = barcommon
+monitor = ${env:DISPLAYNAME_LEFT}
+
+modules-left = i3
+modules-center =
+modules-right = date utcdate
+
 
 [bar/center]
 inherit = barcommon
@@ -88,6 +93,14 @@ monitor = ${env:DISPLAYNAME_CENTER}
 modules-left = i3 xwindow
 modules-center =
 modules-right = syncthing music pulseaudio wlan date utcdate
+
+[bar/right]
+inherit = barcommon
+monitor = ${env:DISPLAYNAME_RIGHT}
+
+modules-left = i3
+modules-center =
+modules-right = date utcdate
 
 [module/xwindow]
 type = internal/xwindow
@@ -100,7 +113,7 @@ format = <label-state> <label-mode>
 index-sort = false
 wrapping-scroll = false
 
-pin-workspaces = false
+pin-workspaces = true
 
 label-mode-padding = 1
 label-mode-foreground = ${colors.foreground}
