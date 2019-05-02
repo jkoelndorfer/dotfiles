@@ -2,7 +2,7 @@
 
 xrdb -load <<'EOF'
 XTerm*faceName: xft:mononoki Nerd Font Mono:style=Regular
-URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=10
+URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=10,xft:DejaVu Sans Mono:style=Book:size=10
 URxvt.letterSpace: -1
 
 XTerm*faceSize: 10
