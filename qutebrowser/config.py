@@ -70,6 +70,9 @@ config.set("content.register_protocol_handler", True, "https://mail.google.com/*
 # Needed for webcal links.
 config.set("content.register_protocol_handler", True, "https://calendar.google.com/*")
 
+# Allow popups for my bank's online portal.
+config.set("content.javascript.can_open_tabs_automatically", True, "https://www.financial-net.com/*")
+
 ################
 # COLOR SCHEME #
 ################
