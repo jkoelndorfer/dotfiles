@@ -59,6 +59,10 @@ set_ui_fonts(c, 10)
 if display_profile == "UHD":
     config.set("zoom.default", "200%")
 
+# Fullscreen only fills the qutebrowser window. If we want true fullscreen,
+# we can pair it with the fullscreen offered by i3.
+config.set("content.windowed_fullscreen", True)
+
 # Per-domain settings. Since qutebrowser currently does not save permission requests
 # for these, we need to include them in our configuration.
 #
