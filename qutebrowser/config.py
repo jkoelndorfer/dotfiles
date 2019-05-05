@@ -80,6 +80,8 @@ config.set("content.javascript.can_open_tabs_automatically", True, "https://www.
 config.set("content.media_capture", True, "https://mail.google.com")
 config.set("content.media_capture", True, "https://hangouts.google.com")
 
+config.set("content.media_capture", True, "https://*.slack.com")
+
 ################
 # COLOR SCHEME #
 ################
