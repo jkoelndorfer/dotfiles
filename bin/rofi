@@ -6,6 +6,7 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
 fi
 
 exec /usr/bin/rofi \
+    -normal-window \
     -matching fuzzy \
     -sort \
     -sorting-method fzf \
