@@ -212,4 +212,4 @@ for_window [class="^Slack$"] move container to workspace slack
 for_window [class="^Steam$"] move container to workspace steam
 for_window [instance="^grim dawn.exe$"] move container to workspace game; [instance="^grim dawn.exe$"] fullscreen enable
 
-for_window [class="^keepassxc$"] move scratchpad; floating enable
+for_window [class="^keepassxc$"] move scratchpad; [class="^keepassxc$"] floating enable
