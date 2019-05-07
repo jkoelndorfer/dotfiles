@@ -182,7 +182,7 @@ c.colors.statusbar.private.bg = Solarized.VIOLET
 c.colors.statusbar.private.fg = Solarized.BASE2
 
 c.colors.statusbar.url.fg = Solarized.BASE2
-c.colors.statusbar.url.hover.fg = Solarized.BLUE
+c.colors.statusbar.url.hover.fg = Solarized.BASE3
 c.colors.statusbar.url.error.fg = Solarized.RED
 c.colors.statusbar.url.success.http.fg = Solarized.ORANGE
 c.colors.statusbar.url.success.https.fg = Solarized.BASE2
