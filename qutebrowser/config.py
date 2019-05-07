@@ -35,6 +35,10 @@ config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
 config.bind("m", "hint links spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {hint-url}")
 config.bind("M", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
 
+# Use Shift-Escape to enter passthrough mode instead of Ctrl-V.
+config.bind("<Shift-Escape>", "enter-mode passthrough", mode="normal")
+config.unbind("<Ctrl-V>")
+
 # Don't automatically leave insert mode. qutebrowser will leave insert mode automatically
 # if you click off of a textbox element (and under some other conditions) which is kinda
 # annoying.
