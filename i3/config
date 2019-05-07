@@ -150,6 +150,10 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+mode "rofi" {
+    bindsym Shift+Escape mode "default"
+}
+
 bindsym $mod+r mode "resize"
 
 # Color Scheme
