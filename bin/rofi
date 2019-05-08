@@ -5,14 +5,10 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
     font_size=20
 fi
 
-i3-msg 'mode rofi' >/dev/null 2>&1
-/usr/bin/rofi \
-    -normal-window \
+exec /usr/bin/rofi \
+    -monitor -4 \
     -matching fuzzy \
     -sort \
     -sorting-method fzf \
     -theme-str "* { font: \"mononoki Nerd Font Mono $font_size\"; }" \
     -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi" "$@"
-rc="$?"
-i3-msg 'mode default' > /dev/null 2>&1
-exit "$rc"

@@ -150,10 +150,6 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-mode "rofi" {
-    bindsym Shift+Escape mode "default"
-}
-
 bindsym $mod+r mode "resize"
 
 # Color Scheme
@@ -219,4 +215,3 @@ for_window [instance="^grim dawn.exe$"] move container to workspace game; [insta
 for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
 
 for_window [class="^keepassxc$"] move scratchpad; [class="^keepassxc$"] floating enable
-for_window [class="^Rofi$"] floating enable
