@@ -16,7 +16,12 @@ fi
 if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
     polybar --config="$DOTFILE_DIR/polybar/config" right &
 fi
-compton --config "$DOTFILE_DIR/compton/compton.conf" &
+
+compton_config="$HOME/.config/compton.conf"
+mkdir -p "$(dirname "$compton_config")"
+"$DOTFILE_DIR/compton/gen-compton-conf" > "$compton_config"
+compton --config "$compton_config" &
+
 "$DOTFILE_DIR/dunst/gen-dunst-icons.sh"
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
