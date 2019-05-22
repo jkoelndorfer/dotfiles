@@ -39,6 +39,10 @@ config.bind("M", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " 
 config.bind("<Shift-Escape>", "enter-mode passthrough", mode="normal")
 config.unbind("<Ctrl-V>")
 
+# Use Ctrl-Shift-J and Ctrl-Shift-K to move tabs down or up, respectively.
+config.bind("<Ctrl-Shift-J>", "tab-move +")
+config.bind("<Ctrl-Shift-K>", "tab-move -")
+
 # Don't automatically leave insert mode. qutebrowser will leave insert mode automatically
 # if you click off of a textbox element (and under some other conditions) which is kinda
 # annoying.
