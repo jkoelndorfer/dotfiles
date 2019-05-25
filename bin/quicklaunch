@@ -12,6 +12,7 @@ quicklaunch_entries=(
     [spotify]='spotify'
     [steam]='steam'
     [vlc]='vlc'
+    [xkill]='xkill'
     [reboot]="$DOTFILE_DIR/bin/sysmgmt/reboot"
     [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
 )
