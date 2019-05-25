@@ -21,8 +21,10 @@ pkill -SIGUSR1 dunst
 # aren't always recovered correctly (the monitors turn on and seem to
 # be part of the X screen, but don't display anything).
 {
-    if [[ "$X11_DISABLE_DPMS" == '1' ]]; then
+    if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' ]]; then
         xset -dpms
+        sleep 300
+        sudo systemctl suspend
     else
         xset +dpms
         sleep 30
