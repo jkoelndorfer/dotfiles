@@ -5,6 +5,7 @@ quicklaunch_entries=(
     [discord]='discord'
     [firefox]='firefox'
     ['logout']='i3-msg exit'
+    [lutris]='lutris'
     [pavucontrol]='pavucontrol'
     [qutebrowser]='qutebrowser'
     [slack]='slack'
