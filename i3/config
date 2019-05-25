@@ -204,6 +204,7 @@ for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
 for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
 for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
 for_window [title="^Steam Keyboard$"] floating enable
+for_window [class="^Lutris$"] floating enable
 
 # Put applications on their respective workspaces.
 for_window [class="^hiri"] move container to workspace mail
@@ -211,7 +212,10 @@ for_window [class="^Spotify$"] move container to workspace spotify
 for_window [class="^Slack$"] move container to workspace slack
 for_window [class="^Steam$"] move container to workspace steam
 
-for_window [instance="^grim dawn.exe$"] move container to workspace game; [instance="^grim dawn.exe$"] fullscreen enable; workspace game
+# Lutris can share a workspace with Steam since they are both game launchers.
+for_window [class="^Lutris$"] move container to workspace steam
+
+for_window [instance="^(grim dawn.exe|wow.exe)$"] move container to workspace game; [instance="^(grim dawn.exe|wow.exe)$"] fullscreen enable; workspace game
 for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
 
 for_window [class="^keepassxc$"] move scratchpad; [class="^keepassxc$"] floating enable
