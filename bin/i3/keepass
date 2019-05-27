@@ -15,7 +15,15 @@ function keepass_focused() {
 }
 
 function dismiss_keepass() {
+    # Workaround for bug; see
+    # https://github.com/i3/i3/issues/2857#issuecomment-496264445
+    focused_win=$("$script_dir/focusedwin" | jq -r '.id')
+    i3-msg "[class=$pwsafe_app]" focus
+
     i3-msg "[class=$pwsafe_app]" move scratchpad
+
+    # Continuation of workaround from above
+    i3-msg "[con_id=$focused_win]" focus
 }
 
 function keepass_win_id() {
