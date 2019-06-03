@@ -206,12 +206,6 @@ exec = $DOTFILE_DIR/bin/i3/polydate
 
 format-underline = ${colors.blue}
 
-[module/utcdate]
-type = custom/script
-interval = 5
-
-format-prefix = %{F#fdf6e3}%{T2} %{F-}%{T-}
-
 [module/pulseaudio]
 type = internal/pulseaudio
 
