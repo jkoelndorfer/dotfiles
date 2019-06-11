@@ -22,6 +22,10 @@ function! PythonSettings()
     autocmd VimEnter * IndentGuidesEnable
     autocmd BufWritePost *.py Neomake
     setlocal omnifunc=syntaxcomplete#Complete
+
+    " Use the configuration above for Python but defer to a
+    " .editorconfig if one exists.
+    execute 'EditorConfigReload'
 endfunction
 autocmd FileType python call PythonSettings()
 
