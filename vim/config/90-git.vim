@@ -4,8 +4,8 @@ function! GitCommitMsgTemplate()
     let curline = getline('.')
     if jira_project != "" && curline !~ "^\s*\[" . jira_project "\]"
         exe "1s/^/[" . jira_project . "] /"
-        normal $
     endif
+    startinsert!
 endfunction
 
 autocmd FileType gitcommit call GitCommitMsgTemplate()
