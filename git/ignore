@@ -86,3 +86,6 @@ $RECYCLE.BIN/
 
 # vim-markdown-preview tempfile
 vim-markdown-preview.html
+
+# neomake (vim plugin) tempfiles
+.*@neomake*
