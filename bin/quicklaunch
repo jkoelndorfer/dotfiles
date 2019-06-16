@@ -17,6 +17,12 @@ quicklaunch_entries=(
     [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
 )
 
+if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+    # Spotify's UI doesn't have a scaling option for some reason. But there is a commandline option!
+    # See: https://community.spotify.com/t5/Desktop-Linux/Linux-client-barely-usable-on-HiDPI-displays/td-p/1067272
+    quicklaunch_entries[spotify]='spotify --force-device-scale-factor=2.0'
+fi
+
 if [[ "$(basename "$0")" =~ ^x ]]; then
     launcher_cmd=($DOTFILE_DIR/bin/rofi -dmenu -no-custom -p launch)
 else
