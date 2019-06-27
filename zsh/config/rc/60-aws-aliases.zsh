@@ -8,6 +8,33 @@ function ec2_instance_names() {
     aws ec2 describe-instances --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' | jq -r '.[][0][0]' | sort -u
 }
 
+function lsasg() {
+    aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalingGroupName' --output text |
+        sed -e 's/\t/\n/g' | sort
+}
+
+function asgmin() {
+    local asg_name=$1
+    local min_size=$2
+
+    aws autoscaling update-auto-scaling-group --auto-scaling-group-name "$asg_name" --min-size "$min_size"
+}
+
+function asgdesired() {
+    local asg_name=$1
+    local desired_capacity=$2
+
+    aws autoscaling update-auto-scaling-group --auto-scaling-group-name "$asg_name" --desired-capacity "$desired_capacity"
+}
+
+function asgmax() {
+    local asg_name=$1
+    local max_size=$2
+
+    aws autoscaling update-auto-scaling-group --auto-scaling-group-name "$asg_name" --max-size "$max_size"
+}
+
+
 function lsssmp() {
     aws ssm describe-parameters --query 'Parameters[].Name' --output text | sed -e 's/\t/\n/g' | sort
 }
