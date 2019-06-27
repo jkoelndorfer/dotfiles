@@ -40,11 +40,12 @@ function lsssmp() {
 }
 
 function ssmp() {
-    local name=$(select_ssm_param)
-    if [[ -z "$name" ]]; then
-        return 1
+    if [[ -n "$1" ]]; then
+        local name=$1
+    else
+        local name=$(select_ssm_param)
     fi
-    ssm_param "$name"
+    aws ssm get-parameter --name "$name" --with-decryption | jq -r '.Parameter.Value'
 }
 
 function select_ssm_param() {
@@ -52,9 +53,4 @@ function select_ssm_param() {
     aws ssm describe-parameters |
         jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
         column -t -s "$tab" | fzf | awk '{ print $1 }'
-}
-
-function ssm_param() {
-    local name=$1
-    aws ssm get-parameter --name "$name" --with-decryption | jq -r '.Parameter.Value'
 }
