@@ -1,7 +1,7 @@
 #!/bin/bash
 
 script_dir=$(dirname "$0")
-maim -f 'png' "$@" | "$script_dir/copy-to-clipboard" -t 'image/png'
+maim --hidecursor -f 'png' "$@" | "$script_dir/copy-to-clipboard" -t 'image/png'
 
 # If we're running in our gaming Xorg session, DISPLAY will be something other
 # than 0. In that case, copy the screenshot to the primary session's clipboard
