@@ -5,7 +5,7 @@ function! GitCommitMsgTemplate()
     if jira_project != "" && curline !~ "^\s*\[" . jira_project "\]"
         exe "1s/^/[" . jira_project . "] /"
     endif
-    startinsert!
+    normal $
 endfunction
 
 autocmd FileType gitcommit call GitCommitMsgTemplate()
