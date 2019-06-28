@@ -219,7 +219,7 @@ for_window [class="^Lutris$"] move container to workspace steam
 # Elder Scrolls Online launcher
 for_window [instance="^bethesda.net_launcher.exe$"] move container to workspace steam
 
-for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe)$"] move container to workspace game; [instance="^(grim dawn.exe|wow.exe)$"] fullscreen enable; workspace game
+for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe)$"] move container to workspace game; [instance="^(grim dawn.exe|wow.exe|darksoulsremastered.exe)$"] fullscreen enable; workspace game
 for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
 for_window [class="^Slay the Spire$"] move container to workspace game; workspace game; floating disable; [class="^Slay the Spire$"] fullscreen enable
 
