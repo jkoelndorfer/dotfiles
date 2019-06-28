@@ -223,4 +223,7 @@ for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe)$"] move container to wo
 for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
 for_window [class="^Slay the Spire$"] move container to workspace game; workspace game; floating disable; [class="^Slay the Spire$"] fullscreen enable
 
-for_window [class="^keepassxc$"] move scratchpad; [class="^keepassxc$"] floating enable
+# The "title" attribute is used here so that KeePassXC dialogs aren't targeted. If dialogs
+# were targeted by this rule (i.e. using the "class" criteria) they will end up on the scratchpad
+# when they appear.
+for_window [title="- KeePassXC$"] move scratchpad; [title="- KeePassXC$"] floating enable
