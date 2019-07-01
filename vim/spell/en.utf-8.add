@@ -6,7 +6,9 @@ entrypoint
 Hashicorp
 init
 iOS
+JSON
 lifecycle
+metadata
 OSI
 plaintext
 pytest
