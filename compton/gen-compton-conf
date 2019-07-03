@@ -17,12 +17,15 @@ else
 fi
 
 cat <<EOF
-backend = "xrender";
+backend = "glx";
 vsync = "$vsync";
 
 glx-swap-method = 2;
 xrender-sync = true;
 xrender-sync-fence = $xrender_sync_fence;
+
+paint-on-overlay = false;
+force-win-blend = true;
 
 blur-background = false;
 
@@ -41,7 +44,7 @@ mark-ovredir-focused = true;
 
 opacity-rule = [
     "95:class_g = 'URxvt'",
-    "90:class_g = 'Polybar'",
+    "95:class_g = 'Polybar'",
     "95:class_g = 'Rofi'",
 ];
 
