@@ -223,6 +223,9 @@ for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe)
 for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
 for_window [class="^Slay the Spire$"] move container to workspace game; workspace game; floating disable; [class="^Slay the Spire$"] fullscreen enable
 
+# Targets Steam games running in a Wine virtual desktop.
+for_window [class="^steam_app_[0-9]+$"] move container to workspace game; workspace game; floating disable; [class="^[steam_app_[0-9]+$"] fullscreen enable
+
 # The "title" attribute is used here so that KeePassXC dialogs aren't targeted. If dialogs
 # were targeted by this rule (i.e. using the "class" criteria) they will end up on the scratchpad
 # when they appear.
