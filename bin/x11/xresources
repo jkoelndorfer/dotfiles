@@ -21,8 +21,9 @@ Ctrl Shift <Key> V: insert-selection(CLIPBOARD)\n\
 Ctrl <Key> +: larger-vt-font()\n\
 Ctrl <Key> -: smaller-vt-font()
 
+! Note: URxvt can be pasted to by using Meta-Ctrl-v implicitly.
 URxvt.scrollBar: false
-URxvt.perl-ext-common: focus-events,resize-font
+URxvt.perl-ext-common: focus-events,resize-font,selection-to-clipboard
 
 ! Pressing Ctrl-Shift in urxvt results in a box that says
 ! "ISO 14755 Mode" or "Keycap Picture Insert Mode".
