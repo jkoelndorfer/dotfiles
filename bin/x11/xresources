@@ -22,7 +22,7 @@ Ctrl <Key> +: larger-vt-font()\n\
 Ctrl <Key> -: smaller-vt-font()
 
 URxvt.scrollBar: false
-URxvt.perl-ext-common: resize-font
+URxvt.perl-ext-common: focus-events,resize-font
 
 ! Pressing Ctrl-Shift in urxvt results in a box that says
 ! "ISO 14755 Mode" or "Keycap Picture Insert Mode".
