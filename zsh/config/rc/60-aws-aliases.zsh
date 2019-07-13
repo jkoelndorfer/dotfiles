@@ -34,6 +34,15 @@ function asgmax() {
     aws autoscaling update-auto-scaling-group --auto-scaling-group-name "$asg_name" --max-size "$max_size"
 }
 
+function asginstances() {
+    local asg_name=$1
+
+    aws autoscaling describe-auto-scaling-groups \
+        --auto-scaling-group-name "$asg_name" \
+        --query 'AutoScalingGroups[0].Instances[*].InstanceId' \
+        --output text | sed -e 's/\t/\n/g'
+}
+
 
 function lsssmp() {
     aws ssm describe-parameters --query 'Parameters[].Name' --output text | sed -e 's/\t/\n/g' | sort
