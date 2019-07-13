@@ -8,6 +8,15 @@ function ec2_instance_names() {
     aws ec2 describe-instances --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' | jq -r '.[][0][0]' | sort -u
 }
 
+function ec2_instance_public_ip() {
+    local instance_id=$1
+
+    aws ec2 describe-instances \
+        --instance-id "$instance_id" \
+        --query 'Reservations[0].Instances[0].PublicIpAddress' \
+        --output text
+}
+
 function lsasg() {
     aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalingGroupName' --output text |
         sed -e 's/\t/\n/g' | sort
