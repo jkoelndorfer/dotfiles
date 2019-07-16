@@ -9,6 +9,6 @@ function pathmunge() {
 }
 
 function pathmunge_reorder() {
-    PATH="$(echo "$PATH" | sed -E -e "s#(^|:)$1($|:)#:#" | sed -E -e 's/(^:|:$)//')"
+    PATH="$(echo "$PATH" | sed -E -e "s#(^|:)$1($|:)#:#g" | sed -E -e 's/(^:|:$)//')"
     pathmunge "$@"
 }
