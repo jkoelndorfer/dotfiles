@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+function cleanup() {
+    rm -f "$clipboard_tempfile"
+}
+
 # tmux does not seem to have a way to get the current client, so instead we fake
 # it by getting the client with the most recent activity.
 #
@@ -11,5 +15,17 @@ tmux_client_pid=$(tmux list-clients -F '#{client_activity} #{client_pid}' | sort
 tmux_client_display=$(cat "/proc/${tmux_client_pid}/environ" | xargs -0 -n1 echo | awk -F= '$1 == "DISPLAY" { print $2 }')
 
 export DISPLAY="$tmux_client_display"
-tmux set-buffer -b clipboard "$(xclip -o -sel clipboard)"
+
+unset clipboard_tempfile
+clipboard_tempfile=$(umask 0077; mktemp --tmpdir 'dotfiles-tmux-paste.XXXXXX.tmp')
+trap cleanup EXIT
+
+xclip -o -sel clipboard > "$clipboard_tempfile"
+
+# We use load-buffer here with a tempfile because exceptionally long clipboard buffers can
+# fail to load if specified on the command line with "set-buffer".
+#
+# NOTE: Terminal applications don't generally behave well when pasting very large buffers,
+# either. Anything greater than 4096 bytes seems to be problematic.
+tmux load-buffer -b clipboard "$clipboard_tempfile"
 tmux paste-buffer -b clipboard
