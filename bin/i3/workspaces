@@ -4,6 +4,18 @@
 # This is added to the list of workspaces currently active in i3 so we can have
 # some workspace consistency and make good use of our fancy icons.
 
+function workspace_display_indicator() {
+    local workspace_name=$1
+
+    while read aws; do
+        if [[ "$workspace_name" == "$aws" ]]; then
+            echo -n "*"
+            return
+        fi
+    done <<<"$active_display_workspace_names"
+    echo -n "."
+}
+
 polybar_defs="$(grep -E '^\s*ws-icon-[0-9]+' "$DOTFILE_DIR/polybar/config" | awk -F ' = ' '{ print $2 }')"
 default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$DOTFILE_DIR/polybar/config" | grep -o '[^ \t\nA-Za-z0-9{}%=-]')"
 json=0
@@ -18,26 +30,34 @@ while read d; do
 done <<< "$polybar_defs"
 
 polybar_workspaces="$(printf "%s\n" "${!polybar_icon_map[@]}")"
-i3_workspaces="$(i3-msg -t get_workspaces | jq -r '.[].name')"
-i3_only_workspaces="$(comm -23 <(echo "$i3_workspaces" | sort -u) <(echo "$polybar_workspaces" | sort -u))"
+i3_workspaces="$(i3-msg -t get_workspaces)"
+active_display="$(echo "$i3_workspaces" | jq -r '.[] | select(.focused == true) | .output')"
+active_display_workspace_names=$(echo "$i3_workspaces" | jq -r ".[] | select(.output == \"$active_display\") | .name")
+i3_workspace_names="$(i3-msg -t get_workspaces | jq -r '.[].name')"
+i3_only_workspaces="$(comm -23 <(echo "$i3_workspace_names" | sort -u) <(echo "$polybar_workspaces" | sort -u))"
 
 {
     while read ws; do
         # There may not be any workspaces that aren't defined in polybar.
         # In that case, the "icondef" loop below would still run once and
         # hose up our workspace selector.
+        unset icon
         [[ -z "$ws" ]] && break
+
+        # Use a loop with regex comparison here so that we can find icons
+        # for workspaces that aren't explicitly defined (e.g. "code2").
         for icondef in "${!polybar_icon_map[@]}"; do
             if [[ "$ws" =~ $icondef ]]; then
-                echo -e "${polybar_icon_map[$icondef]}\t$ws"
-                continue 2
+                icon="${polybar_icon_map[$icondef]}"
+                continue
             fi
         done
-        echo -e "${default_icon}\t${ws}"
+        [[ -z "$icon" ]] && icon="$default_icon"
+        echo -e "${icon}\t$(workspace_display_indicator "$ws")\t${ws}"
     done <<< "$i3_only_workspaces"
 
     while read ws; do
-        echo -e "${polybar_icon_map[$ws]}\t${ws}"
+        echo -e "${polybar_icon_map[$ws]}\t$(workspace_display_indicator "$ws")\t${ws}"
     done <<< "$polybar_workspaces"
 } | sort |
 {
