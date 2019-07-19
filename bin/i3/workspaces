@@ -62,7 +62,7 @@ i3_only_workspaces="$(comm -23 <(echo "$i3_workspace_names" | sort -u) <(echo "$
 } | sort |
 {
     if [[ "$json" == '1' ]]; then
-        jq -R 'split("\t") | {(.[1]): .[0]}' | jq -s add
+        jq -R 'split("\t") | {(.[2]): {"icon": .[0], "display_indicator": .[1]}}' | jq -s add
     else
         column -t -o ' '
     fi

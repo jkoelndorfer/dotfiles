@@ -11,7 +11,9 @@ i3_windows="$(("$DOTFILE_DIR/bin/i3/workspaces" -j; i3-msg -t get_tree) |
         .name as $wsname |
         (.nodes[], .floating_nodes[].nodes[]) |
         .id as $id |
-        .window_properties + {"id": $id, "workspace": $wsname, "workspace_display": ($wsicons[$wsname] + " " + $wsname)} |
+        $wsicons[$wsname]["icon"] as $icon |
+        $wsicons[$wsname]["display_indicator"] as $display_indicator |
+        .window_properties + {"id": $id, "workspace": $wsname, "workspace_display": "\($icon) \($display_indicator) \($wsname)"} |
         select(.workspace != "__i3_scratch")]
     '
 )"
