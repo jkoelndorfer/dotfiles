@@ -7,5 +7,6 @@ branch=$(git symbolic-ref --short HEAD)
 ticket=$(echo "$branch" | grep -Eo '^[A-Z]+-[0-9]+')
 
 if [[ -n "$ticket" ]]; then
-    sed -E -i '' -e "1s/^\\s*(\\[$ticket\\])?/[$ticket]/" "$msg_file"
+    new_commit_msg=$(sed -E -e "1s/^\\s*(\\[$ticket\\])?/[$ticket]/" "$msg_file")
+    echo "$new_commit_msg" > "$msg_file"
 fi
