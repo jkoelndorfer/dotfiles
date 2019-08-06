@@ -8,4 +8,10 @@ function! GitCommitMsgTemplate()
     normal $
 endfunction
 
+" vim-fugitive does not have a Gadd command, but it does have Gwrite.
+" For consistency, make Gadd an alias for Gwrite.
+"
+" See https://github.com/tpope/vim-fugitive/issues/558.
+command Gadd Gwrite
+
 autocmd FileType gitcommit call GitCommitMsgTemplate()
