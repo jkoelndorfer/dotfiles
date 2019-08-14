@@ -14,6 +14,9 @@ fi
 # the workspaces in polybar.
 selected_workspace_output="$(echo "$i3_workspaces" | jq -r ".[] | select(.name == \"$selected_workspace\") | .output")"
 if [[ "$selected_workspace_output" != "$active_output" ]]; then
+    # FIXME: If $selected_workspace is the last workspace on the output it
+    # currently lives on, moving it will fail.  We need to examine the
+    # workspaces on that output and create a dummy workspace, if necessary.
     i3-msg "[workspace=$selected_workspace]" move workspace to output "$active_output"
 fi
 
