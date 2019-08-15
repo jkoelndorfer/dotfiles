@@ -52,6 +52,17 @@ function asginstances() {
         --output text | sed -e 's/\t/\n/g'
 }
 
+function asg_each() {
+    local asg_name=$1
+    local action=$2
+
+    local instances=$(asginstances "$asg_name")
+    while read i; do
+        local ip=$(ec2_instance_public_ip "$i")
+
+        ssh -n -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$ip" "$action"
+    done <<<"$instances"
+}
 
 function lsssmp() {
     aws ssm describe-parameters --query 'Parameters[].Name' --output text | sed -e 's/\t/\n/g' | sort
