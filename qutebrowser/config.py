@@ -65,7 +65,7 @@ c.url.start_pages = ["https://www.google.com"]
 c.fonts.monospace = "mononoki Nerd Font Mono"
 set_ui_fonts(c, 10)
 if display_profile == "UHD":
-    config.set("zoom.default", "200%")
+    config.set("qt.highdpi", True)
 
 # Fullscreen only fills the qutebrowser window. If we want true fullscreen,
 # we can pair it with the fullscreen offered by i3.
