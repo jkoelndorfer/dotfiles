@@ -58,6 +58,10 @@ config.set("downloads.position", "bottom")
 
 # Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
+for t in ("wowhead", "wh"):
+    c.url.searchengines[t] = "https://classic.wowhead.com/search?q={}"
+for t in ("bbg", "auc", "auction"):
+    c.url.searchengines[t] = "https://www.bootybaygazette.com/#us/thunderfury-a/search/{}"
 
 # Set start page = google.com
 c.url.start_pages = ["https://www.google.com"]
