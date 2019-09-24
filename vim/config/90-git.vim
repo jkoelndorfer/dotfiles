@@ -12,6 +12,6 @@ endfunction
 " For consistency, make Gadd an alias for Gwrite.
 "
 " See https://github.com/tpope/vim-fugitive/issues/558.
-command Gadd Gwrite
+command! Gadd Gwrite
 
 autocmd FileType gitcommit call GitCommitMsgTemplate()
