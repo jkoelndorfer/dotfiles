@@ -16,6 +16,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'SirVer/ultisnips'
     Plug 'chrisbra/vim-diff-enhanced'
     Plug 'scrooloose/nerdtree'
+    Plug 'vimwiki/vimwiki'
     Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " styling, syntax highlighting
