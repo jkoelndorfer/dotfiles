@@ -219,14 +219,19 @@ for_window [class="^Lutris$"] move container to workspace steam
 # Elder Scrolls Online launcher
 for_window [instance="^bethesda.net_launcher.exe$"] move container to workspace steam
 
-for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe)$"] move container to workspace game; [instance="^(grim dawn.exe|wow.exe|darksoulsremastered.exe)$"] fullscreen enable; workspace game
-for_window [class="^Binding of Isaac"] move container to workspace game; workspace game
-for_window [class="^Slay the Spire$"] move container to workspace game; workspace game; floating disable; [class="^Slay the Spire$"] fullscreen enable
+# Battle.net launcher
+for_window [instance="^battle.net.exe$"] move container to workspace steam, floating enable
+# TSM application
+for_window [instance="^tsmapplication.exe$"] move container to workspace steam, floating enable
+
+for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe)$"] move container to workspace game, fullscreen enable, workspace game
+for_window [class="^Binding of Isaac"] move container to workspace game, workspace game
+for_window [class="^Slay the Spire$"] move container to workspace game, workspace game, fullscreen enable, floating disable
 
 # Targets Steam games running in a Wine virtual desktop.
-for_window [class="^steam_app_[0-9]+$"] move container to workspace game; workspace game; floating disable; [class="^[steam_app_[0-9]+$"] fullscreen enable
+for_window [class="^steam_app_[0-9]+$"] move container to workspace game, workspace game, floating disable, fullscreen enable
 
 # The "title" attribute is used here so that KeePassXC dialogs aren't targeted. If dialogs
 # were targeted by this rule (i.e. using the "class" criteria) they will end up on the scratchpad
 # when they appear.
-for_window [title="- KeePassXC$"] move scratchpad; [title="- KeePassXC$"] floating enable
+for_window [title="- KeePassXC$"] move scratchpad, floating enable
