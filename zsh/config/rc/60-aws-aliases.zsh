@@ -1,3 +1,5 @@
+tab=$(echo -e '\t')
+
 # Dumps out all of the EC2 instances with the given name.
 function aws-ec2-instances-named() {
     local name="$1"
@@ -18,7 +20,6 @@ function aws-ec2-instance-public-ip() {
 }
 
 function _aws-ami-ls() {
-    local tab="$(echo -e '\t')"
     aws ec2 describe-images --owners self | jq -r '.Images[] | [.Name, .ImageId, .CreationDate] | join("\t")' | sort -k3 -r -t "$tab"
 }
 
@@ -27,7 +28,6 @@ function aws-ami-ls() {
 }
 
 function aws-ami-select() {
-    local tab="$(echo -e '\t')"
     {
         echo -e "Name\tImage ID\tCreation Date"
         _aws-ami-ls
@@ -81,6 +81,21 @@ function aws-asg-ssh-each() {
     done <<<"$instances"
 }
 
+function _aws-lt-ls() {
+    aws ec2 describe-launch-templates | jq -r '.LaunchTemplates[] | [.LaunchTemplateName, .LaunchTemplateId, .LatestVersionNumber] | join("\t")'
+}
+
+function aws-lt-ls() {
+    {
+        echo -e 'Launch Template Name\tLaunch Template ID\tLatest Version'
+        _aws-lt-ls
+    } | column -t -s "$tab" -o "$tab"
+}
+
+function aws-lt-select() {
+    aws-lt-ls | fzf --header-lines 1 | awk -F"$tab" '{ print $2 }'
+}
+
 function aws-lt-set-ami() {
     local lt_name=$1
     local ami_id=$2
@@ -104,7 +119,6 @@ function aws-ssm-parameter() {
 alias ssmp=aws-ssm-parameter
 
 function aws-ssm-parameter-select() {
-    local tab=$(echo -e '\t')
     aws ssm describe-parameters |
         jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
         column -t -s "$tab" | fzf | awk '{ print $1 }'
