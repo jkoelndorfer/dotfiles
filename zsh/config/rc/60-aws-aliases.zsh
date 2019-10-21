@@ -17,11 +17,20 @@ function aws-ec2-instance-public-ip() {
         --output text
 }
 
+function _aws-ami-ls() {
+    local tab="$(echo -e '\t')"
+    aws ec2 describe-images --owners self | jq -r '.Images[] | [.Name, .ImageId, .CreationDate] | join("\t")' | sort -k3 -r -t "$tab"
+}
+
+function aws-ami-ls() {
+    _aws-ami-ls | column -t
+}
+
 function aws-ami-select() {
     local tab="$(echo -e '\t')"
     {
         echo -e "Name\tImage ID\tCreation Date"
-        aws ec2 describe-images --owners self | jq -r '.Images[] | [.Name, .ImageId, .CreationDate] | join("\t")' | sort -k3 -r -t "$tab"
+        _aws-ami-ls
     } | column -t -o "$tab" -s "$tab" | fzf --header-lines 1 | awk -F"$tab" '{ print $2 }'
 }
 
