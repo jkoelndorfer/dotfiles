@@ -24,7 +24,7 @@ function _aws-ami-ls() {
 }
 
 function aws-ami-ls() {
-    _aws-ami-ls | column -t
+    _aws-ami-ls | column -t -s "$tab" -o "$tab"
 }
 
 function aws-ami-select() {
