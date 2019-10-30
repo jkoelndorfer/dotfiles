@@ -1,4 +1,24 @@
-tab=$(echo -e '\t')
+tab=$(printf '\t')
+
+function aws-ec2-instance-describe-short() {
+    local jq_query
+    read -rd '' jq_query <<'EOF'
+    .[][] | {
+        name: ((.Tags[] | select(.Key == "Name") | .Value) // "unnamed"),
+        instance_id: .InstanceId,
+        public_ip: .PublicIpAddress,
+        launch_time: .LaunchTime
+    }
+EOF
+    aws ec2 describe-instances --query 'Reservations[*].Instances[*]' | jq "$jq_query"
+}
+
+function aws-ec2-instance-ls() {
+    {
+        echo -e "Name\tID\tPublic IP\tLaunch Time"
+        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .public_ip, .launch_time] | join("\t")'
+    } | column -t -o "$tab" -s "$tab"
+}
 
 # Dumps out all of the EC2 instances with the given name.
 function aws-ec2-instances-named() {
@@ -8,6 +28,18 @@ function aws-ec2-instances-named() {
 
 function aws-ec2-instance-names() {
     aws ec2 describe-instances --query 'Reservations[*].Instances[*].Tags[?Key==`Name`].Value' | jq -r '.[][0][0]' | sort -u
+}
+
+function aws-ec2-instance-select() {
+    aws-ec2-instance-ls | fzf --header-lines 1
+}
+
+function aws-ec2-instance-terminate() {
+    local selected_instance=$(aws-ec2-instance-select)
+    local instance_name=$(echo "$selected_instance" | awk -F"$tab" '{ print $1 }' | trim-string)
+    local instance_id=$(echo "$selected_instance" | awk -F"$tab" '{ print $2 }' | trim-string)
+
+    confirm-cmd "terminate instance $instance_name ($instance_id)" aws ec2 terminate-instances --instance-ids "$instance_id"
 }
 
 function aws-ec2-instance-public-ip() {
