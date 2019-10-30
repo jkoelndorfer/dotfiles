@@ -2,6 +2,34 @@ function c() {
     cd "$(selectdir "$1")"
 }
 
+function confirm-cmd() {
+    local description=$1
+    local confirm_response='unset'
+
+    shift
+    local cmd=("$@")
+
+    while [[ "$confirm_response" == 'unset' ]]; do
+        read -r "confirm_response?${description}? [Y/N] "
+        case "$(echo "$confirm_response" | tr '[:upper:]' '[:lower:]')" in
+            y|yes|true|1)
+                confirm_response=1
+                ;;
+            n|no|false|0)
+                confirm_response=0
+                ;;
+            *)
+                echo "Invalid response '$confirm_response'" >&2
+                confirm_response='unset'
+        esac
+    done
+    if [[ "$confirm_response" == '1' ]]; then
+        "${(@)cmd}"
+    else
+        return 121
+    fi
+}
+
 function selectdir() {
     local search_path=("$1")
     local addl_search_paths=''
@@ -20,4 +48,3 @@ function selectdir() {
     )"
     [[ -n "$selected_dir" ]] && echo "$selected_dir"
 }
-
