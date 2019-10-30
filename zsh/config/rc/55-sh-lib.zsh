@@ -48,3 +48,7 @@ function selectdir() {
     )"
     [[ -n "$selected_dir" ]] && echo "$selected_dir"
 }
+
+function trim-string() {
+    sed -r -e 's/(^\s+|\s+$)//g'
+}
