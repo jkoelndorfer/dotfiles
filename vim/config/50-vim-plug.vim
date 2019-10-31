@@ -52,7 +52,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'ncm2/ncm2-tmux'
     Plug 'ncm2/ncm2-path'
     Plug 'ncm2/ncm2-ultisnips'
-    Plug 'fgrsnau/ncm2-otherbuf', { 'branch': 'ncm2' }
+    Plug 'fgrsnau/ncm2-otherbuf'
 
     " ansible
     Plug 'pearofducks/ansible-vim'
