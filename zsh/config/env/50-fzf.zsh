@@ -1,5 +1,3 @@
-#!/bin/bash
-
 if [[ "$TERM" != 'linux' ]]; then
     source "$DOTFILE_DIR/colors/solarized-dark"
     export FZF_DEFAULT_OPTS="
@@ -9,5 +7,3 @@ if [[ "$TERM" != 'linux' ]]; then
         --no-bold
     "
 fi
-
-/usr/bin/fzf "$@"
