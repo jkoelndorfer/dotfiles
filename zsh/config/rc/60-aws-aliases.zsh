@@ -10,7 +10,9 @@ function aws-ec2-instance-describe-short() {
         launch_time: .LaunchTime
     }
 EOF
-    aws ec2 describe-instances --query 'Reservations[*].Instances[*]' | jq "$jq_query"
+    aws ec2 describe-instances \
+        --query 'Reservations[*].Instances[*]' \
+        --filters 'Name=instance-state-name,Values=running' | jq "$jq_query"
 }
 
 function aws-ec2-instance-ls() {
@@ -36,6 +38,7 @@ function aws-ec2-instance-select() {
 
 function aws-ec2-instance-terminate() {
     local selected_instance=$(aws-ec2-instance-select)
+    [[ -n "$selected_instance" ]] || return 1
     local instance_name=$(echo "$selected_instance" | awk -F"$tab" '{ print $1 }' | trim-string)
     local instance_id=$(echo "$selected_instance" | awk -F"$tab" '{ print $2 }' | trim-string)
 
