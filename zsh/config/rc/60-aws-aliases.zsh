@@ -51,6 +51,29 @@ function aws-ec2-instance-public-ip() {
         --output text
 }
 
+function aws-ec2-security-group-ls() {
+    {
+        echo -e "Group Name\tGroup ID\tVPC ID"
+        aws ec2 describe-security-groups | jq -r '.SecurityGroups[] | [.GroupName, .GroupId, .VpcId] | join("\t")' | sort
+    } | column -t -s "$tab" -o "$tab"
+}
+
+function aws-ec2-security-group-select() {
+    aws-ec2-security-group-ls | fzf --header-lines 1
+}
+
+function aws-ec2-security-group-select-id() {
+    aws-ec2-security-group-select | awk -F"$tab" '{ print $2 }'
+}
+
+function aws-ec2-security-group-delete() {
+    local security_group_defn=$(aws-ec2-security-group-select)
+    [[ -n "$security_group_defn" ]] || return 1
+    security_group_name=$(echo "$security_group_defn" | awk -F"$tab" '{ print $1 }' | trim-string)
+    security_group_id=$(echo "$security_group_defn" | awk -F"$tab" '{ print $2 }' | trim-string)
+    confirm-cmd "delete security group $security_group_name ($security_group_id)" aws ec2 delete-security-group --group-id "$security_group_id"
+}
+
 function _aws-ami-ls() {
     aws ec2 describe-images --owners self | jq -r '.Images[] | [.Name, .ImageId, .CreationDate] | join("\t")' | sort -k3 -r -t "$tab"
 }
