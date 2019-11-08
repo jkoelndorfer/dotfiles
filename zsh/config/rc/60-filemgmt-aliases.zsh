@@ -23,7 +23,9 @@ function dir_hier_up() {
 function dir_hier_down() {
     local dir=${1-.}
 
-    find "$dir" -type d | xargs realpath | grep -Ev '/\.git/'
+    {
+        find "$dir" -type d -print0 | xargs -0 realpath | grep -Ev '/\.git/'
+    } 2>/dev/null
 }
 
 function up() {
