@@ -5,6 +5,7 @@ function aws-ec2-instance-describe-short() {
     read -rd '' jq_query <<'EOF'
     .[][] | {
         name: ((.Tags[] | select(.Key == "Name") | .Value) // "unnamed"),
+        availability_zone: .Placement.AvailabilityZone,
         instance_id: .InstanceId,
         public_ip: .PublicIpAddress,
         launch_time: .LaunchTime
@@ -17,8 +18,8 @@ EOF
 
 function aws-ec2-instance-ls() {
     {
-        echo -e "Name\tID\tPublic IP\tLaunch Time"
-        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .public_ip, .launch_time] | join("\t")'
+        echo -e "Name\tID\tPublic IP\tAvailability Zone\tLaunch Time"
+        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .public_ip, .availability_zone, .launch_time] | join("\t")'
     } | column -t -o "$tab" -s "$tab"
 }
 
