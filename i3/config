@@ -234,6 +234,8 @@ for_window [instance="^bethesda.net_launcher.exe$"] move container to workspace 
 for_window [instance="^battle.net.exe$"] move container to workspace steam, floating enable
 # TSM application
 for_window [instance="^tsmapplication.exe$"] move container to workspace steam, floating enable
+# GDStash
+for_window [class="^org-gdstash"] move container to workspace game, floating enable
 
 for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe|Faeria.x86_64)$"] move container to workspace game, fullscreen enable, workspace game
 for_window [class="^Binding of Isaac"] move container to workspace game, workspace game
