@@ -191,6 +191,14 @@ focus_follows_mouse no
 # Sometimes qutebrowser steals focus while I am doing stuff. It's annoying.
 focus_on_window_activation urgent
 
+# Below are some rules to help various applications behave better and make their
+# windows appear on appropriate workspaces.
+#
+# Get window information by running `xprop` and clicking on the window for which
+# you would like information.
+#
+# In WM_CLASS, the first field corresponds to `instance`. The second field corresponds to `class`.
+
 # Make Steam windows behave better.
 # See:
 #
