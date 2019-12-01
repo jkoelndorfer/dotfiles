@@ -198,6 +198,7 @@ focus_on_window_activation urgent
 # you would like information.
 #
 # In WM_CLASS, the first field corresponds to `instance`. The second field corresponds to `class`.
+for_window [class="^KeePassXC$"] floating enable
 
 # Make Steam windows behave better.
 # See:
