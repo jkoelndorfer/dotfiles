@@ -7,27 +7,20 @@
 # workspace.
 
 pwsafe_app='keepassxc'
+pwsafe_window_class='KeePassXC'
 script_dir="$(dirname "$0")"
 sleep_interval='0.1'
 
 function keepass_focused() {
-    [[ "$("$script_dir/focusedwin" | jq -r '.class')" == "$pwsafe_app" ]]
+    [[ "$("$script_dir/focusedwin" | jq -r '.class')" == "$pwsafe_window_class" ]]
 }
 
 function dismiss_keepass() {
-    # Workaround for bug; see
-    # https://github.com/i3/i3/issues/2857#issuecomment-496264445
-    focused_win=$("$script_dir/focusedwin" | jq -r '.id')
-    i3-msg "[class=$pwsafe_app]" focus
-
-    i3-msg "[class=$pwsafe_app]" move scratchpad
-
-    # Continuation of workaround from above
-    i3-msg "[con_id=$focused_win]" focus
+    i3-msg "[class=$pwsafe_window_class]" move scratchpad
 }
 
 function keepass_win_id() {
-    local jq_query="recurse(.nodes[], .floating_nodes[].nodes[]) | select(.window_properties.class == \"$pwsafe_app\") | .id"
+    local jq_query="recurse(.nodes[], .floating_nodes[].nodes[]) | select(.window_properties.class == \"$pwsafe_window_class\") | .id"
     i3-msg -t get_tree | jq -r "$jq_query"
 }
 
@@ -53,7 +46,7 @@ fi
 while [[ -z "$(keepass_win_id)" ]]; do
     sleep "$sleep_interval"
 done
-i3-msg "[class=$pwsafe_app]" scratchpad show
+i3-msg "[class=$pwsafe_window_class]" scratchpad show
 "$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))" "$(keepass_win_id)"
 while keepass_focused; do
     sleep "$sleep_interval"
