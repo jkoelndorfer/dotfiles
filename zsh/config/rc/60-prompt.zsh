@@ -4,6 +4,10 @@ precmd_functions=(record_lastrc "${precmd_functions[@]}")
 
 VIMODE='insert'
 
+function aws_profile_indicator() {
+    [[ -n "$AWS_PROFILE" ]] && echo -n "%F{yellow} $AWS_PROFILE "
+}
+
 function cwd_indicator() {
     echo -n '%F{blue} %1~%f'
 }
@@ -74,7 +78,7 @@ function in_git_repo() {
 
 function git_indicator() {
     if in_git_repo; then
-        echo -n " %F{green} $(git_branch)%f"
+        echo -n " %F{green} $(git_branch)%f "
         local unpublished=$(git_unpushed_commits_indicator)
         if [[ -n "$unpublished" ]]; then
             echo -n " $unpublished"
@@ -97,6 +101,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator) $(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
