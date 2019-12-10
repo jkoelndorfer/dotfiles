@@ -9,7 +9,7 @@ function aws_profile_indicator() {
 }
 
 function cwd_indicator() {
-    echo -n '%F{blue} %1~%f'
+    echo -n '%F{blue} %1~%f '
 }
 
 function host_indicator() {
@@ -26,6 +26,11 @@ function rc_indicator() {
 
 function record_lastrc() {
     last_rc="$?"
+}
+
+function terraform_workspace_indicator() {
+    tf_env_file='.terraform/environment'
+    [[ -f "$tf_env_file" ]] && echo "%F{cyan} $(cat "$tf_env_file" 2>/dev/null)%f "
 }
 
 function user_indicator() {
@@ -78,10 +83,10 @@ function in_git_repo() {
 
 function git_indicator() {
     if in_git_repo; then
-        echo -n " %F{green} $(git_branch)%f "
+        echo -n "%F{green} $(git_branch)%f "
         local unpublished=$(git_unpushed_commits_indicator)
         if [[ -n "$unpublished" ]]; then
-            echo -n " $unpublished"
+            echo -n "$unpublished "
         fi
     fi
 }
@@ -101,6 +106,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_workspace_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
