@@ -73,14 +73,6 @@ function accept-line() {
     builtin zle .accept-line
 }
 
-function in_git_repo() {
-    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        return 0
-    else
-        return 1
-    fi
-}
-
 function git_indicator() {
     if in_git_repo; then
         echo -n "%F{green} $(git_branch)%f "
