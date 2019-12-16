@@ -91,8 +91,12 @@ function git_indicator() {
     fi
 }
 
+function git_unpublished_commits() {
+    git rev-list @{u}..HEAD 2>/dev/null | wc -l
+}
+
 function git_unpushed_commits_indicator() {
-    local num=$(git rev-list @{u}..HEAD 2>/dev/null | wc -l)
+    local num=$(git_unpublished_commits)
     if [[ "$num" -gt 0 ]]; then
         echo "%F{yellow}$num%f"
     fi
