@@ -109,6 +109,19 @@ function aws-ami-snapshot-ls() {
         --output text | aws-canonicalize-text
 }
 
+function aws-ami-rm() {
+    local image_id=$1
+    local image_snapshots=($(aws-ami-snapshot-ls "$image_id"))
+    if [[ -z "$image_snapshots" ]]; then
+        echo "$0: Could not determine snapshots for AMI ID $image_id; is the ID correct?" >&2
+        return 1
+    fi
+    aws ec2 deregister-image --image-id "$image_id"
+    for s in "${image_snapshots[@]}"; do
+        aws ec2 delete-snapshot --snapshot-id "$s"
+    done
+}
+
 function aws-asg-ls() {
     aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalingGroupName' --output text |
         aws-canonicalize-text | sort
