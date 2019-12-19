@@ -1,5 +1,9 @@
 tab=$(printf '\t')
 
+function aws-canonicalize-text() {
+    sed -e 's/\t/\n/g'
+}
+
 function aws-ec2-instance-describe-short() {
     local jq_query
     read -rd '' jq_query <<'EOF'
@@ -95,7 +99,7 @@ function aws-ami-select() {
 
 function aws-asg-ls() {
     aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalingGroupName' --output text |
-        sed -e 's/\t/\n/g' | sort
+        aws-canonicalize-text | sort
 }
 
 function aws-asg-set-min() {
@@ -125,7 +129,7 @@ function aws-asg-get-instances() {
     aws autoscaling describe-auto-scaling-groups \
         --auto-scaling-group-name "$asg_name" \
         --query 'AutoScalingGroups[0].Instances[*].InstanceId' \
-        --output text | sed -e 's/\t/\n/g'
+        --output text | aws-canonicalize-text
 }
 
 function aws-asg-ssh-each() {
@@ -163,7 +167,7 @@ function aws-lt-set-ami() {
 }
 
 function aws-ssm-parameter-ls() {
-    aws ssm describe-parameters --query 'Parameters[].Name' --output text | sed -e 's/\t/\n/g' | sort
+    aws ssm describe-parameters --query 'Parameters[].Name' --output text | aws-canonicalize-text | sort
 }
 alias ls-ssmp=aws-ssm-parameter-ls
 
