@@ -97,6 +97,18 @@ function aws-ami-select() {
     } | column -t -o "$tab" -s "$tab" | fzf --header-lines 1 | awk -F"$tab" '{ print $2 }'
 }
 
+function aws-ami-snapshot-ls() {
+    local image_id=$1
+    if [[ -z "$image_id" ]]; then
+        echo "$0: image ID must be specified" >&2
+        return 1
+    fi
+    aws ec2 describe-images \
+        --image-ids "$image_id" \
+        --query 'Images[*].BlockDeviceMappings[*].Ebs.SnapshotId' \
+        --output text | aws-canonicalize-text
+}
+
 function aws-asg-ls() {
     aws autoscaling describe-auto-scaling-groups --query 'AutoScalingGroups[*].AutoScalingGroupName' --output text |
         aws-canonicalize-text | sort
