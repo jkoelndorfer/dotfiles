@@ -4,6 +4,10 @@ function aws-canonicalize-text() {
     sed -e 's/\t/\n/g'
 }
 
+function aws-columnize() {
+    column -t -s "$tab" -o "$tab"
+}
+
 function aws-ec2-instance-describe-short() {
     local jq_query
     read -rd '' jq_query <<'EOF'
@@ -24,7 +28,7 @@ function aws-ec2-instance-ls() {
     {
         echo -e "Name\tID\tPublic IP\tAvailability Zone\tLaunch Time"
         aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .public_ip, .availability_zone, .launch_time] | join("\t")'
-    } | column -t -o "$tab" -s "$tab"
+    } | aws-columnize
 }
 
 # Dumps out all of the EC2 instances with the given name.
@@ -63,7 +67,7 @@ function aws-ec2-security-group-ls() {
     {
         echo -e "Group Name\tGroup ID\tVPC ID"
         aws ec2 describe-security-groups | jq -r '.SecurityGroups[] | [.GroupName, .GroupId, .VpcId] | join("\t")' | sort
-    } | column -t -s "$tab" -o "$tab"
+    } | aws-columnize
 }
 
 function aws-ec2-security-group-select() {
@@ -87,14 +91,14 @@ function _aws-ami-ls() {
 }
 
 function aws-ami-ls() {
-    _aws-ami-ls | column -t -s "$tab" -o "$tab"
+    _aws-ami-ls | aws-columnize
 }
 
 function aws-ami-select() {
     {
         echo -e "Name\tImage ID\tCreation Date"
         _aws-ami-ls
-    } | column -t -o "$tab" -s "$tab" | fzf --header-lines 1 | awk -F"$tab" '{ print $2 }'
+    } | aws-columnize | fzf --header-lines 1 | awk -F"$tab" '{ print $2 }'
 }
 
 function aws-ami-snapshot-ls() {
@@ -177,7 +181,7 @@ function aws-lt-ls() {
     {
         echo -e 'Launch Template Name\tLaunch Template ID\tLatest Version'
         _aws-lt-ls
-    } | column -t -s "$tab" -o "$tab"
+    } | aws-columnize
 }
 
 function aws-lt-select() {
@@ -209,5 +213,5 @@ alias ssmp=aws-ssm-parameter
 function aws-ssm-parameter-select() {
     aws ssm describe-parameters |
         jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
-        column -t -s "$tab" | fzf | awk '{ print $1 }'
+        aws-columnize | fzf | awk '{ print $1 }'
 }
