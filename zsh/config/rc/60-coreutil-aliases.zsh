@@ -29,3 +29,11 @@ function awkcf() {
         awk "$script" "$file"
     fi
 }
+
+# "header + grep"
+# This function invokes grep, but always includes the first line of input in its output.
+# Useful for include headers from programs like ps.
+function hgrep() {
+    local h; read h; echo "$h"
+    grep "$@"
+}
