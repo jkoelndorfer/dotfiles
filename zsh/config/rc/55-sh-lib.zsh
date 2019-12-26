@@ -52,3 +52,11 @@ function selectdir() {
 function trim-string() {
     sed -r -e 's/(^\s+|\s+$)//g'
 }
+
+function value-or-cmd() {
+    local value=$1
+    shift
+    if [[ -z "$value" ]]; then
+        "$@"
+    fi
+}
