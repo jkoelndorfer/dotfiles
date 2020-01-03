@@ -1,1 +1,1 @@
-pathmunge "$HOME/.pyenv/shims"
+eval "$(pyenv init -)"
