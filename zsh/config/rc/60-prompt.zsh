@@ -29,8 +29,15 @@ function record_lastrc() {
 }
 
 function terraform_workspace_indicator() {
-    local tf_env_file='.terraform/environment'
-    [[ -f "$tf_env_file" ]] && echo "%F{cyan} $(cat "$tf_env_file" 2>/dev/null)%f "
+    local tf_dir='.terraform'
+    local tf_env_file="$tf_dir/environment"
+    if [[ -d "$tf_dir" ]]; then
+        local tf_env='default'
+        if [[ -f "$tf_env_file" ]]; then
+            local tf_env=$(cat "$tf_env_file" 2>/dev/null || echo "!ERR")
+        fi
+        echo "%F{cyan} $tf_env%f "
+    fi
 }
 
 function user_indicator() {
