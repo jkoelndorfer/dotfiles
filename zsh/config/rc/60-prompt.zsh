@@ -29,7 +29,7 @@ function record_lastrc() {
 }
 
 function terraform_workspace_indicator() {
-    tf_env_file='.terraform/environment'
+    local tf_env_file='.terraform/environment'
     [[ -f "$tf_env_file" ]] && echo "%F{cyan} $(cat "$tf_env_file" 2>/dev/null)%f "
 }
 
