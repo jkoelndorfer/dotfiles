@@ -38,6 +38,18 @@ function gc() {
     git commit --verbose $@
 }
 
+function gr() {
+    local rebase_commit=$(
+        git fzf-log |
+        fzf --color "bg+:$SOLARIZED_BASE02_TERM16" --no-multi --ansi --preview='git log --patch -n 1 --color=always {1}' |
+        awk '{ print $1 }'
+    )
+    if [[ -z "$rebase_commit" ]]; then
+        return 1
+    fi
+    git rebase -i "${rebase_commit}~1" "$(git current-branch)"
+}
+
 alias gco='git checkout'
 alias gd='git diff'
 alias gds='git diff --staged'
