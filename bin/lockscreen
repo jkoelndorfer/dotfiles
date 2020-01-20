@@ -7,6 +7,7 @@ if [[ -n "$WALLPAPER_BLURRED" ]]; then
 else
     wallpaper_args=()
 fi
+pkill i3lock
 
 spotifyctl=(playerctl -p spotify)
 original_spotify_status=$($spotifyctl status)
