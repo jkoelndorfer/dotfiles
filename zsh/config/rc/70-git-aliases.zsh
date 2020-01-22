@@ -38,6 +38,34 @@ function gc() {
     git commit --verbose $@
 }
 
+function git-ls-directories() {
+    # This is an attempt at creating a sort of fast (but not 100% accurate)
+    # list of directories in a git repository, including untracked ones.
+    #
+    # git ls-files will not produce a list of directories, so we need to
+    # massage its output a little bit.
+    #
+    # grep excludes files without any '/', which are definitely not directories.
+    # sed then strips off the last component of the path.
+    # Lastly, sort -u ensures there are no duplicate directory entries.
+    #
+    # Untracked empty directories will not be discovered using this method.
+    # git ls-files does not report them.
+    {
+        local root=$(git root)
+        git ls-files --full-name "$root"
+        git ls-files --exclude-standard -o --full-name "$root"
+    } | grep '/' | sed -r -e 's#/[^/]+$##' | sort -u
+}
+
+function gcd() {
+    local target_directory=$(git-ls-directories | fzf)
+    if [[ -z "$target_directory" ]]; then
+        return 1
+    fi
+    cd "$(git root)/$target_directory"
+}
+
 function gr() {
     local rebase_commit=$(
         git fzf-log |
