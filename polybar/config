@@ -92,7 +92,7 @@ monitor = ${env:DISPLAYNAME_CENTER}
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = syncthing music pulseaudio wlan date utcdate
+modules-right = updates syncthing music pulseaudio wlan date utcdate
 
 [bar/right]
 inherit = barcommon
@@ -178,6 +178,12 @@ exec = $DOTFILE_DIR/bin/i3/ststatus
 interval = 5
 label = %{T2}%{A1:xdg-open http\://localhost\:8384:}%output%%{A}%{T-}
 label-underline = ${colors.base3}
+
+[module/updates]
+type = custom/script
+exec = $DOTFILE_DIR/bin/i3/updatestatus
+interval = 3600
+label-underline = ${colors.yellow}
 
 [module/wlan]
 type = internal/network
