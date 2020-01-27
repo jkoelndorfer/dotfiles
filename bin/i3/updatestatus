@@ -12,11 +12,11 @@ set -o pipefail
 exec 2>/dev/null
 updates=$(checkupdates | wc -l)
 rc="$?"
-echo -n "%{T2}"
+echo -n " %{T2}"
 echo -n "%{F${SOLARIZED_BASE3}}%{F-}"
 # checkupdates exits with code 2 when there are no updates, for some reason.
 if [[ "$rc" != 0 && "$rc" != 2 ]]; then
     echo -n " %{F${SOLARIZED_RED}}!%{F-}%{T-}"
     exit "$rc"
 fi
-echo -n "%{T-} $updates"
+echo -n "%{T-} $updates "

@@ -5,4 +5,4 @@
 date=$(date '+%a %Y-%m-%d')
 local_time=$(date '+%H:%M%z')
 utc_time=$(date -u '+%H:%M')
-echo "%{F#fdf6e3}%{T2}%{F-}%{T-} $date  %{F#fdf6e3}%{T2}%{F-}%{T-} $local_time / ${utc_time}Z"
+echo " %{F#fdf6e3}%{T2}%{F-}%{T-} $date  %{F#fdf6e3}%{T2}%{F-}%{T-} $local_time / ${utc_time}Z "
