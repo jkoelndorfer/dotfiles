@@ -8,6 +8,11 @@ function vagrant() {
     # On johnk-aeris, vagrant test VMs will be provisioned with our company
     # username and password. Since that will account include shell preferences,
     # let's connect that way instead of using the default 'vagrant'.
-    local hostname=$(command vagrant ssh-config | awk '$1 == "HostName" { print $2 }')
-    ssh "$hostname"
+    local ssh_config=$(command vagrant ssh-config)
+    local hostname=$(echo "$ssh_config" | awk '$1 == "HostName" { print $2 }')
+    local port=$(echo "$ssh_config" | awk '$1 == "Port" { print $2 }')
+    if [[ -z "$hostname" || -z "$port" ]]; then
+        return 1
+    fi
+    ssh -o 'StrictHostKeyChecking=no' -o 'UserKnownHostsFile=/dev/null' -p "$port" "$hostname"
 }
