@@ -4,7 +4,7 @@ pkill polybar
 pkill compton
 pkill dunst
 pkill mmpd
-pkill xautolock
+pkill xss-lock
 pkill -f "unclutter --display $DISPLAY"
 
 if [[ -n "$DISPLAYNAME_LEFT" ]]; then
@@ -27,6 +27,6 @@ compton --config "$compton_config" &
 "$DOTFILE_DIR/dunst/gen-dunst-icons.sh"
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
-xautolock -time "$SCREENLOCK_TIME_MINUTES" -locker "$DOTFILE_DIR/bin/lockscreen" &
+xss-lock "$DOTFILE_DIR/bin/lockscreen" &
 unclutter --display "$DISPLAY" --timeout "$CURSOR_HIDE_TIME_SECONDS" &
 disown

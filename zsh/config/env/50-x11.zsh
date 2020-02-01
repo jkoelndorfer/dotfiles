@@ -1,5 +1,5 @@
-# Time, in minutes, before xautolock will lock the screen.
-export SCREENLOCK_TIME_MINUTES=15
+# Time, in seconds, before xss-lock will lock the screen.
+export SCREENLOCK_TIME_SECONDS=$((15 * 60))
 
 # Maximum time, in seconds, that the screen can be locked and
 # still resume music if there was any playing.
