@@ -12,3 +12,11 @@ cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+rc="$?"
+# Only update the install last-run timestamp if dotfile installation succeeds.
+# This way, the user will continue to get warnings about needing to run the
+# install script if dotfile installation fails.
+if [[ "$rc" == 0 ]]; then
+    zsh -l -c 'date +%s > "$_last_dotfile_install_path"' > /dev/null 2>&1
+fi
+exit "$rc"
