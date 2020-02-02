@@ -1,7 +1,5 @@
 [global]
-    # Display notifications only on the primary screen.
-    follow = none
-    monitor = 0
+    follow = keyboard
 
     # The geometry of the window:
     #   [{width}]x{height}[+/-{x}+/-{y}]
