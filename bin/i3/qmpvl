@@ -50,5 +50,7 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
 
     # Remove the blank video from the mpv playlist immediately.
     echo "playlist-remove 0" >> "$mpv_ipc"
+else
+    notify-send -u normal -t 3000 'mpv: added to playlist' "Added video to playlist: $video"
 fi
 echo "loadfile $video append-play" >> "$mpv_ipc"
