@@ -2,7 +2,6 @@ function dotfile_status() {
     pushd "$DOTFILE_DIR" >/dev/null
 
     local unpublished_commit_count=$(git_unpublished_commits)
-    local needs_attention=0
     if [[ "$unpublished_commit_count" -gt 0 ]]; then
         local unpublished_commit_msg="${fg[yellow]} $unpublished_commit_count unpublished commits${reset_color}"
     fi
