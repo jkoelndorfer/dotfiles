@@ -139,4 +139,10 @@ xrdb -merge <<EOF
 polybar.textfont: mononoki Nerd Font Mono:pixelsize=${polybar_text_size}
 polybar.iconfont: mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0
 polybar.wsiconfont: mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}
+
+i3wm.default_border: 2
+i3wm.default_floating_border: 2
+
+i3wm.gaps_outer: 2
+i3wm.gaps_inner: 2
 EOF

@@ -176,12 +176,18 @@ client.focused_inactive $base02   $base02      $base0   $base02      $base02
 client.unfocused        $base02   $base02      $base0   $base02      $base02
 client.urgent           $base02   $red         $base3   $base03      $red
 
-default_border pixel 2
-default_floating_border pixel 2
+set_from_resource $default_border i3wm.default_border 0
+set_from_resource $default_floating_border i3wm.default_border 0
+
+default_border pixel $default_border
+default_floating_border pixel $default_floating_border
 
 # i3-gaps configuration
-gaps outer 2
-gaps inner 7
+set_from_resource $gaps_outer i3wm.gaps_outer 0
+set_from_resource $gaps_inner i3wm.gaps_inner 0
+
+gaps outer $gaps_outer
+gaps inner $gaps_inner
 
 focus_follows_mouse no
 
