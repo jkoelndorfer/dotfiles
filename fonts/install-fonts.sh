@@ -9,5 +9,5 @@ cd "$fonts_dir"
 
 if ! [[ -f "$mononoki_mono_file" ]]; then
     curl -L -o "$mononoki_mono_file" "$mononoki_mono_url"
+    fc-cache -fv
 fi
-fc-cache -fv
