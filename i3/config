@@ -32,7 +32,6 @@ font pango:mononoki Nerd Font Mono 8
 
 floating_modifier $mod
 
-exec_always --no-startup-id $DOTFILE_DIR/bin/x11/xresources
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
 exec_always --no-startup-id $DOTFILE_DIR/bin/i3/setbg
 exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers  # PRIMARYONLY
@@ -121,7 +120,7 @@ bindsym $mod+space focus mode_toggle
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec $DOTFILE_DIR/bin/x11/xresources; restart
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

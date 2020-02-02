@@ -4,3 +4,4 @@
 # settings when we log in graphically.
 
 source "$HOME/.zshenv"
+"$DOTFILE_DIR/bin/x11/xresources"
