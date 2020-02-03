@@ -53,10 +53,10 @@ function vimode_indicator() {
     local char=''
     if [[ "$VIMODE" == 'normal' ]]; then
         color='yellow'
-        char='N'
+        char=''
     elif [[ "$VIMODE" == 'insert' ]]; then
         color='green'
-        char='I'
+        char=''
     else
         color='red'
         char='?'
