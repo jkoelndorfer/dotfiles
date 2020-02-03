@@ -1,3 +1,29 @@
+#!/bin/bash
+
+source "$DOTFILE_DIR/colors/solarized-dark"
+
+dunst_config_dir="$HOME/.config/dunst"
+
+xrdb_q=$(xrdb -query)
+polybar_barheight=$(echo "$xrdb_q" | awk '$1 == "polybar.barheight:" { print $2 }')
+gaps_outer=$(echo "$xrdb_q" | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
+window_border=$(echo "$xrdb_q" | awk '$1 == "i3wm.default_border:" { print $2 }')
+if [[ "$DISPLAY_PROFILE" == "HD" ]]; then
+    x=$(( gaps_outer + window_border ))
+    y=$(( polybar_barheight + gaps_outer + window_border ))
+    dunst_frame_width=2
+    geometry="300x5-$x+$y"
+elif [[ "$DISPLAY_PROFILE" == "UHD" ]]; then
+    # In order to line up correctly, the dunst window needs to be positioned
+    # differently on a 4k display. I believe it has to do with some apps scaling
+    # with 4k and others not.
+    x=$(( (gaps_outer * 2) + (window_border * 2) + 1 ))
+    y=$(( polybar_barheight + (gaps_outer * 2) + (window_border * 2) + 1 ))
+    dunst_frame_width=4
+    geometry="600x5-$x+$y"
+fi
+
+read -r -d '' dunst_config <<EOF
 [global]
     follow = keyboard
 
@@ -13,7 +39,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-8+33"
+    geometry = "$geometry"
 
     indicate_hidden = yes
     shrink = no
@@ -22,10 +48,10 @@
     separator_height = 2
     padding = 8
     horizontal_padding = 8
-    frame_width = 2
+    frame_width = $dunst_frame_width
     show_indicators = false
 
-    frame_color = "#586e75"
+    frame_color = "$SOLARIZED_BASE01"
     separator_color = frame
     sort = no
     idle_threshold = 0
@@ -46,7 +72,7 @@
     format = "<b>%s</b>\n%b"
     alignment = left
     show_age_threshold = 60
-    word_wrap = no
+    word_wrap = yes
     ellipsize = end
     ignore_newline = no
     stack_duplicates = true
@@ -55,7 +81,6 @@
 
     # Align icons left/right/off
     icon_position = left
-    max_icon_size = 32
 
     sticky_history = yes
     history_length = 20
@@ -93,19 +118,19 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#073642"
-    foreground = "#93a1a1"
+    background = "$SOLARIZED_BASE02"
+    foreground = "$SOLARIZED_BASE1"
     timeout = 5
 
 [urgency_normal]
-    background = "#073642"
-    foreground = "#93a1a1"
+    background = "$SOLARIZED_BASE02"
+    foreground = "$SOLARIZED_BASE1"
     timeout = 5
 
 [urgency_critical]
-    background = "#073642"
-    foreground = "#93a1a1"
-    frame_color = "#dc322f"
+    background = "$SOLARIZED_BASE02"
+    foreground = "$SOLARIZED_BASE1"
+    frame_color = "$SOLARIZED_RED"
     timeout = 0
 
 # NOTE: We use some shell script magic to autogenerate these
@@ -118,3 +143,6 @@
 [discord]
     appname = Discord
     new_icon = discord # ﭮ
+EOF
+
+echo "$dunst_config" > "$dunst_config_dir/dunstrc"
