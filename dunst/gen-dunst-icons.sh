@@ -1,6 +1,6 @@
 #!/bin/zsh -l
 
-source "$DOTFILE_DIR/colors/solarized-dark"
+source "$DOTFILE_DIR/colors/solarized"
 
 if [[ "$DISPLAY_PROFILE" == "UHD" ]]; then
     icon_size='64x64'

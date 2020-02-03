@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/colors/solarized-dark"
+source "$DOTFILE_DIR/colors/solarized"
 
 dunst_config_dir="$HOME/.config/dunst"
 

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source "$DOTFILE_DIR/colors/solarized-dark"
+source "$DOTFILE_DIR/colors/solarized"
 declare -a wallpaper_args
 if [[ -n "$WALLPAPER_BLURRED" ]]; then
     wallpaper_args=('-i' "$WALLPAPER_BLURRED")

@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source "$DOTFILE_DIR/colors/solarized-dark"
+source "$DOTFILE_DIR/colors/solarized"
 
 # `xsetroot -solid` does not work with compton. See https://github.com/chjj/compton/issues/162.
 # Rather than use the suggested hsetroot, which is an AUR package, we trick feh into doing what

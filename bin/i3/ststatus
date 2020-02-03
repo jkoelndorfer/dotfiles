@@ -4,7 +4,7 @@
 
 script_dir=$(dirname "$0")
 
-source "$script_dir/../../colors/solarized-dark"
+source "$script_dir/../../colors/solarized"
 
 st_config="$HOME/.config/syncthing/config.xml"
 st_api_key=$(xmllint "$st_config" --xpath 'configuration/gui/apikey/text()')
