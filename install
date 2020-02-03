@@ -11,6 +11,10 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
+# Some install scripts depend on DOTFILE_DIR being set, which will not be the
+# case in brand new environments.
+export DOTFILE_DIR="$HOME/.dotfiles"
+
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
 rc="$?"
 # Only update the install last-run timestamp if dotfile installation succeeds.
