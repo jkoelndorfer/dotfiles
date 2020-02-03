@@ -16,7 +16,7 @@ else
     exit 1
 fi
 
-cat <<EOF
+cat > "$HOME/.config/compton.conf" <<EOF
 backend = "glx";
 vsync = "$vsync";
 
