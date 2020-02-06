@@ -66,8 +66,13 @@ for t in ("bbg", "auc", "auction"):
 # Set start page = google.com
 c.url.start_pages = ["https://www.google.com"]
 
-c.fonts.monospace = "mononoki Nerd Font Mono"
-set_ui_fonts(c, 10)
+try:
+    # default_family replaces monospace as of qutebrowser v1.10
+    c.fonts.default_family = "mononoki Nerd Font Mono"
+except Exception:
+    c.fonts.monospace = "mononoki Nerd Font Mono"
+    set_ui_fonts(c, 10)
+
 if display_profile == "UHD":
     config.set("qt.highdpi", True)
 
