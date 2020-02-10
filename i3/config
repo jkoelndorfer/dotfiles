@@ -33,6 +33,7 @@ font pango:mononoki Nerd Font Mono 8
 floating_modifier $mod
 
 exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id numlockx on
 exec_always --no-startup-id $DOTFILE_DIR/bin/i3/setbg
 exec_always --no-startup-id $DOTFILE_DIR/i3/i3helpers  # PRIMARYONLY
 exec_always --no-startup-id pgrep -u $USER syncthing || syncthing -no-browser  # PRIMARYONLY
