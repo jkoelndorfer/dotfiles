@@ -46,6 +46,15 @@ fi
 while [[ -z "$(keepass_win_id)" ]]; do
     sleep "$sleep_interval"
 done
+
+# This sleep is necessary so that the first startup of KeePass actually displays a KeePass window.
+# Without it, this script must be invoked twice. The first time will start KeePass and flicker its
+# border on the screen. The second time will actually summon the window.
+#
+# TODO: Figure out if there are better criteria we can use in keepass_win_id to make this not
+# a problem.
+sleep 0.25
+
 i3-msg "[class=$pwsafe_window_class]" scratchpad show
 "$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))" "$(keepass_win_id)"
 while keepass_focused; do
