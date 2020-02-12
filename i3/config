@@ -252,4 +252,4 @@ for_window [class="^steam_app_[0-9]+$"] move container to workspace game, worksp
 # The "title" attribute is used here so that KeePassXC dialogs aren't targeted. If dialogs
 # were targeted by this rule (i.e. using the "class" criteria) they will end up on the scratchpad
 # when they appear.
-for_window [title="- KeePassXC$"] move scratchpad, floating enable
+for_window [title="- KeePassXC$"] move scratchpad
