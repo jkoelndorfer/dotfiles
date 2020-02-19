@@ -1,0 +1,4 @@
+#!/bin/bash
+
+"$DOTFILE_DIR/bin/x11/xresources"
+exec i3
