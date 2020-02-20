@@ -228,6 +228,7 @@ for_window [class="^Spotify$"] move container to workspace spotify
 for_window [class="^Slack$"] move container to workspace slack
 for_window [class="^Steam$"] move container to workspace steam
 for_window [title="^Steam$"] move container to workspace steam
+for_window [class="^discord$"] move container to workspace chat
 
 # Lutris can share a workspace with Steam since they are both game launchers.
 for_window [class="^Lutris$"] move container to workspace steam
