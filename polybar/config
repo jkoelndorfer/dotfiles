@@ -82,7 +82,7 @@ monitor = ${env:DISPLAYNAME_LEFT}
 
 modules-left = i3
 modules-center =
-modules-right = date utcdate
+modules-right = monitorname date utcdate
 
 
 [bar/center]
@@ -92,7 +92,7 @@ monitor = ${env:DISPLAYNAME_CENTER}
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = updates syncthing music pulseaudio wlan date utcdate
+modules-right = updates syncthing music pulseaudio wlan monitorname date utcdate
 
 [bar/right]
 inherit = barcommon
@@ -100,7 +100,7 @@ monitor = ${env:DISPLAYNAME_RIGHT}
 
 modules-left = i3
 modules-center =
-modules-right = date utcdate
+modules-right = monitorname date utcdate
 
 [module/xwindow]
 type = internal/xwindow
@@ -172,6 +172,17 @@ format-prefix-foreground = ${colors.base3}
 format-prefix-font = 2
 format-foreground = ${colors.foreground}
 format-underline = ${colors.cyan}
+
+[module/monitorname]
+type = custom/script
+exec = echo $DISPLAYNAME
+interval = 60
+label = "%output% "
+format-prefix = "  "
+format-prefix-foreground = ${colors.base3}
+format-prefix-font = 2
+format-foreground = ${colors.foreground}
+format-underline = ${colors.base3}
 
 [module/syncthing]
 type = custom/script
