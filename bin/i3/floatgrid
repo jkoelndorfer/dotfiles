@@ -16,8 +16,8 @@ window_height="$4"
 window_id="$5"
 
 script_dir=$(dirname "$0")
-gaps_outer=$(grep 'gaps outer' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
-gaps_inner=$(grep 'gaps inner' "$DOTFILE_DIR/i3/config" | awk '{ print $3 }')
+gaps_outer=$(xrdb -query | awk '$1 == "i3wm.gaps_outer" { print $2 }')
+gaps_inner=$(xrdb -query | awk '$1 == "i3wm.gaps_inner" { print $2 }')
 margin_size=$((gaps_outer + gaps_inner))
 
 function x_pos() {
@@ -62,7 +62,6 @@ winfo=$("$script_dir/winfo" "$window_id")
 
 win_x=$(x_pos "$cell_position_x" "$window_width")
 win_y=$(y_pos "$cell_position_y" "$window_height")
-
 # FIXME: Some applications enforce a minimum size for their windows.
 # This positioning logic does _not_ work for windows that do not resize exactly as they are told.
 i3-msg "[con_id=\"$window_id\"]" resize set width "$window_width" height "$window_height"
