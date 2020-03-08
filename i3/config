@@ -28,6 +28,10 @@ set $kp8 80
 set $kp9 81
 set $kp0 90
 
+set_from_resource $displayname_primary i3wm.displayname_primary
+set_from_resource $displayname_secondary i3wm.displayname_secondary
+set_from_resource $displayname_tertiary i3wm.displayname_tertiary
+
 font pango:mononoki Nerd Font Mono 8
 
 floating_modifier $mod
@@ -195,6 +199,12 @@ focus_follows_mouse no
 
 # Sometimes qutebrowser steals focus while I am doing stuff. It's annoying.
 focus_on_window_activation urgent
+
+# Assign workspaces to appropriate displays.
+workspace "chat"    output $displayname_secondary
+workspace "game"    output $displayname_primary
+workspace "spotify" output $displayname_tertiary
+workspace "steam"   output $displayname_tertiary
 
 # Below are some rules to help various applications behave better and make their
 # windows appear on appropriate workspaces.
