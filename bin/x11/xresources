@@ -145,4 +145,8 @@ i3wm.default_floating_border: 2
 
 i3wm.gaps_outer: 2
 i3wm.gaps_inner: 2
+
+i3wm.displayname_primary: $DISPLAYNAME_PRIMARY
+i3wm.displayname_secondary: $DISPLAYNAME_SECONDARY
+i3wm.displayname_tertiary: $DISPLAYNAME_TERTIARY
 EOF
