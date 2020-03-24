@@ -1,0 +1,5 @@
+#!/bin/bash
+
+paste-from-clipboard | while read -n 1 k; do
+    xdotool key "$k"
+done

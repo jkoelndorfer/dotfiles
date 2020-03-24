@@ -23,6 +23,10 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
     quicklaunch_entries[spotify]='spotify --force-device-scale-factor=2.0'
 fi
 
+if [[ -n "$DISPLAY" ]]; then
+    quicklaunch_entries[autotype]="$DOTFILE_DIR/bin/autotype"
+fi
+
 if [[ "$(basename "$0")" =~ ^x ]]; then
     launcher_cmd=($DOTFILE_DIR/bin/rofi -dmenu -no-custom -p launch)
 else
