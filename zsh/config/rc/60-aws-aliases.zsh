@@ -195,6 +195,12 @@ function aws-lt-set-ami() {
     aws ec2 create-launch-template-version --launch-template-name "$lt_name" --source-version '$Latest' --launch-template-data '{"ImageId": "'"$ami_id"'"}'
 }
 
+function aws-ssh() {
+    local instance=$(aws-ec2-instance-select)
+    local instance_ip=$(echo "$instance" | awk -F"$tab" '{ print $3 }')
+    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "$@" "$instance_ip"
+}
+
 function aws-ssm-parameter-ls() {
     aws ssm describe-parameters --query 'Parameters[].Name' --output text | aws-canonicalize-text | sort
 }
