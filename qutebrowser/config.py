@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from qutebrowser import __version_info__ as qutebrowser_version  # tuple like (1, 11, 0)
 from qutebrowser.config.configfiles import ConfigAPI
 from qutebrowser.config.config import ConfigContainer
 
@@ -78,7 +79,12 @@ if display_profile == "UHD":
 
 # Fullscreen only fills the qutebrowser window. If we want true fullscreen,
 # we can pair it with the fullscreen offered by i3.
-config.set("content.windowed_fullscreen", True)
+fullscreen_windowed = True
+if qutebrowser_version < (1, 11, 0):
+    # This option was renamed to content.fullscreen.window in qutebrowser v1.11.0.
+    config.set("content.windowed_fullscreen", fullscreen_windowed)
+else:
+    config.set("content.fullscreen.window", fullscreen_windowed)
 
 # Per-domain settings. Since qutebrowser currently does not save permission requests
 # for these, we need to include them in our configuration.
