@@ -28,6 +28,7 @@ pkill -SIGUSR1 dunst
         sudo systemctl suspend
     else
         xset +dpms
+        xset s on
         sleep 30
         xset dpms force off
     fi
