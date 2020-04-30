@@ -31,7 +31,7 @@ fi
 export DISPLAY_PROFILE
 
 if [[ -n "$x11_resolution" ]]; then
-    wallpaper_file="$HOME/sync/wallpapers/$x11_resolution/rootaccess.png"
+    wallpaper_file="$HOME/sync/wallpapers/$x11_resolution/rootaccess-pixel.png"
 fi
 if [[ -n "$wallpaper_file" && -f "$wallpaper_file" ]]; then
     export WALLPAPER="$wallpaper_file"
