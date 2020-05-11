@@ -59,6 +59,8 @@ config.set("downloads.position", "bottom")
 
 # Set default search engine = google.
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
+c.url.searchengines["tfawsr"] = "https://www.terraform.io/docs/providers/aws/r/{}.html"
+c.url.searchengines["tfawsd"] = "https://www.terraform.io/docs/providers/aws/d/{}.html"
 for t in ("wowhead", "wh"):
     c.url.searchengines[t] = "https://classic.wowhead.com/search?q={}"
 for t in ("bbg", "auc", "auction"):
