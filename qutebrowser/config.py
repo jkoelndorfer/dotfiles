@@ -61,6 +61,7 @@ config.set("downloads.position", "bottom")
 c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
 c.url.searchengines["tfawsr"] = "https://www.terraform.io/docs/providers/aws/r/{}.html"
 c.url.searchengines["tfawsd"] = "https://www.terraform.io/docs/providers/aws/d/{}.html"
+c.url.searchengines["amod"] = "https://docs.ansible.com/ansible/latest/modules/{}_module.html"
 for t in ("wowhead", "wh"):
     c.url.searchengines[t] = "https://classic.wowhead.com/search?q={}"
 for t in ("bbg", "auc", "auction"):
