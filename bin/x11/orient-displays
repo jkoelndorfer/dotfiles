@@ -3,7 +3,6 @@
 if [[ -z "$DISPLAYNAME_CENTER" ]]; then
     exit 1
 fi
-xrandr --output "$DISPLAYNAME_CENTER" --auto
 
 if [[ -n "$DISPLAYNAME_LEFT" ]]; then
     xrandr --output "$DISPLAYNAME_LEFT" --left-of "$DISPLAYNAME_CENTER"
