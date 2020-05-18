@@ -258,6 +258,7 @@ for_window [instance="^(grim dawn.exe|wow.exe|eso64.exe|darksoulsremastered.exe|
 for_window [title="^Heroes of Hammerwatch"] move container to workspace game, workspace game
 for_window [class="^Binding of Isaac"] move container to workspace game, workspace game
 for_window [class="^Slay the Spire$"] move container to workspace game, workspace game, fullscreen enable, floating disable
+for_window [class="^Terraria.bin.x86_64$"] move container to workspace game, workspace game, floating enable
 
 # Targets Steam games running in a Wine virtual desktop.
 for_window [class="^steam_app_[0-9]+$"] move container to workspace game, workspace game, floating disable, fullscreen enable
