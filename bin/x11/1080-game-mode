@@ -1,0 +1,15 @@
+#!/bin/bash
+
+xrandr --output "$DISPLAYNAME_CENTER" --mode 1920x1080
+
+# This forces a restart of our compositor with the displays configured correctly.
+# Should help mitigate any issues due to a resolution change.
+#
+# In particular, I have witnessed tearing (even with vsync on) that was fixed
+# by a compton restart
+i3 restart
+
+"$@"
+
+i3 restart
+xrandr --output "$DISPLAYNAME_CENTER" --auto
