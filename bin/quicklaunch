@@ -38,4 +38,4 @@ if [[ -z "$selected" ]]; then
     echo 'no entry selected' >&2
     exit 1
 fi
-${quicklaunch_entries[$selected]}
+${quicklaunch_entries[$selected]} & disown
