@@ -8,6 +8,7 @@ xrandr --output "$DISPLAYNAME_CENTER" --mode 1920x1080
 # In particular, I have witnessed tearing (even with vsync on) that was fixed
 # by a compton restart
 i3 restart
+sleep 3
 
 "$@"
 
