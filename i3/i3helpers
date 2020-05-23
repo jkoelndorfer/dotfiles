@@ -1,7 +1,6 @@
 #!/bin/zsh -l
 
 pkill polybar
-pkill compton
 pkill dunst
 pkill mmpd
 pkill xss-lock
@@ -19,7 +18,6 @@ fi
 
 "$DOTFILE_DIR/bin/x11/orient-displays"
 
-compton --config "$HOME/.config/compton.conf" &
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
 xss-lock "$DOTFILE_DIR/bin/lockscreen" &
