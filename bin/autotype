@@ -1,5 +1,7 @@
 #!/bin/bash
 
+IFS=''
 paste-from-clipboard | while read -n 1 k; do
-    xdotool key "$k"
+    xdotool type "$k"
+    sleep 0.01
 done
