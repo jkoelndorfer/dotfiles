@@ -2,12 +2,38 @@
 
 source "$DOTFILE_DIR/colors/solarized"
 
-xrdb -load <<'EOF'
+if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+    xft_dpi=200
+    x_cursor_size=48
+    term_text_size=10
+    polybar_bar_height=36
+    polybar_text_size=18
+    polybar_icon_size=24
+    polybar_ws_icon_size=24
+    polybar_ws_icon_spacing=4
+    polybar_ws_icon_underline_size=4
+    xrdb -merge <<EOF
+EOF
+elif [[ "$DISPLAY_PROFILE" == 'HD' ]]; then
+    xft_dpi=100
+    x_cursor_size=12
+    term_text_size=12
+    polybar_bar_height=25
+    polybar_text_size=12
+    polybar_icon_size=12
+    polybar_ws_icon_size=18
+    polybar_ws_icon_spacing=2
+    polybar_ws_icon_underline_size=2
+fi
+
+xrdb -load <<EOF
+Xft.dpi: $xft_dpi
+
 XTerm*faceName: xft:mononoki Nerd Font Mono:style=Regular
-URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=10,xft:DejaVu Sans Mono:style=Book:size=10
+URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=$term_text_size,xft:DejaVu Sans Mono:style=Book:size=$term_text_size
 URxvt.letterSpace: -1
 
-XTerm*faceSize: 10
+XTerm*faceSize: $term_text_size
 XTerm*faceSize1: 8
 XTerm*faceSize2: 9
 XTerm*faceSize3: 10
@@ -17,11 +43,19 @@ XTerm*faceSize6: 20
 XTerm*termName: xterm-256color
 XTerm*toolBar: false
 
-*VT100*translations: #override \
-Ctrl Shift <Key> C: select-end(CLIPBOARD)\n\
-Ctrl Shift <Key> V: insert-selection(CLIPBOARD)\n\
-Ctrl <Key> +: larger-vt-font()\n\
-Ctrl <Key> -: smaller-vt-font()
+Xcursor.size: $x_cursor_size
+Xcursor.theme: Bluecurve
+
+polybar.barheight: $polybar_bar_height
+polybar.textsize: $polybar_text_size
+polybar.iconsize: $polybar_icon_size
+polybar.wsiconsize: $polybar_ws_icon_size
+polybar.wsiconspace: $polybar_ws_icon_spacing
+polybar.wsiconunderlinesize: $polybar_ws_icon_underline_size
+
+polybar.textfont: mononoki Nerd Font Mono:pixelsize=${polybar_text_size}
+polybar.iconfont: mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0
+polybar.wsiconfont: mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}
 
 ! Note: URxvt can be pasted to by using Meta-Ctrl-v implicitly.
 URxvt.scrollBar: false
@@ -36,10 +70,30 @@ URxvt.perl-ext-common: focus-events,resize-font,selection-to-clipboard
 ! https://www.reddit.com/r/urxvt/comments/35x03n/if_youve_been_vexed_by_urxvts_picture_insert_mode/
 URxvt.iso14755: false
 
-Xcursor.theme: Bluecurve
-EOF
+i3wm.default_border: 2
+i3wm.default_floating_border: 2
 
-xrdb -merge <<EOF
+i3wm.gaps_outer: 2
+i3wm.gaps_inner: 2
+
+i3wm.displayname_primary: $DISPLAYNAME_PRIMARY
+i3wm.displayname_secondary: $DISPLAYNAME_SECONDARY
+i3wm.displayname_tertiary: $DISPLAYNAME_TERTIARY
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Copy/paste, font size keybinds !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*VT100*translations: #override \
+Ctrl Shift <Key> C: select-end(CLIPBOARD)\\n\
+Ctrl Shift <Key> V: insert-selection(CLIPBOARD)\\n\
+Ctrl <Key> +: larger-vt-font()\\n\
+Ctrl <Key> -: smaller-vt-font()
+
+!!!!!!!!!!!!!!!
+! Colorscheme !
+!!!!!!!!!!!!!!!
+
 *background:            $SOLARIZED_BASE03
 *foreground:            $SOLARIZED_BASE0
 *fadeColor:             $SOLARIZED_BASE03
@@ -82,55 +136,4 @@ URxvt.cursorColor2:     $SOLARIZED_BASE0
 !! white dark/light
 *color7:                $SOLARIZED_BASE2
 *color15:               $SOLARIZED_BASE3
-EOF
-
-if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
-    xrdb -merge <<EOF
-Xft.dpi: 200
-Xcursor.size: 48
-
-polybar.barheight: 36
-polybar.textsize: 18
-polybar.iconsize: 24
-polybar.wsiconsize: 28
-polybar.wsiconspace: 4
-polybar.wsiconunderlinesize: 3
-EOF
-    polybar_text_size=18
-    polybar_icon_size=24
-    polybar_ws_icon_size=24
-    polybar_ws_icon_spacing=4
-    polybar_ws_icon_underline_size=4
-elif [[ "$DISPLAY_PROFILE" == 'HD' ]]; then
-    xrdb -merge <<EOF
-Xcursor.size: 12
-
-polybar.barheight: 25
-polybar.textsize: 10
-polybar.iconsize: 12
-polybar.wsiconsize: 18
-polybar.wsiconspace: 2
-polybar.wsiconunderlinesize: 2
-EOF
-    polybar_text_size=10
-    polybar_icon_size=12
-    polybar_ws_icon_size=18
-    polybar_ws_icon_spacing=2
-    polybar_ws_icon_underline_size=2
-fi
-
-xrdb -merge <<EOF
-polybar.textfont: mononoki Nerd Font Mono:pixelsize=${polybar_text_size}
-polybar.iconfont: mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0
-polybar.wsiconfont: mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}
-
-i3wm.default_border: 2
-i3wm.default_floating_border: 2
-
-i3wm.gaps_outer: 2
-i3wm.gaps_inner: 2
-
-i3wm.displayname_primary: $DISPLAYNAME_PRIMARY
-i3wm.displayname_secondary: $DISPLAYNAME_SECONDARY
-i3wm.displayname_tertiary: $DISPLAYNAME_TERTIARY
 EOF
