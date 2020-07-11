@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# TODO: Does the gpu_hwmon directory differ per machine?
+gpu_hwmon='/sys/class/drm/card0/device/hwmon/hwmon0'
+
+function set_gpu_fan_control_mode() {
+    local mode=$1
+
+    local value=0
+    if [[ "$mode" == 'manual' ]]; then
+        value=1
+    elif [[ "$mode" == 'auto' ]]; then
+        value=2
+    else
+        echo "Invalid mode: $mode" >&2
+        return 1
+    fi
+
+    echo "$value" > "$gpu_hwmon/pwm1_enable"
+}
+
+function set_gpu_fan_speed() {
+    local percent=$1
+
+    # The pulse width modulation value is from 0-255
+    local pwm_value=$((255 * percent / 100))
+
+    echo "$pwm_value" > "$gpu_hwmon/pwm1"
+}
+
+fan_setting=$1
+
+if [[ "$fan_setting" == 'auto' ]]; then
+    set_gpu_fan_control_mode 'auto'
+elif [[ "$fan_setting" =~ ^([0-9]{1,2}|100)$ ]]; then
+    set_gpu_fan_control_mode 'manual'
+    set_gpu_fan_speed fan_setting
+else
+    echo "Invalid GPU fan setting: $fan_setting" >&2
+    echo "choose 'auto' or a percentage from 0-100" >&2
+    exit 1
+fi
