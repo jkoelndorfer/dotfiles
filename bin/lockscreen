@@ -26,11 +26,16 @@ pkill -SIGUSR1 dunst
         xset -dpms
         sleep 300
         sudo systemctl suspend
-    else
+    elif [[ "$SCREENSAVER_STRATEGY" == 'screen-off' ]]; then
         xset +dpms
         xset s on
         sleep 30
         xset dpms force off
+    else
+        xset +dpms
+        xset dpms 0 0 0
+        xset s noblank
+        xset s on
     fi
 } &
 
@@ -38,7 +43,7 @@ lock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' ]]; then
     $spotifyctl pause
 fi
-i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
+i3lock -c '#000000'
 unlock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' && "$((unlock_time - lock_time))" -lt "$SCREENLOCK_MUSIC_RESUME_TIME_SECONDS" ]]; then
     $spotifyctl play
