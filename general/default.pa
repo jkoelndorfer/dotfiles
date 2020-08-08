@@ -102,3 +102,26 @@ load-module module-role-cork
 ### loading modules and rerouting streams.
 load-module module-filter-heuristics
 load-module module-filter-apply
+
+
+### Create virtual microphone sinks
+load-module module-null-sink sink_name=VirtualMicrophone
+load-module module-null-sink sink_name=SharedLocalAudio
+
+load-module module-loopback source=SharedLocalAudio.monitor sink=VirtualMicrophone
+update-sink-input-proplist    0 media.name="Shared Local Audio -> Virtual Microphone" local.relocatable=no
+update-source-output-proplist 0 media.name="Shared Local Audio -> Virtual Microphone" local.relocatable=no
+
+load-module module-loopback source=SharedLocalAudio.monitor
+update-sink-input-proplist    1 media.name="Shared Local Audio -> Play Locally"
+update-source-output-proplist 1 media.name="Shared Local Audio -> Play Locally"
+
+load-module module-loopback sink=VirtualMicrophone
+update-sink-input-proplist    2 media.name="Real Microphone -> Virtual Microphone" local.relocatable=no
+update-source-output-proplist 2 media.name="Real Microphone -> Virtual Microphone" local.relocatable=no
+
+update-sink-proplist SharedLocalAudio  device.description="Shared Local Audio"
+update-sink-proplist VirtualMicrophone device.description="Virtual Microphone"
+
+update-source-proplist SharedLocalAudio.monitor  device.description="Shared Local Audio"
+update-source-proplist VirtualMicrophone.monitor device.description="Virtual Microphone"

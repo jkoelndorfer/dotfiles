@@ -15,6 +15,35 @@ if [[ -z "$sink_name" ]]; then
     exit 1
 fi
 pacmd set-default-sink "$sink_name"
-pacmd list-sink-inputs | grep 'index:' | awk '{ print $2 }' | while read app_index; do
-    pacmd move-sink-input "$app_index" "$sink_name"
+
+index=''
+movable_indicies=()
+sink_inputs="$(pacmd list-sink-inputs | grep -e 'index:' -e 'local.relocatable')"
+while read l; do
+    if [[ "$l" =~ index:\ ([0-9]+) ]]; then
+        if [[ -n "$index" ]]; then
+            movable_indicies=("${movable_sinks[@]}" "$index")
+        fi
+        index=${BASH_REMATCH[1]}
+        continue
+    fi
+
+    if [[ "$l" =~ local\.relocatable\ =\ \"(no|yes)\" ]]; then
+        relocatable="${BASH_REMATCH[1]}"
+        if [[ "$relocatable" == 'no' ]]; then
+            # Set index to null so that it isn't added to movable_indices when the
+            # next index is found.
+            index=''
+        fi
+        continue
+    fi
+done <<< "$sink_inputs"
+
+# Make sure not to miss the last index!
+if [[ -n "$index" ]]; then
+    movable_indicies=("${movable_indicies[@]}" "$index")
+fi
+
+for i in "${movable_indicies[@]}"; do
+    pacmd move-sink-input "$i" "$sink_name"
 done
