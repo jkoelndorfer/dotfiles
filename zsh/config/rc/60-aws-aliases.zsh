@@ -15,6 +15,7 @@ function aws-ec2-instance-describe-short() {
         name: ((.Tags[] | select(.Key == "Name") | .Value) // "unnamed"),
         availability_zone: .Placement.AvailabilityZone,
         instance_id: .InstanceId,
+        image_id: .ImageId,
         public_ip: .PublicIpAddress,
         private_ip: .PrivateIpAddress,
         launch_time: .LaunchTime
@@ -27,8 +28,8 @@ EOF
 
 function aws-ec2-instance-ls() {
     {
-        echo -e "Name\tID\tPublic IP\tPrivate IP\tAvailability Zone\tLaunch Time"
-        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .public_ip, .private_ip, .availability_zone, .launch_time] | join("\t")'
+        echo -e "Name\tID\tImage ID\tPublic IP\tPrivate IP\tAvailability Zone\tLaunch Time"
+        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .image_id, .public_ip, .private_ip, .availability_zone, .launch_time] | join("\t")'
     } | aws-columnize
 }
 
