@@ -256,6 +256,7 @@ for_window [class="^org-gdstash"] move container to workspace game, floating ena
 
 for_window [instance="^(grim dawn.exe|sc2_x64.exe|wow.exe|eso64.exe|darksoulsremastered.exe|Faeria.x86_64)$"] move container to workspace game, fullscreen enable, workspace game
 for_window [title="^Heroes of Hammerwatch"] move container to workspace game, workspace game
+for_window [title="^Chronicon"] move container to workspace game, workspace game
 for_window [class="^Binding of Isaac"] move container to workspace game, workspace game
 for_window [class="^Slay the Spire$"] move container to workspace game, workspace game, fullscreen enable, floating disable
 for_window [class="^Terraria.bin.x86_64$"] move container to workspace game, workspace game, floating enable
