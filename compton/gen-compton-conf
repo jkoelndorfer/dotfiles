@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ -z "$DISPLAY" ]]; then
+    # TODO: Determine the best way to determine the GPU vendor
+    # outside an X11 environment.
+    exit 0
+fi
+
 # glx_vendor_string values:
 # * 'NVIDIA Corporation' for nvidia GPUs using proprietary drivers
 # * 'SGI' for open source mesa drivers
