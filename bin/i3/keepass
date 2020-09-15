@@ -56,7 +56,7 @@ done
 sleep 0.25
 
 i3-msg "[class=$pwsafe_window_class]" scratchpad show
-"$script_dir/floatgrid" bottom center "$keepass_width" "$(( $active_workspace_height / 2 ))" "$(keepass_win_id)"
+"$script_dir/floatgrid" bottom center "$keepass_width" "$(( ($active_workspace_height * 600) / 1000 ))" "$(keepass_win_id)"
 while keepass_focused; do
     sleep "$sleep_interval"
 done
