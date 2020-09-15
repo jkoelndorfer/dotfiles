@@ -16,8 +16,8 @@ window_height="$4"
 window_id="$5"
 
 script_dir=$(dirname "$0")
-gaps_outer=$(xrdb -query | awk '$1 == "i3wm.gaps_outer" { print $2 }')
-gaps_inner=$(xrdb -query | awk '$1 == "i3wm.gaps_inner" { print $2 }')
+gaps_outer=$(xrdb -query | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
+gaps_inner=$(xrdb -query | awk '$1 == "i3wm.gaps_inner:" { print $2 }')
 margin_size=$((gaps_outer + gaps_inner))
 
 function x_pos() {
