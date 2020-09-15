@@ -18,7 +18,9 @@ window_id="$5"
 script_dir=$(dirname "$0")
 gaps_outer=$(xrdb -query | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
 gaps_inner=$(xrdb -query | awk '$1 == "i3wm.gaps_inner:" { print $2 }')
-margin_size=$((gaps_outer + gaps_inner))
+x11_dpi=$(xrdb -query | awk '$1 == "Xft.dpi:" { print $2 }')
+gaps_scale_factor=$(( x11_dpi / 96 ))
+margin_size=$(( (gaps_outer * gaps_scale_factor) + (gaps_inner * gaps_scale_factor) ))
 
 function x_pos() {
     local cell_pos="$1"
