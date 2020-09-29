@@ -7,13 +7,13 @@ pkill xss-lock
 pkill -f "unclutter --display $DISPLAY"
 
 if [[ -n "$DISPLAYNAME_LEFT" ]]; then
-    DISPLAYNAME="$DISPLAYNAME_LEFT" polybar --config="$DOTFILE_DIR/polybar/config" left &
+    DISPLAYNAME="$DISPLAYNAME_LEFT" polybar --config="$HOME/.config/polybar" left &
 fi
 if [[ -n "$DISPLAYNAME_CENTER" ]]; then
-    DISPLAYNAME="$DISPLAYNAME_CENTER" polybar --config="$DOTFILE_DIR/polybar/config" center &
+    DISPLAYNAME="$DISPLAYNAME_CENTER" polybar --config="$HOME/.config/polybar" center &
 fi
 if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
-    DISPLAYNAME="$DISPLAYNAME_RIGHT" polybar --config="$DOTFILE_DIR/polybar/config" right &
+    DISPLAYNAME="$DISPLAYNAME_RIGHT" polybar --config="$HOME/.config/polybar" right &
 fi
 
 "$DOTFILE_DIR/bin/x11/orient-displays"

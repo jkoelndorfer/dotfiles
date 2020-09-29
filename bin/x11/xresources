@@ -6,24 +6,12 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
     xft_dpi=192
     x_cursor_size=48
     term_text_size=10
-    polybar_bar_height=36
-    polybar_text_size=18
-    polybar_icon_size=24
-    polybar_ws_icon_size=24
-    polybar_ws_icon_spacing=4
-    polybar_ws_icon_underline_size=4
     xrdb -merge <<EOF
 EOF
 elif [[ "$DISPLAY_PROFILE" == 'HD' ]]; then
     xft_dpi=96
     x_cursor_size=12
     term_text_size=12
-    polybar_bar_height=25
-    polybar_text_size=12
-    polybar_icon_size=12
-    polybar_ws_icon_size=18
-    polybar_ws_icon_spacing=2
-    polybar_ws_icon_underline_size=2
 fi
 
 xrdb -load <<EOF
@@ -45,17 +33,6 @@ XTerm*toolBar: false
 
 Xcursor.size: $x_cursor_size
 Xcursor.theme: Bluecurve
-
-polybar.barheight: $polybar_bar_height
-polybar.textsize: $polybar_text_size
-polybar.iconsize: $polybar_icon_size
-polybar.wsiconsize: $polybar_ws_icon_size
-polybar.wsiconspace: $polybar_ws_icon_spacing
-polybar.wsiconunderlinesize: $polybar_ws_icon_underline_size
-
-polybar.textfont: mononoki Nerd Font Mono:pixelsize=${polybar_text_size}
-polybar.iconfont: mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0
-polybar.wsiconfont: mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}
 
 ! Note: URxvt can be pasted to by using Meta-Ctrl-v implicitly.
 URxvt.scrollBar: false
