@@ -98,7 +98,7 @@ monitor = $DISPLAYNAME_LEFT
 
 modules-left = i3
 modules-center =
-modules-right = monitorname date utcdate
+modules-right = monitorname date
 
 
 [bar/center]
@@ -108,7 +108,7 @@ monitor = $DISPLAYNAME_CENTER
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = ${optional_modules[@]} updates syncthing music pulseaudio wlan monitorname date utcdate
+modules-right = ${optional_modules[@]} updates syncthing music pulseaudio wlan monitorname date
 
 [bar/right]
 inherit = barcommon
@@ -116,7 +116,7 @@ monitor = $DISPLAYNAME_RIGHT
 
 modules-left = i3
 modules-center =
-modules-right = monitorname date utcdate
+modules-right = monitorname date
 
 [module/xwindow]
 type = internal/xwindow
