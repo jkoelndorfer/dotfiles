@@ -1,7 +1,27 @@
 #!/bin/bash
 
+function discover_battery {
+    for i in BAT0 BAT1; do
+        local fp="/sys/class/power_supply/$i"
+        if [[ -e "$fp" ]]; then
+            echo "$i"
+        fi
+    done
+}
+
+function discover_power_adapter {
+    for i in ACAD ADP1; do
+        local fp="/sys/class/power_supply/$i"
+        if [[ -e "$fp" ]]; then
+            echo "$i"
+        fi
+    done
+}
+
 mkdir -p "$HOME/.config"
 source "$DOTFILE_DIR/colors/solarized"
+
+optional_modules=()
 
 declare -A polybar_colors
 polybar_colors[bright]=$SOLARIZED_BASE3
@@ -31,6 +51,13 @@ fi
 polybar_textfont="mononoki Nerd Font Mono:pixelsize=${polybar_text_size}"
 polybar_iconfont="mononoki Nerd Font Mono:pixelsize=${polybar_icon_size};0"
 polybar_wsiconfont="mononoki Nerd Font Mono:pixelsize=${polybar_ws_icon_size};${polybar_ws_icon_spacing}"
+
+battery=$(discover_battery)
+power_adapter=$(discover_power_adapter)
+
+if [[ -n "$battery" ]]; then
+    optional_modules=(${optional_modules[@]} 'battery')
+fi
 
 cat > "$HOME/.config/polybar" <<EOF
 [barcommon]
@@ -81,7 +108,7 @@ monitor = $DISPLAYNAME_CENTER
 
 modules-left = i3 xwindow
 modules-center =
-modules-right = updates syncthing music pulseaudio wlan monitorname date utcdate
+modules-right = ${optional_modules[@]} updates syncthing music pulseaudio wlan monitorname date utcdate
 
 [bar/right]
 inherit = barcommon
@@ -148,6 +175,31 @@ ws-icon-8 = doc;%{T3}%{T-}
 ws-icon-9 = steam;%{T3}%{T-}
 ws-icon-10 = work;%{T3}%{T-}
 ws-icon-default = %{T3}%{T-}
+
+
+[module/battery]
+type = internal/battery
+
+full-at = 98
+
+battery = $battery
+adapter = $power_adapter
+
+time-format = %-lh %Mm
+
+label-charging = %percentage%% (%time%)
+format-charging = %{F${SOLARIZED_GREEN}}%{F-} <label-charging>
+format-charging-underline = $SOLARIZED_GREEN
+
+label-discharging = \${self.label-charging}
+format-discharging = <ramp-capacity>%{F-} <label-discharging>
+format-discharging-underline = $SOLARIZED_ORANGE
+
+ramp-capacity-0 = %{T3}%{F${SOLARIZED_RED}}
+ramp-capacity-1 = %{T3}%{F${SOLARIZED_ORANGE}}
+ramp-capacity-2 = %{T3}%{F${SOLARIZED_YELLOW}}
+ramp-capacity-3 = %{T3}%{F${SOLARIZED_YELLOW}}
+ramp-capacity-4 = %{T3}%{F${SOLARIZED_GREEN}}
 
 
 [module/music]
