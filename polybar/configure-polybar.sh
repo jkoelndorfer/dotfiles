@@ -18,6 +18,15 @@ function discover_power_adapter {
     done
 }
 
+function discover_wifi_adapter {
+    local network_ifaces=$(ip -o link show)
+    local wl=$(echo "$network_ifaces" | awk '{ print $2 }' | sed -r -e 's/:$//' | grep '^wl')
+
+    if [[ -n "$wl" ]]; then
+        echo "$wl" | head -n 1
+    fi
+}
+
 mkdir -p "$HOME/.config"
 source "$DOTFILE_DIR/colors/solarized"
 
@@ -57,6 +66,11 @@ power_adapter=$(discover_power_adapter)
 
 if [[ -n "$battery" ]]; then
     optional_modules=(${optional_modules[@]} 'battery')
+fi
+
+wifi=$(discover_wifi_adapter)
+if [[ -n "$wifi" ]]; then
+    optional_modules=(${optional_modules[@]} 'wifi')
 fi
 
 cat > "$HOME/.config/polybar" <<EOF
@@ -238,9 +252,9 @@ exec = \$DOTFILE_DIR/bin/i3/updatestatus
 interval = 3600
 label-underline = $SOLARIZED_YELLOW
 
-[module/wlan]
+[module/wifi]
 type = internal/network
-interface = wlp8s0
+interface = $wifi
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
