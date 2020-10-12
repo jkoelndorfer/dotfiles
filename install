@@ -15,6 +15,12 @@ git submodule update --init --recursive "${DOTBOT_DIR}"
 # case in brand new environments.
 export DOTFILE_DIR="$HOME/.dotfiles"
 
+if [[ ! "$DISPLAY" =~ ^: ]]; then
+    # Configuring X11 junk isn't appropriate when the display
+    # isn't local, so skip it in that case.
+    unset DISPLAY
+fi
+
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
 rc="$?"
 # Only update the install last-run timestamp if dotfile installation succeeds.
