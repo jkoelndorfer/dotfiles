@@ -1,0 +1,17 @@
+#!/bin/bash
+
+app_cmd='authy'
+app_window_class='Authy Desktop'
+app_horizontal_position='center'
+app_vertical_position='center'
+script_dir=$(dirname "$0")
+
+function app_width() {
+    echo "$active_workspace_width / 5"
+}
+
+function app_height() {
+    echo "$(( ($active_workspace_height * 600) / 1000 ))"
+}
+
+source "$script_dir/summonapp"

@@ -1,63 +1,22 @@
 #!/bin/bash
 
-# This script assists with summoning and dismissing keepassxc in i3.
-# If keepassxc is the active window, it is pushed to another workspace.
-# If keepassxc is not open at all, it is opened.
-# If keepassxc is open on another workspace, it is pulled to the current
-# workspace.
-
-pwsafe_app='keepassxc'
-pwsafe_window_class='KeePassXC'
+app_cmd='keepassxc'
+app_window_class='KeePassXC'
+app_horizontal_position='center'
+app_vertical_position='bottom'
 script_dir="$(dirname "$0")"
-sleep_interval='0.1'
 
-function keepass_focused() {
-    [[ "$("$script_dir/focusedwin" | jq -r '.class')" == "$pwsafe_window_class" ]]
+function app_width() {
+    local app_min_width='800'
+    if [[ "$(( $active_workspace_width / 3 ))" -gt "$app_min_width" ]]; then
+        echo "$(( $active_workspace_width / 3 ))"
+    else
+        echo "$app_min_width"
+    fi
 }
 
-function dismiss_keepass() {
-    i3-msg "[class=$pwsafe_window_class]" move scratchpad
+function app_height() {
+    echo "$(( ($active_workspace_height * 600) / 1000 ))"
 }
 
-function keepass_win_id() {
-    local jq_query="recurse(.nodes[], .floating_nodes[].nodes[]) | select(.window_properties.class == \"$pwsafe_window_class\") | .id"
-    i3-msg -t get_tree | jq -r "$jq_query"
-}
-
-if keepass_focused; then
-    dismiss_keepass
-    exit 0
-fi
-
-active_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true)')"
-active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
-active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
-
-min_keepass_width=800
-if [[ "$(( $active_workspace_width / 3 ))" -gt "$min_keepass_width" ]]; then
-    keepass_width=$(( $active_workspace_width / 3 ))
-else
-    keepass_width=$min_keepass_width
-fi
-
-if ! pgrep "$pwsafe_app" >/dev/null 2>&1; then
-    "$pwsafe_app" >/dev/null 2>&1 & disown
-fi
-while [[ -z "$(keepass_win_id)" ]]; do
-    sleep "$sleep_interval"
-done
-
-# This sleep is necessary so that the first startup of KeePass actually displays a KeePass window.
-# Without it, this script must be invoked twice. The first time will start KeePass and flicker its
-# border on the screen. The second time will actually summon the window.
-#
-# TODO: Figure out if there are better criteria we can use in keepass_win_id to make this not
-# a problem.
-sleep 0.25
-
-i3-msg "[class=$pwsafe_window_class]" scratchpad show
-"$script_dir/floatgrid" bottom center "$keepass_width" "$(( ($active_workspace_height * 600) / 1000 ))" "$(keepass_win_id)"
-while keepass_focused; do
-    sleep "$sleep_interval"
-done
-dismiss_keepass
+source "$script_dir/summonapp"
