@@ -1,0 +1,19 @@
+#!/bin/bash
+
+delete_flags=''
+branches=()
+
+while [[ -n "$1" ]]; do
+    if [[ "$1" == '-f' || "$1" == '--force' ]]; then
+        delete_flags='--force'
+        shift
+        continue
+    fi
+    branches=("${branches[@]}" "$1")
+    shift
+done
+
+for b in "${branches[@]}"; do
+    git branch --delete $delete_flags "$b"
+    git push origin --delete $delete_flags "$b"
+done
