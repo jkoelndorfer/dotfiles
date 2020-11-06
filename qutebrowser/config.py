@@ -103,12 +103,13 @@ config.set("content.register_protocol_handler", True, "https://calendar.google.c
 # Allow popups for my bank's online portal.
 config.set("content.javascript.can_open_tabs_automatically", True, "https://www.financial-net.com/*")
 
-config.set("content.notifications", True, "https://mail.google.com/*")
-config.set("content.media_capture", True, "https://mail.google.com")
-config.set("content.media_capture", True, "https://hangouts.google.com")
-
-config.set("content.media_capture", True, "https://*.slack.com")
-config.set("content.notifications", True, "https://*.slack.com")
+for d in ["https://mail.google.com", "https://hangouts.google.com", "https://*.slack.com"]:
+    if qutebrowser_version < (1, 14, 0):
+        # This option was split into several options for selective audio, video capture in qutebrowser v1.14.0.
+        config.set("content.media_capture", True, d)
+    else:
+        config.set("content.media.audio_video_capture", True, d)
+    config.set("content.notifications", True, d)
 
 
 ################
