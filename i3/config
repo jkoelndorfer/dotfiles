@@ -245,9 +245,12 @@ for_window [class="^discord$"] move container to workspace chat
 # Lutris can share a workspace with Steam since they are both game launchers.
 for_window [class="^Lutris$"] move container to workspace steam
 
+##############################
+# LAUNCHERS / GAME UTILITIES #
+##############################
+
 # Elder Scrolls Online launcher
 for_window [instance="^bethesda.net_launcher.exe$"] move container to workspace steam
-
 # Battle.net launcher
 for_window [instance="^battle.net.exe$"] move container to workspace steam, floating enable
 # TSM application
@@ -255,16 +258,27 @@ for_window [instance="^tsmapplication.exe$"] move container to workspace steam, 
 # GDStash
 for_window [class="^org-gdstash"] move container to workspace game, floating enable
 
+
+#########
+# GAMES #
+#########
+
+# Games by instance (first field of WM_CLASS).
 for_window [instance="^(grim dawn.exe|sc2_x64.exe|wow.exe|eso64.exe|darksoulsremastered.exe|Faeria.x86_64|payday2_release|UnderMine)$"] move container to workspace game, fullscreen enable, workspace game
-for_window [title="^Factorio"] move container to workspace game, workspace game
-for_window [title="^Heroes of Hammerwatch"] move container to workspace game, workspace game
-for_window [title="^Chronicon"] move container to workspace game, workspace game
-for_window [class="^Binding of Isaac"] move container to workspace game, workspace game
-for_window [class="^Slay the Spire$"] move container to workspace game, workspace game, fullscreen enable, floating disable
-for_window [class="^Terraria.bin.x86_64$"] move container to workspace game, workspace game, floating enable
+
+# Games by class (second field of WM_CLASS).
+for_window [class="^(Slay the Spire$|Terraria.bin.x86_64$)"] move container to workspace game, workspace game, fullscreen enable, floating disable
+
+# Games by title (_NET_WM_NAME, or WM_NAME as a fallback).
+for_window [title="^(Factorio|Heroes of Hammerwatch|Chronicon|Binding of Isaac)"] move container to workspace game, workspace game, floating disable, fullscreen enable
 
 # Targets Steam games running in a Wine virtual desktop.
 for_window [class="^steam_app_[0-9]+$"] move container to workspace game, workspace game, floating disable, fullscreen enable
+
+
+###########
+# KEEPASS #
+###########
 
 # The "title" attribute is used here so that KeePassXC dialogs aren't targeted. If dialogs
 # were targeted by this rule (i.e. using the "class" criteria) they will end up on the scratchpad
