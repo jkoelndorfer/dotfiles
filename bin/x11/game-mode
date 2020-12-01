@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Valid values for resolution_mode:
+
+# 1080: changes the resolution of the primary display to 1920x1080 for displaying
+#       the game
+#
+# 1080gs: uses integer scaling via gamescope
+#
+# 1080w: uses integer scaling via Wine / Proton
+#
+# native: renders at native resolution
+#
+# Use in Steam by setting the game's command to:
+#
+# $PATH_TO_GAME_MODE_SCRIPT $RESOLUTION_MODE %command%
+resolution_mode=$1; shift
+
+function resize_center_display {
+    local mode=$1
+
+    xrandr --output "$DISPLAYNAME_CENTER" --mode "$mode"
+    sleep 2
+    i3 restart
+}
+
+primary_display_resolution=$(xrandr | grep -E "^$DISPLAYNAME_CENTER" | awk '{ print $3 }' | grep -Eo '[0-9]+x[0-9]+')
+primary_display_width=$(echo "$primary_display_resolution" | awk -F 'x' '{ print $1 }')
+primary_display_height=$(echo "$primary_display_resolution" | awk -F 'x' '{ print $2 }')
+
+sudo "$DOTFILE_DIR/bin/x11/gpufan" 70
+"$DOTFILE_DIR/bin/mouseaccel" off
+if [[ "$resolution_mode" == '1080' ]]; then
+    resize_center_display 1920x1080
+    "$@"
+elif [[ "$resolution_mode" == '1080w' ]]; then
+    export WINE_FULLSCREEN_INTEGER_SCALING=1
+    "$@"
+elif [[ "$resolution_mode" == '1080gs' ]]; then
+    gamescope -w 1920 -h 1080 -W "$primary_display_width" -H "$primary_display_height" -- "$@"
+elif [[ "$resolution_mode" == 'native' ]]; then
+    "$@"
+else
+    echo "unrecognized resolution mode: $resolution_mode" >&2
+    exit 1
+fi
+
+if [[ "$resolution_mode" == '1080' ]]; then
+    resize_center_display "$primary_display_resolution"
+fi
+sudo "$DOTFILE_DIR/bin/x11/gpufan" auto
+"$DOTFILE_DIR/bin/mouseaccel" on
