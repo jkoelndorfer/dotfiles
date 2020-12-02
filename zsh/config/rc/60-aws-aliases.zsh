@@ -199,8 +199,21 @@ function aws-lt-set-ami() {
 }
 
 function aws-ssh() {
+    local mode=$1
+    local field=''
+    if [[ -z "$mode" ]]; then
+        mode='private'
+    fi
+    if [[ "$mode" == 'public' ]]; then
+        local field=5
+    elif [[ "$mode" == 'private' ]]; then
+        local field=6
+    else
+        echo "invalid mode: $mode" >&2
+        return 1
+    fi
     local instance=$(aws-ec2-instance-select)
-    local instance_ip=$(echo "$instance" | awk -F"$tab" '{ print $3 }')
+    local instance_ip=$(echo "$instance" | awk -F"$tab" "{ print \$$field }" | trim-string)
     ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "$@" "$instance_ip"
 }
 
