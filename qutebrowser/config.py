@@ -105,6 +105,8 @@ def configure(config: ConfigAPI, c: ConfigContainer):
             # This option was split into several options for selective audio, video capture in qutebrowser v1.14.0.
             config.set("content.media_capture", True, d)
         else:
+            config.set("content.media.audio_capture", True, d)
+            config.set("content.media.video_capture", True, d)
             config.set("content.media.audio_video_capture", True, d)
         config.set("content.notifications", True, d)
 
