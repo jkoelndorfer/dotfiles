@@ -213,6 +213,9 @@ function aws-ssh() {
         return 1
     fi
     local instance=$(aws-ec2-instance-select)
+    if [[ -z "$instance" ]]; then
+        return 1
+    fi
     local instance_ip=$(echo "$instance" | awk -F"$tab" "{ print \$$field }" | trim-string)
     ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "$@" "$instance_ip"
 }
