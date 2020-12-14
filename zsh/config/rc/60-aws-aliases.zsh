@@ -170,7 +170,7 @@ function aws-asg-ssh-each() {
 
     local instances=$(aws-asg-get-instances "$asg_name")
     while read i; do
-        local ip=$(aws-ec2-instance-public-ip "$i")
+        local ip=$(aws-ec2-instance-private-ip "$i")
 
         ssh -n -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$ip" "$action"
     done <<<"$instances"
