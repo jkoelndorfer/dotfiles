@@ -78,6 +78,18 @@ function gr() {
     git rebase -i "${rebase_commit}~1" "$(git current-branch)"
 }
 
+function git() {
+    local subfunc=$1
+    local user_email_config=$(command git config --local -l 2>/dev/null | grep 'user\.email')
+
+    if [[ -z "$user_email_config" ]] && ! [[ "$subfunc" =~ ^(clone|init|config|log|status)$ ]]; then
+        echo 'fatal: set git config option `user.email` for this repository' >&2
+        return 1
+    fi
+
+    command git "$@"
+}
+
 alias gco='git checkout'
 alias gd='git diff'
 alias gds='git diff --staged'
