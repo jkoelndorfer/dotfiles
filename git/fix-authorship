@@ -1,0 +1,21 @@
+#!/bin/zsh -l
+
+earliest_commit=$1
+
+if [[ -z "$earliest_commit" ]]; then
+    echo 'fatal: must define earliest commit for which to fix authorship' >&2
+    exit 1
+fi
+
+user_name=$(git config -l | grep user.name | tail -n1 | awk -F= '{ print $2 }')
+user_email=$(git config --local -l | grep user.email | tail -n1 | awk -F= '{ print $2 }')
+
+if [[ -z "$user_name" ]]; then
+    echo 'fatal: git config user.name not set' >&2
+    exit 1
+fi
+if [[ -z "$user_email" ]]; then
+    echo 'fatal: git config user.email not set' >&2
+    exit 1
+fi
+git rebase -i "${earliest_commit}~1" -x "git commit --amend --author '$user_name <$user_email>' --no-edit"
