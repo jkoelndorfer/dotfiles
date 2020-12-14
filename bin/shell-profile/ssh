@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source "$(dirname "$0")/common.sh"
+
+if [[ -n "$SHELL_PROFILE" ]]; then
+    ssh_config_path="$HOME/.ssh/config.d/$SHELL_PROFILE"
+    if ! [[ -f "$ssh_config_path" ]]; then
+        echo "warning: $ssh_config_path does not exist" >&2
+    fi
+    ssh_cmd=(ssh -F "$ssh_config_path")
+else
+    ssh_cmd=(ssh)
+fi
+
+second "${ssh_cmd[@]}" "$@"

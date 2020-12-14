@@ -3,3 +3,4 @@
 source "$DOTFILE_DIR"/zsh/config/rc/00-env-lib.zsh
 pathmunge "$DOTFILE_DIR/bin"
 [[ -d "$HOME/bin" ]] && pathmunge "$HOME/bin"
+[[ -d "$DOTFILE_DIR/bin/shell-profile" ]] && pathmunge "$DOTFILE_DIR/bin/shell-profile"

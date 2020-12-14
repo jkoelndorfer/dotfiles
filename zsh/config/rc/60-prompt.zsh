@@ -5,7 +5,11 @@ precmd_functions=(record_lastrc "${precmd_functions[@]}")
 VIMODE='insert'
 
 function aws_profile_indicator() {
-    [[ -n "$AWS_PROFILE" ]] && echo -n "%F{yellow} $AWS_PROFILE "
+    if [[ -n "$AWS_PROFILE" && "$AWS_PROFILE" != "$SHELL_PROFILE" ]]; then
+        echo -n "%F{yellow} $AWS_PROFILE "
+    elif if [[ -z "$AWS_PROFILE" && "$AWS_PROFILE" != "$SHELL_PROFILE" ]]; then
+        echo -n "%F{yellow} default "
+    fi
 }
 
 function cwd_indicator() {
@@ -14,6 +18,10 @@ function cwd_indicator() {
 
 function host_indicator() {
     [[ -n "$SSH_CONNECTION" ]] && echo -n '%F{white}力 %m%f '
+}
+
+function shell_profile_indicator() {
+    [[ -n "$SHELL_PROFILE" ]] && echo -n "%F{blue} $SHELL_PROFILE "
 }
 
 function rc_indicator() {
@@ -109,6 +117,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_workspace_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_workspace_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
