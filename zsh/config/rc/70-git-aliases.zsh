@@ -31,10 +31,6 @@ function gpu() {
 }
 
 function gc() {
-    commit_msg_hook="$(git root)/.git/hooks/prepare-commit-msg"
-    if ! [[ -x "$commit_msg_hook" ]]; then
-        cp -f "$DOTFILE_DIR/git/hooks/prepare-commit-msg" "$commit_msg_hook"
-    fi
     git commit --verbose $@
 }
 
