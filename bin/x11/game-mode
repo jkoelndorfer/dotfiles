@@ -20,33 +20,45 @@ function resize_center_display {
     local mode=$1
 
     xrandr --output "$DISPLAYNAME_CENTER" --mode "$mode"
-    sleep 2
+    sleep 5
     i3 restart
+}
+
+function pregame_tasks {
+    sudo "$DOTFILE_DIR/bin/x11/gpufan" 70
+    "$DOTFILE_DIR/bin/mouseaccel" off
+}
+
+function postgame_tasks {
+    sudo "$DOTFILE_DIR/bin/x11/gpufan" auto
+    "$DOTFILE_DIR/bin/mouseaccel" on
 }
 
 primary_display_resolution=$(xrandr | grep -E "^$DISPLAYNAME_CENTER" | awk '{ print $3 }' | grep -Eo '[0-9]+x[0-9]+')
 primary_display_width=$(echo "$primary_display_resolution" | awk -F 'x' '{ print $1 }')
 primary_display_height=$(echo "$primary_display_resolution" | awk -F 'x' '{ print $2 }')
 
-sudo "$DOTFILE_DIR/bin/x11/gpufan" 70
-"$DOTFILE_DIR/bin/mouseaccel" off
 if [[ "$resolution_mode" == '1080' ]]; then
+    pregame_tasks
     resize_center_display 1920x1080
     "$@"
 elif [[ "$resolution_mode" == '1080w' ]]; then
+    pregame_tasks
     export WINE_FULLSCREEN_INTEGER_SCALING=1
     "$@"
 elif [[ "$resolution_mode" == '1080gs' ]]; then
+    pregame_tasks
     gamescope -w 1920 -h 1080 -W "$primary_display_width" -H "$primary_display_height" -- "$@"
 elif [[ "$resolution_mode" == 'native' ]]; then
+    pregame_tasks
     "$@"
 else
     echo "unrecognized resolution mode: $resolution_mode" >&2
     exit 1
 fi
 
+postgame_tasks
+
 if [[ "$resolution_mode" == '1080' ]]; then
     resize_center_display "$primary_display_resolution"
 fi
-sudo "$DOTFILE_DIR/bin/x11/gpufan" auto
-"$DOTFILE_DIR/bin/mouseaccel" on
