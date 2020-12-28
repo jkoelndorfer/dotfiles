@@ -108,8 +108,7 @@ def configure(config: ConfigAPI, c: ConfigContainer):
     c.url.searchengines["tfawsd"] = "https://www.terraform.io/docs/providers/aws/d/{}.html"
     c.url.searchengines["amod"] = "https://docs.ansible.com/ansible/latest/modules/{}_module.html"
 
-    # Set start page = google.com
-    c.url.start_pages = ["https://www.google.com"]
+    c.url.start_pages = ["about:blank"]
 
     try:
         # default_family replaces monospace as of qutebrowser v1.10
