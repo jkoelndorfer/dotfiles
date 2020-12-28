@@ -110,6 +110,9 @@ def configure(config: ConfigAPI, c: ConfigContainer):
             config.set("content.media.audio_video_capture", True, d)
         config.set("content.notifications", True, d)
 
+    for d in ["https://www.reddit.com"]:
+        config.set("content.notifications", False, d)
+
     config_colors(c)
 
 
