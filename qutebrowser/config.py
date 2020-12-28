@@ -5,9 +5,53 @@ from qutebrowser.config.configfiles import ConfigAPI
 from qutebrowser.config.config import ConfigContainer
 
 import os
+from typing import Dict, List
 
 dotfile_dir = os.environ["DOTFILE_DIR"]
 display_profile = os.environ["DISPLAY_PROFILE"]
+
+url_permissions: Dict[str, Dict[bool, List[str]]] = {
+    # Controls the ability of sites to register themselves
+    # as a protocol handler.
+    "content.register_protocol_handler": {
+        True: [
+            # Needed for mailto: links.
+            "https://mail.google.com/*",
+
+            # Needed for webcal links.
+            "https://calendar.google.com/*",
+        ],
+        False: [
+        ],
+    },
+
+    "content.javascript.can_open_tabs_automatically": {
+        True: [
+            # Allow popups for my bank's online portal.
+            "https://www.financial-net.com/*",
+        ],
+        False: [
+        ],
+    },
+
+    "content.notifications": {
+        True: [
+        ],
+        False: [
+            "https://www.reddit.com",
+        ],
+    },
+
+    # Audio and video capture requires special permission configuration.
+    # Set those in url_permissions_media below.
+}
+
+# URLs that are allowed to capture audio and video.
+url_permissions_media = [
+    "https://mail.google.com",
+    "https://hangouts.google.com",
+    "https://*.slack.com",
+]
 
 
 def set_ui_fonts(config: ConfigAPI, size_pt):
@@ -90,17 +134,12 @@ def configure(config: ConfigAPI, c: ConfigContainer):
     # for these, we need to include them in our configuration.
     #
     # See https://github.com/qutebrowser/qutebrowser/issues/832.
+    for scope, permission_list in url_permissions.items():
+        for permission, domains in permission_list.items():
+            for d in domains:
+                config.set(scope, permission, d)
 
-    # Needed for mailto: links.
-    config.set("content.register_protocol_handler", True, "https://mail.google.com/*")
-
-    # Needed for webcal links.
-    config.set("content.register_protocol_handler", True, "https://calendar.google.com/*")
-
-    # Allow popups for my bank's online portal.
-    config.set("content.javascript.can_open_tabs_automatically", True, "https://www.financial-net.com/*")
-
-    for d in ["https://mail.google.com", "https://hangouts.google.com", "https://*.slack.com"]:
+    for d in url_permissions_media:
         if qutebrowser_version < (1, 14, 0):
             # This option was split into several options for selective audio, video capture in qutebrowser v1.14.0.
             config.set("content.media_capture", True, d)
@@ -109,9 +148,6 @@ def configure(config: ConfigAPI, c: ConfigContainer):
             config.set("content.media.video_capture", True, d)
             config.set("content.media.audio_video_capture", True, d)
         config.set("content.notifications", True, d)
-
-    for d in ["https://www.reddit.com"]:
-        config.set("content.notifications", False, d)
 
     config_colors(c)
 
