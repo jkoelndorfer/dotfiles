@@ -48,6 +48,7 @@ url_permissions: Dict[str, Dict[bool, List[str]]] = {
 
 # URLs that are allowed to capture audio and video.
 url_permissions_media = [
+    "https://duo.google.com",
     "https://mail.google.com",
     "https://hangouts.google.com",
     "https://*.slack.com",
