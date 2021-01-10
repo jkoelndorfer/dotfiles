@@ -51,6 +51,7 @@ url_permissions_media = [
     "https://mail.google.com",
     "https://hangouts.google.com",
     "https://*.slack.com",
+    "https://meet.jit.si",
 ]
 
 
