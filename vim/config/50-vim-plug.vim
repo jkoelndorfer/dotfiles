@@ -68,16 +68,8 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'
 
-    " ruby
-    Plug 'roxma/ncm-rct-complete'
-    Plug 'tpope/vim-rails'
-    Plug 'vim-ruby/vim-ruby'
-
     " terraform
     Plug 'hashivim/vim-terraform'
-
-    " typescript
-    Plug 'leafgarland/typescript-vim'
 
     " yaml
     " vim's builtin yaml syntax highlighting has a bug dealing with quotes
