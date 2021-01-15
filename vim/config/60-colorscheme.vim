@@ -14,4 +14,6 @@ if !(expand('$TERM') == 'linux')
     hi DiffDelete ctermfg=1       ctermbg=1    guifg=1      guibg=1    term=NONE gui=NONE
     hi DiffChange ctermfg=NONE    ctermbg=NONE guifg=NONE   guibg=NONE term=NONE gui=NONE
     hi DiffText   ctermfg=3       ctermbg=NONE guifg=3      guibg=NONE term=NONE gui=NONE
+
+    hi! link SignColumn LineNr
 endif
