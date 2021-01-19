@@ -240,3 +240,178 @@ function aws-ssm-parameter-select() {
         jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
         aws-columnize | fzf | awk '{ print $1 }'
 }
+
+function aws-ssm-parameter-get() {
+    if [[ -n "$1" ]]; then
+        local parameter=$1
+    else
+        local parameter=$(aws-ssm-parameter-select)
+    fi
+
+    local get_result=$(aws ssm get-parameter --name "$parameter" --query 'Parameter' --with-decryption 2>/dev/null)
+    if [[ -z "$get_result" ]]; then
+        echo "failed getting parameter $parameter (does it exist?)" >&2
+        return 1
+    fi
+
+    local description=$(aws ssm describe-parameters --parameter-filters "Key=Name,Values=$parameter" --query 'Parameters[].Description' --output text)
+    echo "$get_result" | jq -M -r --arg description "$description" '{Name: .Name, Type: .Type, Description: $description, Value: .Value}'
+}
+
+function aws-ssm-parameter-edit() {
+    if [[ -n "$1" ]]; then
+        local parameter=$1
+    else
+        local parameter=$(aws-ssm-parameter-select)
+    fi
+    local tempfile=$(mktemp --tmpdir 'aws-ssm-edit-parameter.XXXXXX')
+    if [[ -z "$tempfile" ]]; then
+        echo 'failed to create temporary file to edit SSM parameter' >&2
+        return 1
+    fi
+
+    local parameter_get="$(aws-ssm-parameter-get "$parameter")"
+    local rc=$?
+    if [[ "$rc" != 0 ]]; then
+        return "$rc"
+    fi
+
+    local parameter_values=$(echo "$parameter_get" | _aws-ssm-parameter-stream-edit)
+    echo "$parameter_values" | _aws-ssm-parameter-put
+    local rc=$?
+    local new_parameter_name=$(echo "$parameter_values" | jq -r '.Name')
+    if [[ "$rc" != 0 ]]; then
+        echo "failed putting parameter $new_parameter_name" >&2
+        return 1
+    fi
+    if [[ "$parameter" != "$new_parameter_name" ]]; then
+        aws ssm delete-parameter --name "$parameter"
+    fi
+}
+
+function aws-ssm-parameter-new-from() {
+    local src=$1
+    local new=$2
+
+    if [[ -z "$src" ]]; then
+        echo 'missing source parameter name' >&2
+        return 1
+    fi
+    if [[ -z "$new" ]]; then
+        echo 'missing new parameter name' >&2
+        return 1
+    fi
+
+    local parameter_get="$(aws-ssm-parameter-get "$src")"
+    local rc=$?
+    if [[ "$rc" != 0 ]]; then
+        return "$rc"
+    fi
+    local parameter_new=$(
+        echo "$parameter_get" |
+        jq --arg NewName "$new" --monochrome-output '{Name: $NewName, Type: .Type, Description: .Description, Value: .Value}' |
+        _aws-ssm-parameter-stream-edit
+    )
+    if [[ "$?" != 0 ]]; then
+        echo "failed editing parameter $src" >&2
+        return 1
+    fi
+    echo "$parameter_new" | _aws-ssm-parameter-put
+}
+
+function aws-ssm-parameter-mv() {
+    local src=$1
+    local dest=$2
+
+    if [[ -z "$src" ]]; then
+        echo 'missing source parameter name' >&2
+        return 1
+    fi
+    if [[ -z "$dest" ]]; then
+        echo 'missing destination parameter name' >&2
+        return 1
+    fi
+    if [[ "$src" == "$dest" ]]; then
+        echo 'source and destination parameters are the same' >&2
+        return 1
+    fi
+
+    local param=$(aws-ssm-parameter-get "$src")
+    local rc=$?
+    if [[ "$rc" != 0 ]]; then
+        return "$rc"
+    fi
+
+    echo "$param" | _aws-ssm-parameter-put "$dest"
+    local rc=$?
+    if [[ "$rc" != 0 ]]; then
+        return "$rc"
+    fi
+    aws ssm delete-parameter --name "$src"
+}
+
+function _aws-ssm-parameter-stream-edit() {
+    {
+        local parameter_values=$(< /dev/stdin)
+        local tempfile=$(mktemp --tmpdir 'aws-ssm-parameter-stream-edit.XXXXXX')
+        echo "$parameter_values" > "$tempfile"
+
+        exec 7< /dev/tty
+        while true; do
+            "$EDITOR" "$tempfile" < /dev/tty > /dev/tty 2>&1
+            local jq_validation_output
+            jq_validation_output=$(
+                jq \
+                    --compact-output \
+                    --monochrome-output \
+                    --exit-status \
+                    '.Name != null and .Type != null and .Description != null and .Value != null' \
+                    2>/dev/null < "$tempfile"
+            )
+            local rc=$?
+            if [[ "$rc" == 1 ]]; then
+                echo 'JSON was missing one of Name, Type, Description, Value; try again?' >&2
+                read -u 7
+            elif [[ "$rc" == 4 ]]; then
+                echo 'not valid JSON, try again?' >&2
+                read -u 7
+            elif [[ "$(echo "$jq_validation_output" | wc -l 2>/dev/null)" -ne 1 ]]; then
+                echo 'one line of JSON expected in edit file; try again?' >&2
+                read -u 7
+            elif [[ "$rc" == 0 ]]; then
+                break
+            else
+                echo 'unhandled error' >&2
+                exec 7<&-
+                return 1
+            fi
+        done
+        exec 7<&-
+    } > /dev/null
+    cat "$tempfile"
+    rm -f "$tempfile" > /dev/null
+}
+
+function _aws-ssm-parameter-put() {
+    local name_override=$1
+    local parameter_values=$(< /dev/stdin)
+    if [[ -z "$name_override" ]]; then
+        local parameter_name=$(echo "$parameter_values" | jq -r '.Name')
+    else
+        local parameter_name=$name_override
+    fi
+    local parameter_desc=$(echo "$parameter_values" | jq -r '.Description')
+    local parameter_type=$(echo "$parameter_values" | jq -r '.Type')
+    local parameter_val=$(echo "$parameter_values" | jq -r '.Value')
+
+    aws ssm put-parameter \
+        --name "$parameter_name" \
+        --type "$parameter_type" \
+        --description "$parameter_desc" \
+        --value "$parameter_val" \
+        --overwrite
+    if [[ "$?" != 0 ]]; then
+        echo "failed to put parameter $parameter_name" >&2
+        return 1
+    fi
+}
