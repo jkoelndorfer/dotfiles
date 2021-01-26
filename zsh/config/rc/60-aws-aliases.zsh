@@ -289,6 +289,23 @@ function aws-ssm-parameter-edit() {
     fi
 }
 
+function aws-ssm-parameter-new() {
+    local name=$1
+
+    local parameter_new=$(
+        jq \
+            --null-input \
+            --arg Name "$name" \
+            --monochrome-output '{Name: $Name, Type: "String or SecureString", Description: "Description", Value: "value"}' |
+        _aws-ssm-parameter-stream-edit
+    )
+    if [[ "$?" != 0 ]]; then
+        echo "failed editing parameter $name" >&2
+        return 1
+    fi
+    echo "$parameter_new" | _aws-ssm-parameter-put
+}
+
 function aws-ssm-parameter-new-from() {
     local src=$1
     local new=$2
