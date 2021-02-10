@@ -33,10 +33,20 @@ autocmd FileType python call PythonSettings()
 let g:jedi#completions_enabled = 0
 let g:jedi#show_call_signatures = 0
 
+let g:jedi#environment_path = g:python3_dev_venv
+
 let g:deoplete#sources#jedi#extra_path = ["."]
 
 let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ["flake8", "mypy"]
+
+let g:neomake_python_flake8_maker = {
+    \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/flake8",
+\ }
+
+let g:neomake_python_mypy_maker = {
+    \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/mypy",
+\ }
 
 let g:pymode_doc_bind = "<leader>PK"
 let g:pymode_run_bind = "<leader>Pr"
