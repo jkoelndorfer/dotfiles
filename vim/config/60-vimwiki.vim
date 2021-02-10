@@ -1,16 +1,11 @@
-let s:cache_dir = $XDG_CACHE_HOME
-if s:cache_dir == ""
-    let s:cache_dir = $HOME . '/.cache'
-endif
-
 let g:vimwiki_list = [
     \{
         \'path': $DOTFILE_DIR . '/wiki',
-        \'path_html': s:cache_dir . '/wiki-html'
+        \'path_html': g:cache_dir . '/wiki-html'
     \},
     \{
         \'path': $HOME . '/sync/private-wiki',
-        \'path_html': s:cache_dir . '/private-wiki-html'
+        \'path_html': g:cache_dir . '/private-wiki-html'
     \}
 \]
 
