@@ -21,6 +21,13 @@ function genpw() {
     tr --delete --complement "[:$charset:]" < /dev/urandom | head -c "$length"
 }
 
+function toutc() {
+    local dt=$1
+
+    local localdt_ts=$(date --date "$dt" '+%s')
+    date --date "@${localdt_ts}" --utc '+%Y-%m-%d %H:%M:%SZ'
+}
+
 function weather() {
     curl wttr.in/"$1"
 }
