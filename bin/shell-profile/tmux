@@ -1,0 +1,11 @@
+#!/bin/bash
+
+script_dir=$(dirname "$0")
+source "$script_dir/common.sh"
+
+if [[ -n "$SHELL_PROFILE" ]]; then
+    tmux_args=('-L' "$SHELL_PROFILE")
+else
+    tmux_args=()
+fi
+second tmux "${tmux_args[@]}" "$@"
