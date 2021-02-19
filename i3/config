@@ -59,6 +59,7 @@ bindsym $alt+Tab exec $DOTFILE_DIR/bin/i3/winfocus
 bindsym $alt+Shift+Tab exec $DOTFILE_DIR/bin/i3/win2curws
 
 bindsym --whole-window $alt+x exec --no-startup-id $DOTFILE_DIR/bin/hold-left-click
+bindsym --whole-window $alt+Shift+e exec --no-startup-id $DOTFILE_DIR/bin/keymash e
 
 bindsym $mod+w exec $DOTFILE_DIR/bin/i3/wsswitch
 bindsym $mod+Shift+w exec $DOTFILE_DIR/bin/i3/wsmovewin
