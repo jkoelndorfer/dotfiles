@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# This script mashes the given key very quickly
+# for about two seconds.
+
+key=$1
+for i in $(seq 1 40); do
+    xdotool key "$key"
+    sleep 0.05
+done
