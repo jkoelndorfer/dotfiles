@@ -78,6 +78,9 @@ def set_ui_fonts(config: ConfigAPI, size_pt):
 
 
 def configure(config: ConfigAPI, c: ConfigContainer):
+    if qutebrowser_version >= (2, 0, 0):
+        config.load_autoconfig(False)
+
     # Configure ctrl-p to open a fuzzy search prompt for currently open tabs.
     config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
 
