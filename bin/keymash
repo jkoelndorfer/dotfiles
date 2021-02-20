@@ -5,6 +5,5 @@
 
 key=$1
 for i in $(seq 1 40); do
-    xdotool key "$key"
-    sleep 0.05
-done
+    echo "key --delay 50 $key"
+done | xdotool -
