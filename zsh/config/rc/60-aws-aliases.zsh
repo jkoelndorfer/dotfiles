@@ -377,6 +377,7 @@ function _aws-ssm-parameter-stream-edit() {
         while true; do
             "$EDITOR" "$tempfile" < /dev/tty > /dev/tty 2>&1
             local jq_validation_output
+            local rc
             jq_validation_output=$(
                 jq \
                     --compact-output \
@@ -385,7 +386,7 @@ function _aws-ssm-parameter-stream-edit() {
                     '.Name != null and .Type != null and .Description != null and .Value != null' \
                     2>/dev/null < "$tempfile"
             )
-            local rc=$?
+            rc=$?
             if [[ "$rc" == 1 ]]; then
                 echo 'JSON was missing one of Name, Type, Description, Value; try again?' >&2
                 read -u 7
