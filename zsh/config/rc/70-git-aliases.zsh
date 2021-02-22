@@ -49,6 +49,7 @@ function git-ls-directories() {
     # git ls-files does not report them.
     {
         local root=$(git root)
+        echo './'
         git ls-files --full-name "$root"
         git ls-files --exclude-standard -o --full-name "$root"
     } | grep '/' | sed -r -e 's#/[^/]+$##' | sort -u
