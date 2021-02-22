@@ -255,7 +255,7 @@ function aws-ssm-parameter-get() {
     fi
 
     local description=$(aws ssm describe-parameters --parameter-filters "Key=Name,Values=$parameter" --query 'Parameters[].Description' --output text)
-    echo "$get_result" | jq -M -r --arg description "$description" '{Name: .Name, Type: .Type, Description: $description, Value: .Value}'
+    echo -E "$get_result" | jq -M -r --arg description "$description" '{Name: .Name, Type: .Type, Description: $description, Value: .Value}'
 }
 
 function aws-ssm-parameter-edit() {
@@ -276,10 +276,10 @@ function aws-ssm-parameter-edit() {
         return "$rc"
     fi
 
-    local parameter_values=$(echo "$parameter_get" | _aws-ssm-parameter-stream-edit)
-    echo "$parameter_values" | _aws-ssm-parameter-put
+    local parameter_values=$(echo -E "$parameter_get" | _aws-ssm-parameter-stream-edit)
+    echo -E "$parameter_values" | _aws-ssm-parameter-put
     local rc=$?
-    local new_parameter_name=$(echo "$parameter_values" | jq -r '.Name')
+    local new_parameter_name=$(echo -E "$parameter_values" | jq -r '.Name')
     if [[ "$rc" != 0 ]]; then
         echo "failed putting parameter $new_parameter_name" >&2
         return 1
@@ -303,7 +303,7 @@ function aws-ssm-parameter-new() {
         echo "failed editing parameter $name" >&2
         return 1
     fi
-    echo "$parameter_new" | _aws-ssm-parameter-put
+    echo -E "$parameter_new" | _aws-ssm-parameter-put
 }
 
 function aws-ssm-parameter-new-from() {
@@ -325,7 +325,7 @@ function aws-ssm-parameter-new-from() {
         return "$rc"
     fi
     local parameter_new=$(
-        echo "$parameter_get" |
+        echo -E "$parameter_get" |
         jq --arg NewName "$new" --monochrome-output '{Name: $NewName, Type: .Type, Description: .Description, Value: .Value}' |
         _aws-ssm-parameter-stream-edit
     )
@@ -333,7 +333,7 @@ function aws-ssm-parameter-new-from() {
         echo "failed editing parameter $src" >&2
         return 1
     fi
-    echo "$parameter_new" | _aws-ssm-parameter-put
+    echo -E "$parameter_new" | _aws-ssm-parameter-put
 }
 
 function aws-ssm-parameter-mv() {
@@ -359,7 +359,7 @@ function aws-ssm-parameter-mv() {
         return "$rc"
     fi
 
-    echo "$param" | _aws-ssm-parameter-put "$dest"
+    echo -E "$param" | _aws-ssm-parameter-put "$dest"
     local rc=$?
     if [[ "$rc" != 0 ]]; then
         return "$rc"
@@ -371,7 +371,7 @@ function _aws-ssm-parameter-stream-edit() {
     {
         local parameter_values=$(< /dev/stdin)
         local tempfile=$(mktemp --tmpdir 'aws-ssm-parameter-stream-edit.XXXXXX')
-        echo "$parameter_values" > "$tempfile"
+        echo -E "$parameter_values" > "$tempfile"
 
         exec 7< /dev/tty
         while true; do
@@ -414,13 +414,13 @@ function _aws-ssm-parameter-put() {
     local name_override=$1
     local parameter_values=$(< /dev/stdin)
     if [[ -z "$name_override" ]]; then
-        local parameter_name=$(echo "$parameter_values" | jq -r '.Name')
+        local parameter_name=$(echo -E "$parameter_values" | jq -r '.Name')
     else
         local parameter_name=$name_override
     fi
-    local parameter_desc=$(echo "$parameter_values" | jq -r '.Description')
-    local parameter_type=$(echo "$parameter_values" | jq -r '.Type')
-    local parameter_val=$(echo "$parameter_values" | jq -r '.Value')
+    local parameter_desc=$(echo -E "$parameter_values" | jq -r '.Description')
+    local parameter_type=$(echo -E "$parameter_values" | jq -r '.Type')
+    local parameter_val=$(echo -E "$parameter_values" | jq -r '.Value')
 
     aws ssm put-parameter \
         --name "$parameter_name" \
