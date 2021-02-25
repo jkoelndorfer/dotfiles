@@ -23,19 +23,11 @@ pkill -SIGUSR1 dunst
 # be part of the X screen, but don't display anything).
 {
     if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' ]]; then
-        xset -dpms
         sleep 300
         sudo systemctl suspend
     elif [[ "$SCREENSAVER_STRATEGY" == 'screen-off' ]]; then
-        xset +dpms
-        xset s on
         sleep 30
         xset dpms force off
-    else
-        xset +dpms
-        xset dpms 0 0 0
-        xset s noblank
-        xset s on
     fi
 } &
 

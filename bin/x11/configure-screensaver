@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' || "$SCREENSAVER_STRATEGY" == 'screen-off' ]]; then
+    xset dpms 600 0 900
+elif [[ "$SCREENSAVER_STRATEGY" == 'none' ]]; then
+    xset dpms 0 0 0
+fi

@@ -17,6 +17,7 @@ if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
 fi
 
 "$DOTFILE_DIR/bin/x11/orient-displays"
+"$DOTFILE_DIR/bin/x11/configure-screensaver"
 
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
