@@ -42,10 +42,12 @@ let g:neomake_python_enabled_makers = ["flake8", "mypy"]
 
 let g:neomake_python_flake8_maker = {
     \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/flake8",
+    \ 'make_info': "flake8",
 \ }
 
 let g:neomake_python_mypy_maker = {
     \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/mypy",
+    \ 'make_info': "mypy",
 \ }
 
 let g:pymode_doc_bind = "<leader>PK"
