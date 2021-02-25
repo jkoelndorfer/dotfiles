@@ -17,10 +17,6 @@ original_spotify_status=$($spotifyctl status)
 # Suspending notifications is handy when the screen is locked!
 pkill -SIGUSR1 dunst
 
-# Set up a background job which will turn off the screen after a while.
-# The current AMDGPU code seems to have a bug where sleeping monitors
-# aren't always recovered correctly (the monitors turn on and seem to
-# be part of the X screen, but don't display anything).
 {
     if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' ]]; then
         sleep 300
@@ -35,7 +31,7 @@ lock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' ]]; then
     $spotifyctl pause
 fi
-i3lock -c '#000000'
+i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
 unlock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' && "$((unlock_time - lock_time))" -lt "$SCREENLOCK_MUSIC_RESUME_TIME_SECONDS" ]]; then
     $spotifyctl play
