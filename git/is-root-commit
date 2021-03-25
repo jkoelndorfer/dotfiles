@@ -1,0 +1,15 @@
+#!/bin/bash
+
+commit=$1
+
+# This prints the first ancestor of the given commit.
+#
+# If the commit is a root commit, there isn't one and the
+# output is empty.
+output=$(git rev-list --max-count 1 --skip 1 "$commit")
+
+if [[ -z "$output" ]]; then
+    exit 0
+else
+    exit 1
+fi

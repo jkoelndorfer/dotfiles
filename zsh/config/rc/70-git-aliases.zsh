@@ -72,7 +72,13 @@ function gr() {
     if [[ -z "$rebase_commit" ]]; then
         return 1
     fi
-    git rebase -i "${rebase_commit}~1" "$(git current-branch)"
+
+    local current_branch=$(git current-branch)
+    if git is-root-commit "$rebase_commit"; then
+        git rebase -i --root "$current_branch"
+    else
+        git rebase -i "${rebase_commit}~1" "$current_branch"
+    fi
 }
 
 function git() {

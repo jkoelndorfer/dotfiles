@@ -15,4 +15,5 @@ git config --global alias.fix-authorship "!~/dotfiles/git/fix-authorship"
 git config --global alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/master"'
 git config --global alias.root 'rev-parse --show-toplevel'
 git config --global alias.fzf-log 'log --color=always --pretty=format:"%C(yellow)%h %C(green)%an %C(blue)%ad %C(reset)%s" --date=iso --abbrev-commit'
+git config --global alias.is-root-commit '!~/dotfiles/git/is-root-commit'
 git config --global diff.fbp.textconv "~/dotfiles/bin/gaming/factorio/deflate-blueprint"
