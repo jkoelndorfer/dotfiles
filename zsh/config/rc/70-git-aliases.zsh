@@ -77,7 +77,7 @@ function gr() {
 
 function git() {
     local subfunc=$1
-    local user_email_config=$(command git config --local -l 2>/dev/null | grep 'user\.email')
+    local user_email_config=$(command git config --local -l 2>/dev/null | grep -E '^\s*user\.email\s*=')
 
     if [[ -z "$user_email_config" ]] && ! [[ "$subfunc" =~ ^(clone|init|config|describe|diff|is-root-commit|fetch|fzf-log|log|pull|rev-list|rev-parse|show|status)$ ]]; then
         echo 'fatal: set git config option `user.email` for this repository' >&2
