@@ -1,5 +1,9 @@
 tab=$(printf '\t')
 
+function aws() {
+    command aws --no-cli-pager "$@"
+}
+
 function aws-canonicalize-text() {
     sed -e 's/\t/\n/g'
 }
