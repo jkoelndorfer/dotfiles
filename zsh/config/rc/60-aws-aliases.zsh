@@ -225,7 +225,7 @@ function aws-ssh() {
 }
 
 function aws-ssm-parameter-ls() {
-    aws ssm describe-parameters --query 'Parameters[].Name' --output text | aws-canonicalize-text | sort
+    aws ssm describe-parameters --page-size 50 --query 'Parameters[].Name' --output text | aws-canonicalize-text | sort
 }
 alias ls-ssmp=aws-ssm-parameter-ls
 
@@ -240,7 +240,7 @@ function aws-ssm-parameter() {
 alias ssmp=aws-ssm-parameter
 
 function aws-ssm-parameter-select() {
-    aws ssm describe-parameters |
+    aws ssm describe-parameters --page-size 50 |
         jq -r '.Parameters[] | (.Name + "\t" + .Description)' |
         aws-columnize | fzf | awk '{ print $1 }'
 }
@@ -258,7 +258,7 @@ function aws-ssm-parameter-get() {
         return 1
     fi
 
-    local description=$(aws ssm describe-parameters --parameter-filters "Key=Name,Values=$parameter" --query 'Parameters[].Description' --output text)
+    local description=$(aws ssm describe-parameters --page-size 50 --parameter-filters "Key=Name,Values=$parameter" --query 'Parameters[].Description' --output text)
     echo -E "$get_result" | jq -M -r --arg description "$description" '{Name: .Name, Type: .Type, Description: $description, Value: .Value}'
 }
 
