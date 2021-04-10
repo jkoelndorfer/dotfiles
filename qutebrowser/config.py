@@ -81,6 +81,11 @@ def configure(config: ConfigAPI, c: ConfigContainer):
     if qutebrowser_version >= (2, 0, 0):
         config.load_autoconfig(False)
 
+    if qutebrowser_version >= (2, 0, 2):
+        mode_enter = "mode-enter"
+    else:
+        mode_enter = "enter-mode"
+
     # Configure ctrl-p to open a fuzzy search prompt for currently open tabs.
     config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
 
@@ -89,7 +94,7 @@ def configure(config: ConfigAPI, c: ConfigContainer):
     config.bind("M", "spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {url}")
 
     # Use Shift-Escape to enter passthrough mode instead of Ctrl-V.
-    config.bind("<Shift-Escape>", "enter-mode passthrough", mode="normal")
+    config.bind("<Shift-Escape>", f"{mode_enter} passthrough", mode="normal")
     config.unbind("<Ctrl-V>")
 
     # Use Ctrl-Shift-J and Ctrl-Shift-K to move tabs down or up, respectively.
