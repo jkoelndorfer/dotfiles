@@ -28,3 +28,9 @@ rmdir "$tmpdir"
 # Update!
 pacman -Sy archlinux-keyring
 pacman -Su
+pacman -Sc --noconfirm
+
+echo 'pacman files to clean up' >&2
+echo '>>>>>>>>>>>>>>>>>>>>' >&2
+find / -xdev -name '*.pac*' | grep -E '\.pac(new|save)$' | sort >&2
+echo '<<<<<<<<<<<<<<<<<<<<' >&2
