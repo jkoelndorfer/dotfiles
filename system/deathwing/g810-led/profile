@@ -1,0 +1,83 @@
+# FIXME: profile file format doesn't support extra
+# whitespace when setting colors; add whitespace
+# to make things tabular if that ever changes
+#
+# quick reference color list
+#
+# blue         000066
+# dark gray    333333
+# gray         666666
+# green        006600
+# light blue   666699
+# light gray   aaaaaa
+# orange       996300
+# dark orange  663300
+# purple       8d00a6
+# red          660000
+# white        ffffff
+# yellow       999900
+
+
+# default key color is light gray
+a aaaaaa
+
+# WASD, arrows are yellow
+k w 999900
+k a 999900
+k s 999900
+k d 999900
+g arrows 999900
+
+# function keys are light blue
+g fkeys 666699
+
+# functions (home, end, page up/down, etc) are gray
+g functions 333333   # dark gray
+
+# numeric keys are green
+k num_indicator 006600
+g numeric 006600
+k 0 006600
+k 1 006600
+k 2 006600
+k 3 006600
+k 4 006600
+k 5 006600
+k 6 006600
+k 7 006600
+k 8 006600
+k 9 006600
+
+# multimedia keys are purple
+g multimedia 8d00a6
+
+# enter keys, logo are blue
+k enter 000066
+k numenter 000066
+g logo 000066
+
+# delete, backspace, escape are red
+k esc 660000
+k backspace 660000
+k delete 660000
+
+# light switch, game keys are white
+k light ffffff
+k game ffffff
+
+# caps lock, shift keys are orange
+k caps_indicator 996300
+k caps_lock 996300
+k shiftl 996300
+k shiftr 996300
+
+# other modifier keys are dark orange
+k ctrll 663300
+k ctrlr 663300
+k winl 663300
+k winr 663300
+k altl 663300
+k altr 663300
+k menu 663300
+
+c # Commit changes
