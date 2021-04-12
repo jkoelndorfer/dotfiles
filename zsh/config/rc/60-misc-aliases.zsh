@@ -28,6 +28,12 @@ function toutc() {
     date --date "@${localdt_ts}" --utc '+%Y-%m-%d %H:%M:%SZ'
 }
 
+function urldecode() {
+    local url=$1
+
+    python3 -c 'import sys; from urllib.parse import unquote; print(unquote(sys.argv[1]), file=sys.stdout)' "$url"
+}
+
 function weather() {
     curl wttr.in/"$1"
 }
