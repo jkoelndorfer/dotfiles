@@ -114,8 +114,9 @@ def configure(config: ConfigAPI, c: ConfigContainer):
 
     config.set("downloads.position", "bottom")
 
-    # Set default search engine = google.
-    c.url.searchengines["DEFAULT"] = "https://www.google.com/search?q={}"
+    # Set default search engine = DuckDuckGo.
+    c.url.searchengines["DEFAULT"] = "https://www.duckduckgo.com/?q={}"
+    c.url.searchengines["google"] = "https://www.google.com/search?q={}"
     c.url.searchengines["tfawsr"] = "https://www.terraform.io/docs/providers/aws/r/{}.html"
     c.url.searchengines["tfawsd"] = "https://www.terraform.io/docs/providers/aws/d/{}.html"
     c.url.searchengines["amod"] = "https://docs.ansible.com/ansible/latest/modules/{}_module.html"
