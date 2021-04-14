@@ -6,4 +6,5 @@ elif [[ "$SCREENSAVER_STRATEGY" == 'screen-blank' ]]; then
     xset dpms 600 0 0
 elif [[ "$SCREENSAVER_STRATEGY" == 'none' ]]; then
     xset dpms 0 0 0
+    xset -dpms
 fi
