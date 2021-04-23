@@ -10,6 +10,11 @@ from typing import Dict, List
 dotfile_dir = os.environ["DOTFILE_DIR"]
 display_profile = os.environ["DISPLAY_PROFILE"]
 
+if qutebrowser_version >= (2, 2, 0):
+    content_notifications_enabled = "content.notifications.enabled"
+else:
+    content_notifications_enabled = "content.notifications"
+
 url_permissions: Dict[str, Dict[bool, List[str]]] = {
     # Controls the ability of sites to register themselves
     # as a protocol handler.
@@ -34,7 +39,7 @@ url_permissions: Dict[str, Dict[bool, List[str]]] = {
         ],
     },
 
-    "content.notifications": {
+    content_notifications_enabled: {
         True: [
         ],
         False: [
@@ -159,7 +164,7 @@ def configure(config: ConfigAPI, c: ConfigContainer):
             config.set("content.media.audio_capture", True, d)
             config.set("content.media.video_capture", True, d)
             config.set("content.media.audio_video_capture", True, d)
-        config.set("content.notifications", True, d)
+        config.set(content_notifications_enabled, True, d)
 
     config_colors(c)
 
