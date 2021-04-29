@@ -27,6 +27,7 @@ function aws-ec2-instance-describe-short() {
     }
 EOF
     aws ec2 describe-instances \
+        --max-items 9999 \
         --query 'Reservations[*].Instances[*]' \
         --filters 'Name=instance-state-name,Values=running' | jq "$jq_query"
 }
