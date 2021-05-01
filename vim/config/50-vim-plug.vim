@@ -40,6 +40,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'scrooloose/nerdcommenter'
     Plug 'PeterRincker/vim-argumentative'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'prabirshrestha/vim-lsp'
 
     " completion
     Plug 'ncm2/ncm2'
@@ -48,6 +49,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'roxma/nvim-yarp'
 
     " ncm2 completion plugins
+    Plug 'ncm2/ncm2-vim-lsp'
     Plug 'ncm2/ncm2-bufword'
     Plug 'ncm2/ncm2-tmux'
     Plug 'ncm2/ncm2-path'
@@ -56,14 +58,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " ansible
     Plug 'pearofducks/ansible-vim'
-
-    " python
-    Plug 'ncm2/ncm2-jedi'
-    Plug 'davidhalter/jedi-vim'
-    Plug 'klen/python-mode'
-
-    " go
-    Plug 'fatih/vim-go'
 
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'

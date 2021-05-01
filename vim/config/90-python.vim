@@ -29,13 +29,14 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 
-" ncm2 handles this
-let g:jedi#completions_enabled = 0
-let g:jedi#show_call_signatures = 0
-
-let g:jedi#environment_path = g:python3_dev_venv
-
-let g:deoplete#sources#jedi#extra_path = ["."]
+let s:pyls_path = expand("$PYTHON_DEV_VENV") . "/bin/jedi-language-server"
+if executable(s:pyls_path)
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->[s:pyls_path]},
+        \ 'allowlist': ['python'],
+    \ })
+endif
 
 let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ["flake8", "mypy"]
