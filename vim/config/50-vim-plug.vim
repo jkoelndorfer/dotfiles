@@ -59,6 +59,9 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " ansible
     Plug 'pearofducks/ansible-vim'
 
+    " go
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'
 
