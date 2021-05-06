@@ -35,4 +35,6 @@ function dotfile_status() {
     fi
 }
 
-dotfile_status >&2
+if [[ -o interactive ]]; then
+    dotfile_status >&2
+fi

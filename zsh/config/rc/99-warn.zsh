@@ -19,7 +19,7 @@ config_warnings=$({
     fi
 })
 
-if [[ -n "$config_warnings" ]]; then
+if [[ -n "$config_warnings" && -o interactive ]]; then
     print_config_warnings
     echo "$config_warnings" >&2
 fi
