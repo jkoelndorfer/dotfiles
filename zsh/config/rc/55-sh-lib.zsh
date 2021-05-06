@@ -60,3 +60,23 @@ function value-or-cmd() {
         "$@"
     fi
 }
+
+# Searches parent directories for at least one of the listed files.
+# If one of the files exists, the path is printed and the return
+# code is 0. If the file is not found, the return code is 1.
+function search-upwards-for-one-of() {
+    local original_dir="$PWD"
+
+    while [[ "$PWD" != '/' ]]; do
+        for f in "$@"; do
+            if [[ -f "$f" ]]; then
+                echo "$PWD/$f"
+                cd "$original_dir"
+                return 0
+            fi
+        done
+        cd ..
+    done
+    cd "$original_dir"
+    return 1
+}
