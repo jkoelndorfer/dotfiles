@@ -29,7 +29,7 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 
-let s:pyls_path = expand("$PYTHON_DEV_VENV") . "/bin/jedi-language-server"
+let s:pyls_path = expand("$DOTFILE_DIR") . "/dev/language-servers/python"
 if executable(s:pyls_path)
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pyls',
