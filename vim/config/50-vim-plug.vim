@@ -62,6 +62,9 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " go
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+    " python
+    Plug 'python-mode/python-mode'
+
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'
 

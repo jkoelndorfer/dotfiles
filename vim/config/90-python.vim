@@ -56,6 +56,9 @@ let g:pymode_run_bind = "<leader>Pr"
 let g:pymode_folding = 0
 let g:pymode_lint = 0
 let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_autoimport = 0
 let g:pymode_syntax = 1
 let g:pymode_options_max_line_length = 120
 
