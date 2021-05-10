@@ -32,7 +32,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " See tmux/tmux.conf for more information.
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'epeli/slimux'
-    Plug 'tmux-plugins/vim-tmux-focus-events'
 
     " programming-specific productivity
     Plug 'neomake/neomake'
