@@ -268,7 +268,7 @@ for_window [class="^org-gdstash"] move container to workspace game, floating ena
 for_window [instance="^(SOR4|grim dawn.exe|sc2_x64.exe|wow.exe|eso64.exe|darksoulsremastered.exe|hl2_linux|Faeria.x86_64|payday2_release|portal2_linux|UnderMine|valheim.x86_64)$"] move container to workspace game, fullscreen enable, workspace game
 
 # Games by class (second field of WM_CLASS).
-for_window [class="(Slay the Spire$|^Terraria.bin.x86_64$)"] move container to workspace game, workspace game, fullscreen enable, floating disable
+for_window [class="(^Hellpoint|Slay the Spire$|^Terraria.bin.x86_64$)"] move container to workspace game, workspace game, fullscreen enable, floating disable
 
 # Games by title (_NET_WM_NAME, or WM_NAME as a fallback).
 for_window [title="^(Factorio|Heroes of Hammerwatch|Chronicon|Binding of Isaac)"] move container to workspace game, workspace game, floating disable, fullscreen enable
