@@ -9,8 +9,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'tpope/vim-eunuch'
     Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-surround'
-    Plug 'junegunn/fzf'
-    Plug 'junegunn/fzf.vim'
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
     Plug 'SirVer/ultisnips'
@@ -18,6 +16,10 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'scrooloose/nerdtree'
     Plug 'vimwiki/vimwiki'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     " styling, syntax highlighting
     Plug 'vim-airline/vim-airline'
