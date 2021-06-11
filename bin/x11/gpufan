@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# TODO: Does the gpu_hwmon directory differ per machine?
-gpu_hwmon='/sys/class/drm/card0/device/hwmon/hwmon0'
+gpu_hwmon=$(find /sys/class/drm/card0/device/hwmon -mindepth 1 -maxdepth 1 -type d -name 'hwmon*')
 
 function set_gpu_fan_control_mode() {
     local mode=$1
