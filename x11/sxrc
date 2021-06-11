@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 "$DOTFILE_DIR/bin/x11/xresources"
 exec i3
