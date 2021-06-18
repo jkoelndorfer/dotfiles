@@ -18,6 +18,20 @@ function ta() {
     tmux-flexattach "$selected_session"
 }
 
+# If the given session does not exist, create it.
+#
+# The session is attached to.
+function tmux-new-or-attach() {
+    local session="$1"
+    pushd "$HOME" >& /dev/null
+    if tmux has-session -t "$session"; then
+        tmux-flexattach "$session"
+    else
+        tn "$session"
+    fi
+    popd >& /dev/null
+}
+
 function tn() {
     session="$1"
     pushd "$HOME" >& /dev/null
