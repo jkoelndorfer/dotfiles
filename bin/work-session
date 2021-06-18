@@ -1,0 +1,5 @@
+#!/bin/zsh -l
+
+set-profile aerisweather
+
+tmux-new-or-attach work
