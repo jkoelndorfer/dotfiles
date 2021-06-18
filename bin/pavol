@@ -39,7 +39,7 @@ if [[ -z "$magnitude" ]]; then
     magnitude="5"
 fi
 
-current_vol="$(pactl list sinks | grep -A10 -E "$default_sink" | grep -E 'Base Volume:' | awk -F'/' '{ print $2 }' | sed -e 's/%//')"
+current_vol="$(pactl list sinks | grep -A10 -E "$default_sink" | grep -E '^\s*Volume:' | awk -F'/' '{ print $2 }' | sed -e 's/%//')"
 expected_vol="$(($current_vol $mode $magnitude))"
 if [[ "$expected_vol" -gt '100' ]]; then
     pactl set-sink-volume "$default_sink" '100%'
