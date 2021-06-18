@@ -8,7 +8,7 @@ workspaces="$("$DOTFILE_DIR/bin/i3/workspaces")"
 # Very strange!
 selected_workspace="$(
     echo "$workspaces" |
-    "$DOTFILE_DIR/bin/rofi" -no-show-match -dmenu -p "$prompt" |
+    "$DOTFILE_DIR/bin/wrappers/rofi" -no-show-match -dmenu -p "$prompt" |
     # If the workspace selected starts with an icon and an output
     # indicator, it's one of the built-in workspaces or already exists.
     # We need to strip the leading bits off.

@@ -46,9 +46,9 @@ clips=(
 function copy_clip() {
     local content="$1"
     if [[ "$clip_mode" == 'text' ]]; then
-        echo -ne "$content" | "$DOTFILE_DIR/bin/copy-to-clipboard"
+        echo -ne "$content" | "$DOTFILE_DIR/bin/gui/copy-to-clipboard"
     elif [[ "$clip_mode" == 'image' ]]; then
-        curl -s -L "$content" | "$DOTFILE_DIR/bin/copy-to-clipboard" -t 'image/png'
+        curl -s -L "$content" | "$DOTFILE_DIR/bin/gui/copy-to-clipboard" -t 'image/png'
     else
         echo 'Unrecognized copy mode; this is a bug!' >&2
         exit 1
@@ -67,7 +67,7 @@ function display_clips() {
 }
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    presentation_tool=("$DOTFILE_DIR/bin/rofi" -dmenu -p "$selector_prompt")
+    presentation_tool=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -p "$selector_prompt")
 else
     presentation_tool='fzf'
 fi

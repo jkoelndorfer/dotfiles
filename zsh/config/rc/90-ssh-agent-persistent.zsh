@@ -1,1 +1,1 @@
-eval "$("$DOTFILE_DIR/bin/ssh-agent-persistent")"
+eval "$("$DOTFILE_DIR/bin/auth/ssh-agent-persistent")"

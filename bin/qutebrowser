@@ -1,7 +1,1 @@
-#!/bin/bash
-
-source "$DOTFILE_DIR/colors/solarized"
-while read e; do
-    export $e
-done < <(set | grep -E '^SOLARIZED_[A-Z0-9]+=' | awk -F= '{ print $1 }')
-exec /usr/bin/qutebrowser "$@"
+wrappers/qutebrowser

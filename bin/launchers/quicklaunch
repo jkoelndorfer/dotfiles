@@ -24,11 +24,11 @@ if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
 fi
 
 if [[ -n "$DISPLAY" ]]; then
-    quicklaunch_entries[autotype]="$DOTFILE_DIR/bin/autotype"
+    quicklaunch_entries[autotype]="$DOTFILE_DIR/bin/gui/autotype"
 fi
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    launcher_cmd=($DOTFILE_DIR/bin/rofi -dmenu -no-custom -p launch)
+    launcher_cmd=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -no-custom -p launch)
 else
     launcher_cmd=(fzf --prompt 'launch> ')
 fi

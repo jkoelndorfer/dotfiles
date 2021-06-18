@@ -21,6 +21,6 @@ fi
 
 dunst -icon_path "$HOME/.cache/dunsticons" &
 "$DOTFILE_DIR/bin/i3/mmpd" &
-xss-lock "$DOTFILE_DIR/bin/lockscreen" &
+xss-lock "$DOTFILE_DIR/bin/gui/lockscreen" &
 unclutter --display "$DISPLAY" --timeout "$CURSOR_HIDE_TIME_SECONDS" &
 disown

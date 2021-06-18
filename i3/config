@@ -49,34 +49,34 @@ bindsym $mod+2 exec --no-startup-id $DOTFILE_DIR/bin/i3/authy  # PRIMARYONLY
 bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass  # PRIMARYONLY
 bindsym $prog_prefix+Return exec --no-startup-id alacritty -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
 bindsym $prog_prefix+$ctrl+Return exec --no-startup-id alacritty
-bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/xquicklaunch
-bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/xquickclip  # PRIMARYONLY
-bindsym $prog_prefix+i exec $DOTFILE_DIR/bin/ximgquickclip  # PRIMARYONLY
+bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/launchers/xquicklaunch
+bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/launchers/xquickclip  # PRIMARYONLY
+bindsym $prog_prefix+i exec $DOTFILE_DIR/bin/launchers/ximgquickclip  # PRIMARYONLY
 bindsym $ctrl+$alt+h exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink steelseries
 bindsym $ctrl+$alt+s exec --no-startup-id $DOTFILE_DIR/bin/set-pa-sink pci analog stereo
 bindsym $ctrl+$alt+l exec --no-startup-id loginctl lock-session
 bindsym $alt+Tab exec $DOTFILE_DIR/bin/i3/winfocus
 bindsym $alt+Shift+Tab exec $DOTFILE_DIR/bin/i3/win2curws
 
-bindsym --whole-window $alt+x exec --no-startup-id $DOTFILE_DIR/bin/hold-left-click
-bindsym --whole-window $alt+Shift+e exec --no-startup-id $DOTFILE_DIR/bin/keymash e
+bindsym --whole-window $alt+x exec --no-startup-id $DOTFILE_DIR/bin/gui/hold-left-click
+bindsym --whole-window $alt+Shift+e exec --no-startup-id $DOTFILE_DIR/bin/gui/keymash e
 
 bindsym $mod+w exec $DOTFILE_DIR/bin/i3/wsswitch
 bindsym $mod+Shift+w exec $DOTFILE_DIR/bin/i3/wsmovewin
 
 # Multimedia control keybinds
-bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/pavolup
-bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/pavoldown
-bindsym XF86AudioMute exec --no-startup-id $DOTFILE_DIR/bin/patogglemute
+bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavolup
+bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavoldown
+bindsym XF86AudioMute exec --no-startup-id $DOTFILE_DIR/bin/audio/patogglemute
 bindsym XF86AudioPlay exec --no-startup-id playerctl --player=spotify play-pause
 bindsym XF86AudioPause exec --no-startup-id playerctl --player=spotify pause
 bindsym XF86AudioNext exec --no-startup-id playerctl --player=spotify next
 bindsym XF86AudioPrev exec --no-startup-id playerctl --player=spotify previous
 
 # Screenshots
-bindsym Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab -s
-bindsym Shift+Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab
-bindsym $ctrl+Print exec --no-startup-id $DOTFILE_DIR/bin/screengrab-feh
+bindsym Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab -s
+bindsym Shift+Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab
+bindsym $ctrl+Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab-feh
 
 # kill focused window
 bindsym $mod+Shift+q kill

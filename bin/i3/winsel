@@ -18,6 +18,6 @@ i3_windows="$(("$DOTFILE_DIR/bin/i3/workspaces" -j; i3-msg -t get_tree) |
     '
 )"
 win_list="$(echo "$i3_windows" | jq -r '.[] | "\(.workspace_display)\t\(.class)\t\(.title)"' | column -o '    ' -s '	' -t)"
-selected_index="$(echo "$win_list" | "$DOTFILE_DIR/bin/rofi" -dmenu -i -p "$prompt" -format i)"
+selected_index="$(echo "$win_list" | "$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -i -p "$prompt" -format i)"
 [[ -z "$selected_index" || "$selected_index" == '-1' ]] && exit 1
 echo "$i3_windows" | jq -r ".[$selected_index] | .id"
