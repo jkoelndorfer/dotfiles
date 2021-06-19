@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This script kills processes which are running underneath the
+# current $DISPLAY or $WAYLAND_DISPLAY, as appropriate.
+#
+# The use case is to provide an easy way to kill session-specific
+# daemons, like dunst, xss-lock, or polybar, so that they can
+# be restarted.
+
+process=$1
+
+if [[ -z "$process" ]]; then
+    echo "$0: expected process name to kill as first argument" >&2
+    exit 1
+fi
+
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    display_var='WAYLAND_DISPLAY'
+    current_display="$WAYLAND_DISPLAY"
+elif [[ -n "$DISPLAY" ]]; then
+    display_var='DISPLAY'
+    current_display="$DISPLAY"
+else
+    echo "$0: unable to determine appropriate display" >&2
+    exit 2
+fi
+
+pgrep -x -u "$UID" "$(basename "$process")" | while read pid; do
+    proc_display=$(
+        cat "/proc/$pid/environ" |
+        xargs -0 -n1 echo |
+        awk -F= '$1 == "'"$display_var"'" { print $2 }'
+    )
+    if [[ "$proc_display" == "$current_display" ]]; then
+        kill "$pid"
+    fi
+done
