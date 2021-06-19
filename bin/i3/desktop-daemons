@@ -1,0 +1,31 @@
+#!/bin/zsh -l
+
+wm=$1
+
+function restart_daemon() {
+    local daemon=$1
+    shift
+
+    "$DOTFILE_DIR/bin/util/kill-processes-in-display" "$daemon"
+    "$daemon" "$@" &
+    disown
+}
+
+restart_daemon dunst -icon_path "$HOME/.cache/dunsticons"
+
+if [[ "$wm" == 'i3' ]]; then
+    "$DOTFILE_DIR/bin/util/kill-processes-in-display" 'polybar'
+    if [[ -n "$DISPLAYNAME_LEFT" ]]; then
+        DISPLAYNAME="$DISPLAYNAME_LEFT" polybar --config="$HOME/.config/polybar" left &
+    fi
+    if [[ -n "$DISPLAYNAME_CENTER" ]]; then
+        DISPLAYNAME="$DISPLAYNAME_CENTER" polybar --config="$HOME/.config/polybar" center &
+    fi
+    if [[ -n "$DISPLAYNAME_RIGHT" ]]; then
+        DISPLAYNAME="$DISPLAYNAME_RIGHT" polybar --config="$HOME/.config/polybar" right &
+    fi
+
+    restart_daemon "$DOTFILE_DIR/bin/i3/mmpd"
+    restart_daemon xss-lock "$DOTFILE_DIR/bin/gui/lockscreen"
+    restart_daemon unclutter --display "$DISPLAY" --timeout "$CURSOR_HIDE_TIME_SECONDS"
+fi
