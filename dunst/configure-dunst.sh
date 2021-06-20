@@ -8,12 +8,13 @@ xrdb_q=$(xrdb -query)
 polybar_barheight=$(echo "$xrdb_q" | awk '$1 == "polybar.barheight:" { print $2 }')
 gaps_outer=$(echo "$xrdb_q" | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
 window_border=$(echo "$xrdb_q" | awk '$1 == "i3wm.default_border:" { print $2 }')
-if [[ "$DISPLAY_PROFILE" == "HD" ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+if [[ "$display_profile" == "HD" ]]; then
     x=$(( gaps_outer + window_border ))
     y=$(( polybar_barheight + gaps_outer + window_border ))
     dunst_frame_width=2
     geometry="300x5-$x+$y"
-elif [[ "$DISPLAY_PROFILE" == "UHD" ]]; then
+elif [[ "$display_profile" == "UHD" ]]; then
     # In order to line up correctly, the dunst window needs to be positioned
     # differently on a 4k display. I believe it has to do with some apps scaling
     # with 4k and others not.

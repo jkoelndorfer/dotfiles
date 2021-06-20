@@ -5,10 +5,12 @@ from qutebrowser.config.configfiles import ConfigAPI
 from qutebrowser.config.config import ConfigContainer
 
 import os
+import subprocess
 from typing import Dict, List
 
 dotfile_dir = os.environ["DOTFILE_DIR"]
-display_profile = os.environ["DISPLAY_PROFILE"]
+display_profile_output = subprocess.run([f"{dotfile_dir}/bin/gui/display-profile"], capture_output=True)
+display_profile = display_profile_output.stdout.decode("utf-8").strip()
 
 if qutebrowser_version >= (2, 2, 0):
     content_notifications_enabled = "content.notifications.enabled"
@@ -81,7 +83,8 @@ def set_ui_fonts(config: ConfigAPI, size_pt):
         "keyhint",
         "prompts",
         "statusbar",
-        "tabs",
+        "tabs.selected",
+        "tabs.unselected",
     ])
 
     for obj, attrs in [font_completion, font_messages, fonts]:
@@ -142,8 +145,14 @@ def configure(config: ConfigAPI, c: ConfigContainer):
         c.fonts.monospace = "mononoki Nerd Font Mono"
         set_ui_fonts(c, 10)
 
+    # On Wayland, setting qt.highdpi does nothing.
+    # Additionally, Wayland scaling causes qutebrowser to have an insanely large mouse pointer.
     if display_profile == "UHD":
-        config.set("qt.highdpi", True)
+        if os.environ.get("WAYLAND_DISPLAY", None) is None:
+            config.set("qt.highdpi", True)
+        else:
+            set_ui_fonts(c, 18)
+            config.set("zoom.default", 200)
 
     # Fullscreen only fills the qutebrowser window. If we want true fullscreen,
     # we can pair it with the fullscreen offered by i3.

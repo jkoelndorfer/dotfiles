@@ -42,7 +42,9 @@ polybar_colors[urgent_background]=$SOLARIZED_BASE02
 polybar_colors[urgent_underline]=$SOLARIZED_RED
 polybar_colors[urgent_foreground]=$SOLARIZED_BASE3
 
-if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+
+if [[ "$display_profile" == 'UHD' ]]; then
     polybar_bar_height=36
     polybar_text_size=18
     polybar_icon_size=24
