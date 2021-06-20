@@ -1,84 +1,82 @@
 # Session Management
-bindsym $ctrl+$alt+l exec --no-startup-id loginctl lock-session
-bindsym $mod+Shift+c reload
-bindsym $mod+Shift+r restart
+bindcode $ctrl+$alt+$kc_l exec --no-startup-id loginctl lock-session
+bindcode $mod+Shift+$kc_c reload
+bindcode $mod+Shift+$kc_r restart
 
 
 # Window Management & Navigation
-bindsym $alt+Tab exec $DOTFILE_DIR/bin/i3/winfocus
-bindsym $alt+Shift+Tab exec $DOTFILE_DIR/bin/i3/win2curws
-bindsym $mod+w exec $DOTFILE_DIR/bin/i3/wsswitch
-bindsym $mod+Shift+w exec $DOTFILE_DIR/bin/i3/wsmovewin
+bindcode $alt+$kc_Tab exec $DOTFILE_DIR/bin/i3/winfocus
+bindcode $alt+Shift+$kc_Tab exec $DOTFILE_DIR/bin/i3/win2curws
+bindcode $mod+$kc_w exec $DOTFILE_DIR/bin/i3/wsswitch
+bindcode $mod+Shift+$kc_w exec $DOTFILE_DIR/bin/i3/wsmovewin
 
-bindsym $mod+Shift+q kill
-
-floating_modifier $mod
+bindcode $mod+Shift+$kc_q kill
 
 ## change focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
+bindcode $mod+$left focus left
+bindcode $mod+$down focus down
+bindcode $mod+$up focus up
+bindcode $mod+$right focus right
 
 ## move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
+bindcode $mod+Shift+$left move left
+bindcode $mod+Shift+$down move down
+bindcode $mod+Shift+$up move up
+bindcode $mod+Shift+$right move right
 
 ## move workspace
-bindsym $mod+$ctrl+Shift+$left move workspace to output left
-bindsym $mod+$ctrl+Shift+$down move workspace to output down
-bindsym $mod+$ctrl+Shift+$up move workspace to output up
-bindsym $mod+$ctrl+Shift+$right move workspace to output right
+bindcode $mod+$ctrl+Shift+$left move workspace to output left
+bindcode $mod+$ctrl+Shift+$down move workspace to output down
+bindcode $mod+$ctrl+Shift+$up move workspace to output up
+bindcode $mod+$ctrl+Shift+$right move workspace to output right
 
-bindsym $mod+f fullscreen toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+Shift+space floating toggle
+bindcode $mod+$kc_f fullscreen toggle
+bindcode $mod+$kc_Space focus mode_toggle
+bindcode $mod+Shift+$kc_Space floating toggle
 
 floating_modifier $mod
 
 ## resize mode
 mode "resize" {
-        bindsym $left  resize shrink width  10 px or 10 ppt
-        bindsym $down  resize shrink height 10 px or 10 ppt
-        bindsym $up    resize grow   height 10 px or 10 ppt
-        bindsym $right resize grow   width  10 px or 10 ppt
+        bindcode $left  resize shrink width  10 px or 10 ppt
+        bindcode $down  resize shrink height 10 px or 10 ppt
+        bindcode $up    resize grow   height 10 px or 10 ppt
+        bindcode $right resize grow   width  10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+        bindcode $kc_Return mode "default"
+        bindcode $kc_Esc    mode "default"
+        bindcode $mod+$kc_r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindcode $mod+r mode "resize"
 
 
 # Volume Management
-bindsym XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavolup
-bindsym XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavoldown
-bindsym XF86AudioMute exec --no-startup-id $DOTFILE_DIR/bin/audio/patogglemute
+bindcode $kc_XF86AudioRaiseVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavolup
+bindcode $kc_XF86AudioLowerVolume exec --no-startup-id $HOME/dotfiles/bin/audio/pavoldown
+bindcode $kc_XF86AudioMute exec --no-startup-id $DOTFILE_DIR/bin/audio/patogglemute
 
 
 # Media Player
-bindsym XF86AudioPlay exec --no-startup-id playerctl --player=spotify play-pause
-bindsym XF86AudioPause exec --no-startup-id playerctl --player=spotify pause
-bindsym XF86AudioNext exec --no-startup-id playerctl --player=spotify next
-bindsym XF86AudioPrev exec --no-startup-id playerctl --player=spotify previous
+bindcode $kc_XF86AudioPlay exec --no-startup-id playerctl --player=spotify play-pause
+bindcode $kc_XF86AudioPause exec --no-startup-id playerctl --player=spotify pause
+bindcode $kc_XF86AudioNext exec --no-startup-id playerctl --player=spotify next
+bindcode $kc_XF86AudioPrev exec --no-startup-id playerctl --player=spotify previous
 
 
 # Input Spoofing
-bindsym --whole-window $alt+x exec --no-startup-id $DOTFILE_DIR/bin/gui/hold-left-click
-bindsym --whole-window $alt+Shift+e exec --no-startup-id $DOTFILE_DIR/bin/gui/keymash e
+bindcode $alt+$kc_x exec --no-startup-id $DOTFILE_DIR/bin/gui/hold-left-click
+bindcode $alt+Shift+$kc_e exec --no-startup-id $DOTFILE_DIR/bin/gui/keymash e
 
 
 # Screenshots
-bindsym Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab -s
-bindsym Shift+Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab
-bindsym $ctrl+Print exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab-feh
+bindcode $kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab -s
+bindcode Shift+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab
+bindcode $ctrl+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab-feh
 
 
 # Launchers
-bindsym $prog_prefix+space exec $DOTFILE_DIR/bin/launchers/xquicklaunch
-bindsym $prog_prefix+e exec $DOTFILE_DIR/bin/launchers/xquickclip
-bindsym $prog_prefix+i exec $DOTFILE_DIR/bin/launchers/ximgquickclip
+bindcode $prog_prefix+$kc_Space exec $DOTFILE_DIR/bin/launchers/xquicklaunch
+bindcode $prog_prefix+$kc_e exec $DOTFILE_DIR/bin/launchers/xquickclip
+bindcode $prog_prefix+$kc_i exec $DOTFILE_DIR/bin/launchers/ximgquickclip

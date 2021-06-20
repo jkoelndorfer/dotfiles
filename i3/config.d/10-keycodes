@@ -1,0 +1,176 @@
+# Key Codes for a standard QWERTY keyboard
+# See https://github.com/i3/i3/issues/2558
+#
+# Make sure to use "bindcode" with these,
+# _NOT_ "bindsym".
+#
+#
+# This list was initially gathered from `xmodmap -kp`.
+
+
+# Utility keys
+set $kc_Esc 9
+set $kc_Home 110
+set $kc_PgUp 112
+set $kc_PgDown 117
+set $kc_End 115
+set $kc_Insert 118
+set $kc_Delete 119
+
+set $kc_Print_Screen 107
+set $kc_Scroll_Lock 78
+set $kc_Pause 127
+
+set $kc_Tab 23
+
+set $kc_Caps_Lock 66
+set $kc_Num_Lock 77
+
+
+# Function keys
+set $kc_F1 67
+set $kc_F2 68
+set $kc_F3 69
+set $kc_F4 70
+set $kc_F5 71
+set $kc_F6 72
+set $kc_F7 73
+set $kc_F8 74
+set $kc_F9 75
+set $kc_F10 76
+set $kc_F11 95
+set $kc_F12 96
+
+
+# Multimedia / other functionality keys
+set $kc_XF86AudioMute 121
+set $kc_XF86AudioLowerVolume 122
+set $kc_XF86AudioRaiseVolume 123
+
+set $kc_XF86PowerOff 124
+
+set $kc_XF86AudioNext 171
+set $kc_XF86AudioPlay 172
+set $kc_XF86AudioPrev 173
+set $kc_XF86AudioStop 174
+
+set $kc_XF86TouchpadToggle 199
+set $kc_XF86TouchpadOn 200
+set $kc_XF86TouchpadOff 201
+
+set $kc_XF86AudioPause 209
+
+
+# Number / Letter / Symbol keys
+set $kc_grave 49
+set $kc_1 10
+set $kc_2 11
+set $kc_3 12
+set $kc_4 13
+set $kc_5 14
+set $kc_6 15
+set $kc_7 16
+set $kc_8 17
+set $kc_9 18
+set $kc_0 19
+set $kc_minus 20
+set $kc_equal 21
+set $kc_BackSpace 22
+
+set $kc_q 24
+set $kc_w 25
+set $kc_e 26
+set $kc_r 27
+set $kc_t 28
+set $kc_y 29
+set $kc_u 30
+set $kc_i 31
+set $kc_o 32
+set $kc_p 33
+set $kc_bracket_l 34
+set $kc_bracket_r 35
+set $kc_backslash 51
+
+set $kc_a 38
+set $kc_s 39
+set $kc_d 40
+set $kc_f 41
+set $kc_g 42
+set $kc_h 43
+set $kc_j 44
+set $kc_k 45
+set $kc_l 46
+set $kc_semicolon 47
+set $kc_apostrophe 48
+set $kc_Return 36
+
+set $kc_z 52
+set $kc_x 53
+set $kc_c 54
+set $kc_v 55
+set $kc_b 56
+set $kc_n 57
+set $kc_m 58
+set $kc_comma 59
+set $kc_period 60
+set $kc_slash 61
+
+set $kc_Space 65
+
+
+# Keypad keys
+set $kc_KP_Divide 106
+set $kc_KP_Multiply 63
+set $kc_KP_Subtract 82
+
+set $kc_KP_7 79
+set $kc_KP_8 80
+set $kc_KP_9 81
+
+set $kc_KP_4 83
+set $kc_KP_5 84
+set $kc_KP_6 85
+
+set $kc_KP_Add 86
+
+set $kc_KP_1 87
+set $kc_KP_2 88
+set $kc_KP_3 89
+
+set $kc_KP_0 90
+set $kc_KP_Del 91
+
+set $kc_KP_Enter 104
+
+
+set $kc_KP_Up 80
+set $kc_KP_Equal 125
+set $kc_KP_Decimal 129
+set $kc_Menu 135
+
+
+# Modifier keys
+set $kc_Control_L 37
+set $kc_Control_R 105
+
+set $kc_Alt_L 64
+set $kc_Alt_R 108
+
+set $kc_Super_L 133
+set $kc_Super_R 134
+
+set $kc_Shift_L 50
+set $kc_Shift_R 62
+
+
+# Aliases
+set $left 43
+set $down 44
+set $up 45
+set $right 46
+
+
+set $mod Mod4
+set $ctrl Control
+set $alt Mod1
+set $prog_prefix Mod4+Mod1

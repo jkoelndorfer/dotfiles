@@ -1,8 +1,8 @@
 # Summonable Apps
-bindsym $mod+2 exec --no-startup-id $DOTFILE_DIR/bin/i3/authy
-bindsym $mod+p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass
+bindcode $mod+$kc_2 exec --no-startup-id $DOTFILE_DIR/bin/i3/authy
+bindcode $mod+$kc_p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass
 
 
 # Program Shortcuts
-bindsym $prog_prefix+Return exec --no-startup-id alacritty -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
-bindsym $prog_prefix+$ctrl+Return exec --no-startup-id alacritty
+bindcode $prog_prefix+$kc_Return exec --no-startup-id alacritty -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
+bindcode $prog_prefix+$ctrl+$kc_Return exec --no-startup-id alacritty
