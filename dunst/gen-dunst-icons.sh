@@ -2,7 +2,9 @@
 
 source "$DOTFILE_DIR/colors/solarized"
 
-if [[ "$DISPLAY_PROFILE" == "UHD" ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+
+if [[ "$display_profile" == "UHD" ]]; then
     icon_size='64x64'
     pointsize=56
 else

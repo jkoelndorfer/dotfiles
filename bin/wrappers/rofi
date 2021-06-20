@@ -1,7 +1,8 @@
 #!/bin/bash
 
 font_size=12
-if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+if [[ "$display_profile" == 'UHD' ]]; then
     font_size=20
 fi
 
