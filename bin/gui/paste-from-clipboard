@@ -1,12 +1,24 @@
 #!/bin/bash
 
 if [[ "$(uname)" == 'Linux' ]]; then
-    clipboard_paster='xclip -selection clipboard -o'
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        clipboard_paste=(wl-paste -n)
+    elif [[ -n "$DISPLAY" ]]; then
+        clipboard_paste=(xclip -selection clipboard -o)
+    else
+        echo "$0: neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+        exit 1
+    fi
 elif [[ "$(uname)" == 'Darwin' ]]; then
-    clipboard_paster='pbpaste'
+    clipboard_paste=(pbpaste)
 else
     echo "Don't know how to paste from clipboard!" >&2
     exit 1
 fi
 
-$clipboard_paster
+if ! which "${clipboard_paste[0]}" >/dev/null 2>&1; then
+    echo "$0: couldn't find utility (${clipboard_paste[0]}) to copy to clipboard!" >&2
+    exit 1
+fi
+
+"${clipboard_paste[@]}"

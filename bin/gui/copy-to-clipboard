@@ -1,16 +1,33 @@
 #!/bin/bash
 
-if [[ "$(uname)" == 'Darwin' ]]; then
-    clipboard_copy='pbcopy'
-    clipboard_copy_args=''
-else
-    clipboard_copy='xclip'
-    clipboard_copy_args='-selection clipboard'
-fi
+mime_type=$1
 
-if ! which "$clipboard_copy" >/dev/null 2>&1; then
-    echo "Couldn't find utility to copy to clipboard!" >&2
+uname=$(uname)
+if [[ "$uname" == 'Linux' ]]; then
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        clipboard_copy=(wl-copy)
+        if [[ -n "$mime_type" ]]; then
+            clipboard_copy=("${clipboard_copy[@]}" -t "$mime_type")
+        fi
+    elif [[ -n "$DISPLAY" ]]; then
+        clipboard_copy=(xclip -selection clipboard)
+        if [[ -n "$mime_type" ]]; then
+            clipboard_copy=("${clipboard_copy[@]}" -t "$mime_type")
+        fi
+    else
+        echo "$0: neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+        exit 1
+    fi
+elif [[ "$uname" == 'Darwin' ]]; then
+    clipboard_copy=(pbcopy)
+else
+    echo "$0: don't know how to copy to clipboard on '$uname'" >&2
     exit 1
 fi
 
-"$clipboard_copy" $clipboard_copy_args "$@" <&0
+if ! which "${clipboard_copy[0]}" >/dev/null 2>&1; then
+    echo "$0: couldn't find utility (${clipboard_copy}) to copy to clipboard!" >&2
+    exit 1
+fi
+
+"${clipboard_copy[@]}" <&0
