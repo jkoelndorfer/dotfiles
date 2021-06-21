@@ -71,8 +71,8 @@ bindcode $alt+Shift+$kc_e exec --no-startup-id $DOTFILE_DIR/bin/gui/keymash e
 
 
 # Screenshots
-bindcode $kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab -s
-bindcode Shift+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab
+bindcode $kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab capture-region
+bindcode Shift+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab capture-full-screen
 bindcode $ctrl+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screengrab-feh
 
 
