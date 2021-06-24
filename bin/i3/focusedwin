@@ -4,10 +4,11 @@
 # in i3.
 
 script_dir=$(dirname "$0")
+cd "$script_dir"
 
 read -r -d '' jq_query <<EOF
-    recurse(.nodes[], .floating_nodes[].nodes[]) | select(.focused == true) | .id
+    recurse(.nodes[], .floating_nodes[]) | select(.focused == true) | .id
 EOF
 
-win_id=$(i3-msg -t get_tree | jq -r "$jq_query")
-"$script_dir/winfo" "$win_id"
+win_id=$(./i3swaymsg -t get_tree | jq -r "$jq_query")
+"./winfo" "$win_id"

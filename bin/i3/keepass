@@ -1,7 +1,15 @@
 #!/bin/bash
 
 app_cmd='keepassxc'
-app_window_class='KeePassXC'
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    app_window_id_property='.app_id'
+    app_window_id_value='org.keepassxc.KeePassXC'
+    app_window_wm_selector="[app_id=\"$app_window_id_value\"]"
+elif [[ -n "$DISPLAY" ]]; then
+    app_window_id_property='.window_properties.class'
+    app_window_id_value='KeePassXC'
+    app_window_wm_selector="[class=\"$app_window_id_value\"]"
+fi
 app_horizontal_position='center'
 app_vertical_position='bottom'
 script_dir="$(dirname "$0")"

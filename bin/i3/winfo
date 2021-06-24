@@ -4,15 +4,24 @@
 
 win_id=$1
 
-read -r -d '' jq_query <<EOF
-    recurse(.nodes[], .floating_nodes[].nodes[]) |
-    select(.id == $win_id) |
+script_dir=$(dirname "$0")
+cd "$script_dir"
+
+if [[ -z "$WAYLAND_DISPLAY" && -z "$DISPLAY" ]]; then
+    echo "$0: Neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+    exit 1
+fi
+
+read -r -d '' jq_query <<'EOF'
+    recurse(.nodes[], .floating_nodes[]) |
+    select(.id == ($win_id | tonumber)) |
     {
         "id": .id,
-        "title": .window_properties.title,
-        "class": .window_properties.class,
+        "app_id": .app_id,
+        "name": .name,
         "window": .window,
+        "window_properties": .window_properties,
         "window_rect": .window_rect
     }
 EOF
-i3-msg -t get_tree | jq -r "$jq_query"
+./i3swaymsg -t get_tree | jq --arg win_id "$win_id" -r "$jq_query"
