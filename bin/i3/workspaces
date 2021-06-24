@@ -18,8 +18,8 @@ function gen_workspace_display_indicators() {
     done <<<"$active_display_workspace_names"
 }
 
-polybar_defs="$(grep -E '^\s*ws-icon-[0-9]+' "$DOTFILE_DIR/polybar/config" | awk -F ' = ' '{ print $2 }')"
-default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$DOTFILE_DIR/polybar/config" | grep -o '[^ \t\nA-Za-z0-9{}%=-]')"
+polybar_defs="$(grep -E '^\s*ws-icon-[0-9]+' "$HOME/.config/polybar" | awk -F ' = ' '{ print $2 }')"
+default_icon="$(grep -E '^\s*ws-icon-default\s*=\s*' "$HOME/.config/polybar" | grep -o '[^ \t\nA-Za-z0-9{}%=-]')"
 json=0
 [[ "$1" == '-j' || "$1" == '--json' ]] && json=1
 

@@ -1,13 +1,15 @@
 #!/bin/bash
 
 app_cmd='authy'
-app_window_class='Authy Desktop'
+app_window_id_property='.window_properties.class'
+app_window_id_value='Authy Desktop'
+app_window_wm_selector="[class=\"$app_window_id_value\"]"
 app_horizontal_position='center'
 app_vertical_position='center'
 script_dir=$(dirname "$0")
 
 function app_width() {
-    echo "$active_workspace_width / 5"
+    echo "$(( active_workspace_width / 5 ))"
 }
 
 function app_height() {
