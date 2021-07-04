@@ -67,7 +67,14 @@ function display_clips() {
 }
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    presentation_tool=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -p "$selector_prompt")
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        presentation_tool=("$DOTFILE_DIR/bin/wrappers/wofi" --show=dmenu --prompt "$selector_prompt")
+    elif [[ -n "$DISPLAY" ]]; then
+        presentation_tool=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -no-custom -p "$selector_prompt")
+    else
+        echo "$0: Neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+        exit 1
+    fi
 else
     presentation_tool='fzf'
 fi
