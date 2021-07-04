@@ -86,7 +86,6 @@ read -r -d '' dunst_config <<EOF
     sticky_history = yes
     history_length = 20
 
-    dmenu = /usr/bin/rofi -p dunst:
     browser = /usr/bin/xdg-open
 
     # Always run rule-defined scripts, even if the notification is suppressed
