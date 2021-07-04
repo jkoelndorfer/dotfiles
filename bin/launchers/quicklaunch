@@ -14,7 +14,7 @@ declare -A quicklaunch_entries
 quicklaunch_entries=(
     [discord]="discord --force-device-scale-factor=$app_scale_factor"
     [firefox]='firefox'
-    ['logout']='i3-msg exit'
+    ['logout']="$DOTFILE_DIR/bin/i3/i3swaymsg exit"
     [lutris]='lutris'
     [pavucontrol]='pavucontrol'
     [qutebrowser]='qutebrowser'
