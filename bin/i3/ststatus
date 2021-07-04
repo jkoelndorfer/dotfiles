@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prints the status of syncthing to stdout suitable for use with polybar.
+# Prints the status of syncthing to stdout suitable for use with polybar or waybar.
 
 script_dir=$(dirname "$0")
 
@@ -12,16 +12,24 @@ st_api_key=$(xmllint "$st_config" --xpath 'configuration/gui/apikey/text()')
 function colorize() {
     msg="$1"
     color="$2"
-    echo "%{F$color}$msg%{F-}"
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        echo "<span foreground='$color'>$msg</span>"
+    else
+        echo "%{F$color}$msg%{F-}"
+    fi
 }
 
 function status() {
     icon="$1"
     color="$2"
-    echo -n '%{T2}'
+    if [[ -z "$WAYLAND_DISPLAY" ]]; then
+        echo -n '%{T2}'
+    fi
     echo -n "$(colorize '' "$SOLARIZED_BASE3") "
     echo -n "$(colorize "$icon" "$color")"
-    echo -n '%{T-}'
+    if [[ -z "$WAYLAND_DISPLAY" ]]; then
+        echo -n '%{T-}'
+    fi
 }
 
 function s() {

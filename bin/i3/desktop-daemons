@@ -2,6 +2,8 @@
 
 wm=$1
 
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+
 function restart_daemon() {
     local daemon=$1
     shift
@@ -28,4 +30,12 @@ if [[ "$wm" == 'i3' ]]; then
     restart_daemon "$DOTFILE_DIR/bin/i3/mmpd"
     restart_daemon xss-lock "$DOTFILE_DIR/bin/gui/lockscreen"
     restart_daemon unclutter --display "$DISPLAY" --timeout "$CURSOR_HIDE_TIME_SECONDS"
+elif [[ "$wm" == 'sway' ]]; then
+    "$DOTFILE_DIR/bin/util/kill-processes-in-display" 'waybar'
+    for monitor_precedence in 'PRIMARY' 'SECONDARY' 'TERTIARY'; do
+        waybar \
+            --bar "$monitor_precedence" \
+            --config "$HOME/.config/waybar/config-${display_profile}-${monitor_precedence}.json" \
+            --style "$HOME/.config/waybar/style-${display_profile}.css" &
+    done
 fi
