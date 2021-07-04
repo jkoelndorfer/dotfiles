@@ -131,7 +131,7 @@ def configure(config: ConfigAPI, c: ConfigContainer):
         if os.environ.get("WAYLAND_DISPLAY", None) is None:
             config.set("qt.highdpi", True)
         else:
-            set_ui_fonts(c, 18)
+            set_ui_fonts(c, 24)
             config.set("zoom.default", 200)
     else:
         set_ui_fonts(c, 10)
