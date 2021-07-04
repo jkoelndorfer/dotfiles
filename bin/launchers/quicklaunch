@@ -30,7 +30,14 @@ if [[ -n "$DISPLAY" ]]; then
 fi
 
 if [[ "$(basename "$0")" =~ ^x ]]; then
-    launcher_cmd=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -no-custom -p launch)
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        launcher_cmd=("$DOTFILE_DIR/bin/wrappers/wofi" --show=dmenu --prompt launch)
+    elif [[ -n "$DISPLAY" ]]; then
+        launcher_cmd=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -no-custom -p launch)
+    else
+        echo "$0: Neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+        exit 1
+    fi
 else
     launcher_cmd=(fzf --prompt 'launch> ')
 fi
