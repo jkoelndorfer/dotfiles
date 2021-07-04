@@ -1,15 +1,25 @@
 #!/bin/bash
 
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+if [[ "$display_profile" == 'UHD' ]]; then
+    # Electron apps, including spotify, discord, and slack,
+    # allow you to override their scaling factor using the
+    # --force-device-scale-factor flag.
+    app_scale_factor=2.0
+else
+    app_scale_factor=1.0
+fi
+
 declare -A quicklaunch_entries
 quicklaunch_entries=(
-    [discord]='discord'
+    [discord]="discord --force-device-scale-factor=$app_scale_factor"
     [firefox]='firefox'
     ['logout']='i3-msg exit'
     [lutris]='lutris'
     [pavucontrol]='pavucontrol'
     [qutebrowser]='qutebrowser'
-    [slack]='slack'
-    [spotify]='spotify'
+    [slack]="slack --force-device-scale-factor=$app_scale_factor"
+    [spotify]="spotify --force-device-scale-factor=$app_scale_factor"
     [steam]='steam'
     [vlc]='vlc'
     [xkill]='xkill'
@@ -17,13 +27,6 @@ quicklaunch_entries=(
     [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
 )
 
-display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
-
-if [[ "$display_profile" == 'UHD' ]]; then
-    # Spotify's UI doesn't have a scaling option for some reason. But there is a commandline option!
-    # See: https://community.spotify.com/t5/Desktop-Linux/Linux-client-barely-usable-on-HiDPI-displays/td-p/1067272
-    quicklaunch_entries[spotify]='spotify --force-device-scale-factor=2.0'
-fi
 
 if [[ -n "$DISPLAY" ]]; then
     quicklaunch_entries[autotype]="$DOTFILE_DIR/bin/gui/autotype"
