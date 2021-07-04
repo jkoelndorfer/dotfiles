@@ -4,5 +4,5 @@ bindcode $mod+$kc_p exec --no-startup-id $DOTFILE_DIR/bin/i3/keepass
 
 
 # Program Shortcuts
-bindcode $prog_prefix+$kc_Return exec --no-startup-id alacritty -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
-bindcode $prog_prefix+$ctrl+$kc_Return exec --no-startup-id alacritty
+bindcode $prog_prefix+$kc_Return exec --no-startup-id $DOTFILE_DIR/bin/wrappers/alacritty -e zsh -c '(tmux has-session -t 0 && exec tmux attach-session -t 0) || exec tmux new-session -s 0'
+bindcode $prog_prefix+$ctrl+$kc_Return exec --no-startup-id $DOTFILE_DIR/bin/wrappers/alacritty

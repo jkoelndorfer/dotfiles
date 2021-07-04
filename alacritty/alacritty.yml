@@ -27,7 +27,7 @@ colors:
 font:
   normal:
     family: 'mononoki Nerd Font Mono'
-  size: 10.0
+  # size is set via dotfiles/bin/wrappers/alacritty
 
 key_bindings:
   - { key: V,        mods: Control|Shift,    action: Paste               }
