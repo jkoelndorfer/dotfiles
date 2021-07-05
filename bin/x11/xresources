@@ -8,20 +8,14 @@ source "$DOTFILE_DIR/colors/solarized"
 
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 if [[ "$display_profile" == 'UHD' ]]; then
-    xft_dpi=192
     x_cursor_size=48
     term_text_size=10
-    xrdb -merge <<EOF
-EOF
 elif [[ "$display_profile" == 'HD' ]]; then
-    xft_dpi=96
     x_cursor_size=12
     term_text_size=12
 fi
 
 xrdb -load <<EOF
-Xft.dpi: $xft_dpi
-
 XTerm*faceName: xft:mononoki Nerd Font Mono:style=Regular
 URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=$term_text_size,xft:DejaVu Sans Mono:style=Book:size=$term_text_size
 URxvt.letterSpace: -1
