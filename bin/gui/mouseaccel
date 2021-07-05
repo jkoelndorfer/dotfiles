@@ -7,12 +7,20 @@
 X11_ACCEL_PROP='libinput Accel Profile Enabled'
 
 function determine_device_id {
-    xinput --list | grep -Eo 'id=[0-9]+' | awk -F= '{ print $2 }' | while read id; do
-        if xinput --list-props "$id" | grep -q "$X11_ACCEL_PROP"; then
-            echo "$id"
-            return
-        fi
-    done
+    if [[ -n "$WAYLAND_DISPLAY" && "$DESKTOP_SESSION" == 'sway' ]]; then
+        swaymsg -t get_inputs --raw |
+            jq '.[] | select(.type == "pointer" and .libinput.accel_profile != null) | .identifier'
+    elif [[ -z "$WAYLAND_DISPLAY" && -n "$DISPLAY" ]]; then
+        xinput --list | grep -Eo 'id=[0-9]+' | awk -F= '{ print $2 }' | while read id; do
+            if xinput --list-props "$id" | grep -q "$X11_ACCEL_PROP"; then
+                echo "$id"
+                return
+            fi
+        done
+    else
+        echo "$0: don't know how to determine device ID" >&2
+        exit 1
+    fi
 }
 
 function str_to_bool {
@@ -27,11 +35,37 @@ function str_to_bool {
     fi
 }
 
+function enable_mouse_acceleration() {
+    local identifier=$1
+
+    if [[ -n "$WAYLAND_DISPLAY" && "$DESKTOP_SESSION" == 'sway' ]]; then
+        swaymsg input "$identifier" accel_profile adaptive
+    elif [[ -z "$WAYLAND_DISPLAY" && -n "$DISPLAY" ]]; then
+        xinput --set-prop "$identifier" "$X11_ACCEL_PROP" 1 0
+    else
+        echo "$0: don't know how to enable mouse acceleration" >&2
+        exit 1
+    fi
+}
+
+function disable_mouse_acceleration() {
+    local identifier=$1
+
+    if [[ -n "$WAYLAND_DISPLAY" && "$DESKTOP_SESSION" == 'sway' ]]; then
+        swaymsg input "$identifier" accel_profile flat
+    elif [[ -z "$WAYLAND_DISPLAY" && -n "$DISPLAY" ]]; then
+        xinput --set-prop "$identifier" "$X11_ACCEL_PROP" 0 1
+    else
+        echo "$0: don't know how to disable mouse acceleration" >&2
+        exit 1
+    fi
+}
+
 state="$(str_to_bool "$1")"
 mouse_id="$(determine_device_id)"
 
 if [[ "$state" == '1' ]]; then
-    xinput --set-prop "$mouse_id" "$X11_ACCEL_PROP" 1 0
+    enable_mouse_acceleration "$mouse_id"
 else
-    xinput --set-prop "$mouse_id" "$X11_ACCEL_PROP" 0 1
+    disable_mouse_acceleration "$mouse_id"
 fi
