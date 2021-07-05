@@ -26,7 +26,6 @@ EOF
 
 cat <<'EOF'
 exec_always --no-startup-id $DOTFILE_DIR/bin/i3/setbg
-font pango:mononoki Nerd Font Mono 8
 
 # To make a solid, single color border, make sure border, background, indicator, and
 # child_border all have the same value.
@@ -37,16 +36,5 @@ client.focused_inactive $base02   $base02      $base0   $base02      $base02
 client.unfocused        $base02   $base02      $base0   $base02      $base02
 client.urgent           $base02   $red         $base3   $base03      $red
 
-default_border pixel 2
-default_floating_border pixel 2
+exec_always --no-startup-id $DOTFILE_DIR/bin/i3/theme-dynamic
 EOF
-
-cat <<'EOF'
-
-gaps outer 2
-gaps inner 2
-EOF
-
-if [[ "$wm" == 'sway' ]]; then
-    echo 'seat seat0 xcursor_theme Bluecurve 48'
-fi

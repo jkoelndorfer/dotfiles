@@ -1,0 +1,44 @@
+#!/bin/zsh
+
+# Theming options that must be set dynamically.
+
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+msg="$DOTFILE_DIR/bin/i3/i3swaymsg"
+
+if [[ "$display_profile" == 'UHD' ]]; then
+    border_sz=4
+    gaps_sz=4
+    cursor_sz=64
+    font_sz=22
+elif [[ "$display_profile" == 'HD' ]]; then
+    border_sz=2
+    gaps_sz=2
+    cursor_sz=32
+    font_sz=16
+fi
+
+"$msg" default_border pixel "$border_sz"
+"$msg" default_floating_border pixel "$border_sz"
+
+# This sets the default gap size for new workspaces.
+"$msg" gaps outer "$gaps_sz"
+"$msg" gaps inner "$gaps_sz"
+
+# This sets the gap size for all current workspaces.
+# Note that these commands _do not_ affect the gap
+# size for any new workspaces that appear. The previous
+# gaps commands do that.
+"$msg" gaps outer all set "$gaps_sz"
+"$msg" gaps inner all set "$gaps_sz"
+
+"$msg" seat seat0 xcursor_theme Bluecurve "$cursor_sz"
+
+"$msg" font pango:mononoki Nerd Font Mono "$font_sz"
+
+# See: https://wiki.archlinux.org/title/Cursor_themes#GNOME
+#
+# This is required for GTK applications to display the correct cursor.
+#
+# FIXME: Setting the cursor-theme to Bluecurve doesn't seem to do anything.
+gsettings set org.gnome.desktop.interface cursor-size "$cursor_sz"
+gsettings set org.gnome.desktop.interface cursor-theme Bluecurve
