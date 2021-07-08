@@ -1,6 +1,14 @@
 #!/bin/bash
 
-app_cmd='authy'
+script_dir=$(dirname "$0")
+cd "$script_dir"
+
+display_profile=$(../gui/display-profile)
+
+app_cmd=(authy)
+if [[ "$display_profile" == 'UHD' ]]; then
+    app_cmd=("${app_cmd[@]}" --force-device-scale-factor=2.0)
+fi
 app_window_id_property='.window_properties.class'
 app_window_id_value='Authy Desktop'
 app_window_wm_selector="[class=\"$app_window_id_value\"]"
