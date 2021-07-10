@@ -1,6 +1,6 @@
 #!/bin/zsh -l
 
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 

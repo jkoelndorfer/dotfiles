@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 function generate_style() {
     local display_profile=$1

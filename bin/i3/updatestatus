@@ -5,7 +5,7 @@
 
 script_dir=$(dirname "$0")
 
-source "$script_dir/../../colors/solarized"
+source "$script_dir/../../theme/solarized-dark/colors"
 
 set -o pipefail
 
