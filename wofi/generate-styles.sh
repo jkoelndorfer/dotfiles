@@ -2,7 +2,7 @@
 
 script_dir=$(dirname "$0")
 cd "$script_dir"
-source "../colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 wofi_config_dir="$HOME/.config/wofi"
 mkdir -p "$wofi_config_dir"

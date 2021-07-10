@@ -28,7 +28,7 @@ function discover_wifi_adapter {
 }
 
 mkdir -p "$HOME/.config"
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 optional_modules=()
 

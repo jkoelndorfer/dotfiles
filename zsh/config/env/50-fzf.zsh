@@ -1,5 +1,5 @@
 if [[ "$TERM" != 'linux' ]]; then
-    source "$DOTFILE_DIR/colors/solarized"
+    source "$DOTFILE_DIR/theme/solarized-dark/colors"
     export FZF_DEFAULT_OPTS="
         --exact
         --color fg:-1,bg:-1,hl:$SOLARIZED_BASE3_TERM16,fg+:$SOLARIZED_BASE3_TERM16,bg+:$SOLARIZED_BASE1_TERM16,hl+:$SOLARIZED_BASE3_TERM16

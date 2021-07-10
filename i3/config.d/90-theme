@@ -2,7 +2,7 @@
 
 wm=$1
 
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 cat <<EOF
 set \$base03  $SOLARIZED_BASE03
