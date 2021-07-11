@@ -1,5 +1,5 @@
 # Session Management
-bindcode $ctrl+$alt+$kc_l exec --no-startup-id loginctl lock-session
+bindcode $ctrl+$alt+$kc_l exec --no-startup-id $DOTFILE_DIR/bin/gui/lock-session
 bindcode $mod+Shift+$kc_c reload
 bindcode $mod+Shift+$kc_r restart
 

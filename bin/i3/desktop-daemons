@@ -2,13 +2,19 @@
 
 wm=$1
 
+if [[ -z "$wm" ]]; then
+    echo "$0: must specify window manager, either 'i3' or 'sway'" >&2
+    exit 1
+fi
+
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+source "$DOTFILE_DIR/lib/sh/gui.sh"
 
 function restart_daemon() {
     local daemon=$1
     shift
 
-    "$DOTFILE_DIR/bin/util/kill-processes-in-display" "$daemon"
+    kill_processes_in_display "$daemon"
     "$daemon" "$@" &
     disown
 }
@@ -16,7 +22,7 @@ function restart_daemon() {
 restart_daemon dunst -icon_path "$HOME/.cache/dunsticons"
 
 if [[ "$wm" == 'i3' ]]; then
-    "$DOTFILE_DIR/bin/util/kill-processes-in-display" 'polybar'
+    kill_processes_in_display "polybar"
     if [[ -n "$DISPLAYNAME_LEFT" ]]; then
         DISPLAYNAME="$DISPLAYNAME_LEFT" polybar --config="$HOME/.config/polybar" left &
     fi
@@ -31,11 +37,16 @@ if [[ "$wm" == 'i3' ]]; then
     restart_daemon xss-lock "$DOTFILE_DIR/bin/gui/lockscreen"
     restart_daemon unclutter --display "$DISPLAY" --timeout "$CURSOR_HIDE_TIME_SECONDS"
 elif [[ "$wm" == 'sway' ]]; then
-    "$DOTFILE_DIR/bin/util/kill-processes-in-display" 'waybar'
+    kill_processes_in_display "waybar"
     for monitor_precedence in 'PRIMARY' 'SECONDARY' 'TERTIARY'; do
         waybar \
             --bar "$monitor_precedence" \
             --config "$HOME/.config/waybar/config-${display_profile}-${monitor_precedence}.json" \
             --style "$HOME/.config/waybar/style-${display_profile}.css" &
     done
+    restart_daemon swayidle \
+        before-sleep '$DOTFILE_DIR/bin/gui/lockscreen' \
+        timeout 600 '$DOTFILE_DIR/bin/gui/lockscreen' \
+        timeout 1200 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"'
 fi

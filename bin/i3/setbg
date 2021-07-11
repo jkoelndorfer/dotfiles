@@ -10,8 +10,8 @@ cd "$script_dir"
 
 source "$DOTFILE_DIR/theme/solarized-dark/colors"
 source "$DOTFILE_DIR/theme/solarized-dark/wallpaper"
-set -x
-source 'lib/bg.sh'
+source "$DOTFILE_DIR/lib/sh/gui.sh"
+source "$DOTFILE_DIR/lib/sh/wallpaper.sh"
 
 wallpaper_path=$(get_wallpaper_path)
 wallpaper_cache_dir=$(get_wallpaper_cache_dir)
@@ -71,7 +71,7 @@ if [[ -n "$WAYLAND_DISPLAY" ]]; then
     outputs=$(get_sway_outputs)
     split_bg_for_outputs "$wallpaper_path" "$outputs"
     create_blurred_bg "$wallpaper_path" "$outputs"
-    "$DOTFILE_DIR/bin/util/kill-processes-in-display" "swaybg"
+    kill_processes_in_display swaybg
     set_sway_bg "$outputs"
 else
     # `xsetroot -solid` does not work with compton. See https://github.com/chjj/compton/issues/162.
