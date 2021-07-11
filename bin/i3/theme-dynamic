@@ -5,6 +5,8 @@
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 msg="$DOTFILE_DIR/bin/i3/i3swaymsg"
 
+source "$DOTFILE_DIR/theme/solarized-dark/wallpaper"
+
 if [[ "$display_profile" == 'UHD' ]]; then
     border_sz=4
     gaps_sz=4
@@ -42,3 +44,5 @@ fi
 # FIXME: Setting the cursor-theme to Bluecurve doesn't seem to do anything.
 gsettings set org.gnome.desktop.interface cursor-size "$cursor_sz"
 gsettings set org.gnome.desktop.interface cursor-theme Bluecurve
+
+"$DOTFILE_DIR/bin/i3/setbg"
