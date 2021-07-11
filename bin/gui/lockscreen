@@ -1,14 +1,44 @@
 #!/bin/zsh
 
 source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/solarized-dark/wallpaper"
+source "$DOTFILE_DIR/lib/sh/gui.sh"
+source "$DOTFILE_DIR/lib/sh/wallpaper.sh"
+
+if [[ -z "$WAYLAND_DISPLAY" && -z "$DISPLAY" ]]; then
+    echo "$0: neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+    exit 1
+fi
+
+while read pid; do
+    # Since we're looking for processes matching our own name, we need to be extra
+    # careful that we don't shoot ourselves in the foot. Sometimes the shell will
+    # spawn child processes while looking for processes underneath our current
+    # display.
+    #
+    # If the directory under /proc no longer exists, disregard the discovered PID.
+    if [[ -n "$pid" && "$pid" != "$$" && -d "/proc/$pid" ]]; then
+        echo "$0: another instance is already running (pid $pid)" >&2
+        exit 1
+    fi
+done <<< "$(get_processes_in_display "$(basename "$0")")"
+
+desktop_bg_default=$(echo "$DEFAULT_DESKTOP_BG_COLOR" | sed -r -e 's/^#//')
 
 declare -a wallpaper_args
-if [[ -n "$WALLPAPER_BLURRED" ]]; then
-    wallpaper_args=('-i' "$WALLPAPER_BLURRED")
-else
-    wallpaper_args=()
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    locker=(swaylock --color "$desktop_bg_default")
+    outputs=$(get_sway_outputs)
+    echo "$outputs" | while read o; do
+        output_name=$(output_info 'output-name' "$o")
+        blurred_bg_path=$(output_info 'blurred-bg-path' "$o")
+        wallpaper_args=("${wallpaper_args[@]}" --image "${output_name}:${blurred_bg_path}")
+    done
+elif [[ -n "$DISPLAY" ]]; then
+    locker=(i3lock -n)
+    wallpaper_args=('-i' "${WALLPAPER_CACHE_DIR}/${WALLPAPER}_blurred")
 fi
-pkill i3lock
+kill_processes_in_display "${locker[1]}"
 
 spotifyctl=(playerctl -p spotify)
 original_spotify_status=$($spotifyctl status)
@@ -18,29 +48,35 @@ original_spotify_status=$($spotifyctl status)
 # Suspending notifications is handy when the screen is locked!
 pkill -SIGUSR1 dunst
 
-{
-    if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' ]]; then
-        sleep 300
-        sudo systemctl suspend
-    elif [[ "$SCREENSAVER_STRATEGY" == 'screen-off' ]]; then
-        sleep 30
-        xset dpms force off
-    fi
-} &
+if [[ -z "$WAYLAND_DISPLAY" ]]; then
+    {
+        if [[ "$SCREENSAVER_STRATEGY" == 'system-suspend' ]]; then
+            sleep 300
+            sudo systemctl suspend
+        elif [[ "$SCREENSAVER_STRATEGY" == 'screen-off' ]]; then
+            sleep 30
+            xset dpms force off
+        fi
+    } &
+fi
 
 lock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' ]]; then
     $spotifyctl pause
 fi
-i3lock -n "${wallpaper_args[@]}" -c "$(echo "$SOLARIZED_BASE03" | sed -e 's/^#//')"
+
+"${locker[@]}" "${wallpaper_args[@]}"
+
 unlock_time=$(date '+%s')
 if [[ "$original_spotify_status" == 'Playing' && "$((unlock_time - lock_time))" -lt "$SCREENLOCK_MUSIC_RESUME_TIME_SECONDS" ]]; then
     $spotifyctl play
 fi
 pkill -SIGUSR2 dunst
 
-# Kill the backgrounded job responsible for turning off the screen.
-# If the screen hasn't shut off yet but the session has been unlocked,
-# the screen could flash off if the background job were allowed to
-# run.
-kill %1
+if [[ -z "$WAYLAND_DISPLAY" ]]; then
+    # Kill the backgrounded job responsible for turning off the screen.
+    # If the screen hasn't shut off yet but the session has been unlocked,
+    # the screen could flash off if the background job were allowed to
+    # run.
+    kill %1
+fi
