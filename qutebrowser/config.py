@@ -92,7 +92,7 @@ def configure(config: ConfigAPI, c: ConfigContainer):
         mode_enter = "enter-mode"
 
     # Configure ctrl-p to open a fuzzy search prompt for currently open tabs.
-    config.bind("<Ctrl-p>", "set-cmd-text -s :buffer")
+    config.bind("<Ctrl-p>", "set-cmd-text -s :tab-select")
 
     # Configure m to launch `qmpvl`.
     config.bind("m", "hint links spawn " + os.path.join(dotfile_dir, "bin", "i3", "qmpvl") + " {hint-url}")
