@@ -48,6 +48,12 @@ function terraform_workspace_indicator() {
     fi
 }
 
+function terraform_version_indicator() {
+    if [[ -n "$TERRAFORM_VERSION" ]]; then
+        echo "%F{#844fba}TF $TERRAFORM_VERSION%F{-} "
+    fi
+}
+
 function user_indicator() {
     local color='green'
     if [[ "$EUID" == '0' ]]; then
@@ -117,6 +123,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_workspace_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
