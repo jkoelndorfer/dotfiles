@@ -175,14 +175,41 @@ function aws-asg-ssh-each() {
 
     local instances=$(aws-asg-get-instances "$asg_name")
     while read i; do
-        local ip=$(aws-ec2-instance-private-ip "$i")
+        local ip=$(_aws-instance-ip "$i")
 
-        ssh -n -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$ip" "$action"
+        _aws-ssh -n "$ip" "$action"
     done <<<"$instances"
+}
+
+function _aws-instance-ip() {
+    local instance_defn=$1
+    local mode
+    if [[ "$AWS_SSH_MODE" == 'public' ]]; then
+        mode='public'
+    else
+        if [[ "$AWS_PROFILE" == 'aerisweather' ]]; then
+            mode='private'
+        else
+            mode='public'
+        fi
+    fi
+
+    local field
+    if [[ "$mode" == 'public' ]]; then
+        field=5
+    else
+        field=6
+    fi
+
+    echo "$instance_defn" | awk -F"$tab" "{ print \$$field }" | trim-string
 }
 
 function _aws-lt-ls() {
     aws ec2 describe-launch-templates | jq -r '.LaunchTemplates[] | [.LaunchTemplateName, .LaunchTemplateId, .LatestVersionNumber] | join("\t")'
+}
+
+function _aws-ssh() {
+    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "$@"
 }
 
 function aws-lt-ls() {
@@ -204,25 +231,12 @@ function aws-lt-set-ami() {
 }
 
 function aws-ssh() {
-    local mode=$1
-    local field=''
-    if [[ -z "$mode" ]]; then
-        mode='private'
-    fi
-    if [[ "$mode" == 'public' ]]; then
-        local field=5
-    elif [[ "$mode" == 'private' ]]; then
-        local field=6
-    else
-        echo "invalid mode: $mode" >&2
-        return 1
-    fi
     local instance=$(aws-ec2-instance-select)
     if [[ -z "$instance" ]]; then
         return 1
     fi
-    local instance_ip=$(echo "$instance" | awk -F"$tab" "{ print \$$field }" | trim-string)
-    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "$@" "$instance_ip"
+    local instance_ip=$(_aws-instance-ip "$instance")
+    _aws-ssh "$@" "$instance_ip"
 }
 
 function aws-ssm-parameter-ls() {
