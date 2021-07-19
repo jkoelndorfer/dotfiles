@@ -62,6 +62,13 @@ url_permissions_media = [
     "https://meet.jit.si",
 ]
 
+# URLs that bypass adblocking.
+adblock_whitelist_urls = [
+    # This is used by the AWS web console to provide search functionality.
+    # See: https://github.com/qutebrowser/qutebrowser/issues/6601.
+    "concierge.analytics.console.aws.a2z.com",
+]
+
 
 def set_ui_fonts(config: ConfigAPI, size_pt):
     c = config
@@ -165,6 +172,8 @@ def configure(config: ConfigAPI, c: ConfigContainer):
             config.set("content.media.video_capture", True, d)
             config.set("content.media.audio_video_capture", True, d)
         config.set(content_notifications_enabled, True, d)
+
+    config.set("content.blocking.whitelist", adblock_whitelist_urls)
 
     config_colors(c)
 
