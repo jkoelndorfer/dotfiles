@@ -47,6 +47,10 @@ function generate_wofi_style() {
         margin:           $big_margin_sz;
     }
 
+    #input * {
+        color: $SOLARIZED_BASE3;
+    }
+
     #entry:nth-child(even) {
         background-color: $SOLARIZED_BASE03;
     }
