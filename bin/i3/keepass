@@ -61,7 +61,6 @@ if [[ "$display_profile" == 'UHD' ]]; then
     # The mouse issue with QT_SCALE_FACTOR is not present if we force QT
     # to use X11.
     if [[ -n "$DISPLAY" ]]; then
-        export QT_SCALE_FACTOR=2
         export QT_QPA_PLATFORM=xcb
     fi
 fi

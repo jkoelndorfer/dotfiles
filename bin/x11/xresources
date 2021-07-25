@@ -1,21 +1,21 @@
 #!/bin/bash
 
-if [[ -n "$WAYLAND_DISPLAY" ]]; then
-    exit 0
-fi
-
 source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 if [[ "$display_profile" == 'UHD' ]]; then
-    x_cursor_size=48
+    dpi=192
+    x_cursor_size=64
     term_text_size=10
 elif [[ "$display_profile" == 'HD' ]]; then
-    x_cursor_size=12
+    dpi=96
+    x_cursor_size=32
     term_text_size=12
 fi
 
 xrdb -load <<EOF
+Xft.dpi: $dpi
+
 XTerm*faceName: xft:mononoki Nerd Font Mono:style=Regular
 URxvt.font: xft:mononoki Nerd Font Mono:style=Regular:size=$term_text_size,xft:DejaVu Sans Mono:style=Book:size=$term_text_size
 URxvt.letterSpace: -1
