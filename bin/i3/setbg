@@ -1,10 +1,5 @@
 #!/bin/zsh
 
-if [[ -z "$WALLPAPER" ]]; then
-    echo "$0: must set wallpaper filename via \$WALLPAPER" >&2
-    exit 1
-fi
-
 script_dir=$(dirname "$0")
 cd "$script_dir"
 

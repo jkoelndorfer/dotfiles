@@ -33,6 +33,4 @@ client.focused          $base1    $base1       $base3   $base1       $base1
 client.focused_inactive $base02   $base02      $base0   $base02      $base02
 client.unfocused        $base02   $base02      $base0   $base02      $base02
 client.urgent           $base02   $red         $base3   $base03      $red
-
-exec_always --no-startup-id $DOTFILE_DIR/bin/i3/theme-dynamic
 EOF
