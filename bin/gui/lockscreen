@@ -36,7 +36,7 @@ if [[ -n "$WAYLAND_DISPLAY" ]]; then
     done
 elif [[ -n "$DISPLAY" ]]; then
     locker=(i3lock -n)
-    wallpaper_args=('-i' "${WALLPAPER_CACHE_DIR}/${WALLPAPER}_blurred")
+    wallpaper_args=('-i' "$(get_wallpaper_cache_dir)/${WALLPAPER}_blurred")
 fi
 kill_processes_in_display "${locker[1]}"
 
