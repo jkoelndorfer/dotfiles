@@ -277,7 +277,7 @@ ramp-signal-foreground = ${polybar_colors[selected_foreground]}
 [module/date]
 type = custom/script
 interval = 5
-exec = \$DOTFILE_DIR/bin/i3/polydate
+exec = \$DOTFILE_DIR/bin/i3/bardate
 
 format-underline = $SOLARIZED_BLUE
 
