@@ -40,11 +40,13 @@ ae402ed7810163c581019c810022b59c4003756e64864005565f565038258688
 803001009d012a0800080001402625a400037000fefcf40000
 " | tr -cd '[a-z0-9]')
 
+remove_null_video=0
 # If mpv is already open, don't start it.
 #
 # This check isn't perfect but it should be good enough for almost
 # all use cases.
 if ! pgrep -fu "$USER" "$mpv_ipc"; then
+    remove_null_video=1
     rm -f "$mpv_ipc"
 
     # Switch to the i3 workspace "video" so that mpv opens there
@@ -76,8 +78,10 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
     # play a newly added video after reaching the end of its playlist.
     mpv --force-window='immediate' --keep-open --keep-open-pause='no' --input-ipc-server="$mpv_ipc" \
         "hex://$blank_webm" >"$redirect_stdout" 2>"$redirect_stderr" & disown
-    mpv_cmd "playlist-remove 0"
 else
     notify-send -u normal -t 3000 'mpv: added to playlist' "Added video to playlist: $video"
 fi
 mpv_cmd "loadfile $video append-play"
+if [[ "$remove_null_video" == 1 ]]; then
+    mpv_cmd "playlist-remove 0"
+fi
