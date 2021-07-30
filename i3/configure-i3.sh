@@ -13,10 +13,10 @@ function generate_config() {
     mkdir -p "$(dirname "$config_path")"
 
     {
-        for f in config.d/*; do
+        for f in config.d/* config.d/host/"$(hostname -s)"/*; do
             if [[ -x "$f" ]]; then
                 "./$f" "$wm"
-            else
+            elif [[ -f "$f" ]]; then
                 cat "$f"
             fi
             echo
