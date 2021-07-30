@@ -1,23 +1,39 @@
 #!/bin/bash
 
-# Prints the number of package updates available for Arch suitable for us with polybar.
+# Prints the number of package updates available for Arch suitable for use with waybar and polybar.
 # Requires that the `pacman-contrib` package is installed to provide `checkupdates`.
 
 script_dir=$(dirname "$0")
 
-source "$script_dir/../../colors/solarized"
+source "$script_dir/../../theme/solarized-dark/colors"
 
 set -o pipefail
 
 exec 2>/dev/null
 updates=$(checkupdates | wc -l)
-total_packages=$(pacman -Q | wc -l)
 rc="$?"
-echo -n " %{T2}"
-echo -n "%{F${SOLARIZED_BASE3}}%{F-}"
+total_packages=$(pacman -Q | wc -l)
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    echo -n "<span foreground='$SOLARIZED_BASE3'></span>"
+else
+    echo -n " %{T2}"
+    echo -n "%{F${SOLARIZED_BASE3}}%{F-}"
+fi
 # checkupdates exits with code 2 when there are no updates, for some reason.
 if [[ "$rc" != 0 && "$rc" != 2 ]]; then
-    echo -n " %{F${SOLARIZED_RED}}!%{F-}%{T-}"
-    exit "$rc"
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        echo -n "<span foreground='$SOLARIZED_RED'> !</span>"
+        # waybar will not display the output of widgets that return non-zero codes
+        exit 0
+    else
+        echo -n " %{F${SOLARIZED_RED}}!%{F-}%{T-}"
+        exit "$rc"
+    fi
 fi
-echo -n "%{T-} $updates / $total_packages "
+if [[ -z "$WAYLAND_DISPLAY" ]]; then
+    echo -n "%{T-}"
+fi
+echo -n " $updates / $total_packages"
+if [[ -z "$WAYLAND_DISPLAY" ]]; then
+    echo -n " "
+fi

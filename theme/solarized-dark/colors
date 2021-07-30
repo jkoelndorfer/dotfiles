@@ -1,4 +1,4 @@
-solarized_dark_xresources="$(cat "$DOTFILE_DIR/x11/Xresources.solarized-dark")"
+solarized_dark_xresources="$(cat "$DOTFILE_DIR/theme/solarized-dark/Xresources")"
 for c in base00 base01 base02 base03 \
          base0  base1  base2  base3 \
          yellow orange red   magenta \

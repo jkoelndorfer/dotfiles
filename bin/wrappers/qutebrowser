@@ -1,7 +1,13 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 while read e; do
     export $e
 done < <(set | grep -E '^SOLARIZED_[A-Z0-9]+=' | awk -F= '{ print $1 }')
+
+# Hide Wayland from qutebrowser so that it must use XWayland.
+#
+# QT doesn't do play well with Wayland, as I am finding out.
+unset WAYLAND_DISPLAY
+unset XDG_SESSION_TYPE
 exec /usr/bin/qutebrowser "$@"

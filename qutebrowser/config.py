@@ -5,10 +5,12 @@ from qutebrowser.config.configfiles import ConfigAPI
 from qutebrowser.config.config import ConfigContainer
 
 import os
+import subprocess
 from typing import Dict, List
 
 dotfile_dir = os.environ["DOTFILE_DIR"]
-display_profile = os.environ["DISPLAY_PROFILE"]
+display_profile_output = subprocess.run([f"{dotfile_dir}/bin/gui/display-profile"], capture_output=True)
+display_profile = display_profile_output.stdout.decode("utf-8").strip()
 
 if qutebrowser_version >= (2, 2, 0):
     content_notifications_enabled = "content.notifications.enabled"
@@ -72,21 +74,9 @@ adblock_whitelist_urls = [
 
 def set_ui_fonts(config: ConfigAPI, size_pt):
     c = config
-    font_completion = (c.fonts.completion, ["category", "entry"])
-    font_messages = (c.fonts.messages, ["error", "info", "warning"])
-    fonts = (c.fonts, [
-        "debug_console",
-        "downloads",
-        "hints",
-        "keyhint",
-        "prompts",
-        "statusbar",
-        "tabs",
-    ])
-
-    for obj, attrs in [font_completion, font_messages, fonts]:
-        for attr in attrs:
-            setattr(obj, attr, "{}pt monospace".format(size_pt))
+    c.fonts.default_family = "mononoki Nerd Font Mono"
+    c.fonts.default_size = f"{size_pt}pt"
+    c.fonts.contextmenu = f"{size_pt + 4}pt sans-serif"
 
 
 def configure(config: ConfigAPI, c: ConfigContainer):
@@ -135,15 +125,16 @@ def configure(config: ConfigAPI, c: ConfigContainer):
 
     c.url.start_pages = ["about:blank"]
 
-    try:
-        # default_family replaces monospace as of qutebrowser v1.10
-        c.fonts.default_family = "mononoki Nerd Font Mono"
-    except Exception:
-        c.fonts.monospace = "mononoki Nerd Font Mono"
-        set_ui_fonts(c, 10)
-
+    # On Wayland, setting qt.highdpi does nothing.
+    # Additionally, Wayland scaling causes qutebrowser to have an insanely large mouse pointer.
     if display_profile == "UHD":
-        config.set("qt.highdpi", True)
+        if os.environ.get("WAYLAND_DISPLAY", None) is None:
+            config.set("qt.highdpi", True)
+        else:
+            set_ui_fonts(c, 24)
+            config.set("zoom.default", 200)
+    else:
+        set_ui_fonts(c, 10)
 
     # Fullscreen only fills the qutebrowser window. If we want true fullscreen,
     # we can pair it with the fullscreen offered by i3.

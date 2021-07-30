@@ -48,7 +48,7 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
     rm -f "$mpv_ipc"
 
     # Switch to the i3 workspace "video" so that mpv opens there
-    i3-msg workspace video
+    ./i3swaymsg workspace video
 
     if [[ ! -t 0 ]]; then
         # mpv seems to suffer some issues in the current version when stdin/stdout

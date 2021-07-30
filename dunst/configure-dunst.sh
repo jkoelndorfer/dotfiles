@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 dunst_config_dir="$HOME/.config/dunst"
 
@@ -8,12 +8,13 @@ xrdb_q=$(xrdb -query)
 polybar_barheight=$(echo "$xrdb_q" | awk '$1 == "polybar.barheight:" { print $2 }')
 gaps_outer=$(echo "$xrdb_q" | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
 window_border=$(echo "$xrdb_q" | awk '$1 == "i3wm.default_border:" { print $2 }')
-if [[ "$DISPLAY_PROFILE" == "HD" ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+if [[ "$display_profile" == "HD" ]]; then
     x=$(( gaps_outer + window_border ))
     y=$(( polybar_barheight + gaps_outer + window_border ))
     dunst_frame_width=2
     geometry="300x5-$x+$y"
-elif [[ "$DISPLAY_PROFILE" == "UHD" ]]; then
+elif [[ "$display_profile" == "UHD" ]]; then
     # In order to line up correctly, the dunst window needs to be positioned
     # differently on a 4k display. I believe it has to do with some apps scaling
     # with 4k and others not.
@@ -85,7 +86,6 @@ read -r -d '' dunst_config <<EOF
     sticky_history = yes
     history_length = 20
 
-    dmenu = /usr/bin/rofi -p dunst:
     browser = /usr/bin/xdg-open
 
     # Always run rule-defined scripts, even if the notification is suppressed
@@ -95,27 +95,6 @@ read -r -d '' dunst_config <<EOF
     class = Dunst
     startup_notification = false
     force_xinerama = false
-
-[shortcuts]
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification.
-    close = ctrl+space
-
-    # Close all notifications.
-    close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1". Make sure this key actually exists on your keyboard layout,
-    # e.g. check output of 'xmodmap -pke'
-    history = ctrl+grave
-
-    # Context menu.
-    context = ctrl+shift+period
 
 [urgency_low]
     background = "$SOLARIZED_BASE02"

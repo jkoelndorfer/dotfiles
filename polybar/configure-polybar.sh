@@ -28,7 +28,7 @@ function discover_wifi_adapter {
 }
 
 mkdir -p "$HOME/.config"
-source "$DOTFILE_DIR/colors/solarized"
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
 
 optional_modules=()
 
@@ -42,7 +42,9 @@ polybar_colors[urgent_background]=$SOLARIZED_BASE02
 polybar_colors[urgent_underline]=$SOLARIZED_RED
 polybar_colors[urgent_foreground]=$SOLARIZED_BASE3
 
-if [[ "$DISPLAY_PROFILE" == 'UHD' ]]; then
+display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
+
+if [[ "$display_profile" == 'UHD' ]]; then
     polybar_bar_height=36
     polybar_text_size=18
     polybar_icon_size=24
@@ -275,7 +277,7 @@ ramp-signal-foreground = ${polybar_colors[selected_foreground]}
 [module/date]
 type = custom/script
 interval = 5
-exec = \$DOTFILE_DIR/bin/i3/polydate
+exec = \$DOTFILE_DIR/bin/i3/bardate
 
 format-underline = $SOLARIZED_BLUE
 

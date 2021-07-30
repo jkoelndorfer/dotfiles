@@ -4,6 +4,9 @@
 # Useful for having a window laying over the top of another while
 # still taking advantage of tiling features.
 
+script_dir=$(dirname "$0")
+cd "$script_dir"
+
 # top, middle/center, or bottom
 cell_position_y="$1"
 
@@ -15,11 +18,24 @@ window_height="$4"
 
 window_id="$5"
 
-script_dir=$(dirname "$0")
-gaps_outer=$(xrdb -query | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
-gaps_inner=$(xrdb -query | awk '$1 == "i3wm.gaps_inner:" { print $2 }')
-x11_dpi=$(xrdb -query | awk '$1 == "Xft.dpi:" { print $2 }')
-gaps_scale_factor=$(( x11_dpi / 96 ))
+if [[ -z "$WAYLAND_DISPLAY" && -z "$DISPLAY" ]]; then
+    echo "$0: Neither WAYLAND_DISPLAY nor DISPLAY are set" >&2
+    exit 1
+fi
+
+i3_config=$(./i3swaymsg -t get_config)
+
+gaps_outer=$(echo "$i3_config" | grep -E '^\s*gaps\s*outer\s*[0-9]+' | awk '{ print $3 }')
+gaps_inner=$(echo "$i3_config" | grep -E '^\s*gaps\s*inner\s*[0-9]+' | awk '{ print $3 }')
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    # TODO: Determine this correctly.
+    #
+    # This can vary per display.
+    gaps_scale_factor=1
+elif [[ -n "$DISPLAY" ]]; then
+    x11_dpi=$(xrdb -query | awk '$1 == "Xft.dpi:" { print $2 }')
+    gaps_scale_factor=$(( x11_dpi / 96 ))
+fi
 margin_size=$(( (gaps_outer * gaps_scale_factor) + (gaps_inner * gaps_scale_factor) ))
 
 function x_pos() {
@@ -48,7 +64,7 @@ function y_pos() {
     fi
 }
 
-active_workspace="$(i3-msg -t get_workspaces | jq -r '.[] | select(.focused == true)')"
+active_workspace="$(./i3swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true)')"
 
 active_workspace_x="$(echo "$active_workspace" | jq -r '.rect.x')"
 active_workspace_y="$(echo "$active_workspace" | jq -r '.rect.y')"
@@ -56,15 +72,21 @@ active_workspace_width="$(echo "$active_workspace" | jq -r '.rect.width')"
 active_workspace_height="$(echo "$active_workspace" | jq -r '.rect.height')"
 
 if [[ -z "$window_id" ]]; then
-    window_id=$("$script_dir/focusedwin" | jq -r '.id')
+    window_id=$(./focusedwin | jq -r '.id')
 fi
-winfo=$("$script_dir/winfo" "$window_id")
+winfo=$(./winfo "$window_id")
 [[ -z "$window_width" ]] && window_width="$(echo "$winfo" | jq -r '.window_rect.width')"
 [[ -z "$window_height" ]] && window_height="$(echo "$winfo" | jq -r '.window_rect.height')"
 
 win_x=$(x_pos "$cell_position_x" "$window_width")
 win_y=$(y_pos "$cell_position_y" "$window_height")
+
 # FIXME: Some applications enforce a minimum size for their windows.
 # This positioning logic does _not_ work for windows that do not resize exactly as they are told.
-i3-msg "[con_id=\"$window_id\"]" resize set width "$window_width" height "$window_height"
-i3-msg "[con_id=\"$window_id\"]" floating enable \; "[con_id=\"$window_id\"]" fullscreen disable \; "[con_id=\"$window_id\"]" move position "$win_x" "$win_y" \; "[con_id=\"$window_id\"]" focus
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    # Sway requires an additional keyword to set a window's absolute position.
+    # See: https://github.com/swaywm/sway/issues/5691
+    position_arg='absolute'
+fi
+./i3swaymsg "[con_id=\"$window_id\"]" resize set width "$window_width" height "$window_height"
+./i3swaymsg "[con_id=\"$window_id\"]" floating enable \; "[con_id=\"$window_id\"]" fullscreen disable \; "[con_id=\"$window_id\"]" move $position_arg position "$win_x" "$win_y" \; "[con_id=\"$window_id\"]" focus

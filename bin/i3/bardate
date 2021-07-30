@@ -1,0 +1,17 @@
+#!/bin/bash
+
+script_dir=$(dirname "$0")
+cd "$script_dir"
+
+source "../../theme/solarized-dark/colors"
+
+# Prints out the current time and date to our bar, including UTC time.
+
+date=$(date '+%a %Y-%m-%d')
+local_time=$(date '+%H:%M%z')
+utc_time=$(date -u '+%H:%M')
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    echo "<span foreground='$SOLARIZED_BASE3'></span> $date  <span foreground='$SOLARIZED_BASE3'></span> $local_time / ${utc_time}Z"
+else
+    echo " %{F${SOLARIZED_BASE3}}%{T2}%{F-}%{T-} $date  %{F${SOLARIZED_BASE3}}%{T2}%{F-}%{T-} $local_time / ${utc_time}Z "
+fi

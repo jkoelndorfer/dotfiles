@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [[ -n "$SSH_CONNECTION" ]]; then
+    echo "$0: SSH_CONNECTION is set; exiting" >&2
+    exit 2
+fi
+
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    sway_outputs=$(swaymsg -t get_outputs)
+
+    # The strategy for determing total resolution via Sway is to ask for each display's
+    # width, x position and height, y position. For both width and height, adding the position
+    # plus size for each display and taking the largest value will yield the number of pixels
+    # in that dimension.
+    #
+    # Note: If scaling is turned on in Sway, the width/height values are scaled accordingly.
+    x_res=$(echo "$sway_outputs" | jq '.[] | .current_mode.width + .rect.x' | sort -rn | head -n1)
+    y_res=$(echo "$sway_outputs" | jq '.[] | .current_mode.height + .rect.y' | sort -rn | head -n1)
+    if [[ -z "$x_res" || -z "$y_res" ]]; then
+        echo "$0: failed to determine resolution from Sway" >&2
+        exit 1
+    fi
+    echo "${x_res}x${y_res}"
+elif [[ -n "$DISPLAY" ]]; then
+    xrandr -q | grep -Eo 'current [0-9]+ x [0-9]+' | head -n1 | awk '{ print $2"x"$4 }'
+else
+    echo "$0: neither WAYLAND_DISPLAY nor DISPLAY are set; exiting" >&2
+    exit 1
+fi

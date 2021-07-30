@@ -19,6 +19,9 @@ resolution_mode=$1; shift
 function resize_center_display {
     local mode=$1
 
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        return
+    fi
     xrandr --output "$DISPLAYNAME_CENTER" --mode "$mode"
     sleep 5
     i3 restart
@@ -26,12 +29,12 @@ function resize_center_display {
 
 function pregame_tasks {
     sudo "$DOTFILE_DIR/bin/x11/gpufan" 70
-    "$DOTFILE_DIR/bin/mouseaccel" off
+    "$DOTFILE_DIR/bin/gui/mouseaccel" off
 }
 
 function postgame_tasks {
     sudo "$DOTFILE_DIR/bin/x11/gpufan" auto
-    "$DOTFILE_DIR/bin/mouseaccel" on
+    "$DOTFILE_DIR/bin/gui/mouseaccel" on
 }
 
 primary_display_resolution=$(xrandr | grep -E "^$DISPLAYNAME_CENTER" | awk '{ print $3 }' | grep -Eo '[0-9]+x[0-9]+')

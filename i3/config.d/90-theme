@@ -1,0 +1,36 @@
+#!/bin/zsh
+
+wm=$1
+
+source "$DOTFILE_DIR/theme/solarized-dark/colors"
+
+cat <<EOF
+set \$base03  $SOLARIZED_BASE03
+set \$base02  $SOLARIZED_BASE02
+set \$base01  $SOLARIZED_BASE01
+set \$base00  $SOLARIZED_BASE00
+set \$base0   $SOLARIZED_BASE0
+set \$base1   $SOLARIZED_BASE1
+set \$base2   $SOLARIZED_BASE2
+set \$base3   $SOLARIZED_BASE3
+set \$yellow  $SOLARIZED_YELLOW
+set \$orange  $SOLARIZED_ORANGE
+set \$red     $SOLARIZED_RED
+set \$magenta $SOLARIZED_MAGENTA
+set \$violet  $SOLARIZED_VIOLET
+set \$blue    $SOLARIZED_BLUE
+set \$cyan    $SOLARIZED_CYAN
+set \$green   $SOLARIZED_GREEN
+
+EOF
+
+cat <<'EOF'
+# To make a solid, single color border, make sure border, background, indicator, and
+# child_border all have the same value.
+#
+# <colorclass>          <border>  <background> <text>   <indicator>  <child_border>
+client.focused          $base1    $base1       $base3   $base1       $base1
+client.focused_inactive $base02   $base02      $base0   $base02      $base02
+client.unfocused        $base02   $base02      $base0   $base02      $base02
+client.urgent           $base02   $red         $base3   $base03      $red
+EOF
