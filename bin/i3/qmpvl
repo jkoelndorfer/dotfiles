@@ -4,7 +4,23 @@
 # This script is intended to be invoked by qutebrowser to launch mpv.
 video="$1"
 
+script_dir=$(dirname "$(readlink -f "$0")")
+cd "$script_dir"
+
 mpv_ipc="$XDG_RUNTIME_DIR/mpv.ipc"
+
+function mpv_cmd() {
+    tries=0
+    while [[ ! -e "$mpv_ipc" ]]; do
+        sleep 0.1
+        tries=$(( tries + 1 ))
+        if [[ "$tries" -gt 20 ]]; then
+            echo "$0: timed out waiting for mpv command socket to appear" >&2
+            exit 11
+        fi
+    done
+    echo "$@" | socat - "$mpv_ipc"
+}
 
 # mpv does not like being given an empty playlist on initialization. Let's
 # trick it with a blank webm.
@@ -30,10 +46,23 @@ ae402ed7810163c581019c810022b59c4003756e64864005565f565038258688
 # all use cases.
 if ! pgrep -fu "$USER" "$mpv_ipc"; then
     rm -f "$mpv_ipc"
-    mkfifo --mode='0600' "$mpv_ipc"
 
     # Switch to the i3 workspace "video" so that mpv opens there
     i3-msg workspace video
+
+    if [[ ! -t 0 ]]; then
+        # mpv seems to suffer some issues in the current version when stdin/stdout
+        # aren't connected to a terminal and aren't redirected.
+        #
+        # I'm seeing mpv crash immediately when being launched via a qutebrowser
+        # keybinding. To work around that, only redirect stdout and stderr
+        # when not launched via a terminal.
+        redirect_stdout='/dev/null'
+        redirect_stderr='/dev/null'
+    else
+        redirect_stdout='&1'
+        redirect_stderr='&2'
+    fi
 
     # --force-window='immediate' makes mpv open a window immediately.
     # Typically mpv waits until it has buffered some amount of video
@@ -45,12 +74,10 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
     # --keep-open-pause='no' prevents mpv from pausing when it reaches the
     # end of the playlist. This is required so that mpv will automatically
     # play a newly added video after reaching the end of its playlist.
-    mpv --force-window='immediate' --keep-open --keep-open-pause='no' --input-file="$mpv_ipc" \
-        "hex://$blank_webm" & disown
-
-    # Remove the blank video from the mpv playlist immediately.
-    echo "playlist-remove 0" >> "$mpv_ipc"
+    mpv --force-window='immediate' --keep-open --keep-open-pause='no' --input-ipc-server="$mpv_ipc" \
+        "hex://$blank_webm" >"$redirect_stdout" 2>"$redirect_stderr" & disown
+    mpv_cmd "playlist-remove 0"
 else
     notify-send -u normal -t 3000 'mpv: added to playlist' "Added video to playlist: $video"
 fi
-echo "loadfile $video append-play" >> "$mpv_ipc"
+mpv_cmd "loadfile $video append-play"
