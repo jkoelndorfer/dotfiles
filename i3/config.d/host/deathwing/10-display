@@ -1,0 +1,9 @@
+#!/bin/bash
+
+wm=$1
+
+if [[ "$wm" != 'sway' ]]; then
+    exit 0
+fi
+
+echo "output HDMI-A-1 pos 0 0 res 1920x1080"
