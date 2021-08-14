@@ -6,12 +6,14 @@ wm=$1
 # the current display profile ("HD" or "UHD").
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 
-if [[ "$display_profile" == 'UHD' ]]; then
+# DPI scaling is turned on for i3 but off for sway.
+# Don't use larger gaps, border sizes unless we're running sway.
+if [[ "$display_profile" == 'UHD' && "$wm" == 'sway' ]]; then
     border_sz=4
     gaps_sz=4
     cursor_sz=64
     font_sz=22
-elif [[ "$display_profile" == 'HD' ]]; then
+else
     border_sz=2
     gaps_sz=2
     cursor_sz=32
