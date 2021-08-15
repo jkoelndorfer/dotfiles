@@ -80,6 +80,7 @@ bindcode $ctrl+$kc_Print_Screen exec --no-startup-id $DOTFILE_DIR/bin/gui/screen
 bindcode $prog_prefix+$kc_Space exec $DOTFILE_DIR/bin/launchers/xquicklaunch
 bindcode $prog_prefix+$kc_e exec $DOTFILE_DIR/bin/launchers/xquickclip
 bindcode $prog_prefix+$kc_i exec $DOTFILE_DIR/bin/launchers/ximgquickclip
+bindcode $prog_prefix+$kc_g exec $DOTFILE_DIR/bin/gaming/grim-dawn/select-gd-stash
 
 
 # Dunst

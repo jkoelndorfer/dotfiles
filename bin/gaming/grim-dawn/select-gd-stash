@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -o pipefail
+
+prompt='activate grim dawn stash'
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+    launcher_cmd=("$DOTFILE_DIR/bin/wrappers/wofi" --show=dmenu --prompt "$prompt")
+else
+    launcher_cmd=("$DOTFILE_DIR/bin/wrappers/rofi" -dmenu -no-custom -p "$prompt")
+fi
+
+selected=$(gd-list-stashes | "${launcher_cmd[@]}")
+if [[ -z "$selected" ]]; then
+    echo "$0: no entry selected" >&2
+    exit 1
+fi
+
+gd-activate-stash "$selected"
+if [[ "$?" == 0 ]]; then
+    notify-send \
+        -u normal \
+        -t 3000 \
+        'Grim Dawn: Activated Stash' \
+        "Activated Grim Dawn shared stash $selected."
+fi
