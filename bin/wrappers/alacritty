@@ -5,7 +5,7 @@ display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 if [[ "$display_profile" == 'UHD' && -n "$WAYLAND_DISPLAY" ]]; then
     addl_args=(-o 'font.size=18.0')
 else
-    addl_args=(-o 'font.size=12.0')
+    addl_args=(-o 'font.size=10.0')
 fi
 
 exec alacritty "${addl_args[@]}" "$@"
