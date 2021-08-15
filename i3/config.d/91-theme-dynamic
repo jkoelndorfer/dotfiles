@@ -35,11 +35,11 @@ font pango:mononoki Nerd Font Mono $font_sz
 # This is required for GTK applications to display the correct cursor.
 #
 # FIXME: Setting the cursor-theme to Bluecurve doesn't seem to do anything.
-exec_always gsettings set org.gnome.desktop.interface cursor-size "$cursor_sz"
-exec_always gsettings set org.gnome.desktop.interface cursor-theme Bluecurve
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-size "$cursor_sz"
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme Bluecurve
 
-exec_always \$DOTFILE_DIR/bin/x11/xresources
-exec_always \$DOTFILE_DIR/bin/i3/setbg
+exec_always --no-startup-id \$DOTFILE_DIR/bin/x11/xresources
+exec_always --no-startup-id \$DOTFILE_DIR/bin/i3/setbg
 EOF
 
 if [[ "$wm" == 'sway' ]]; then
