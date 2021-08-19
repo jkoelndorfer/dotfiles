@@ -58,6 +58,7 @@ if [[ -z "$WAYLAND_DISPLAY" ]]; then
             xset dpms force off
         fi
     } &
+    powersave_job="$!"
 fi
 
 lock_time=$(date '+%s')
@@ -73,10 +74,10 @@ if [[ "$original_spotify_status" == 'Playing' && "$((unlock_time - lock_time))" 
 fi
 pkill -SIGUSR2 dunst
 
-if [[ -z "$WAYLAND_DISPLAY" ]]; then
+if [[ -n "$powersave_job" ]]; then
     # Kill the backgrounded job responsible for turning off the screen.
     # If the screen hasn't shut off yet but the session has been unlocked,
     # the screen could flash off if the background job were allowed to
     # run.
-    kill %1
+    kill "$powersave_job"
 fi
