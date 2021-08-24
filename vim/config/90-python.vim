@@ -48,6 +48,7 @@ let g:neomake_python_flake8_maker = {
 
 let g:neomake_python_mypy_maker = {
     \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/mypy",
+    \ 'args': ['--ignore-missing-imports'],
     \ 'make_info': "mypy",
 \ }
 
