@@ -12,14 +12,12 @@ if [[ -n "$python_project_root" ]]; then
     python_local_venv="$PWD/.venv"
     if [[ -d "$python_local_venv" ]]; then
         PYTHONPATH=$(pathvarmunge "$PYTHONPATH" "$(venv_site_packages "$python_local_venv")")
-    fi
-    if [[ -f 'pyproject.toml' ]]; then
+    elif [[ -f 'pyproject.toml' ]]; then
         poetry_venv=$(poetry env info -p 2>/dev/null)
         if [[ -n "$poetry_venv" ]]; then
             PYTHONPATH=$(pathvarmunge "$PYTHONPATH" "$(venv_site_packages "$poetry_venv")")
         fi
-    fi
-    if [[ -f 'Pipfile' ]]; then
+    elif [[ -f 'Pipfile' ]]; then
         pipenv_venv=$(pipenv --venv 2>/dev/null)
         if [[ -n "$pipenv_venv" ]]; then
             PYTHONPATH=$(pathvarmunge "$PYTHONPATH" "$(venv_site_packages "$pipenv_venv")")
