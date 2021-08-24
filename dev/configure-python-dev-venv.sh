@@ -5,4 +5,4 @@ cd "$PYTHON_DEV_VENV"
 
 virtualenv -p python3 .
 source bin/activate
-pip install neovim flake8 jedi mypy tox jedi-language-server
+pip install neovim black flake8 jedi mypy tox jedi-language-server
