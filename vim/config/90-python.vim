@@ -63,6 +63,10 @@ let g:pymode_rope_autoimport = 0
 let g:pymode_syntax = 1
 let g:pymode_options_max_line_length = 120
 
+let g:black_linelength = 120
+
+autocmd BufWritePre *.py :Black
+
 function! SlimuxPre_python(target_pane)
     " This assumes ipython running with vi-keybinds.
     call system("tmux send-keys -t " . a:target_pane . " C-c")

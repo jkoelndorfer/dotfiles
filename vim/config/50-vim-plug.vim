@@ -65,6 +65,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " python
     Plug 'python-mode/python-mode'
+    Plug 'psf/black', { 'tag': '21.8b0' }
 
     " markdown
     Plug 'JamshedVesuna/vim-markdown-preview'
