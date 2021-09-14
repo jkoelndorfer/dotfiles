@@ -11,6 +11,8 @@ endfunction
 
 " Require tab to be pressed for code completion.
 let g:ncm2#auto_popup = 0
+let g:ncm2#complete_length = [[0, 2], [8, 1]]
+let g:ncm2#manual_complete_length = 0
 autocmd BufEnter * call ncm2#enable_for_buffer()
 imap <expr> <Tab>       TabComplete("\<C-n>", "\<Tab>", 0)
 imap <expr> <S-Tab>     TabComplete("\<C-p>", "\<S-Tab>", 0)

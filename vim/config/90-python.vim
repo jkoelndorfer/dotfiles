@@ -21,7 +21,6 @@ function! PythonSettings()
     setlocal foldmethod=indent
     autocmd VimEnter * IndentGuidesEnable
     autocmd BufWritePost *.py Neomake
-    setlocal omnifunc=syntaxcomplete#Complete
 
     " Use the configuration above for Python but defer to a
     " .editorconfig if one exists.
@@ -29,14 +28,24 @@ function! PythonSettings()
 endfunction
 autocmd FileType python call PythonSettings()
 
-let s:pyls_path = expand("$DOTFILE_DIR") . "/dev/language-servers/python"
-if executable(s:pyls_path)
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->[s:pyls_path]},
-        \ 'allowlist': ['python'],
-    \ })
-endif
+" See:
+" https://github.com/ncm2/ncm2/pull/178
+" https://github.com/ray-x/lsp_signature.nvim
+lua << EOF
+local ncm2 = require('ncm2')
+local lsp_signature = require('lsp_signature')
+require('lspconfig').jedi_language_server.setup({
+    cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
+    on_init = function(client, bufnr)
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = vim.g['lsp_border']})
+        lsp_signature.on_attach({
+            hint_enable = false,
+            hi_parameter = "WildMenu",
+        })
+        ncm2.register_lsp_source(client, bufnr)
+    end
+})
+EOF
 
 let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ["flake8", "mypy"]
@@ -65,7 +74,10 @@ let g:pymode_options_max_line_length = 120
 
 let g:black_linelength = 120
 
-autocmd BufWritePre *.py :Black
+augroup PythonBlack
+    autocmd!
+    autocmd BufWritePre *.py :Black
+augroup END
 
 function! SlimuxPre_python(target_pane)
     " This assumes ipython running with vi-keybinds.

@@ -41,7 +41,8 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'scrooloose/nerdcommenter'
     Plug 'PeterRincker/vim-argumentative'
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'prabirshrestha/vim-lsp'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'ray-x/lsp_signature.nvim'
 
     " completion
     Plug 'ncm2/ncm2'
