@@ -16,6 +16,7 @@ function reenable_screensaver {
 
 trap reenable_screensaver EXIT
 xset -dpms
+xset s off
 if [[ "$suspend_time" == 0 ]]; then
     echo 'screensaver suspended indefinitely' >&2
     while true; do
