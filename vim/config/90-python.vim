@@ -50,13 +50,23 @@ EOF
 let g:neomake_open_list = 0
 let g:neomake_python_enabled_makers = ["flake8", "mypy"]
 
+if executable('flake8')
+    let s:flake8_path = 'flake8'
+else
+    let s:flake8_path = expand("$PYTHON_DEV_VENV") . "/bin/flake8"
+endif
 let g:neomake_python_flake8_maker = {
-    \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/flake8",
+    \ 'exe': s:flake8_path,
     \ 'make_info': "flake8",
 \ }
 
+if executable('mypy')
+    let s:mypy_path = 'mypy'
+else
+    let s:mypy_path = expand("$PYTHON_DEV_VENV") . "/bin/mypy"
+endif
 let g:neomake_python_mypy_maker = {
-    \ 'exe': expand("$PYTHON_DEV_VENV") . "/bin/mypy",
+    \ 'exe': s:mypy_path,
     \ 'args': ['--ignore-missing-imports', '--follow-imports', 'silent'],
     \ 'make_info': "mypy",
 \ }
