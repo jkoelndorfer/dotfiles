@@ -30,11 +30,14 @@ function resize_center_display {
 function pregame_tasks {
     sudo "$DOTFILE_DIR/bin/x11/gpufan" 70
     "$DOTFILE_DIR/bin/gui/mouseaccel" off
+    "$DOTFILE_DIR/bin/x11/suspend-screensaver" &
+    suspend_screensaver_pid="$!"
 }
 
 function postgame_tasks {
     sudo "$DOTFILE_DIR/bin/x11/gpufan" auto
     "$DOTFILE_DIR/bin/gui/mouseaccel" on
+    [[ -n "$suspend_screensaver_pid" ]] && kill "$suspend_screensaver_pid"
 }
 
 primary_display_resolution=$(xrandr | grep -E "^$DISPLAYNAME_CENTER" | awk '{ print $3 }' | grep -Eo '[0-9]+x[0-9]+')
