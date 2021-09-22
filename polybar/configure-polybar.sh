@@ -179,7 +179,7 @@ label-urgent-padding = \${self.label-mode-padding}
 
 ; icon configuration
 fuzzy-match = true
-ws-icon-0 = chat;%{T3}
+ws-icon-0 = chat;%{T3}%{T-}
 ws-icon-1 = slack;%{T3}%{T-}
 ws-icon-2 = web;%{T3}%{T-}
 ws-icon-3 = spotify;%{T3}%{T-}
