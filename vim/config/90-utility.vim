@@ -7,5 +7,10 @@ function! EAdjacent(filename)
     execute 'e ' . expand("%:p:h") . '/' . a:filename
 endfunction
 
+function CurrentBufferPath()
+    echo @%
+endfunction
+
 command! -range=% FormatJson call FormatJson(<line1>, <line2>)
 command! -nargs=1 Eadj call EAdjacent(<q-args>)
+command! CurrentBufferPath call CurrentBufferPath()
