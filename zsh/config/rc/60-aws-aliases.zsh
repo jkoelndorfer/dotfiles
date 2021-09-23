@@ -386,6 +386,11 @@ function aws-ssm-parameter-mv() {
     aws ssm delete-parameter --name "$src"
 }
 
+function aws-ssm-parameter-rm() {
+    local param=$1
+    aws ssm delete-parameter --name "$param"
+}
+
 function _aws-ssm-parameter-stream-edit() {
     {
         local parameter_values=$(< /dev/stdin)
