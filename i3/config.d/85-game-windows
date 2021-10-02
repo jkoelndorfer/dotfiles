@@ -3,7 +3,7 @@
 game_workspace='game'
 
 # Games identified by instance (the first field of WM_CLASS).
-declare -A game_instances
+declare -a game_instances
 game_instances=(
     '^darksoulsremastered.exe$'
     '^eso64.exe$'
@@ -20,7 +20,7 @@ game_instances=(
 )
 
 # Games identified by class (second field of WM_CLASS).
-declare -A game_classes
+declare -a game_classes
 game_classes=(
     '^Hellpoint'
     'Slay the Spire$'
@@ -31,7 +31,7 @@ game_classes=(
 )
 
 # Games identified by window title (_NET_WM_NAME, or WM_NAME as a fallback).
-declare -A game_titles
+declare -a game_titles
 game_titles=(
     '^Binding of Isaac'
     '^Chronicon'
