@@ -14,7 +14,9 @@ function generate_config() {
 
     {
         for f in config.d/* config.d/host/"$(hostname -s)"/*; do
-            if [[ -x "$f" ]]; then
+            if [[ "$f" == 'config.d/host' ]]; then
+                continue
+            elif [[ -x "$f" ]]; then
                 "./$f" "$wm"
             elif [[ -f "$f" ]]; then
                 cat "$f"
