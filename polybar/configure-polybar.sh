@@ -28,19 +28,24 @@ function discover_wifi_adapter {
 }
 
 mkdir -p "$HOME/.config"
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 
 optional_modules=()
 
-declare -A polybar_colors
-polybar_colors[bright]=$SOLARIZED_BASE3
-polybar_colors[background]=$SOLARIZED_BASE02
-polybar_colors[foreground]=$SOLARIZED_BASE1
-polybar_colors[selected_background]=$SOLARIZED_BASE00
-polybar_colors[selected_foreground]=$SOLARIZED_BASE3
-polybar_colors[urgent_background]=$SOLARIZED_BASE02
-polybar_colors[urgent_underline]=$SOLARIZED_RED
-polybar_colors[urgent_foreground]=$SOLARIZED_BASE3
+COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR=${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR:-$COLORSCHEME_FG_SHADE_3}
+
+COLORSCHEME_POLYBAR_BG_COLOR=${COLORSCHEME_POLYBAR_BG_COLOR:-$COLORSCHEME_BG_SHADE_1}
+COLORSCHEME_POLYBAR_FG_COLOR=${COLORSCHEME_POLYBAR_FG_COLOR:-$COLORSCHEME_FG_SHADE_0}
+
+COLORSCHEME_POLYBAR_BG_SELECTED_COLOR=${COLORSCHEME_POLYBAR_BG_SELECTED_COLOR:-$COLORSCHEME_BG_SHADE_3}
+COLORSCHEME_POLYBAR_FG_SELECTED_COLOR=${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR:-$COLORSCHEME_FG_SHADE_0}
+
+COLORSCHEME_POLYBAR_BG_URGENT_COLOR=${COLORSCHEME_POLYBAR_BG_URGENT_COLOR:-$COLORSCHEME_BG_SHADE_1}
+COLORSCHEME_POLYBAR_FG_URGENT_COLOR=${COLORSCHEME_POLYBAR_FG_URGENT_COLOR:-$COLORSCHEME_FG_SHADE_0}
+COLORSCHEME_POLYBAR_BG_URGENT_UNDERLINE_COLOR=${COLORSCHEME_POLYBAR_BG_URGENT_UNDERLINE_COLOR:-$COLORSCHEME_RED}
+
+COLORSCHEME_POLYBAR_AUDIO_UNDERLINE_COLOR=${COLORSCHEME_POLYBAR_MUSIC_UNDERLINE_COLOR:-$COLORSCHEME_ACCENT1_SHADE_0}
+COLORSCHEME_POLYBAR_MUSIC_UNDERLINE_COLOR=${COLORSCHEME_POLYBAR_MUSIC_UNDERLINE_COLOR:-$COLORSCHEME_ACCENT2_SHADE_0}
 
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 
@@ -80,8 +85,8 @@ cat > "$HOME/.config/polybar" <<EOF
 width = 100%
 height = $polybar_bar_height
 
-background = ${polybar_colors[background]}
-foreground = ${polybar_colors[foreground]}
+background = ${COLORSCHEME_POLYBAR_BG_COLOR}
+foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
 
 border-size = 0
 
@@ -96,7 +101,7 @@ font-1 = $polybar_iconfont
 font-2 = $polybar_wsiconfont
 
 line-size = $polybar_ws_icon_underline_size
-line-color = ${polybar_colors[bright]}
+line-color = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 
 monitor-strict = true
 fixed-center = false
@@ -136,8 +141,8 @@ modules-right = monitorname date
 
 [module/xwindow]
 type = internal/xwindow
-label = " %{F${polybar_colors[bright]}}%{T2} %{T-}%{F-}%title:0:120:...% "
-format-underline = ${polybar_colors[selected_foreground]}
+label = " %{F${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}}%{T2} %{T-}%{F-}%title:0:120:...% "
+format-underline = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
 
 [module/i3]
 type = internal/i3
@@ -148,14 +153,14 @@ wrapping-scroll = false
 pin-workspaces = true
 
 label-mode-padding = 1
-label-mode-foreground = ${polybar_colors[foreground]}
-label-mode-background = ${polybar_colors[background]}
+label-mode-foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
+label-mode-background = ${COLORSCHEME_POLYBAR_BG_COLOR}
 
 ; focused = Active workspace on focused monitor
 label-focused = %icon%
-label-focused-background = ${polybar_colors[selected_background]}
-label-focused-foreground = ${polybar_colors[selected_foreground]}
-label-focused-underline = ${polybar_colors[selected_foreground]}
+label-focused-background = ${COLORSCHEME_POLYBAR_BG_SELECTED_COLOR}
+label-focused-foreground = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
+label-focused-underline = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
 label-focused-padding = \${self.label-mode-padding}
 
 ; unfocused = Inactive workspace on any monitor
@@ -164,14 +169,14 @@ label-unfocused-padding = \${self.label-mode-padding}
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %icon%
-label-visible-background = ${polybar_colors[selected_background]}
-label-visible-foreground = ${polybar_colors[selected_foreground]}
+label-visible-background = ${COLORSCHEME_POLYBAR_BG_SELECTED_COLOR}
+label-visible-foreground = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
 label-visible-padding = \${self.label-mode-padding}
 
 ; urgent = Workspace with urgency hint set
 label-urgent = %icon%
-label-urgent-background = ${polybar_colors[urgent_background]}
-label-urgent-underline = ${polybar_colors[urgent_underline]}
+label-urgent-background = ${COLORSCHEME_POLYBAR_BG_URGENT_COLOR}
+label-urgent-underline = ${COLORSCHEME_POLYBAR_BG_URGENT_UNDERLINE_COLOR}
 label-urgent-padding = \${self.label-mode-padding}
 
 ; Separator in between workspaces
@@ -204,18 +209,18 @@ adapter = $power_adapter
 time-format = %-lh %Mm
 
 label-charging = %percentage%% (%time%)
-format-charging = %{F${SOLARIZED_GREEN}}%{F-} <label-charging>
-format-charging-underline = $SOLARIZED_GREEN
+format-charging = %{F${COLORSCHEME_GREEN}}%{F-} <label-charging>
+format-charging-underline = ${COLORSCHEME_GREEN}
 
 label-discharging = \${self.label-charging}
 format-discharging = <ramp-capacity>%{F-} <label-discharging>
-format-discharging-underline = $SOLARIZED_ORANGE
+format-discharging-underline = ${COLORSCHEME_ORANGE}
 
-ramp-capacity-0 = %{T3}%{F${SOLARIZED_RED}}
-ramp-capacity-1 = %{T3}%{F${SOLARIZED_ORANGE}}
-ramp-capacity-2 = %{T3}%{F${SOLARIZED_YELLOW}}
-ramp-capacity-3 = %{T3}%{F${SOLARIZED_YELLOW}}
-ramp-capacity-4 = %{T3}%{F${SOLARIZED_GREEN}}
+ramp-capacity-0 = %{T3}%{F${COLORSCHEME_RED}}
+ramp-capacity-1 = %{T3}%{F${COLORSCHEME_ORANGE}}
+ramp-capacity-2 = %{T3}%{F${COLORSCHEME_YELLOW}}
+ramp-capacity-3 = %{T3}%{F${COLORSCHEME_YELLOW}}
+ramp-capacity-4 = %{T3}%{F${COLORSCHEME_GREEN}}
 
 
 [module/music]
@@ -225,10 +230,10 @@ exec-if = playerctl -p spotify status 2>&1 | grep -v -e 'No players found' -e 'C
 interval = 5
 label = "%output% "
 format-prefix = "  "
-format-prefix-foreground = ${polybar_colors[bright]}
+format-prefix-foreground = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 format-prefix-font = 2
-format-foreground = ${polybar_colors[foreground]}
-format-underline = $SOLARIZED_CYAN
+format-foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
+format-underline = ${COLORSCHEME_POLYBAR_MUSIC_UNDERLINE_COLOR}
 
 [module/monitorname]
 type = custom/script
@@ -236,23 +241,23 @@ exec = echo \$DISPLAYNAME
 interval = 60
 label = "%output% "
 format-prefix = "  "
-format-prefix-foreground = ${polybar_colors[bright]}
+format-prefix-foreground = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 format-prefix-font = 2
-format-foreground = ${polybar_colors[foreground]}
-format-underline = ${polybar_colors[bright]}
+format-foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
+format-underline = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 
 [module/syncthing]
 type = custom/script
 exec = \$DOTFILE_DIR/bin/i3/ststatus
 interval = 5
 label = " %{T2}%{A1:xdg-open http\://localhost\:8384:}%output%%{A}%{T-} "
-label-underline = ${polybar_colors[bright]}
+label-underline = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 
 [module/updates]
 type = custom/script
 exec = \$DOTFILE_DIR/bin/i3/updatestatus
 interval = 3600
-label-underline = $SOLARIZED_YELLOW
+label-underline = ${COLORSCHEME_YELLOW}
 
 [module/wifi]
 type = internal/network
@@ -260,11 +265,11 @@ interface = $wifi
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = $SOLARIZED_GREEN
+format-connected-underline = ${COLORSCHEME_GREEN}
 label-connected = %essid% %signal%%
 
 format-disconnected =
-format-disconnected-underline = $SOLARIZED_RED
+format-disconnected-underline = ${COLORSCHEME_RED}
 
 ramp-signal-0 = 
 ramp-signal-1 = 
@@ -272,25 +277,25 @@ ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-font = 2
-ramp-signal-foreground = ${polybar_colors[selected_foreground]}
+ramp-signal-foreground = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
 
 [module/date]
 type = custom/script
 interval = 5
 exec = \$DOTFILE_DIR/bin/i3/bardate
 
-format-underline = $SOLARIZED_BLUE
+format-underline = ${COLORSCHEME_BLUE}
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-label-volume = " %{F${polybar_colors[bright]}}%{T2}%{F-}%{T-} %percentage:3%% "
-label-volume-foreground = ${polybar_colors[foreground]}
-label-volume-underline = $SOLARIZED_CYAN
+label-volume = " %{F${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}}%{T2}%{F-}%{T-} %percentage:3%% "
+label-volume-foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
+label-volume-underline = ${COLORSCHEME_POLYBAR_AUDIO_UNDERLINE_COLOR}
 
-label-muted = %{F${SOLARIZED_RED}}%{T2}%{F-}%{T-} %percentage:3%%
-label-muted-foreground = ${polybar_colors[foreground]}
-label-muted-underline = $SOLARIZED_CYAN
+label-muted = " %{F${COLORSCHEME_RED}}%{T2}%{F-}%{T-} %percentage:3%% "
+label-muted-foreground = ${COLORSCHEME_POLYBAR_FG_COLOR}
+label-muted-underline = ${COLORSCHEME_POLYBAR_AUDIO_UNDERLINE_COLOR}
 
 [settings]
 screenchange-reload = true
