@@ -1,6 +1,3 @@
-let g:airline_theme='solarized'
-let g:airline_solarized_dark_inactive_border = '1'
-
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif

@@ -25,7 +25,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'altercation/vim-colors-solarized'
+    Plug 'arcticicestudio/nord-vim'
 
     " tmux integration
 
