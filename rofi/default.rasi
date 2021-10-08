@@ -140,3 +140,4 @@ textbox-prompt-colon {
     text-color: inherit;
 }
 
+// vim: ft=css

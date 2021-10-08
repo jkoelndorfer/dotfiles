@@ -1,9 +1,7 @@
 #!/bin/bash
 
-font_size=12
-display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
-if [[ "$display_profile" == 'UHD' ]]; then
-    font_size=20
+if [[ -z "$DISPLAY_PROFILE" ]]; then
+    DISPLAY_PROFILE=$("$DOTFILE_DIR/bin/gui/display-profile")
 fi
 
 exec /usr/bin/rofi \
@@ -11,5 +9,7 @@ exec /usr/bin/rofi \
     -matching fuzzy \
     -sort \
     -sorting-method fzf \
-    -theme-str "* { font: \"mononoki Nerd Font Mono $font_size\"; }" \
-    -theme "$DOTFILE_DIR/rofi/solarized-dark.rasi" "$@"
+    -theme-str "@import \"$DOTFILE_DIR/theme/$DESKTOP_THEME/rofi-colors.rasi\"" \
+    -theme-str "@import \"$DOTFILE_DIR/rofi/display-profile-${DISPLAY_PROFILE}.rasi\"" \
+    -theme-str "@import \"$DOTFILE_DIR/rofi/theme.rasi\"" \
+    -theme "$DOTFILE_DIR/rofi/default.rasi" "$@"
