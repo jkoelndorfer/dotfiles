@@ -24,31 +24,24 @@ url_permissions: Dict[str, Dict[bool, List[str]]] = {
         True: [
             # Needed for mailto: links.
             "https://mail.google.com/*",
-
             # Needed for webcal links.
             "https://calendar.google.com/*",
         ],
-        False: [
-        ],
+        False: [],
     },
-
     "content.javascript.can_open_tabs_automatically": {
         True: [
             # Allow popups for my bank's online portal.
             "https://www.financial-net.com/*",
         ],
-        False: [
-        ],
+        False: [],
     },
-
     content_notifications_enabled: {
-        True: [
-        ],
+        True: [],
         False: [
             "https://www.reddit.com",
         ],
     },
-
     # Audio and video capture requires special permission configuration.
     # Set those in url_permissions_media below.
 }
@@ -169,130 +162,137 @@ def configure(config: ConfigAPI, c: ConfigContainer):
     config_colors(c)
 
 
-class Solarized:
+class Colorscheme:
     """
-    Contains the Solarized color palette.
+    Maps colors from our colorscheme onto their intended purpose.
     """
+
     # A wrapper script at $DOTFILE_DIR/bin/qutebrowser sets these
     # values in the environment for us.
-    BASE00  = os.environ["SOLARIZED_BASE00"]
-    BASE01  = os.environ["SOLARIZED_BASE01"]
-    BASE02  = os.environ["SOLARIZED_BASE02"]
-    BASE03  = os.environ["SOLARIZED_BASE03"]
-    BASE0   = os.environ["SOLARIZED_BASE0"]
-    BASE1   = os.environ["SOLARIZED_BASE1"]
-    BASE2   = os.environ["SOLARIZED_BASE2"]
-    BASE3   = os.environ["SOLARIZED_BASE3"]
-    YELLOW  = os.environ["SOLARIZED_YELLOW"]
-    ORANGE  = os.environ["SOLARIZED_ORANGE"]
-    RED     = os.environ["SOLARIZED_RED"]
-    MAGENTA = os.environ["SOLARIZED_MAGENTA"]
-    VIOLET  = os.environ["SOLARIZED_VIOLET"]
-    BLUE    = os.environ["SOLARIZED_BLUE"]
-    CYAN    = os.environ["SOLARIZED_CYAN"]
-    GREEN   = os.environ["SOLARIZED_GREEN"]
+    BG_SHADE_0 = os.environ["COLORSCHEME_BG_SHADE_0"]
+    BG_SHADE_1 = os.environ["COLORSCHEME_BG_SHADE_1"]
+    BG_SHADE_2 = os.environ["COLORSCHEME_BG_SHADE_2"]
+    BG_SHADE_3 = os.environ["COLORSCHEME_BG_SHADE_3"]
+
+    FG_SHADE_0 = os.environ["COLORSCHEME_FG_SHADE_0"]
+    FG_SHADE_1 = os.environ["COLORSCHEME_FG_SHADE_1"]
+    FG_SHADE_2 = os.environ["COLORSCHEME_FG_SHADE_2"]
+    FG_SHADE_3 = os.environ["COLORSCHEME_FG_SHADE_3"]
+
+    BLUE = os.environ["COLORSCHEME_BLUE"]
+    RED = os.environ["COLORSCHEME_RED"]
+    ORANGE = os.environ["COLORSCHEME_ORANGE"]
+    YELLOW = os.environ["COLORSCHEME_YELLOW"]
+    GREEN = os.environ["COLORSCHEME_GREEN"]
+
+    ACCENT1_SHADE_0 = os.environ["COLORSCHEME_ACCENT1_SHADE_0"]
+    ACCENT1_SHADE_1 = os.environ["COLORSCHEME_ACCENT1_SHADE_1"]
+    ACCENT1_SHADE_2 = os.environ["COLORSCHEME_ACCENT1_SHADE_2"]
+
+    ACCENT2_SHADE_0 = os.environ["COLORSCHEME_ACCENT2_SHADE_0"]
 
 
 def config_colors(c: ConfigContainer):
     # Completion
-    c.colors.completion.fg = Solarized.BASE1
+    c.colors.completion.fg = Colorscheme.FG_SHADE_1
 
-    c.colors.completion.category.border.bottom = Solarized.BASE03
-    c.colors.completion.category.border.top = Solarized.BASE03
-    c.colors.completion.category.bg = Solarized.BASE03
-    c.colors.completion.category.fg = Solarized.BASE3
+    c.colors.completion.category.border.bottom = Colorscheme.BG_SHADE_0
+    c.colors.completion.category.border.top = Colorscheme.BG_SHADE_0
+    c.colors.completion.category.bg = Colorscheme.BG_SHADE_0
+    c.colors.completion.category.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.completion.item.selected.border.bottom = Solarized.BASE1
-    c.colors.completion.item.selected.border.top = Solarized.BASE1
-    c.colors.completion.item.selected.bg = Solarized.BASE1
-    c.colors.completion.item.selected.fg = Solarized.BASE3
+    c.colors.completion.item.selected.border.bottom = Colorscheme.FG_SHADE_3
+    c.colors.completion.item.selected.border.top = Colorscheme.FG_SHADE_3
+    c.colors.completion.item.selected.bg = Colorscheme.BG_SHADE_3
+    c.colors.completion.item.selected.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.completion.match.fg = Solarized.BASE3
-    c.colors.completion.even.bg = Solarized.BASE03
-    c.colors.completion.odd.bg = Solarized.BASE02
-    c.colors.completion.scrollbar.bg = Solarized.BASE03
-    c.colors.completion.scrollbar.fg = Solarized.BASE1
+    c.colors.completion.match.fg = Colorscheme.FG_SHADE_3
+    c.colors.completion.even.bg = Colorscheme.BG_SHADE_0
+    c.colors.completion.odd.bg = Colorscheme.BG_SHADE_1
+    c.colors.completion.scrollbar.bg = Colorscheme.BG_SHADE_0
+    c.colors.completion.scrollbar.fg = Colorscheme.FG_SHADE_1
 
     # Downloads
-    c.colors.downloads.bar.bg = Solarized.BASE03
-    c.colors.downloads.error.bg = Solarized.RED
-    c.colors.downloads.error.fg = Solarized.BASE3
-    c.colors.downloads.start.fg = Solarized.BASE3
+    c.colors.downloads.bar.bg = Colorscheme.BG_SHADE_0
+    c.colors.downloads.error.bg = Colorscheme.RED
+    c.colors.downloads.error.fg = Colorscheme.FG_SHADE_3
+    c.colors.downloads.start.bg = Colorscheme.GREEN
+    c.colors.downloads.start.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.hints.bg = Solarized.BASE02
-    c.colors.hints.fg = Solarized.BASE1
-    c.colors.hints.match.fg = Solarized.ORANGE
+    c.colors.hints.bg = Colorscheme.BG_SHADE_1
+    c.colors.hints.fg = Colorscheme.FG_SHADE_1
+    c.colors.hints.match.fg = Colorscheme.ORANGE
 
-    c.colors.keyhint.fg = Solarized.BASE3
-    c.colors.keyhint.suffix.fg = Solarized.YELLOW
+    c.colors.keyhint.fg = Colorscheme.FG_SHADE_3
+    c.colors.keyhint.suffix.fg = Colorscheme.YELLOW
 
-    c.colors.messages.error.bg = Solarized.RED
-    c.colors.messages.error.border = Solarized.RED
-    c.colors.messages.error.fg = Solarized.BASE3
+    c.colors.messages.error.bg = Colorscheme.RED
+    c.colors.messages.error.border = Colorscheme.RED
+    c.colors.messages.error.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.messages.info.bg = Solarized.BASE03
-    c.colors.messages.info.border = Solarized.BASE03
-    c.colors.messages.info.fg = Solarized.BASE3
+    c.colors.messages.info.bg = Colorscheme.BG_SHADE_0
+    c.colors.messages.info.border = Colorscheme.BG_SHADE_0
+    c.colors.messages.info.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.messages.warning.bg = Solarized.ORANGE
-    c.colors.messages.warning.border = Solarized.ORANGE
-    c.colors.messages.warning.fg = Solarized.BASE3
+    c.colors.messages.warning.bg = Colorscheme.ORANGE
+    c.colors.messages.warning.border = Colorscheme.ORANGE
+    c.colors.messages.warning.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.prompts.bg = Solarized.BASE02
-    c.colors.prompts.border = '1px solid ' + Solarized.BASE03
-    c.colors.prompts.fg = Solarized.BASE3
-    c.colors.prompts.selected.bg = Solarized.BASE01
+    c.colors.prompts.bg = Colorscheme.BG_SHADE_1
+    c.colors.prompts.border = "1px solid " + Colorscheme.BG_SHADE_0
+    c.colors.prompts.fg = Colorscheme.FG_SHADE_3
+    c.colors.prompts.selected.bg = Colorscheme.BG_SHADE_2
 
-    c.colors.statusbar.caret.bg = Solarized.BLUE
-    c.colors.statusbar.caret.fg = Solarized.BASE2
+    c.colors.statusbar.caret.bg = Colorscheme.BLUE
+    c.colors.statusbar.caret.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.caret.selection.bg = Solarized.MAGENTA
-    c.colors.statusbar.caret.selection.fg = Solarized.BASE2
+    c.colors.statusbar.caret.selection.bg = Colorscheme.ORANGE
+    c.colors.statusbar.caret.selection.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.command.bg = Solarized.BASE03
-    c.colors.statusbar.command.fg = Solarized.BASE2
+    c.colors.statusbar.command.bg = Colorscheme.BG_SHADE_0
+    c.colors.statusbar.command.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.insert.bg = Solarized.YELLOW
-    c.colors.statusbar.insert.fg = Solarized.BASE2
+    c.colors.statusbar.insert.bg = Colorscheme.ACCENT1_SHADE_0
+    c.colors.statusbar.insert.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.normal.bg = Solarized.BASE03
-    c.colors.statusbar.normal.fg = Solarized.BASE2
+    c.colors.statusbar.normal.bg = Colorscheme.BG_SHADE_0
+    c.colors.statusbar.normal.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.passthrough.bg = Solarized.ORANGE
-    c.colors.statusbar.passthrough.fg = Solarized.BASE2
+    c.colors.statusbar.passthrough.bg = Colorscheme.ORANGE
+    c.colors.statusbar.passthrough.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.progress.bg = Solarized.BASE2
+    c.colors.statusbar.progress.bg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.command.private.bg = Solarized.VIOLET
-    c.colors.statusbar.command.private.fg = Solarized.BASE2
-    c.colors.statusbar.private.bg = Solarized.VIOLET
-    c.colors.statusbar.private.fg = Solarized.BASE2
+    c.colors.statusbar.command.private.bg = Colorscheme.ACCENT1_SHADE_0
+    c.colors.statusbar.command.private.fg = Colorscheme.FG_SHADE_2
+    c.colors.statusbar.private.bg = Colorscheme.ACCENT1_SHADE_0
+    c.colors.statusbar.private.fg = Colorscheme.FG_SHADE_2
 
-    c.colors.statusbar.url.fg = Solarized.BASE2
-    c.colors.statusbar.url.hover.fg = Solarized.BASE3
-    c.colors.statusbar.url.error.fg = Solarized.RED
-    c.colors.statusbar.url.success.http.fg = Solarized.ORANGE
-    c.colors.statusbar.url.success.https.fg = Solarized.BASE2
+    c.colors.statusbar.url.fg = Colorscheme.FG_SHADE_2
+    c.colors.statusbar.url.hover.fg = Colorscheme.FG_SHADE_3
+    c.colors.statusbar.url.error.fg = Colorscheme.RED
+    c.colors.statusbar.url.success.http.fg = Colorscheme.ORANGE
+    c.colors.statusbar.url.success.https.fg = Colorscheme.FG_SHADE_2
 
     ## Foreground color of the URL in the statusbar when there's a warning.
     ## Type: QssColor
-    c.colors.statusbar.url.warn.fg = Solarized.YELLOW
+    c.colors.statusbar.url.warn.fg = Colorscheme.YELLOW
 
-    c.colors.tabs.bar.bg = Solarized.BASE03
-    c.colors.tabs.even.bg = Solarized.BASE02
-    c.colors.tabs.even.fg = Solarized.BASE1
+    c.colors.tabs.bar.bg = Colorscheme.BG_SHADE_0
 
-    c.colors.tabs.indicator.error = Solarized.RED
-    c.colors.tabs.indicator.start = Solarized.YELLOW
-    c.colors.tabs.indicator.stop = Solarized.GREEN
+    c.colors.tabs.even.bg = Colorscheme.BG_SHADE_1
+    c.colors.tabs.even.fg = Colorscheme.FG_SHADE_1
+    c.colors.tabs.odd.bg = Colorscheme.BG_SHADE_1
+    c.colors.tabs.odd.fg = Colorscheme.FG_SHADE_1
 
-    c.colors.tabs.odd.bg = Solarized.BASE02
-    c.colors.tabs.odd.fg = Solarized.BASE1
+    c.colors.tabs.selected.even.bg = Colorscheme.BG_SHADE_2
+    c.colors.tabs.selected.even.fg = Colorscheme.FG_SHADE_3
+    c.colors.tabs.selected.odd.bg = Colorscheme.BG_SHADE_2
+    c.colors.tabs.selected.odd.fg = Colorscheme.FG_SHADE_3
 
-    c.colors.tabs.selected.even.bg = Solarized.BASE01
-    c.colors.tabs.selected.even.fg = Solarized.BASE3
+    c.colors.tabs.indicator.error = Colorscheme.RED
+    c.colors.tabs.indicator.start = Colorscheme.YELLOW
+    c.colors.tabs.indicator.stop = Colorscheme.GREEN
 
-    c.colors.tabs.selected.odd.bg = Solarized.BASE01
-    c.colors.tabs.selected.odd.fg = Solarized.BASE3
 
 configure(config, c)  # type: ignore[name-defined]

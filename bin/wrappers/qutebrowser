@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 while read e; do
     export $e
-done < <(set | grep -E '^SOLARIZED_[A-Z0-9]+=' | awk -F= '{ print $1 }')
+done < <(set | grep -E '^COLORSCHEME_[A-Z0-9_]+=' | awk -F= '{ print $1 }')
 
 # Hide Wayland from qutebrowser so that it must use XWayland.
 #
