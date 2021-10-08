@@ -1,0 +1,3 @@
+#!/bin/bash
+
+eval "$(dircolors "$DOTFILE_DIR/theme/nord/nord-dircolors/src/dir_colors")"
