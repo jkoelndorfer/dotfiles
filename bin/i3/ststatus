@@ -4,7 +4,7 @@
 
 script_dir=$(dirname "$0")
 
-source "$script_dir/../../theme/solarized-dark/colors"
+source "$script_dir/../../theme/$DESKTOP_THEME/colors"
 
 st_config="$HOME/.config/syncthing/config.xml"
 st_api_key=$(xmllint "$st_config" --xpath 'configuration/gui/apikey/text()')
@@ -25,7 +25,7 @@ function status() {
     if [[ -z "$WAYLAND_DISPLAY" ]]; then
         echo -n '%{T2}'
     fi
-    echo -n "$(colorize '' "$SOLARIZED_BASE3") "
+    echo -n "$(colorize '' "$COLORSCHEME_FG_SHADE_2") "
     echo -n "$(colorize "$icon" "$color")"
     if [[ -z "$WAYLAND_DISPLAY" ]]; then
         echo -n '%{T-}'
@@ -39,17 +39,17 @@ function s() {
 }
 
 if [[ -z "$ST_CENTRAL_DEVICE_ID" ]]; then
-    status  "$SOLARIZED_RED"
+    status  "$COLORSCHEME_RED"
     exit 0
 fi
 st_connections=$(s system/connections)
 st_status=$(s system/connections | jq -r ".connections.\"${ST_CENTRAL_DEVICE_ID}\".connected" 2>/dev/null)
 if [[ -z "$st_connections" ]]; then
-    status  "$SOLARIZED_RED"
+    status  "$COLORSCHEME_RED"
 elif [[ "$st_status" == 'true' ]]; then
-    status  "$SOLARIZED_GREEN"
+    status  "$COLORSCHEME_GREEN"
 elif [[ "$st_status" == 'false' ]]; then
-    status  "$SOLARIZED_ORANGE"
+    status  "$COLORSCHEME_ORANGE"
 else
-    status ? "$SOLARIZED_ORANGE"
+    status ? "$COLORSCHEME_ORANGE"
 fi
