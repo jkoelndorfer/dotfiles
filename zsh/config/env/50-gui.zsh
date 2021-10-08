@@ -11,3 +11,5 @@ export SCREENLOCK_MUSIC_RESUME_TIME_SECONDS=1200
 # Time, in seconds, after which the mouse cursor will be hidden
 # if the mouse is not moved.
 export CURSOR_HIDE_TIME_SECONDS=5
+
+export DESKTOP_THEME='nord'
