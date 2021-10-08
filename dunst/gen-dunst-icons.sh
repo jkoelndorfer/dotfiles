@@ -1,6 +1,6 @@
 #!/bin/zsh -l
 
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 
@@ -16,8 +16,8 @@ function generate_icon() {
     local character="$1"
     local icon_path="$2"
     convert -size "$icon_size" \
-        -background "$SOLARIZED_BASE02" \
-        -fill "$SOLARIZED_BASE3" \
+        -background "$COLORSCHEME_DUNST_BG_COLOR" \
+        -fill "$COLORSCHEME_PRIMARY_FG_COLOR" \
         -pointsize "$pointsize" \
         -font 'mononoki-Regular-Nerd-Font-Complete-Mono' \
         -gravity center \
