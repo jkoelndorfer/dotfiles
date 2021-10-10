@@ -7,15 +7,23 @@ if [[ -z "$wm" ]]; then
     exit 1
 fi
 
+script_dir=$(dirname "$0")
+cd "$script_dir"
+
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 source "$DOTFILE_DIR/lib/sh/gui.sh"
 
+# If a graphical program is started by this script directly instead
+# of allowing i3 to start it with --no-startup-id, you will sometimes
+# find an hourglass cursor when you hover over those applications.
+#
+# That's annoying, so let's allow i3 to start those apps.
 function restart_daemon() {
     local daemon=$1
     shift
 
     kill_processes_in_display "$daemon"
-    "$daemon" "$@" &
+    ./i3swaymsg -- exec --no-startup-id "$daemon" "$@" &
     disown
 }
 

@@ -84,5 +84,5 @@ bindcode $prog_prefix+$kc_g exec $DOTFILE_DIR/bin/gaming/grim-dawn/select-gd-sta
 
 
 # Dunst
-bindcode $ctrl+$kc_grave exec dunstctl history-pop
-bindcode $ctrl+$kc_Space exec dunstctl close
+bindcode $ctrl+$kc_grave exec --no-startup-id dunstctl history-pop
+bindcode $ctrl+$kc_Space exec --no-startup-id dunstctl close
