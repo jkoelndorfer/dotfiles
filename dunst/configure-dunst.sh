@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 
 dunst_config_dir="$HOME/.config/dunst"
 
@@ -52,7 +52,7 @@ read -r -d '' dunst_config <<EOF
     frame_width = $dunst_frame_width
     show_indicators = false
 
-    frame_color = "$SOLARIZED_BASE01"
+    frame_color = "$COLORSCHEME_DUNST_BORDER_COLOR"
     separator_color = frame
     sort = no
     idle_threshold = 0
@@ -97,19 +97,19 @@ read -r -d '' dunst_config <<EOF
     force_xinerama = false
 
 [urgency_low]
-    background = "$SOLARIZED_BASE02"
-    foreground = "$SOLARIZED_BASE1"
+    background = "$COLORSCHEME_DUNST_BG_COLOR"
+    foreground = "$COLORSCHEME_DUNST_FG_COLOR"
     timeout = 5
 
 [urgency_normal]
-    background = "$SOLARIZED_BASE02"
-    foreground = "$SOLARIZED_BASE1"
+    background = "$COLORSCHEME_DUNST_BG_COLOR"
+    foreground = "$COLORSCHEME_DUNST_FG_COLOR"
     timeout = 5
 
 [urgency_critical]
-    background = "$SOLARIZED_BASE02"
-    foreground = "$SOLARIZED_BASE1"
-    frame_color = "$SOLARIZED_RED"
+    background = "$COLORSCHEME_DUNST_BG_COLOR"
+    foreground = "$COLORSCHEME_DUNST_FG_COLOR"
+    frame_color = "$COLORSCHEME_RED"
     timeout = 0
 
 # NOTE: We use some shell script magic to autogenerate these

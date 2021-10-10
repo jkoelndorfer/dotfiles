@@ -68,6 +68,6 @@ gen_workspace_display_indicators
     if [[ "$json" == '1' ]]; then
         jq -R 'split("\t") | {(.[2]): {"icon": .[0], "display_indicator": .[1]}}' | jq -s add
     else
-        column -t -o ' '
+        column -t -o '  '
     fi
 }

@@ -1,0 +1,74 @@
+* {
+    nord0:  #2e3440;
+    nord1:  #3b4252;
+    nord2:  #434c5e;
+    nord3:  #4c566a;
+    nord4:  #d8dee9;
+    nord5:  #e5e9f0;
+    nord6:  #eceff4;
+    nord7:  #8fbcbb;
+    nord8:  #88c0d0;
+    nord9:  #81a1c1;
+    nord10: #5e81ac;
+    nord11: #bf616a;
+    nord12: #d08770;
+    nord13: #ebcb8b;
+    nord14: #a3be8c;
+    nord15: #b48ead;
+
+    nord-polarnight-0: @nord0;
+    nord-polarnight-1: @nord1;
+    nord-polarnight-2: @nord2;
+    nord-polarnight-3: @nord3;
+
+    nord-snowstorm-0: @nord4;
+    nord-snowstorm-1: @nord5;
+    nord-snowstorm-2: @nord6;
+
+    nord-frost-seafoam-green: @nord7;
+    nord-frost-cyan: @nord8;
+    nord-frost-light-blue: @nord9;
+    nord-frost-dark-blue: @nord10;
+
+    nord-aurora-red: @nord11;
+    nord-aurora-orange: @nord12;
+    nord-aurora-yellow: @nord13;
+    nord-aurora-green: @nord14;
+    nord-aurora-purple: @nord15;
+
+    background:          @nord-polarnight-0;
+    background-alt:      @nord-polarnight-1;
+    foreground:          @nord-snowstorm-0;
+
+    normal-background:   @nord-polarnight-0;
+    normal-foreground:   @nord-snowstorm-0;
+
+    active-background:   @nord-polarnight-3;
+    active-foreground:   @nord-snowstorm-0;
+
+    urgent-background:   @nord-polarnight-3;
+    urgent-foreground:   @nord-snowstorm-0;
+
+    alternate-normal-background: @nord-polarnight-1;
+    alternate-normal-foreground: @nord-snowstorm-0;
+
+    alternate-active-background: @nord-polarnight-1;
+    alternate-active-foreground: @nord-snowstorm-0;
+
+    selected-normal-background: @nord-polarnight-3;
+    selected-normal-foreground: @nord-snowstorm-0;
+
+    selected-active-background: @nord-polarnight-3;
+    selected-active-foreground: @nord-snowstorm-0;
+
+    selected-urgent-background: @nord-polarnight-3;
+    selected-urgent-foreground: @nord-snowstorm-0;
+
+    separator-color: @nord-snowstorm-0;
+
+    background-color: inherit;
+    foreground-color: inherit;
+
+    default-background-color: @nord-polarnight-0;
+    inputbar-background: @nord-polarnight-2;
+}

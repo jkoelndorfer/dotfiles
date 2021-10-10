@@ -1,0 +1,24 @@
+* {
+    font-regular: "mononoki nerd font mono 20";
+    font-entry: "mononoki Nerd Font Mono 24";
+    font-prompt-icon: "mononoki Nerd Font Mono 48";
+
+    /* margins are specified: top, right, bottom, left */
+
+    /* use margin-entry's top field to align text within the input box */
+    margin-entry:    15px 0 0 0;
+
+    margin-inputbar: 0 0 10px 0;
+    margin-mainbox:  10px;
+    margin-listview: 10px 0 0 0;
+    margin-prompt:   0 20px 0 0;
+
+    border-regular: 1px;
+
+    padding-element: 6px;
+    padding-prompt:  0 15px 0 10px;
+
+    spacing-listview: 10px;
+}
+
+// vim: ft=css

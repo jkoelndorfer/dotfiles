@@ -20,7 +20,7 @@ selected_workspace="$(
     # If the workspace selected starts with an icon and an output
     # indicator, it's one of the built-in workspaces or already exists.
     # We need to strip the leading bits off.
-    sed -r -e 's/^. . //' |
+    sed -r -e 's/^.\s+.\s+//' |
     sed -r -e 's/(\s+|\.|\*)/-/g'
 )"
 

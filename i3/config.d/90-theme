@@ -2,25 +2,25 @@
 
 wm=$1
 
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 
 cat <<EOF
-set \$base03  $SOLARIZED_BASE03
-set \$base02  $SOLARIZED_BASE02
-set \$base01  $SOLARIZED_BASE01
-set \$base00  $SOLARIZED_BASE00
-set \$base0   $SOLARIZED_BASE0
-set \$base1   $SOLARIZED_BASE1
-set \$base2   $SOLARIZED_BASE2
-set \$base3   $SOLARIZED_BASE3
-set \$yellow  $SOLARIZED_YELLOW
-set \$orange  $SOLARIZED_ORANGE
-set \$red     $SOLARIZED_RED
-set \$magenta $SOLARIZED_MAGENTA
-set \$violet  $SOLARIZED_VIOLET
-set \$blue    $SOLARIZED_BLUE
-set \$cyan    $SOLARIZED_CYAN
-set \$green   $SOLARIZED_GREEN
+set \$bg_shade0 $NORD_POLARNIGHT_0
+set \$bg_shade1 $NORD_POLARNIGHT_1
+set \$bg_shade2 $NORD_POLARNIGHT_2
+set \$bg_shade3 $NORD_POLARNIGHT_3
+
+set \$fg_shade0 $NORD_SNOWSTORM_0
+set \$fg_shade1 $NORD_SNOWSTORM_1
+set \$fg_shade2 $NORD_SNOWSTORM_2
+set \$fg_shade3 $NORD_SNOWSTORM_2
+
+set \$yellow    $NORD_AURORA_YELLOW
+set \$green     $NORD_AURORA_GREEN
+set \$orange    $NORD_AURORA_ORANGE
+set \$red       $NORD_AURORA_RED
+set \$blue      $NORD_FROST_DARK_BLUJE
+set \$cyan      $NORD_FROST_CYAN
 
 EOF
 
@@ -28,9 +28,9 @@ cat <<'EOF'
 # To make a solid, single color border, make sure border, background, indicator, and
 # child_border all have the same value.
 #
-# <colorclass>          <border>  <background> <text>   <indicator>  <child_border>
-client.focused          $base1    $base1       $base3   $base1       $base1
-client.focused_inactive $base02   $base02      $base0   $base02      $base02
-client.unfocused        $base02   $base02      $base0   $base02      $base02
-client.urgent           $base02   $red         $base3   $base03      $red
+# <colorclass>          <border>    <background> <text>      <indicator>  <child_border>
+client.focused          $fg_shade1  $fg_shade1   $fg_shade3  $fg_shade1   $fg_shade1
+client.focused_inactive $bg_shade1  $bg_shade1   $fg_shade0  $bg_shade1   $bg_shade1
+client.unfocused        $bg_shade1  $bg_shade1   $fg_shade0  $bg_shade1   $bg_shade1
+client.urgent           $bg_shade1  $red         $fg_shade3  $bg_shade3   $red
 EOF

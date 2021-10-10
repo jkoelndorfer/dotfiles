@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-source "$DOTFILE_DIR/theme/solarized-dark/colors"
-source "$DOTFILE_DIR/theme/solarized-dark/wallpaper"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
+source "$DOTFILE_DIR/theme/$DESKTOP_THEME/wallpaper"
 source "$DOTFILE_DIR/lib/sh/gui.sh"
 source "$DOTFILE_DIR/lib/sh/wallpaper.sh"
 

@@ -13,7 +13,7 @@ read -r -d '' i3_window_query <<'EOF'
     .id as $id |
     $wsicons[$wsname]["icon"] as $icon |
     $wsicons[$wsname]["display_indicator"] as $display_indicator |
-    .window_properties + {"app_id": .app_id, "name": .name} + {"id": $id, "workspace": $wsname, "workspace_display": "\($icon) \($display_indicator) \($wsname)"} |
+    .window_properties + {"app_id": .app_id, "name": .name} + {"id": $id, "workspace": $wsname, "workspace_display": "\($icon)  \($display_indicator)  \($wsname)"} |
     select(.workspace != "__i3_scratch")]
 EOF
 i3_windows=$((./workspaces -j; ./i3swaymsg -t get_tree) | jq -s -r "$i3_window_query")
