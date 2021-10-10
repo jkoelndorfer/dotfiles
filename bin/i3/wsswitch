@@ -3,7 +3,7 @@
 script_dir="$(dirname "$0")"
 i3_workspaces="$(i3-msg -t get_workspaces)"
 active_output="$(echo "$i3_workspaces" | jq -r '.[] | select(.focused == true) | .output')"
-selected_workspace="$("$script_dir/wssel" 'switch to workspace')"
+selected_workspace="$("$script_dir/wssel" '')"
 if [[ -z "$selected_workspace" ]]; then
     exit 1
 fi

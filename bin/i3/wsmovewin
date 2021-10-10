@@ -2,7 +2,7 @@
 
 # Moves the currently window to the selected workspace.
 script_dir="$(dirname "$0")"
-selected_workspace="$("$script_dir/wssel" 'move window to workspace')"
+selected_workspace="$("$script_dir/wssel" '缾  ')"
 
 [[ -z "$selected_workspace" ]] && exit 1
 
