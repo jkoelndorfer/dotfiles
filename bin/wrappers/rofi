@@ -6,7 +6,7 @@ fi
 
 exec /usr/bin/rofi \
     -monitor -4 \
-    -matching fuzzy \
+    -matching normal \
     -sort \
     -sorting-method fzf \
     -theme-str "@import \"$DOTFILE_DIR/theme/$DESKTOP_THEME/rofi-colors.rasi\"" \
