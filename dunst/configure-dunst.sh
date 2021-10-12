@@ -5,11 +5,11 @@ source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 dunst_config_dir="$HOME/.config/dunst"
 
 xrdb_q=$(xrdb -query)
-polybar_barheight=$(echo "$xrdb_q" | awk '$1 == "polybar.barheight:" { print $2 }')
-gaps_outer=$(echo "$xrdb_q" | awk '$1 == "i3wm.gaps_outer:" { print $2 }')
-window_border=$(echo "$xrdb_q" | awk '$1 == "i3wm.default_border:" { print $2 }')
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 if [[ "$display_profile" == "HD" ]]; then
+    polybar_barheight=25
+    gaps_outer=2
+    window_border=2
     x=$(( gaps_outer + window_border ))
     y=$(( polybar_barheight + gaps_outer + window_border ))
     dunst_frame_width=2
@@ -18,8 +18,11 @@ elif [[ "$display_profile" == "UHD" ]]; then
     # In order to line up correctly, the dunst window needs to be positioned
     # differently on a 4k display. I believe it has to do with some apps scaling
     # with 4k and others not.
-    x=$(( (gaps_outer * 2) + (window_border * 2) + 1 ))
-    y=$(( polybar_barheight + (gaps_outer * 2) + (window_border * 2) + 1 ))
+    polybar_barheight=36
+    gaps_outer=2
+    window_border=2
+    x=$(( (gaps_outer * 2) + (window_border * 2) ))
+    y=$(( polybar_barheight + (gaps_outer * 2) + (window_border * 2) ))
     dunst_frame_width=4
     geometry="600x5-$x+$y"
 fi
