@@ -141,7 +141,7 @@ modules-right = monitorname date
 
 [module/xwindow]
 type = internal/xwindow
-label = " %{F${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}}%{T2} %{T-}%{F-}%title:0:120:...% "
+label = " %{F${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}}%{T2} %{T-}%{F-}%title:0:80:...% "
 format-underline = ${COLORSCHEME_POLYBAR_FG_SELECTED_COLOR}
 
 [module/i3]
@@ -228,7 +228,7 @@ type = custom/script
 exec = playerctl -p spotify metadata --format "{{ artist }} - {{ title }}"
 exec-if = playerctl -p spotify status 2>&1 | grep -v -e 'No players found' -e 'Could not connect to players'
 interval = 5
-label = "%output% "
+label = "%output:0:45:...% "
 format-prefix = "  "
 format-prefix-foreground = ${COLORSCHEME_POLYBAR_FG_HIGHLIGHT_COLOR}
 format-prefix-font = 2
