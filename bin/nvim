@@ -1,0 +1,34 @@
+#!/bin/bash
+
+PROJECT_ROOT=$(git root 2>/dev/null)
+if [[ -n "$PROJECT_ROOT" ]]; then
+    export PROJECT_ROOT
+fi
+
+# If we're situated in a Python project, ensure that PYTHONPATH
+# includes the current project directory. This helps the language
+# server find code for autocompletion.
+is_python=0
+declare -a cmd=()
+if [[ -d "$PROJECT_ROOT/.venv" ]]; then
+    is_python=1
+    source .venv/bin/activate
+elif [[ -f "$PROJECT_ROOT/pyproject.toml" ]]; then
+    is_python=1
+    cmd=(poetry run)
+elif [[ -f "$PROJECT_ROOT/Pipfile" ]]; then
+    is_python=1
+    cmd=(pipenv run)
+fi
+
+if [[ "$is_python" == '1' ]]; then
+    if [[ -n "$PYTHONPATH" ]]; then
+        PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"
+    else
+        PYTHONPATH="$PROJECT_ROOT"
+    fi
+    export PYTHONPATH
+fi
+
+next_nvim=$(which -a nvim | head -n2 | tail -n1)
+"${cmd[@]}" "$next_nvim" "$@"

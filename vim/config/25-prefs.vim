@@ -113,3 +113,10 @@ autocmd BufWritePre * call TrimTrailingWhitespace()
 
 " Also highlight trailing whitespace, because it's wrong and I hate it.
 match ErrorMsg '\s\+$'
+
+" If $PROJECT_ROOT is set by our wrapper script, change to the project root
+" directory. Generally we want to be operating in the project root for
+" consistency and so things like Telescope behave better.
+if !empty($PROJECT_ROOT)
+    cd $PROJECT_ROOT
+endif
