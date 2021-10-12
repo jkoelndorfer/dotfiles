@@ -46,16 +46,6 @@ URxvt.perl-ext-common: focus-events,resize-font,selection-to-clipboard
 ! https://www.reddit.com/r/urxvt/comments/35x03n/if_youve_been_vexed_by_urxvts_picture_insert_mode/
 URxvt.iso14755: false
 
-i3wm.default_border: 2
-i3wm.default_floating_border: 2
-
-i3wm.gaps_outer: 2
-i3wm.gaps_inner: 2
-
-i3wm.displayname_primary: $DISPLAYNAME_PRIMARY
-i3wm.displayname_secondary: $DISPLAYNAME_SECONDARY
-i3wm.displayname_tertiary: $DISPLAYNAME_TERTIARY
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Copy/paste, font size keybinds !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
