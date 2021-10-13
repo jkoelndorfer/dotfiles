@@ -125,6 +125,10 @@ read -r -d '' dunst_config <<EOF
 [discord]
     appname = discord
     new_icon = discord # ﭮ
+
+[spotify]
+    appname = Spotify
+    new_icon = spotify # 
 EOF
 
 echo "$dunst_config" > "$dunst_config_dir/dunstrc"
