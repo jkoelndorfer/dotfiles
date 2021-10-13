@@ -36,6 +36,16 @@ local ncm2 = require('ncm2')
 local lsp_signature = require('lsp_signature')
 require('lspconfig').jedi_language_server.setup({
     cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
+    init_options = {
+        -- Disables markup that appears in the scratch window displayed for function
+        -- completion. Omitting this option causes scratch window text to be preceeded
+        -- by "```text".
+        markupKindPreferred = "plaintext",
+        completion = {
+            --- Makes scratch window completion information work in the first place.
+            resolveEagerly = true,
+        },
+    },
     on_init = function(client, bufnr)
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = vim.g['lsp_border']})
         lsp_signature.on_attach({
