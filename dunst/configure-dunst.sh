@@ -45,6 +45,7 @@ read -r -d '' dunst_config <<EOF
     # screen width minus the width defined in within the geometry option.
     geometry = "$geometry"
 
+    icon_path = "$HOME/.cache/dunsticons"
     indicate_hidden = yes
     shrink = no
     transparency = 0

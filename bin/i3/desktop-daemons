@@ -27,7 +27,7 @@ function restart_daemon() {
     disown
 }
 
-restart_daemon dunst -icon_path "$HOME/.cache/dunsticons"
+restart_daemon dunst
 
 if [[ "$wm" == 'i3' ]]; then
     kill_processes_in_display "polybar"
