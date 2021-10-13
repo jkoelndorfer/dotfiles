@@ -6,7 +6,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 nmap <Leader>p :set paste!<CR>
-nmap <Leader>P :r! paste-from-clipboard<CR>
+nmap <Leader>P :r! $DOTFILE_DIR/bin/gui/paste-from-clipboard<CR>
 
 " This is a convenience mapping for Markdown to create an underline
 " for the current line you're on. After hitting <Leader>h, press the
