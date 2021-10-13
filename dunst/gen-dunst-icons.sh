@@ -5,11 +5,11 @@ source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
 
 if [[ "$display_profile" == "UHD" ]]; then
-    icon_size='64x64'
-    pointsize=56
+    icon_size='96x96'
+    pointsize=96
 else
-    icon_size='32x32'
-    pointsize=28
+    icon_size='48x48'
+    pointsize=56
 fi
 
 function generate_icon() {
