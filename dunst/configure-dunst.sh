@@ -123,7 +123,7 @@ read -r -d '' dunst_config <<EOF
     new_icon = slack # 
 
 [discord]
-    appname = Discord
+    appname = discord
     new_icon = discord # ﭮ
 EOF
 
