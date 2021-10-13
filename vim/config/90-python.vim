@@ -37,7 +37,7 @@ local lsp_signature = require('lsp_signature')
 require('lspconfig').jedi_language_server.setup({
     cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
     on_init = function(client, bufnr)
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = vim.g['lsp_border']})
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = vim.g['lsp_border']})
         lsp_signature.on_attach({
             hint_enable = false,
             hi_parameter = "WildMenu",
