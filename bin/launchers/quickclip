@@ -4,11 +4,11 @@ declare -A clips
 
 if [[ "$(basename "$0")" =~ 'imgquickclip' ]]; then
     clip_mode='image'
-    selector_prompt='copy image to clipboard'
+    selector_prompt=''
     copied_prefix='[IMAGE] '
 else
     clip_mode='text'
-    selector_prompt='copy to clipboard'
+    selector_prompt=''
     copied_prefix=''
 fi
 
