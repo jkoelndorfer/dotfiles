@@ -77,7 +77,7 @@ else
 endif
 let g:neomake_python_mypy_maker = {
     \ 'exe': s:mypy_path,
-    \ 'args': ['--ignore-missing-imports', '--follow-imports', 'silent'],
+    \ 'args': ['--show-error-codes', '--ignore-missing-imports', '--follow-imports', 'silent'],
     \ 'make_info': "mypy",
 \ }
 
