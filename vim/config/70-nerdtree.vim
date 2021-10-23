@@ -1,4 +1,5 @@
-nmap <F8> :NERDTreeToggle<CR>
+nmap <F7> :NerdTreeToggle<CR>
+nmap <F8> :NERDTreeFocus<CR>
 
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
