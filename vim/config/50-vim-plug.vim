@@ -12,7 +12,6 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
     Plug 'SirVer/ultisnips'
-    Plug 'chrisbra/vim-diff-enhanced'
     Plug 'scrooloose/nerdtree'
     Plug 'vimwiki/vimwiki'
     Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -27,6 +26,10 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'vim-airline/vim-airline-themes'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'arcticicestudio/nord-vim'
+
+    " diff improvements
+    Plug 'chrisbra/vim-diff-enhanced'
+    Plug 'rickhowe/diffchar.vim'
 
     " tmux integration
 
