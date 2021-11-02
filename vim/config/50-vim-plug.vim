@@ -28,7 +28,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
 
     " diff improvements
     Plug 'chrisbra/vim-diff-enhanced'
-    Plug 'rickhowe/diffchar.vim'
+    Plug 'jkoelndorfer/diffchar.vim'
     Plug 'mhinz/vim-signify'
 
     " tmux integration
