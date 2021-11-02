@@ -1,7 +1,6 @@
 call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " git
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
     Plug 'gregsexton/gitv'
 
     " motion, productivity
@@ -30,6 +29,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     " diff improvements
     Plug 'chrisbra/vim-diff-enhanced'
     Plug 'rickhowe/diffchar.vim'
+    Plug 'mhinz/vim-signify'
 
     " tmux integration
 
