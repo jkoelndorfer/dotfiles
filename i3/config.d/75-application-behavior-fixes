@@ -37,3 +37,5 @@ for_window [title="- KeePassXC$"] move scratchpad
 # Battle.net launcher
 for_window [instance="^battle.net.exe$"] floating enable
 
+# Minecraft ATLauncher
+for_window [class="^com-atlauncher-App$" title="win0"] floating enable
