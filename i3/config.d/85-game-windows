@@ -23,6 +23,7 @@ game_instances=(
 declare -a game_classes
 game_classes=(
     '^Hellpoint'
+    '^Minecraft'
     'Slay the Spire$'
     '^Terraria.bin.x86_64$'
 
