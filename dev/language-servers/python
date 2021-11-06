@@ -8,7 +8,7 @@ function venv_site_packages() {
 
 python_project_root=$(dirname "$(search-upwards-for-one-of pyproject.toml Pipfile requirements.txt)")
 if [[ -n "$python_project_root" ]]; then
-    cd "$python_project_root"
+    pushd "$python_project_root" >/dev/null 2>&1
     python_local_venv="$PWD/.venv"
     if [[ -d "$python_local_venv" ]]; then
         PYTHONPATH=$(pathvarmunge "$PYTHONPATH" "$(venv_site_packages "$python_local_venv")")
@@ -24,6 +24,7 @@ if [[ -n "$python_project_root" ]]; then
         fi
     fi
 fi
+popd >/dev/null 2>&1
 
 export PYTHONPATH
 exec "$PYTHON_DEV_VENV/bin/jedi-language-server"
