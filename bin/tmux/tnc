@@ -11,7 +11,7 @@ selected_dir=$(selectdir)
 [[ -n "$selected_dir" ]] || return 1
 target_dir=$(realpath "$selected_dir")
 session_name=$(basename "$target_dir" | sed -r -e 's/[^a-zA-Z0-9-]/-/g')
-if ! tmux-flexattach "$session_name" 2>/dev/null; then
+if ! tmux-flex-attach "$session_name" 2>/dev/null; then
     (cd "$target_dir"; tmux new-session -d -s "$session_name")
-    tmux-flexattach "$session_name"
+    tmux-flex-attach "$session_name"
 fi

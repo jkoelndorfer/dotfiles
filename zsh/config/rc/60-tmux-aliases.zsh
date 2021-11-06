@@ -56,7 +56,7 @@ function tmux-flex-new-session() {
     fi
     popd >& /dev/null
     if [[ -n "$detached_arg" ]]; then
-        tmux-flexattach "$session"
+        tmux-flex-attach "$session"
     fi
 }
 
