@@ -22,10 +22,11 @@ elif [[ -f "$PROJECT_ROOT/Pipfile" ]]; then
 fi
 
 if [[ "$is_python" == '1' ]]; then
+    addl_python_path="$PROJECT_ROOT:$PROJECT_ROOT/test:$PROJECT_ROOT/tests"
     if [[ -n "$PYTHONPATH" ]]; then
-        PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"
+        PYTHONPATH="$addl_pyton_path:$PYTHONPATH"
     else
-        PYTHONPATH="$PROJECT_ROOT"
+        PYTHONPATH="$addl_python_path"
     fi
     export PYTHONPATH
 fi
