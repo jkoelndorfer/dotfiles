@@ -66,6 +66,7 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
         redirect_stderr='&2'
     fi
 
+    size_10_mib=10485760
     # --force-window='immediate' makes mpv open a window immediately.
     # Typically mpv waits until it has buffered some amount of video
     # before opening the mpv window.
@@ -77,6 +78,7 @@ if ! pgrep -fu "$USER" "$mpv_ipc"; then
     # end of the playlist. This is required so that mpv will automatically
     # play a newly added video after reaching the end of its playlist.
     mpv --force-window='immediate' --keep-open --keep-open-pause='no' --input-ipc-server="$mpv_ipc" \
+        --cache=yes --demuxer-max-bytes="$size_10_mib" \
         "hex://$blank_webm" >"$redirect_stdout" 2>"$redirect_stderr" & disown
 else
     notify-send -u normal -t 3000 'mpv: added to playlist' "Added video to playlist: $video"
