@@ -7,6 +7,3 @@
 [submodule "vim/vim-plug"]
 	path = vim/vim-plug
 	url = https://github.com/junegunn/vim-plug
-[submodule "theme/nord/nord-dircolors"]
-	path = theme/nord/nord-dircolors
-	url = https://github.com/arcticicestudio/nord-dircolors.git
