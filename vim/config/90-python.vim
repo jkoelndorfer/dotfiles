@@ -67,6 +67,7 @@ else
 endif
 let g:neomake_python_flake8_maker = {
     \ 'exe': s:flake8_path,
+    \ 'args': ['--append-config', expand('$DOTFILE_DIR') . '/dev/flake8', '--append-config', expand("$PROJECT_ROOT") . '/.flake8'],
     \ 'make_info': "flake8",
 \ }
 
