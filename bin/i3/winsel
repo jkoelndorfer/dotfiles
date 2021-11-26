@@ -16,7 +16,7 @@ read -r -d '' i3_window_query <<'EOF'
     .window_properties + {"app_id": .app_id, "name": .name} + {"id": $id, "workspace": $wsname, "workspace_display": "\($icon)  \($display_indicator)  \($wsname)"} |
     select(.workspace != "__i3_scratch")]
 EOF
-i3_windows=$((./workspaces -j; ./i3swaymsg -t get_tree) | jq -s -r "$i3_window_query")
+i3_windows=$( (./workspaces -j; ./i3swaymsg -t get_tree) | jq -s -r "$i3_window_query" )
 win_list="$(echo "$i3_windows" | jq -r '.[] | "\(.workspace_display)\t\(.id)\t\(.class // .app_id)\t\(.title // .name)"' | column -o '    ' -s '	' -t)"
 if [[ -n "$WAYLAND_DISPLAY" ]]; then
     selector=("$DOTFILE_DIR/bin/wrappers/wofi" -i --prompt "$prompt")
