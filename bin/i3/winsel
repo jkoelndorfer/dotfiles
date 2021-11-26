@@ -6,10 +6,10 @@ cd "$script_dir"
 prompt="${1:-window}"
 read -r -d '' i3_window_query <<'EOF'
     .[0] as $wsicons | .[1] |
-    [recurse(.nodes[], .floating_nodes[]) |
+    [recurse(.nodes[]) |
     select(.type == "workspace") |
     .name as $wsname |
-    (.nodes[]) |
+    (.nodes[], .floating_nodes[].nodes[]) |
     .id as $id |
     $wsicons[$wsname]["icon"] as $icon |
     $wsicons[$wsname]["display_indicator"] as $display_indicator |
