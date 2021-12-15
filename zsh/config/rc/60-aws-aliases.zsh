@@ -230,6 +230,16 @@ function aws-lt-set-ami() {
     aws ec2 create-launch-template-version --launch-template-name "$lt_name" --source-version '$Latest' --launch-template-data '{"ImageId": "'"$ami_id"'"}'
 }
 
+function aws-s3-get() {
+    local object_path=$1
+
+    if [[ -z "$object_path" ]]; then
+        echo "$0: must specify path to S3 object, e.g s3://bucket/path/to/object" >&2
+        return 1
+    fi
+    aws s3 cp --quiet "$object_path" /dev/stdout
+}
+
 function aws-ssh() {
     local instance=$(aws-ec2-instance-select)
     if [[ -z "$instance" ]]; then
