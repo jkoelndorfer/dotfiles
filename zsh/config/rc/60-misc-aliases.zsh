@@ -21,6 +21,21 @@ function genpw() {
     tr --delete --complement "[:$charset:]" < /dev/urandom | head -c "$length"
 }
 
+function find-and-replace() {
+    local search=$1
+    local replace=$2
+    local target=$3
+
+    if [[ -z "$3" ]]; then
+        target='.'
+    fi
+
+    local rs=$(echo -e '\x1e')
+    find "$target" -type f -print0 |
+        grep --invert-match -z '/.git/' |
+        xargs -0 sed -r -i -e "s${rs}${search}${rs}${replace}${rs}"
+}
+
 function toutc() {
     local dt=$1
 
