@@ -23,7 +23,8 @@ function aws-ec2-instance-describe-short() {
         instance_type: .InstanceType,
         public_ip: .PublicIpAddress,
         private_ip: .PrivateIpAddress,
-        launch_time: .LaunchTime
+        launch_time: .LaunchTime,
+        lifecycle: (.InstanceLifecycle // "normal")
     }
 EOF
     aws ec2 describe-instances \
@@ -34,8 +35,8 @@ EOF
 
 function aws-ec2-instance-ls() {
     {
-        echo -e "Name\tID\tType\tImage ID\tPublic IP\tPrivate IP\tAvailability Zone\tLaunch Time"
-        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .instance_type, .image_id, .public_ip, .private_ip, .availability_zone, .launch_time] | join("\t")'
+        echo -e "Name\tID\tType\tImage ID\tLifecycle\tPublic IP\tPrivate IP\tAvailability Zone\tLaunch Time"
+        aws-ec2-instance-describe-short | jq -r '[.name, .instance_id, .instance_type, .image_id, .lifecycle, .public_ip, .private_ip, .availability_zone, .launch_time] | join("\t")'
     } | aws-columnize
 }
 
