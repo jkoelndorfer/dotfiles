@@ -1,3 +1,8 @@
+let g:coq_settings = {
+    \ "keymap.recommended": v:false,
+    \ "keymap.jump_to_mark": "<C-S-H>",
+\ }
+
 function! TabComplete(menukey, whitespacekey, forcecomplete)
     let l:curcol = getcurpos()[2]
     if pumvisible()
@@ -5,16 +10,11 @@ function! TabComplete(menukey, whitespacekey, forcecomplete)
     elseif ((getline('.')[:(l:curcol - 2)] =~ '^\s*$') || (l:curcol == 1)) && ! a:forcecomplete
         return a:whitespacekey
     else
-        return "\<Plug>(ncm2_manual_trigger)"
+        return "\<C-X>\<C-U>"
     endif
 endfunction
 
-" Require tab to be pressed for code completion.
-let g:ncm2#auto_popup = 0
-let g:ncm2#complete_length = [[0, 2], [8, 1]]
-let g:ncm2#manual_complete_length = 0
-autocmd BufEnter * call ncm2#enable_for_buffer()
-imap <expr> <Tab>       TabComplete("\<C-n>", "\<Tab>", 0)
-imap <expr> <S-Tab>     TabComplete("\<C-p>", "\<S-Tab>", 0)
-imap <expr> <C-Space>   TabComplete("\<C-n>", "\<Space>", 1)
-imap <expr> <C-S-Space> TabComplete("\<C-n>", "\<S-Space>", 1)
+ imap <expr> <Tab>       TabComplete("\<C-n>", "\<Tab>", 0)
+ imap <expr> <S-Tab>     TabComplete("\<C-p>", "\<S-Tab>", 0)
+ imap <expr> <C-Space>   TabComplete("\<C-n>", "\<Space>", 1)
+ imap <expr> <C-S-Space> TabComplete("\<C-n>", "\<S-Space>", 1)

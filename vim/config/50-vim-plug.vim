@@ -49,18 +49,7 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'ray-x/lsp_signature.nvim'
 
     " completion
-    Plug 'ncm2/ncm2'
-
-    " nvim-yarp is required by ncm2
-    Plug 'roxma/nvim-yarp'
-
-    " ncm2 completion plugins
-    Plug 'ncm2/ncm2-vim-lsp'
-    Plug 'ncm2/ncm2-bufword'
-    Plug 'ncm2/ncm2-tmux'
-    Plug 'ncm2/ncm2-path'
-    Plug 'ncm2/ncm2-ultisnips'
-    Plug 'fgrsnau/ncm2-otherbuf'
+    Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 
     " ansible
     Plug 'pearofducks/ansible-vim'

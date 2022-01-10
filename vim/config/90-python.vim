@@ -29,32 +29,29 @@ endfunction
 autocmd FileType python call PythonSettings()
 
 " See:
-" https://github.com/ncm2/ncm2/pull/178
 " https://github.com/ray-x/lsp_signature.nvim
 lua << EOF
-local ncm2 = require('ncm2')
 local lsp_signature = require('lsp_signature')
-require('lspconfig').jedi_language_server.setup({
-    cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
-    init_options = {
-        -- Disables markup that appears in the scratch window displayed for function
-        -- completion. Omitting this option causes scratch window text to be preceeded
-        -- by "```text".
-        markupKindPreferred = "plaintext",
-        completion = {
-            --- Makes scratch window completion information work in the first place.
-            resolveEagerly = true,
+local coq = require('coq')
+
+require('lspconfig').jedi_language_server.setup(
+    coq.lsp_ensure_capabilities({
+        cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
+        init_options = {
+            -- Disables markup that appears in the scratch window displayed for function
+            -- completion. Omitting this option causes scratch window text to be preceeded
+            -- by "```text".
+            markupKindPreferred = "plaintext",
+            completion = {
+                --- Makes scratch window completion information work in the first place.
+                resolveEagerly = true,
+            },
         },
-    },
-    on_init = function(client, bufnr)
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = vim.g['lsp_border']})
-        lsp_signature.on_attach({
-            hint_enable = false,
-            hi_parameter = "WildMenu",
-        })
-        ncm2.register_lsp_source(client, bufnr)
-    end
-})
+        on_attach = function(client, bufnr)
+            lsp_signature.on_attach(vim.g.lsp_signature_config)
+        end
+    })
+)
 EOF
 
 let g:neomake_open_list = 0
