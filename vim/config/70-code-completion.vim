@@ -18,3 +18,5 @@ endfunction
  imap <expr> <S-Tab>     TabComplete("\<C-p>", "\<S-Tab>", 0)
  imap <expr> <C-Space>   TabComplete("\<C-n>", "\<Space>", 1)
  imap <expr> <C-S-Space> TabComplete("\<C-n>", "\<S-Space>", 1)
+
+ autocmd BufEnter * :COQnow -s
