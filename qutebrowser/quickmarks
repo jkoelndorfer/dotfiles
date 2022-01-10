@@ -23,3 +23,4 @@ aws / docs / iam                       https://docs.aws.amazon.com/IAM/latest/Us
 aws / docs / arns                      https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
 aws / docs / instance types            https://aws.amazon.com/ec2/instance-types/
 aws / docs / instance pricing          https://aws.amazon.com/ec2/pricing/on-demand/
+terraform / functions                  https://www.terraform.io/language/functions
