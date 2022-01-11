@@ -197,9 +197,9 @@ function _aws-instance-ip() {
 
     local field
     if [[ "$mode" == 'public' ]]; then
-        field=5
-    else
         field=6
+    else
+        field=7
     fi
 
     echo "$instance_defn" | awk -F"$tab" "{ print \$$field }" | trim-string
