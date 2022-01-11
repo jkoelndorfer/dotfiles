@@ -11,9 +11,8 @@ call plug#begin(expand('$VIM_BUNDLE_DIR'))
     Plug 'tpope/vim-endwise'
     Plug 'junegunn/vim-easy-align'
     Plug 'SirVer/ultisnips'
-    Plug 'scrooloose/nerdtree'
     Plug 'vimwiki/vimwiki'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'ms-jpq/chadtree', { 'branch': 'chad' }
 
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
