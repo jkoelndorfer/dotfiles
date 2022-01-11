@@ -31,6 +31,13 @@ function tf() {
             find "$TERRAFORM_VERSION_DIRECTORY" -mindepth 1 -maxdepth 1 -type d | xargs -n1 basename | sed -e 's/^/    /' >&2
             return
         fi
+    elif [[ "$1" == 'a' ]]; then
+        clear
+        if [[ -n "$TMUX" ]]; then
+            tmux clear-history
+        fi
+        shift
+        tf_args=('apply' "$@")
     else
         tf_args=("$@")
     fi
