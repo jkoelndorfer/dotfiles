@@ -36,3 +36,11 @@ function tf() {
     fi
     "$TERRAFORM_BIN" "${tf_args[@]}"
 }
+
+function tfcd() {
+    local target_directory=$(git-ls-directories | grep -E '(^|/)terraform/stack' | fzf)
+    if [[ -z "$target_directory" ]]; then
+        return 1
+    fi
+    cd "$(git root)/$target_directory"
+}
