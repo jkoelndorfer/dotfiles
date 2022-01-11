@@ -1,4 +1,5 @@
 let g:coq_settings = {
+    \ "completion.always": v:false,
     \ "keymap.recommended": v:false,
     \ "keymap.jump_to_mark": "<C-S-H>",
 \ }
