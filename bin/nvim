@@ -12,7 +12,7 @@ is_python=0
 declare -a cmd=()
 if [[ -d "$PROJECT_ROOT/.venv" ]]; then
     is_python=1
-    source .venv/bin/activate
+    source "$PROJECT_ROOT/.venv/bin/activate"
 elif [[ -f "$PROJECT_ROOT/pyproject.toml" ]]; then
     is_python=1
     cmd=(poetry run)
