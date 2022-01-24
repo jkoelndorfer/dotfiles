@@ -91,6 +91,7 @@ let g:pymode_syntax = 1
 let g:pymode_options_max_line_length = 120
 
 let g:black_linelength = 120
+let g:black_virtualenv = expand("$PYTHON_DEV_VENV")
 
 augroup PythonBlack
     autocmd!
