@@ -34,22 +34,12 @@ lua << EOF
 local lsp_signature = require('lsp_signature')
 local coq = require('coq')
 
-require('lspconfig').jedi_language_server.setup(
+require('lspconfig').pyright.setup(
     coq.lsp_ensure_capabilities({
         cmd = {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'},
-        init_options = {
-            -- Disables markup that appears in the scratch window displayed for function
-            -- completion. Omitting this option causes scratch window text to be preceeded
-            -- by "```text".
-            markupKindPreferred = "plaintext",
-            completion = {
-                --- Makes scratch window completion information work in the first place.
-                resolveEagerly = true,
-            },
-        },
         on_attach = function(client, bufnr)
-            lsp_signature.on_attach(vim.g.lsp_signature_config)
-        end
+        lsp_signature.on_attach(vim.g.lsp_signature_config)
+    end
     })
 )
 EOF

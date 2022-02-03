@@ -27,4 +27,4 @@ fi
 popd >/dev/null 2>&1
 
 export PYTHONPATH
-exec "$PYTHON_DEV_VENV/bin/jedi-language-server"
+exec pyright-langserver --stdio "$@"
