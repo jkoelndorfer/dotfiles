@@ -22,8 +22,17 @@ function! Toggle_relativenumber_on()
     end
 endfunction
 
-set number
-set relativenumber
+function! TabDefaults()
+    set number
+    set relativenumber
+
+    " Always show the gutter (left of line numbers, where diff information appears).
+    " This keeps the line number area from resizing when a file is written in a
+    " git repository.
+    set signcolumn=yes:1
+
+    set nocursorline
+endfunction
 
 augroup numbertoggle
     autocmd!
@@ -31,7 +40,7 @@ augroup numbertoggle
     autocmd WinLeave,BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup end
 
-set cursorline
+autocmd VimEnter,WinNew,TabNew,BufNewFile,BufReadPre * call TabDefaults()
 
 " Dark background terminal
 set background=dark
@@ -69,11 +78,6 @@ set laststatus=2
 
 " Keep some context around the cursor all the time
 set scrolloff=999
-
-" Always show the gutter (left of line numbers, where diff information appears).
-" This keeps the line number area from resizing when a file is written in a
-" git repository.
-set signcolumn=yes
 
 if !has('nvim') || v:version < 800
     set completeopt=menuone,preview,longest
