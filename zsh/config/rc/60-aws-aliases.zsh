@@ -174,12 +174,15 @@ function aws-asg-ssh-each() {
     local asg_name=$1
     local action=$2
 
-    local instances=$(aws-asg-get-instances "$asg_name")
+    local instance_ids=$(aws-asg-get-instances "$asg_name" | sort)
+    local instance_defns=$(aws-ec2-instance-ls | sort -k2)
+    local output_fmt=$(for i in $(seq 1 10); do printf "2.%d " i; done | sed -r -e 's#\s*$##')
+    local joined_instance_defns=$(join -1 1 -2 2 <(<<<"$instance_ids") <(<<<"$instance_defns") -o "$output_fmt" | sed -r -e 's#\s+#\t#g')
     while read i; do
         local ip=$(_aws-instance-ip "$i")
 
         _aws-ssh -n "$ip" "$action"
-    done <<<"$instances"
+    done <<<"$joined_instance_defns"
 }
 
 function _aws-instance-ip() {
