@@ -82,15 +82,20 @@ function gr() {
 }
 
 function git() {
-    local subfunc=$1
+    local git_args=("$@")
     local user_email_config=$(command git config --local -l 2>/dev/null | grep -E '^\s*user\.email\s*=')
+
+    while [[ "$1" =~ ^--? ]]; do
+        shift
+    done
+    local subfunc=$1
 
     if [[ -z "$user_email_config" ]] && ! [[ "$subfunc" =~ ^(clone|init|config|describe|diff|is-root-commit|fetch|fzf-log|log|pull|rev-list|rev-parse|show|status)$ ]]; then
         echo 'fatal: set git config option `user.email` for this repository' >&2
         return 1
     fi
 
-    command git "$@"
+    command git "${git_args[@]}"
 }
 
 alias gco='git checkout'
