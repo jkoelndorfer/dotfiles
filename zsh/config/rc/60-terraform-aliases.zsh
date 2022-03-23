@@ -36,6 +36,11 @@ function tf() {
         if [[ -n "$TMUX" ]]; then
             tmux clear-history
         fi
+        # Sometimes hitting enter to respond to a `terraform apply` prompt
+        # results in Terraform doing nothing but echoing a "^M".
+        #
+        # Calling `reset` fixes that, so let's just do it all the time.
+        reset
         shift
         tf_args=('apply' "$@")
     else
