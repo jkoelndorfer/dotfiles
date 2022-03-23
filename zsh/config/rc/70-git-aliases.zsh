@@ -89,8 +89,27 @@ function git() {
         shift
     done
     local subfunc=$1
+    local allowed_subfuncs=(
+        clone
+        init
+        config
+        describe
+        diff
+        is-root-commit
+        fetch
+        fzf-log
+        log
+        pull
+        rev-list
+        rev-parse
+        show
+        status
+    )
 
-    if [[ -z "$user_email_config" ]] && ! [[ "$subfunc" =~ ^(clone|init|config|describe|diff|is-root-commit|fetch|fzf-log|log|pull|rev-list|rev-parse|show|status)$ ]]; then
+    # Re: `"${allowed_subfuncs[(Ie)$subfunc]}" -gt 0`, see:
+    #   * https://unix.stackexchange.com/a/411331
+    #   * `man zshparam` / "Subscript Flags"
+    if [[ -z "$user_email_config" ]] && ! [[ "${allowed_subfuncs[(Ie)$subfunc]}" -gt 0 ]]; then
         echo 'fatal: set git config option `user.email` for this repository' >&2
         return 1
     fi
