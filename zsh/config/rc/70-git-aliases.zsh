@@ -118,7 +118,7 @@ function git() {
 }
 
 alias gco='git checkout'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gpc='git status | less; git diff --staged'
+alias gd='git diff -U200'
+alias gds='git diff --staged -U200'
+alias gpc='git --paginate status && git diff --staged -U200'
 alias gs='git status --short'
