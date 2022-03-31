@@ -35,7 +35,7 @@ game_classes=(
 declare -a game_titles
 game_titles=(
     '^Binding of Isaac'
-    '^Chronicon'
+    '^Chronicon$'
     '^Factorio'
     '^Heroes of Hammerwatch'
 )
