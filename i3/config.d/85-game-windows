@@ -38,6 +38,7 @@ game_titles=(
     '^Chronicon$'
     '^Factorio'
     '^Heroes of Hammerwatch'
+    '^Levelhead$'
 )
 
 
