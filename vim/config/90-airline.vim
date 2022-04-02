@@ -17,8 +17,8 @@ let g:airline_symbols.linenr = ''
 let g:airline_symbols.whitespace = ''
 let g:airline_symbols.maxlinenr = ' ln'
 
-let g:airline_section_b = []
-let g:airline_section_z = []
+let g:airline_section_b = ""
+let g:airline_section_z = ""
 
 " Remove the nontexists symbol.
 "
