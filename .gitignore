@@ -10,6 +10,9 @@ vim/config/*local*.vim
 # Ignore vim's netrwhist.
 vim/.netrwhist
 
+# Ignore packer.nvim's compiled plugin directory.
+vim/plugin
+
 # Ignore neovim undo directory
 vim/undo
 
