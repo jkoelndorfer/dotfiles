@@ -22,5 +22,4 @@ set -o vi
 # KEYTIMEOUT=1 reduces the delay to 0.1 seconds.
 export KEYTIMEOUT=1
 
-c_default_search_directories=("${c_default_search_directories[@]}" "$HOME/projects" "$HOME/src" "$HOME/src/aeris")
-c_addl_directories=("$DOTFILE_DIR")
+c_search_directories=("${c_search_directories[@]}" "$HOME/projects" "$HOME/src" "$HOME/src/aeris")

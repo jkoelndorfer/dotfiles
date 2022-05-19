@@ -35,14 +35,12 @@ function selectdir() {
     local addl_search_paths=''
     local maxdepth_arg=(-maxdepth 1)
     if [[ -z "$search_path" ]]; then
-        search_path=(${c_default_search_directories[@]})
-        addl_search_paths=("${c_addl_directories[@]}")
+        search_path=(${c_search_directories[@]})
     else
         maxdepth_arg=()
     fi
     local selected_dir="$(
-        (find $search_path -mindepth 0 ${maxdepth_arg[@]} -type d 2>/dev/null;
-            [[ -n "${addl_search_paths[@]}" ]] && echo "${addl_search_paths[@]}") |
+        find $search_path -mindepth 0 ${maxdepth_arg[@]} -type d 2>/dev/null |
             grep -Ev '/.git(/|$)|^\.$' | sort -u |
             fzf --preview 'tree -C -L 1 {}' --ansi
     )"
