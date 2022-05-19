@@ -1,11 +1,7 @@
 [[ "$(uname -s)" != 'Darwin' ]] && return 0
 
 # Use GNU coreutils over BSD coreutils.
-pathmunge_reorder '/usr/local/bin'
-pathmunge_reorder '/usr/local/Cellar/coreutils/8.29/libexec/gnubin'
-
-# Include Python 2.7 binaries in PATH.
-pathmunge '/Library/Frameworks/Python.framework/Versions/2.7/bin'
+pathmunge_reorder "$HOME/.nix-profile/bin"
 
 # Add a directory to override specific binaries. Some things, like stty,
 # work better with the native version.
