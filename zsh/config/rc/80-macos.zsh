@@ -19,5 +19,3 @@ if [[ -z "$(ls --version 2>&1 | /usr/bin/grep 'GNU')" ]]; then
         echo 'Install coreutils using homebrew: `brew install coreutils`.'
     ) >&2
 fi
-
-alias sed='gsed'
