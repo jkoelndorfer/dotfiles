@@ -66,7 +66,7 @@ vim.api.nvim_set_option('smartindent', true)
 vim.api.nvim_set_option('cindent', false)
 
 -- Always show the status line
-vim.api.nvim_set_option('laststatus', 2)
+vim.api.nvim_set_option('laststatus', 3)
 
 -- Try to keep the cursor in the middle of the window.
 vim.api.nvim_set_option('scrolloff', 999)
