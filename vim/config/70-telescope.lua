@@ -5,6 +5,7 @@ vim.api.nvim_set_keymap('n', '<C-p>', '', { noremap = true, callback = function(
 vim.api.nvim_set_keymap('n', '<C-M-p>', '', { noremap = true, callback = function() ts_func.find_files() end })
 vim.api.nvim_set_keymap('n', '<C-b>', '', { noremap = true, callback = function() ts_func.buffers({ preview = true }) end })
 vim.api.nvim_set_keymap('n', '<C-g>', '', { noremap = true, callback = function() ts_func.live_grep() end })
+vim.api.nvim_set_keymap('n', '<C-r>', '', { noremap = true, callback = function() ts_func.lsp_references({ preview = true }) end })
 
 ts.setup({
     defaults = {
