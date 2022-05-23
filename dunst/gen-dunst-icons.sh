@@ -1,4 +1,8 @@
 #!/bin/zsh -l
+#
+if [[ "$(uname)" != 'Linux' ]]; then
+    exit 0
+fi
 
 source "$DOTFILE_DIR/theme/$DESKTOP_THEME/colors"
 

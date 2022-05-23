@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+if [[ "$(uname)" != 'Linux' ]]; then
+    exit 0
+fi
+
 script_dir=$(dirname "$0")
 cd "$script_dir"
 
