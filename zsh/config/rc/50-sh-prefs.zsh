@@ -1,7 +1,5 @@
 setopt EXTENDED_GLOB
 
-source "$DOTFILE_DIR/theme/$DESKTOP_THEME/dir-colors"
-
 export EDITOR='vi'
 export VISUAL="$EDITOR"
 
