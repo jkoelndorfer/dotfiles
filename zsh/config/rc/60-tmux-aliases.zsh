@@ -70,3 +70,4 @@ function tmux-reload-environment() {
 alias ti="tmux run-shell 'echo #{session_name}:#{window_index}.#{pane_index}'"
 alias ta="tmux-fzf-attach"
 alias tenv="tmux-reload-environment"
+alias tmux-clear='clear; tmux clear-history'
