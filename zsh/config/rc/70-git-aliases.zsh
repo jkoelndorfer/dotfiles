@@ -90,6 +90,7 @@ function git() {
     done
     local subfunc=$1
     local allowed_subfuncs=(
+        blame
         clone
         init
         config
