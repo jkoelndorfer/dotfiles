@@ -6,6 +6,12 @@
 # that after adding confirm-cmd to my zsh configuration, lightdm would no longer start i3.
 #
 # It's probably best to make sure anything in this file is strictly POSIX shell compliant.
+
+# Given a value, $s, that operates like PATH (e.g. a colon-separated
+# list of items) adds an additional value to the list, $addn, if
+# $addn is not already part of the list.
+#
+# If mode is 'after', $addn is added to the end.
 function pathvarmunge() {
     local s=$1
     local addn=$2
@@ -23,6 +29,13 @@ function pathvarmunge() {
     fi
 }
 
+# Given a value, $s, that operates like PATH (e.g. a colon-separated
+# list of items) adds an additional value to the list, $addn, if
+# $addn is not already part of the list. If $addn is part of the list,
+# it is reordered according to the behavior of pathmunge as though
+# it were not in the list.
+#
+# If mode is 'after', $addn is added to the end.
 function pathvarmunge_reorder() {
     local s=$1
     local addn=$2
