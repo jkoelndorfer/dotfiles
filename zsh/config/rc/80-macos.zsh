@@ -1,12 +1,5 @@
 [[ "$(uname -s)" != 'Darwin' ]] && return 0
 
-# Use GNU coreutils over BSD coreutils.
-pathmunge_reorder "$HOME/.nix-profile/bin"
-
-# Add a directory to override specific binaries. Some things, like stty,
-# work better with the native version.
-pathmunge_reorder "$DOTFILE_DIR/macos/binoverride"
-
 macvim_path='/Applications/MacVim.app/Contents/MacOS/Vim'
 
 if [[ -z "$(ls --version 2>&1 | /usr/bin/grep 'GNU')" ]]; then
