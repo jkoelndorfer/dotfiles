@@ -130,9 +130,6 @@ return require('packer').startup(function(use)
   -- See tmux/tmux.conf for more information.
   use 'christoomey/vim-tmux-navigator'
 
-  -- Send code from a vim buffer to a REPL in another tmux pane.
-  use 'epeli/slimux'
-
   -----------------------
   -- LANGUAGE-SPECIFIC --
   -----------------------
@@ -149,9 +146,6 @@ return require('packer').startup(function(use)
 
   -- Formats Python code in accordance with the exceptionally precise Black standard.
   use { 'psf/black', tag = 'stable' }
-
-  -- Automatically generates a preview of a markdown file when it is written.
-  use 'JamshedVesuna/vim-markdown-preview'
 
   -- Provides syntax highlighting for Terraform.
   use 'hashivim/vim-terraform'
