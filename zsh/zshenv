@@ -1,3 +1,11 @@
+# Don't source system-wide rc files.
+#
+# My dotfiles do a lot, and these sometimes just screw things up.
+#
+# I'd rather integrate machine-specific stuff into my dotfiles
+# as I need it.
+unsetopt GLOBAL_RCS
+
 export DOTFILE_DIR="$HOME/.dotfiles"
 _last_dotfile_install_path="$HOME/.cache/last-dotfile-install"
 
