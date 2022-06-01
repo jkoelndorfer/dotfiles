@@ -28,6 +28,14 @@ return require('packer').startup(function(use)
   -- If it doesn't, it will try to delete itself when neovim launches.
   use(packer_repo)
 
+  ---------------
+  -- LIBRARIES --
+  ---------------
+
+  -- Plenary provides some nifty general-purpose functionality, including
+  -- async, filesystem and path stuff, and more.
+  use 'nvim-lua/plenary.nvim'
+
   ------------------
   -- TEXT EDITING --
   ------------------
