@@ -55,9 +55,9 @@ return require('packer').startup(function(use)
 
   -- Status and tabline for vim.
   use {
-    'vim-airline/vim-airline',
+    'nvim-lualine/lualine.nvim',
     requires = {
-      {'vim-airline/vim-airline-themes', opt = true},
+      { 'kyazdani42/nvim-web-devicons', opt = true },
     },
   }
 
