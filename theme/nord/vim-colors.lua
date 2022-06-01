@@ -34,3 +34,18 @@ lualine_theme.normal.b.bg = nord_theme.nord3
 lualine_theme.normal.c.bg = nord_theme.nord1
 
 vim.g.lualine_theme = lualine_theme
+
+-- Tweak nvim-tree.lua colors.
+--
+-- Lua doesn't do string interpolation, hence the string.gsub
+-- business here. The replacement will substitute e.g. "$nord0"
+-- for the value of "nord0" in the given table.
+--
+-- See: https://hisham.hm/2016/01/04/string-interpolation-in-lua/
+vim.cmd(string.gsub([[
+  highlight Directory guifg=$nord9
+  highlight link NvimTreeRootFolder Directory
+
+  highlight NvimTreeSymlink gui=bold guifg=$nord8
+  highlight NvimTreeExecFile gui=bold guifg=$nord14
+]], "%$(%w+)", nord_theme))

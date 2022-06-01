@@ -92,7 +92,12 @@ return require('packer').startup(function(use)
   use 'majutsushi/tagbar'
 
   -- Provides a file tree.
-  use { 'ms-jpq/chadtree', branch = 'chad', run = ':CHADdeps' }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+    },
+  }
 
   -- Automatically pull in project-specific configuration from .editorconfig files.
   use 'editorconfig/editorconfig-vim'
