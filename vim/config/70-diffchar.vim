@@ -1,9 +1,3 @@
-" Configure common diff options
-hi clear DiffAdd
-hi clear DiffDelete
-hi clear DiffChange
-hi clear DiffText
-
 " Here, DiffText is left unset because vim's default diff display
 " is pretty crappy and shows a lot more as a diff than there really is.
 "
@@ -18,4 +12,4 @@ hi DiffDelete ctermfg=1 cterm=reverse
 hi link dcDiffAdd DiffAdd
 hi link dcDiffDelete DiffDelete
 hi link dcDiffErase DiffDelete
-hi dcDiffText ctermfg=3 cterm=reverse
+hi link dcDiffText DiffText
