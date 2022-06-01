@@ -8,7 +8,6 @@ function! RubyCommonSettings()
     setlocal nosmartindent
     setlocal foldmethod=indent
     setlocal colorcolumn=120
-    IndentGuidesEnable
 
     execute 'EditorConfigReload'
 endfunction
