@@ -56,9 +56,9 @@ vim.api.nvim_set_option('guicursor', '')
 
 -- Configure tabs.
 vim.api.nvim_set_option('expandtab', true)
-for i, opt in pairs({'tabstop', 'softtabstop', 'shiftwidth'}) do
-  vim.api.nvim_set_option(opt, 4)
-end
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
 
 -- By default, leave folds open.
 vim.api.nvim_set_option('foldlevelstart', 99)
