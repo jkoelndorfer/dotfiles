@@ -68,6 +68,7 @@ vim.api.nvim_set_option('foldlevelstart', 99)
 -- Configure indenting options.
 vim.api.nvim_set_option('autoindent', true)
 vim.api.nvim_set_option('smartindent', true)
+vim.api.nvim_set_option('smarttab', true)
 vim.api.nvim_set_option('cindent', false)
 
 -- Always show the status line
