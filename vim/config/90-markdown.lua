@@ -15,5 +15,6 @@ vim.api.nvim_create_autocmd(
   {
     pattern = {"*.md"},
     callback = preview_buffer_as_html,
+    group = "MarkdownPreview",
   }
 )

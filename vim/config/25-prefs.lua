@@ -32,18 +32,21 @@ end
 vim.api.nvim_create_augroup("NumberToggle", { clear = true })
 vim.api.nvim_create_autocmd(
   {"WinEnter", "BufEnter", "FocusGained", "InsertLeave"},
-  { callback = toggle_relativenumber_on }
+  { callback = toggle_relativenumber_on, group = "NumberToggle" }
 )
 vim.api.nvim_create_autocmd(
   {"WinLeave", "BufLeave", "FocusLost", "InsertEnter"},
-  { callback = function() vim.api.nvim_win_set_option(0, "relativenumber", false) end }
+  {
+    callback = function() vim.api.nvim_win_set_option(0, "relativenumber", false) end,
+    group = "NumberToggle",
+  }
 )
 
 -- Defines autocommands that configure window defaults.
 vim.api.nvim_create_augroup("WinDefaults", { clear = true })
 vim.api.nvim_create_autocmd(
   {"VimEnter", "WinNew", "TabNew", "BufNewFile", "BufReadPre"},
-  { callback = set_window_defaults }
+  { callback = set_window_defaults, group = "WinDefaults" }
 )
 
 -- Don't theme the cursor -- a simple, solid block is sufficient.
@@ -91,7 +94,7 @@ vim.api.nvim_set_option('showcmd', true)
 
 -- Configure undo.
 vim.api.nvim_create_augroup("Undo", { clear = true })
-vim.api.nvim_create_autocmd({"BufEnter"}, { command = 'set undofile' })
+vim.api.nvim_create_autocmd({"BufEnter"}, { command = 'set undofile', group = "Undo" })
 vim.api.nvim_set_option('undolevels', 1000)
 vim.api.nvim_set_option('undoreload', 10000)
 
@@ -109,7 +112,7 @@ function trim_trailing_whitespace()
   end
 end
 vim.api.nvim_create_augroup("TrimTrailingWhitespace", { clear = true })
-vim.api.nvim_create_autocmd({"BufWritePre"}, { callback = trim_trailing_whitespace })
+vim.api.nvim_create_autocmd({"BufWritePre"}, { callback = trim_trailing_whitespace, group = "TrimTrailingWhitespace" })
 
 -- Also highlight trailing whitespace, because it's wrong and I hate it.
 vim.cmd([[match ErrorMsg '\s\+$']])
