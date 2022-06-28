@@ -17,7 +17,7 @@ function pathvarmunge() {
     local addn=$2
     local mode=$3
 
-    if [[ "$s" != *":${addn}:"* && "$s" != ":${addn}"* && "$s" != *":${addn}" ]]; then
+    if [[ "$s" != *":${addn}:"* && "$s" != "${addn}:"* && "$s" != *":${addn}" ]]; then
         if [ "$mode" = "after" ] ; then
             echo "$s:$addn"
         else
