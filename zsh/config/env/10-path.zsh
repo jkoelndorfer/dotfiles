@@ -8,8 +8,8 @@ unset pfx
 
 # For macOS, some of the native utilities work better than
 # the GNU coreutil variants. stty is one such example.
-[[ -d "$DOTFILE_DIR/macos/binoverride" ]] && pathmunge_reorder "$DOTFILE_DIR/macos/binoverride"
+[[ -d "$DOTFILE_DIR/macos/binoverride" ]] && pathmunge "$DOTFILE_DIR/macos/binoverride"
 
-pathmunge_reorder "$HOME/bin"
-pathmunge_reorder "$DOTFILE_DIR/bin"
-[[ -d "$DOTFILE_DIR/bin/shell-profile" ]] && pathmunge_reorder "$DOTFILE_DIR/bin/shell-profile"
+pathmunge "$HOME/bin"
+pathmunge "$DOTFILE_DIR/bin"
+[[ -d "$DOTFILE_DIR/bin/shell-profile" ]] && pathmunge "$DOTFILE_DIR/bin/shell-profile"
