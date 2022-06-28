@@ -32,4 +32,4 @@ if [[ "$is_python" == '1' ]]; then
 fi
 
 next_nvim=$(which -a nvim | head -n2 | tail -n1)
-"${cmd[@]}" "$next_nvim" "$@"
+exec "${cmd[@]}" "$next_nvim" "$@"
