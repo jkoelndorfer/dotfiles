@@ -17,8 +17,7 @@ function pathvarmunge() {
     local addn=$2
     local mode=$3
 
-    local addn_escaped=$(re_escape "$addn" '' 'extended')
-    if ! echo "$s" | grep -E -q "(^|:)$addn_escaped($|:)"; then
+    if [[ "$s" != *":${addn}:"* && "$s" != ":${addn}"* && "$s" != *":${addn}" ]]; then
         if [ "$mode" = "after" ] ; then
             echo "$s:$addn"
         else
