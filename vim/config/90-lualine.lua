@@ -3,6 +3,8 @@ require('lualine').setup({
     icons_enabled = true,
     theme = vim.g.lualine_theme,
     globalstatus = true,
+    section_separators = { left = '', right = ' ' },
+    component_separators = { left = '', right = ' ' },
   },
 
   tabline = {
