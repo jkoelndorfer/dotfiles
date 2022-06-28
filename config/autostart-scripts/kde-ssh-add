@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export SSH_ASKPASS="$(which ksshaskpass)"
-
-ssh-add < /dev/null

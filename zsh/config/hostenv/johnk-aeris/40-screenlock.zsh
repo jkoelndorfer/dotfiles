@@ -1,1 +1,0 @@
-export SCREENLOCK_TIME_SECONDS=$((5 * 60))
