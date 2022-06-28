@@ -42,3 +42,7 @@ function hgrep() {
     local h; read h; echo "$h"
     grep "$@"
 }
+
+function hl() {
+    grep --color=always -E "$@"
+}
