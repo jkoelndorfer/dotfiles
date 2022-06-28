@@ -157,6 +157,9 @@ return require('packer').startup(function(use)
   -- LANGUAGE-SPECIFIC --
   -----------------------
 
+  -- Syntax highlighting and autoformatting for Puppet files.
+  use 'rodjek/vim-puppet'
+
   -- Provides syntax highlighting and improved editing for Ansible.
   use 'pearofducks/ansible-vim'
 
