@@ -5,7 +5,11 @@ if not file_exists(git_index) then
 end
 
 function configure_fugitive_tab()
-  vim.cmd('tab Git')
+  vim.v.errmsg = ''
+  vim.cmd('silent! tab Git')
+  if vim.v.errmsg ~= '' then
+    return
+  end
   vim.cmd('LualineRenameTab git')
   vim.cmd('tabmove -1')
   vim.cmd('tabnext')
