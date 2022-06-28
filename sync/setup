@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# The path to the configuration of an application to configure
+# syncing for.
+application=$1
+
+if [[ -z "$application" ]]; then
+    echo "$0: You must specify the path to the application to configure syncing for" >&2
+    exit 1
+fi
+
+if ! [[ -f "$application" ]]; then
+    echo "$0: no such configuration: $application" >&2
+    exit 2
+fi
+
+script_dir=$(dirname "$(readlink -f "$0")")
+
+source "${script_dir}/lib.sh"
+source "${script_dir}/${application}"
+
+if type postsetup &>/dev/null; then
+    postsetup
+fi

@@ -1,0 +1,7 @@
+This directory contains Syncthing setup helpers and configuration so
+that application persisted data automatically lands in Syncthing
+directories.
+
+We're interested in saved game data in particular so that we have
+a versioned, cloud-synced backup. It's a little better than what
+Steam provides. :-)
