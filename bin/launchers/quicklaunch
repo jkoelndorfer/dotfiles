@@ -15,6 +15,7 @@ quicklaunch_entries=(
     [atlauncher]='atlauncher'
     [discord]="discord --force-device-scale-factor=$app_scale_factor"
     [firefox]='firefox'
+    ['fix displays']="$DOTFILE_DIR/bin/x11/fix-displays"
     ['logout']="$DOTFILE_DIR/bin/i3/i3swaymsg exit"
     [lutris]='lutris'
     [pavucontrol]='pavucontrol'
