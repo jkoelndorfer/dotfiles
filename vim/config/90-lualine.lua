@@ -7,6 +7,15 @@ require('lualine').setup({
     component_separators = { left = '', right = ' ' },
   },
 
+  sections = {
+    lualine_c = {
+      {
+        'filename',
+        path = 1, -- Show relative path of file, not just the filename
+      },
+    },
+  },
+
   tabline = {
     lualine_b = {
       {
