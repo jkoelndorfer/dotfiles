@@ -117,7 +117,17 @@ return require('packer').startup(function(use)
   use 'neomake/neomake'
 
   -- Tab completion from a variety of sources, including an LSP server.
-  use { 'ms-jpq/coq_nvim', branch = 'coq', run = ':COQdeps' }
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'neovim/nvim-lspconfig', -- For cmp-nvim-lsp, below.
+      'hrsh7th/cmp-nvim-lsp',  -- Completion from an LSP.
+      'hrsh7th/cmp-path',      -- Completion from filesystem paths.
+      'hrsh7th/cmp-cmdline',   -- Completion in commandline mode (i.e. when you hit ":").
+      'hrsh7th/cmp-buffer',    -- Completion from an open buffer.
+      'onsails/lspkind.nvim',  -- Fancy formatting of nvim-cmp completion items.
+    },
+  }
 
   -- Provides function argument hints in a popup window as you type.
   use 'ray-x/lsp_signature.nvim'
