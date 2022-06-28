@@ -1,10 +1,13 @@
 #!/bin/bash
 
+RC_SSH_AGENT_REACHED_HAS_IDENTITIES=0
+RC_SSH_AGENT_REACHED_NO_IDENTITIES=1
+
 umask 077
 TEMPDIR="/tmp/ssh-agent-persistent-${UID}"
 SSH_PERSIST_FILE="${TEMPDIR}/env"
 
-mkdir "$TEMPDIR" >/dev/null 2>&1
+mkdir -p "$TEMPDIR" >/dev/null 2>&1
 if ! [[ -O "$TEMPDIR" && -d "$TEMPDIR" ]]; then
     exit 1
 fi
@@ -15,11 +18,10 @@ fi
 
 ssh-add -l >/dev/null 2>&1
 rc=$?
-if [[ "$rc" == 0 || "$rc" == 1 ]]; then
-    if cat "$SSH_PERSIST_FILE"; then
+
+if [[ "$rc" == "$RC_SSH_AGENT_REACHED_HAS_IDENTITIES" || "$rc" == "$RC_SSH_AGENT_REACHED_NO_IDENTITIES" ]]; then
+    if cat "$SSH_PERSIST_FILE" 2>/dev/null; then
         exit 0
-    else
-        exit 1
     fi
 fi
 
