@@ -20,6 +20,7 @@ require('lualine').setup({
     lualine_b = {
       {
         'tabs',
+        mode = 2, -- Show tab number and tab name
         tabs_color = {
           active = 'lualine_a_normal',
           inactive = 'lualine_b_normal',
