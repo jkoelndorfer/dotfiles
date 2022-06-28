@@ -36,6 +36,21 @@ function record_lastrc() {
     last_rc="$?"
 }
 
+function kube_ctx_indicator() {
+    # NOTE: This isn't 100% proper for looking up the current
+    # Kubernetes context, but it avoids forking a process so
+    # it is somewhat faster than invoking kubectl.
+    local kube_config="$HOME/.kube/config"
+    if ! [[ -f "$kube_config" ]]; then
+        return
+    fi
+    local kube_config_content=$(< "$kube_config")
+    if [[ "$kube_config_content" =~ 'current-context: *([0-9A-Za-z_-]+)' ]]; then
+        local current_kube_ctx=${match[1]}
+        echo "%F{cyan}ﴱ $current_kube_ctx "
+    fi
+}
+
 function terraform_workspace_indicator() {
     local tf_dir='.terraform'
     local tf_env_file="$tf_dir/environment"
@@ -123,6 +138,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
 zle -N zle-keymap-select
 zle -N accept-line
