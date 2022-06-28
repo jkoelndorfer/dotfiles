@@ -1,3 +1,6 @@
 #!/bin/zsh
 
-eval "$(dircolors "$DOTFILE_DIR/theme/nord/dir-colors-src")"
+# dircolors only applies to GNU coreutils.
+if [[ "$(uname)" == 'Linux' ]]; then
+    eval "$(dircolors "$DOTFILE_DIR/theme/nord/dir-colors-src")"
+fi
