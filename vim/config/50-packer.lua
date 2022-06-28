@@ -151,7 +151,7 @@ return require('packer').startup(function(use)
   -- NOTE: vim-tmux-navigator does NOT work properly inside `pipenv shell`.
   --
   -- See tmux/tmux.conf for more information.
-  use 'christoomey/vim-tmux-navigator'
+  use 'jkoelndorfer/vim-tmux-navigator'
 
   -----------------------
   -- LANGUAGE-SPECIFIC --
