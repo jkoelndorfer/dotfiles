@@ -101,6 +101,7 @@ function git() {
         fetch
         fzf-log
         log
+        ls-files
         pull
         rev-list
         rev-parse
