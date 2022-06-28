@@ -31,18 +31,31 @@ function confirm-cmd() {
 }
 
 function selectdir() {
-    local search_path=("$1")
-    local addl_search_paths=''
+    local search_path=()
+    local addl_paths=()
     local maxdepth_arg=(-maxdepth 1)
-    if [[ -z "$search_path" ]]; then
-        search_path=(${c_search_directories[@]})
+    if [[ -z "$1" ]]; then
+        search_path=("${c_search_directories[@]}")
+        addl_paths=("$DOTFILE_DIR")
     else
-        maxdepth_arg=()
+        if ! [[ -e "$1" ]]; then
+            echo "$0: no such file or directory: $1" >&2
+            return 1
+        elif ! [[ -d "$1" ]]; then
+            echo "$0: not a directory: $1" >&2
+            return 1
+        else
+            local search_path=("$(readlink -f "$1")")
+            maxdepth_arg=()
+        fi
     fi
     local selected_dir="$(
-        find $search_path -mindepth 0 ${maxdepth_arg[@]} -type d 2>/dev/null |
-            grep -Ev '/.git(/|$)|^\.$' | sort -u |
-            fzf --preview 'tree -C -L 1 {}' --ansi
+        (
+            find "${search_path[@]}" -mindepth 0 "${maxdepth_arg[@]}" -type d 2>/dev/null;
+            for d in "${addl_paths[@]}"; do echo "$d"; done
+        ) |
+        grep -Ev '/.git(/|$)|^\.$' | sort -u |
+        fzf --preview 'tree -C -L 1 {}' --ansi
     )"
     [[ -n "$selected_dir" ]] && echo "$selected_dir"
 }
