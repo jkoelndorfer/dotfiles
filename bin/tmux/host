@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Determines what appears in the "host" field
+# of the tmux status bar.
+
+tmux_host_file="$HOME/.config/tmux-host"
+if [[ -f "$tmux_host_file" ]]; then
+	host=$(< "$tmux_host_file")
+else
+	host=$(hostname -s)
+fi
+
+if [[ -z "$host" ]]; then
+	exit 0
+else
+	echo " $host "
+fi
