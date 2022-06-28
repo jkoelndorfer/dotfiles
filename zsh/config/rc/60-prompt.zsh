@@ -105,7 +105,7 @@ function git_indicator() {
 }
 
 function git_unpublished_commits() {
-    git rev-list @{u}..HEAD 2>/dev/null | wc -l
+    git rev-list @{u}..HEAD 2>/dev/null | grep -c '^'
 }
 
 function git_unpushed_commits_indicator() {

@@ -443,7 +443,7 @@ function _aws-ssm-parameter-stream-edit() {
             elif [[ "$rc" == 4 ]]; then
                 echo 'not valid JSON, try again?' >&2
                 read -u 7
-            elif [[ "$(echo "$jq_validation_output" | wc -l 2>/dev/null)" -ne 1 ]]; then
+            elif [[ "$(echo "$jq_validation_output" | grep -c '^' 2>/dev/null)" -ne 1 ]]; then
                 echo 'one line of JSON expected in edit file; try again?' >&2
                 read -u 7
             elif [[ "$rc" == 0 ]]; then
