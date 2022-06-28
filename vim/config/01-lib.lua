@@ -25,3 +25,13 @@ function configure_lang_settings(filetype, indent_size, max_line_len, indent_wit
     }
   )
 end
+
+function file_exists(path)
+  local f = io.open(path, 'r')
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
