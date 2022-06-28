@@ -1,5 +1,3 @@
-source "$DOTFILE_DIR"/zsh/config/rc/00-env-lib.zsh
-
 for pfx in '' '/usr' '/usr/local'; do
     pathmunge "${pfx}/bin"
     pathmunge "${pfx}/sbin"
