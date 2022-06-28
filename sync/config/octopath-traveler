@@ -1,0 +1,4 @@
+STEAM_APPID='335300'
+SYNC_DIR='octopath-traveler'
+
+symlink save "$(proton_steamuser_home)/My Documents/My Games/Octopath_Traveler"

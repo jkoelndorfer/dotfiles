@@ -1,0 +1,18 @@
+STEAM_APPID='1794680'
+SYNC_DIR='vampire-survivors'
+
+app_data_dir="$(proton_steamuser_home)/AppData/Roaming/Vampire_Survivors"
+
+save_dir="${app_data_dir}/saves"
+local_storage_dir="${app_data_dir}/Local Storage"
+
+symlink saves "$save_dir"
+symlink local-storage "$local_storage_dir"
+
+# Vampire Survivors does some crazy stupid junk where it also stores your save data
+# in the game install path. It will automatically copy that data back into place
+# if the main file is missing (are there other conditions? don't know). In order
+# to make sure we're using ONE save file, we'll clear out the backup.
+steam_install_dir="$HOME/.steam/steam/steamapps/common/Vampire Survivors"
+backup_save_data_dir="$steam_install_dir/resources/app/.webpack/renderer"
+rm -v -f "$backup_save_data_dir"/*.sav

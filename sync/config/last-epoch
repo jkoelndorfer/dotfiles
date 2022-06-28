@@ -1,0 +1,8 @@
+STEAM_APPID='899770'
+SYNC_DIR='last-epoch'
+
+# Last Epoch has a native Linux client but I have fiddled with Proton
+# to see if better performance could be achieved.
+symlink saves "$(proton_steamuser_home)/AppData/LocalLow/Eleventh Hour Games/Last Epoch/Saves"
+
+symlink saves "$HOME/.config/unity3d/Eleventh Hour Games/Last Epoch/Saves"

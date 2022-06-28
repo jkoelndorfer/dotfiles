@@ -1,0 +1,3 @@
+SYNC_DIR='chronicon'
+
+symlink save "$HOME/.config/Chronicon/save"

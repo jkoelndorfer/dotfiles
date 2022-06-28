@@ -1,0 +1,20 @@
+STEAM_APPID='219990'
+SYNC_DIR='grim-dawn'
+
+GRIM_DAWN_DIR="$(proton_steamuser_home)/My Documents/My Games/Grim Dawn"
+symlink save "$GRIM_DAWN_DIR/save"
+
+function postsetup() {
+    local options_path="$GRIM_DAWN_DIR/Settings/options.txt"
+
+    if [[ -f "$options_path" ]]; then
+        echo 'Setting "cloudSaving = false" in options.txt' >&2
+        sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$options_path"
+    else
+        {
+            echo "Could not locate Grim Dawn's options.txt at '$options_path'"
+            echo 'You must disable cloud saves manually in Grim Dawn.'
+            echo 'Uncheck Options > Gameplay > Cloud Saving.'
+        } >&2
+    fi
+}

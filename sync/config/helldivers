@@ -1,0 +1,13 @@
+STEAM_APPID='394510'
+SYNC_DIR='helldivers'
+
+presetup_confirmation <<EOF
+In order to prevent Steam from clobbering your saves
+you MUST disable Steam Cloud sync for Helldivers before
+setting up the sync directory.
+
+In Steam, see right-click Helldivers > General > Steam Cloud
+Uncheck "Keep game saves in the Steam Cloud for HELLDIVERS".
+EOF
+
+symlink saves "$(proton_steamuser_home)/Application Data/Arrowhead/Helldivers/saves"

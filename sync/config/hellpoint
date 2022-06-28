@@ -1,0 +1,5 @@
+SYNC_DIR='hellpoint'
+
+HELLPOINT_DIR="$HOME/.config/unity3d/Cradle Games/Hellpoint"
+
+symlink cfg-saves "$HELLPOINT_DIR"
