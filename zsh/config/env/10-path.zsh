@@ -1,6 +1,10 @@
-# Configure a basic path if there is not one. Should be fine for most use cases.
-[[ -z "$PATH" ]] && PATH="/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/bin:/usr/local/sbin"
 source "$DOTFILE_DIR"/zsh/config/rc/00-env-lib.zsh
+
+for pfx in '' '/usr' '/usr/local'; do
+    pathmunge "${pfx}/bin"
+    pathmunge "${pfx}/sbin"
+done
+unset pfx
 
 # For macOS, some of the native utilities work better than
 # the GNU coreutil variants. stty is one such example.
