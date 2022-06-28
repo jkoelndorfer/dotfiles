@@ -46,6 +46,29 @@ function find-and-replace() {
         xargs -0 sed -r "${in_place_args[@]}" -e "s${rs}${search}${rs}${replace}${rs}"
 }
 
+# Rename is like `mv`, but the target is relative to the current directory of src
+function rename() {
+    local src=$1
+    local dest=$2
+
+    if [[ "$#" -lt 2 ]]; then
+        echo "$0: not enough arguments; expected src and dest" >&2
+        return 1
+    fi
+    if [[ "$#" -gt 2 ]]; then
+        echo "$0: too many arguments; expected src and dest" >&2
+        return 1
+    fi
+
+    if ! [[ "$dest" =~ '^/' ]]; then
+        # destination is not an absolute path; make it relative to src
+        local src_dir=$(dirname "$src")
+        dest="$src_dir/$dest"
+    fi
+    mkdir -p "$(dirname "$dest")"
+    mv "$src" "$dest"
+}
+
 function toutc() {
     local dt=$1
 
