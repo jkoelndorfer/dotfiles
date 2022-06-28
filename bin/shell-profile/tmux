@@ -8,4 +8,4 @@ if [[ -n "$SHELL_PROFILE" ]]; then
 else
     tmux_args=()
 fi
-second tmux "${tmux_args[@]}" "$@"
+nonshprofile tmux "${tmux_args[@]}" "$@"

@@ -13,4 +13,4 @@ else
     ssh_cmd=("$bin")
 fi
 
-second "${ssh_cmd[@]}" "$@"
+nonshprofile "${ssh_cmd[@]}" "$@"
