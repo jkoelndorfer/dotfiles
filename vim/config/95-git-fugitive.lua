@@ -5,13 +5,10 @@ if not file_exists(git_index) then
 end
 
 function configure_fugitive_tab()
-  -- Here, prefer 'e .git/index' over :Git.
-  --
-  -- :Git will split the initial window and I'd rather
-  -- the git status tab is fullscreen.
-  vim.cmd('e ' .. git_index)
+  vim.cmd('tab Git')
   vim.cmd('LualineRenameTab git')
-  vim.cmd('tabnew')
+  vim.cmd('tabmove -1')
+  vim.cmd('tabnext')
 end
 
 vim.api.nvim_create_augroup('FugitiveGitTab', { clear = true })
