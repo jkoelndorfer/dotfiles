@@ -1,5 +1,10 @@
-alias ls='ls --color=auto --group-directories-first'
-alias ll='ls -l --color=auto --group-directories-first'
+if [[ "$(uname)" == 'Linux' ]]; then
+    alias ls='ls --color=auto --group-directories-first'
+    alias ll='ls -l --color=auto --group-directories-first'
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -l --color=auto'
+fi
 alias rm='rm -i'
 
 # This function labels fields as processed by awk. This is useful if you have lots of fields and
