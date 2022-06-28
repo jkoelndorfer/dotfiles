@@ -2,7 +2,6 @@
 
 pre_nix_path=$PATH
 
-# Primarily for Nix on macOS. Prefer GNU coreutils over BSD coreutils.
 nix_profile='/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 if [[ -f "$nix_profile" ]]; then
     source "$nix_profile"
