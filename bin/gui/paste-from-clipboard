@@ -17,7 +17,7 @@ else
 fi
 
 if ! which "${clipboard_paste[0]}" >/dev/null 2>&1; then
-    echo "$0: couldn't find utility (${clipboard_paste[0]}) to copy to clipboard!" >&2
+    echo "$0: couldn't find utility (${clipboard_paste[0]}) to paste from clipboard!" >&2
     exit 1
 fi
 
