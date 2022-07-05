@@ -4,7 +4,6 @@ vim.keymap.set('n', '<Leader>d', function() vim.diagnostic.open_float(nil, { foc
 vim.keymap.set('n', 'gD', vim.lsp.buf.definition, lsp_map_opts)
 vim.keymap.set('n', 'gd', vim.lsp.buf.declaration, lsp_map_opts)
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, lsp_map_opts)
-vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, lsp_map_opts)
 vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, lsp_map_opts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, lsp_map_opts)
 
