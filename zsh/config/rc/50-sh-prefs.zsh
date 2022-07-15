@@ -1,8 +1,5 @@
 setopt EXTENDED_GLOB
 
-export EDITOR='vi'
-export VISUAL="$EDITOR"
-
 export PAGER='less'
 export LESS='-R'
 
@@ -19,5 +16,3 @@ set -o vi
 #
 # KEYTIMEOUT=1 reduces the delay to 0.1 seconds.
 export KEYTIMEOUT=1
-
-c_search_directories=("${c_search_directories[@]}" "$HOME/projects" "$HOME/src" "$HOME/src/bigcommerce")

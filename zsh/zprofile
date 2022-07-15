@@ -1,3 +1,10 @@
-#!/usr/bin/env zsh
+source "$ZSH_LIB_DIR/path.zsh"
 
-[[ -f "$DOTFILE_DIR/zsh/zshrc" && ! -o interactive ]] && source "$DOTFILE_DIR/zsh/zshrc"
+for f in "$DOTFILE_DIR"/zsh/config/profile/*.zsh; do
+    source "$f"
+done
+
+local_profile="$HOME/.zprofile.local"
+if [[ -f "$local_profile" ]]; then
+    source "$local_profile"
+fi

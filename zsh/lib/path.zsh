@@ -1,6 +1,6 @@
 # This file should contain ONLY functions required for basic zsh environment initialization.
 #
-# It is sourced directly by ~/.zshenv, which in turn is sourced by ~/.xprofile.
+# It is sourced directly by ~/.zprofile, which in turn is sourced by ~/.xprofile.
 #
 # xprofile seems to use its own shell implementation. Whatever it is, it's not zsh. I found
 # that after adding confirm-cmd to my zsh configuration, lightdm would no longer start i3.

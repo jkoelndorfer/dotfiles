@@ -7,11 +7,10 @@
 unsetopt GLOBAL_RCS
 
 export DOTFILE_DIR="$HOME/.dotfiles"
+export ZSH_LIB_DIR="$DOTFILE_DIR/zsh/lib"
 _last_dotfile_install_path="$HOME/.cache/last-dotfile-install"
 
-for f in "$DOTFILE_DIR"/zsh/config/env/*.zsh; do
-    source "$f"
-done
+c_search_directories=("$HOME/projects" "$HOME/src")
 
 local_env="$HOME/.zshenv.local"
 if [[ -f "$local_env" ]]; then
