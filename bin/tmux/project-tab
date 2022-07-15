@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+source "$ZSH_LIB_DIR/misc.zsh"
+dir=$(selectdir)
+
+if [[ -z "$dir" ]]; then
+    # The user probably canceled selectdir.
+    exit 1
+fi
+
+cd "$dir"
+
+tmux new-window nvim \; \
+     rename-window "$(basename "$dir")" \; \
+     split-window -v \; \
+     resize-pane -y '30%' \; \
+     split-window -h \; \
+     select-pane -t '{top}'
