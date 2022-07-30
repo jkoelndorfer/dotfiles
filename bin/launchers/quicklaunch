@@ -25,8 +25,8 @@ quicklaunch_entries=(
     [steam]='steam'
     [vlc]='vlc'
     [xkill]='xkill'
-    [reboot]="$DOTFILE_DIR/bin/sysmgmt/reboot"
-    [power off]="$DOTFILE_DIR/bin/sysmgmt/poweroff"
+    [reboot]="sudo systemctl reboot"
+    [power off]="sudo systemctl poweroff"
 )
 
 
