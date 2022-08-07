@@ -35,3 +35,10 @@ function file_exists(path)
     return false
   end
 end
+
+function command_exists(cmd)
+  -- FIXME: There ought to be a facility in Lua to execute
+  -- a command given a program and a list of args. Google-fu
+  -- is failing me right now, though.
+  return os.execute('which ' .. cmd .. ' >/dev/null 2>&1') == 0
+end

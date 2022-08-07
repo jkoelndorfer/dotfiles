@@ -10,11 +10,13 @@ end
 
 -- Automatically renders markdown files.
 vim.api.nvim_create_augroup("MarkdownPreview", { clear = true })
-vim.api.nvim_create_autocmd(
-  {"BufWritePost"},
-  {
-    pattern = {"*.md"},
-    callback = preview_buffer_as_html,
-    group = "MarkdownPreview",
-  }
-)
+if command_exists('pandoc') then
+  vim.api.nvim_create_autocmd(
+    {"BufWritePost"},
+    {
+      pattern = {"*.md"},
+      callback = preview_buffer_as_html,
+      group = "MarkdownPreview",
+    }
+  )
+end
