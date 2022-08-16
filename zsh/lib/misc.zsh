@@ -98,6 +98,7 @@ function search-upwards-for-one-of() {
     cd "$original_dir"
     return 1
 }
+
 function genpw() {
     local length=$1
     local charset=$2
