@@ -119,7 +119,9 @@ function genpw() {
         return 1
     fi
 
-    tr --delete --complement "[:$charset:]" < /dev/urandom | head -c "$length"
+    LANG=C sed -r -e 's/[^ -~]//g' < /dev/urandom |
+        tr -d -c "[:$charset:]" |
+        head -c "$length"
 }
 
 function find-and-replace() {
