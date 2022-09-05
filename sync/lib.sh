@@ -1,16 +1,17 @@
 STEAM_COMPATDATA_DIR="$HOME/.steam/steam/steamapps/compatdata"
 SYNC_ROOT_DIR="$HOME/sync"
-_FROMSOFT_TOKEN=''
+_GAME_USER_TOKEN=''
 
 function errmsg() {
 	echo "$@" >&2
 }
 
-function fromsoft_token() {
+function game_user_token() {
 	# FromSoft games (Dark Souls 1, 2, 3, and Elden Ring, at least) have a
 	# data directory with a subdirectory whose name consists of hexadecimal digits.
 	#
-	# That subdirectory contains our save data.
+	# Additionally, some other games store their data in a subdirectory that appears
+	# to be a random number or string.
 	#
 	# I don't know what the name of the subdirectory represents. Perhaps some type of
 	# online user ID? If that is the case, I don't want to store it in version control.
@@ -18,21 +19,22 @@ function fromsoft_token() {
 	# determine the token automatically, but only if the game has been launched and
 	# created save data locally.
 	#
-	# Symlinking the root data directory would be easier, but that contains graphics
-	# configuration which will vary from system to system. It should not be synced.
+	# Symlinking the root data directory would be easier, but that usually also
+	# contains graphics configuration which will vary from system to system. It
+	# should not be synced.
 
-	if [[ -n "$FROMSOFT_TOKEN" ]]; then
-		echo "$FROMSOFT_TOKEN"
+	if [[ -n "$_GAME_USER_TOKEN" ]]; then
+		echo "$_GAME_USER_TOKEN"
 		return 0
 	fi
 
-	local fromsoft_token_path="$(sync_dir)/fromsoft-token"
-	_FROMSOFT_TOKEN=$(< "$fromsoft_token_path")
-	if [[ -z "$_FROMSOFT_TOKEN" ]]; then
-		errmsg "Error determing FromSoft token from '$fromsoft_token_path'"
+	local game_user_token_path="$(sync_dir)/game-user-token"
+	_GAME_USER_TOKEN=$(< "$game_user_token_path")
+	if [[ -z "$_GAME_USER_TOKEN" ]]; then
+		errmsg "Error determing FromSoft token from '$game_user_token_path'"
 		exit 1
 	fi
-	echo "$_FROMSOFT_TOKEN"
+	echo "$_GAME_USER_TOKEN"
 }
 
 function presetup_confirmation() {

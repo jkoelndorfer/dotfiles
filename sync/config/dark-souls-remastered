@@ -1,4 +1,4 @@
 STEAM_APPID='570940'
 SYNC_DIR='dark-souls-remastered'
 
-symlink save "$(proton_steamuser_home)/My Documents/NBGI/DARK SOULS REMASTERED/$(fromsoft_token)"
+symlink save "$(proton_steamuser_home)/My Documents/NBGI/DARK SOULS REMASTERED/$(game_user_token)"
