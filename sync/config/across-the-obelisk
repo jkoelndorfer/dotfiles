@@ -1,0 +1,3 @@
+SYNC_DIR='across-the-obelisk'
+
+symlink save "$HOME/.config/unity3d/Dreamsite Games/AcrossTheObelisk/$(game_user_token)"
