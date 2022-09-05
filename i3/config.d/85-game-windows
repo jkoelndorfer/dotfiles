@@ -5,6 +5,7 @@ game_workspace='game'
 # Games identified by instance (the first field of WM_CLASS).
 declare -a game_instances
 game_instances=(
+    '^AcrossTheObelisk.'
     '^darksoulsremastered.exe$'
     '^eso64.exe$'
     '^Faeria.x86_64$'
