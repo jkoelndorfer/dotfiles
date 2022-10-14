@@ -149,6 +149,12 @@ function find-and-replace() {
         xargs -0 sed -r "${in_place_args[@]}" -e "s${rs}${search}${rs}${replace}${rs}"
 }
 
+function sjoin() {
+    local separator=$1
+    shift
+    (IFS="$separator"; echo "$*")
+}
+
 # Rename is like `mv`, but the target is relative to the current directory of src
 function rename() {
     local src=$1
