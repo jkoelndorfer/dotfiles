@@ -65,7 +65,6 @@ mainbox {
 }
 message {
     padding:      1px ;
-    border-color: var(separator-color);
     border:       2px dash 0px 0px ;
 }
 textbox {
@@ -74,7 +73,6 @@ textbox {
 listview {
     padding:      2px 0px 0px ;
     scrollbar:    true;
-    border-color: var(separator-color);
     spacing:      2px ;
     fixed-height: 0;
     border:       2px dash 0px 0px ;
@@ -87,7 +85,6 @@ scrollbar {
     handle-color: var(normal-foreground);
 }
 sidebar {
-    border-color: var(separator-color);
     border:       2px dash 0px 0px ;
 }
 button {
