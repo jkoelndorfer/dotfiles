@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$(dirname "$0")/common.sh"
+
 function cleanup() {
     if [[ -n "$NEOVIM_RESTART_FLAG" ]]; then
         rm -f "$NEOVIM_RESTART_FLAG"
@@ -43,7 +45,7 @@ NEOVIM_RESTART_FLAG=$(mktemp -t 'neovim-restart.XXXXXX')
 export NEOVIM_RESTART_FLAG
 echo '0' > "$NEOVIM_RESTART_FLAG"
 
-next_nvim=$(which -a nvim | head -n2 | tail -n1)
+next_nvim=$(nonshprofile_cmd 'nvim')
 "${cmd[@]}" "$next_nvim" "$@"
 
 restart_neovim=$(< "$NEOVIM_RESTART_FLAG")
