@@ -18,7 +18,7 @@ vim.diagnostic.config({
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local lspconfig = require('lspconfig')
 local lsp_signature = require('lsp_signature')
-local lsp_cap = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lsp_cap = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 function configure_lsp(filetype, lsp, cmd, on_attach)
   local lsp_setup = {
