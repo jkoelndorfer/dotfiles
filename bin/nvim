@@ -1,5 +1,13 @@
 #!/bin/bash
 
+function cleanup() {
+    if [[ -n "$NEOVIM_RESTART_FLAG" ]]; then
+        rm -f "$NEOVIM_RESTART_FLAG"
+    fi
+}
+
+trap cleanup EXIT
+
 PROJECT_ROOT=$(git root 2>/dev/null)
 if [[ -n "$PROJECT_ROOT" ]]; then
     export PROJECT_ROOT
@@ -31,5 +39,21 @@ if [[ "$is_python" == '1' ]]; then
     export PYTHONPATH
 fi
 
+NEOVIM_RESTART_FLAG=$(mktemp -t 'neovim-restart.XXXXXX')
+export NEOVIM_RESTART_FLAG
+echo '0' > "$NEOVIM_RESTART_FLAG"
+
 next_nvim=$(which -a nvim | head -n2 | tail -n1)
-exec "${cmd[@]}" "$next_nvim" "$@"
+"${cmd[@]}" "$next_nvim" "$@"
+
+restart_neovim=$(< "$NEOVIM_RESTART_FLAG")
+if [[ "$restart_neovim" == '1' ]]; then
+    # The trap won't catch this if we exec, apparently.
+    rm -f "$NEOVIM_RESTART_FLAG"
+
+    unset PROJECT_ROOT
+    unset PYTHONPATH
+    unset NEOVIM_RESTART_FLAG
+
+    exec "$0" "$@"
+fi
