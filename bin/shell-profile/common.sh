@@ -1,15 +1,20 @@
-function nonshprofile() {
+function nonshprofile_cmd() {
     local cmd=$1; shift
 
-    local found_cmd=0
     while read p; do
         if [[ "$p" != "$SHELL_PROFILE_DIR/"* ]]; then
-            found_cmd=1
+            echo "$p"
             break
         fi
     done <<< "$(which -a "$cmd")"
-    if [[ "$found_cmd" == '1' ]]; then
-        exec "$p" "$@"
+}
+
+function nonshprofile() {
+    local cmd=$1; shift
+    local cmd_to_exec=$(nonshprofile_cmd "$cmd")
+
+    if [[ -n "$cmd_to_exec" ]]; then
+        exec "$cmd_to_exec" "$@"
     else
         echo "$0: could not find non shell-profile executable for $cmd" >&2
         return 1
