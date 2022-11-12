@@ -21,6 +21,7 @@ require('lualine').setup({
       {
         'tabs',
         mode = 2, -- Show tab number and tab name
+        max_length = vim.o.columns,
         tabs_color = {
           active = 'lualine_a_normal',
           inactive = 'lualine_b_normal',
