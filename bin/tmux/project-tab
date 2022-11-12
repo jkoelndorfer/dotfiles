@@ -10,7 +10,14 @@ fi
 
 cd "$dir"
 
-tmux new-window nvim \; \
+# TMUX_PROJECT_TAB Indicates that applications are running
+# in a project tab.
+#
+# This is a useful signal for vim. Because quitting vim
+# would cause the project tab to be "busted" without
+# an editor, vim will automatically restart if running
+# in a project tab.
+tmux new-window -e TMUX_PROJECT_TAB=1 nvim \; \
      rename-window "$(basename "$dir")" \; \
      split-window -v \; \
      resize-pane -y '30%' \; \

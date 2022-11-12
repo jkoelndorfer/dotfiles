@@ -43,7 +43,11 @@ fi
 
 NEOVIM_RESTART_FLAG=$(mktemp -t 'neovim-restart.XXXXXX')
 export NEOVIM_RESTART_FLAG
-echo '0' > "$NEOVIM_RESTART_FLAG"
+if [[ "$TMUX_PROJECT_TAB" == '1' ]]; then
+    echo '1' > "$NEOVIM_RESTART_FLAG"
+else
+    echo '0' > "$NEOVIM_RESTART_FLAG"
+fi
 
 next_nvim=$(nonshprofile_cmd 'nvim')
 "${cmd[@]}" "$next_nvim" "$@"

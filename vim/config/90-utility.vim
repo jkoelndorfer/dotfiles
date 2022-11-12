@@ -16,7 +16,13 @@ function RestartNeovim()
     execute 'qa'
 endfunction
 
+function FQuit()
+    call writefile(['0'], expand('$NEOVIM_RESTART_FLAG'))
+    execute 'qa'
+endfunction
+
 command! -range=% FormatJson call FormatJson(<line1>, <line2>)
 command! -nargs=1 Eadj call EAdjacent(<q-args>)
 command! CurrentBufferPath call CurrentBufferPath()
 command! RestartNeovim call RestartNeovim()
+command! FQuit call FQuit()
