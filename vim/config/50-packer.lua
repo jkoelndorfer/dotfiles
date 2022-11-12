@@ -40,9 +40,8 @@ return require('packer').startup(function(use)
   -- TEXT EDITING --
   ------------------
 
-  -- EasyMotion allows you to make large motions without having to count
-  -- text objects.
-  use 'easymotion/vim-easymotion'
+  -- Jump anywhere you can see, quickly. More modern EasyMotion.
+  use 'ggandor/leap.nvim'
 
   -- Align text easily.
   use 'junegunn/vim-easy-align'
