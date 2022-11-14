@@ -31,7 +31,7 @@ function game_user_token() {
 	local game_user_token_path="$(sync_dir)/game-user-token"
 	_GAME_USER_TOKEN=$(< "$game_user_token_path")
 	if [[ -z "$_GAME_USER_TOKEN" ]]; then
-		errmsg "Error determing FromSoft token from '$game_user_token_path'"
+		errmsg "Error determing game user token from '$game_user_token_path'"
 		exit 1
 	fi
 	echo "$_GAME_USER_TOKEN"
