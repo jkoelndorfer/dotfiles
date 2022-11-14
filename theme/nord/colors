@@ -1,5 +1,5 @@
 nord_xresources="$(cat "$DOTFILE_DIR/theme/nord/Xresources")"
-for c in $(seq 0 15); do
+for c in {0..15}; do
     re="#define[ \t]+nord${c}[ \t]+(#[0-9A-Fa-f]+)"
     if [[ "$nord_xresources" =~ $re ]]; then
         [[ -n "$BASH_VERSION" ]] && m=("${BASH_REMATCH[@]}")
