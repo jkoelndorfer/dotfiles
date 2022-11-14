@@ -1,0 +1,4 @@
+STEAM_APPID='692850'
+SYNC_DIR='bloodstained-ritual-of-the-night'
+
+symlink Saved/SaveGames "$(proton_steamuser_home)/AppData/Local/BloodstainedRotN/Saved/SaveGames"
