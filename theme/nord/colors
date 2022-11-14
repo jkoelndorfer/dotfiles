@@ -1,10 +1,13 @@
 nord_xresources="$(cat "$DOTFILE_DIR/theme/nord/Xresources")"
 for c in $(seq 0 15); do
-    re="#define nord${c}\\s*(#[0-9A-Fa-f]+)"
-    [[ "$nord_xresources" =~ $re ]]
-    [[ -n "$BASH_VERSION" ]] && match=("${BASH_REMATCH[@]}")
-    [[ -n "$ZSH_VERSION" ]] && match=("${match[@]}")
-    declare "NORD_NORD${c}"=${match[1]}
+    re="#define[ \t]+nord${c}[ \t]+(#[0-9A-Fa-f]+)"
+    if [[ "$nord_xresources" =~ $re ]]; then
+        [[ -n "$BASH_VERSION" ]] && m=("${BASH_REMATCH[@]}")
+        [[ -n "$ZSH_VERSION" ]] && m=("${match[@]}")
+        declare "NORD_NORD${c}"="${m[1]}"
+    else
+        echo "error: could not match regular expression '$re'" >&2
+    fi
 done
 
 # Colors whose TERM16 values are -1 aren't used in the
