@@ -17,7 +17,7 @@ fi
 script_dir=$(dirname "$(readlink -f "$0")")
 
 source "${script_dir}/lib.sh"
-source "${script_dir}/${application}"
+source "$application"
 
 if type postsetup &>/dev/null; then
     postsetup
