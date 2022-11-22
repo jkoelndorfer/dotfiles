@@ -47,3 +47,17 @@ function down() {
         return 1
     fi
 }
+
+# Returns the path to the most recently modified file in the Downloads
+# directory, i.e. the last downloaded file.
+function get-last-dl() {
+    local download_dir="$HOME/Downloads"
+    find "$download_dir" -type f -printf "%T@\t%p\n" | sort -k1 -rn | head -n1 | awk -F"$(printf '\t')" '{ print $2 }'
+}
+
+function mv-last-dl() {
+    local dest=$1
+
+    local last_dl_file=$(get-last-dl)
+    mv "$last_dl_file" "$dest"
+}
