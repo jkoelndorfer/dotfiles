@@ -48,6 +48,32 @@ function down() {
     fi
 }
 
+function extract-archive() {
+    local archive_path=$1
+
+    local file_mime_type=$(file --brief --mime-type "$archive_path")
+
+    case "$file_mime_type" in
+        application/zip)
+            unzip "$archive_path"
+            ;;
+        application/x-7z-compressed)
+            7z x "$archive_path"
+            ;;
+        application/x-rar)
+            unrar x "$archive_path"
+            ;;
+        *)
+            echo "unrecognized archive type: $file_mime_type"
+            return 1
+            ;;
+    esac
+}
+
+function x() {
+    extract-archive "$@"
+}
+
 # Returns the path to the most recently modified file in the Downloads
 # directory, i.e. the last downloaded file.
 function get-last-dl() {
