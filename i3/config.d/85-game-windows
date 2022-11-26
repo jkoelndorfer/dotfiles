@@ -11,6 +11,7 @@ game_instances=(
     '^Faeria.x86_64$'
     '^grim dawn.exe$'
     '^hl2_linux$'
+    '^openmw$'
     '^payday2_release$'
     '^portal2_linux$'
     '^sc2_x64.exe$'
