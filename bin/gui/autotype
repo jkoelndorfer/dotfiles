@@ -1,7 +1,13 @@
 #!/bin/bash
 
-IFS=''
-"$DOTFILE_DIR/bin/gui/paste-from-clipboard" | while read -r -n 1 k; do
-    xdotool type "$k"
-    sleep 0.01
-done
+if [[ "$(uname)" == 'Linux' ]]; then
+    IFS=''
+    "$DOTFILE_DIR/bin/gui/paste-from-clipboard" | while read -r -n 1 k; do
+        xdotool type "$k"
+        sleep 0.01
+    done
+elif [[ "$(uname)" == 'Darwin' ]]; then
+    # This requires granting the terminal application "control"
+    # in System Preferences > Security & Privacy > Accessibility.
+    osascript -e 'tell application "System Events" to keystroke the clipboard as text'
+fi
