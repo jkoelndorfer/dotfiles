@@ -37,6 +37,10 @@ function confirm-cmd() {
     fi
 }
 
+function go-project-dirs() {
+    find "$HOME/src/go" -name go.mod -type f | sed -r -e 's#/go.mod##'
+}
+
 function selectdir() {
     local search_path=()
     local addl_paths=()
@@ -44,6 +48,9 @@ function selectdir() {
     if [[ -z "$1" ]]; then
         search_path=("${c_search_directories[@]}")
         addl_paths=("$DOTFILE_DIR")
+        go-project-dirs | while read d; do
+            addl_paths+=("$d")
+        done
     else
         if ! [[ -e "$1" ]]; then
             echo "$0: no such file or directory: $1" >&2
