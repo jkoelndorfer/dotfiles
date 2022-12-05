@@ -197,3 +197,10 @@ function urldecode() {
 
     python3 -c 'import sys; from urllib.parse import unquote; print(unquote(sys.argv[1]), file=sys.stdout)' "$url"
 }
+
+# Lists the names of all variables defined in the environment.
+#
+# There are some caveats. This was taken from https://unix.stackexchange.com/a/439174.
+function ls-env-vars() {
+    awk 'BEGIN { for(v in ENVIRON) print v }' | sort -u
+}
