@@ -25,6 +25,8 @@ function set_window_defaults()
   vim.api.nvim_win_set_option(0, 'cursorline', false)
 
   vim.api.nvim_win_set_option(0, 'colorcolumn', '+0')
+
+  vim.api.nvim_win_set_option(0, 'list', true)
 end
 
 
