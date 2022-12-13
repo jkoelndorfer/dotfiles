@@ -7,7 +7,7 @@ $gcg user.name 'John Koelndorfer'
 $gcg push.default 'simple'
 
 # Use personal e-mail for the dotfiles repository.
-git config user.email 'johnk@johnk.io'
+git config user.email 'john@johnk.io'
 
 git config --global alias.current-branch 'rev-parse --abbrev-ref HEAD'
 git config --global alias.delete-branch "!~/dotfiles/git/delete-branch"
