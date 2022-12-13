@@ -19,7 +19,12 @@ ts.setup({
     defaults = {
         -- Previews cause telescope to hang for large, compacted JSON files.
         -- Those sometimes get stored in a repository as mock data for testing.
-        preview = false
+        preview = false,
+
+        file_ignore_patterns = {
+          -- These appear a lot in Terraform monorepos.
+          "/[.]terraform.lock.hcl$",
+        },
     },
     extensions = {
         fzf = {
