@@ -1,0 +1,4 @@
+STEAM_APPID='1462040'
+SYNC_DIR='final-fantasy-7-remake'
+
+symlink save "$(proton_steamuser_home)/Documents/My Games/FINAL FANTASY VII REMAKE/Steam/$(game_user_token)"
