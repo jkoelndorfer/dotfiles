@@ -41,7 +41,9 @@ if [[ "$is_python" == '1' ]]; then
     export PYTHONPATH
 fi
 
-NEOVIM_RESTART_FLAG=$(mktemp -t 'neovim-restart.XXXXXX')
+neovim_restart_flag_dir="$HOME/.local/johnk/neovim/restart-flags"
+mkdir -p "$neovim_restart_flag_dir"
+NEOVIM_RESTART_FLAG=$(mktemp "$neovim_restart_flag_dir/XXXXXX")
 export NEOVIM_RESTART_FLAG
 if [[ "$TMUX_PROJECT_TAB" == '1' ]]; then
     echo '1' > "$NEOVIM_RESTART_FLAG"
