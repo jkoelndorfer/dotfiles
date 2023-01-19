@@ -21,8 +21,14 @@ function FQuit()
     execute 'qa'
 endfunction
 
+function QuitTab()
+    call writefile(['2'], expand('$NEOVIM_SESSION_FLAG'))
+    execute 'qa'
+endfunction
+
 command! -range=% FormatJson call FormatJson(<line1>, <line2>)
 command! -nargs=1 Eadj call EAdjacent(<q-args>)
 command! CurrentBufferPath call CurrentBufferPath()
 command! RestartNeovim call RestartNeovim()
 command! FQuit call FQuit()
+command! QuitTab call QuitTab()

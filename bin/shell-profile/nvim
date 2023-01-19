@@ -64,4 +64,6 @@ if [[ "$session_cmd" == '1' ]]; then
     unset NEOVIM_SESSION_FLAG
 
     exec "$0" "$@"
+elif [[ "$session_cmd" == '2' && -n "$TMUX" ]]; then
+    tmux kill-window
 fi
