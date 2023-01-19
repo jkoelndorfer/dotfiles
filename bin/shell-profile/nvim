@@ -3,8 +3,8 @@
 source "$(dirname "$0")/common.sh"
 
 function cleanup() {
-    if [[ -n "$NEOVIM_RESTART_FLAG" ]]; then
-        rm -f "$NEOVIM_RESTART_FLAG"
+    if [[ -n "$NEOVIM_SESSION_FLAG" ]]; then
+        rm -f "$NEOVIM_SESSION_FLAG"
     fi
 }
 
@@ -41,27 +41,27 @@ if [[ "$is_python" == '1' ]]; then
     export PYTHONPATH
 fi
 
-neovim_restart_flag_dir="$HOME/.local/johnk/neovim/restart-flags"
-mkdir -p "$neovim_restart_flag_dir"
-NEOVIM_RESTART_FLAG=$(mktemp "$neovim_restart_flag_dir/XXXXXX")
-export NEOVIM_RESTART_FLAG
+neovim_session_flag_dir="$HOME/.local/johnk/neovim/session-flags"
+mkdir -p "$neovim_session_flag_dir"
+NEOVIM_SESSION_FLAG=$(mktemp "$neovim_session_flag_dir/XXXXXX")
+export NEOVIM_SESSION_FLAG
 if [[ "$TMUX_PROJECT_TAB" == '1' ]]; then
-    echo '1' > "$NEOVIM_RESTART_FLAG"
+    echo '1' > "$NEOVIM_SESSION_FLAG"
 else
-    echo '0' > "$NEOVIM_RESTART_FLAG"
+    echo '0' > "$NEOVIM_SESSION_FLAG"
 fi
 
 next_nvim=$(nonshprofile_cmd 'nvim')
 "${cmd[@]}" "$next_nvim" "$@"
 
-restart_neovim=$(< "$NEOVIM_RESTART_FLAG")
-if [[ "$restart_neovim" == '1' ]]; then
+session_cmd=$(< "$NEOVIM_SESSION_FLAG")
+if [[ "$session_cmd" == '1' ]]; then
     # The trap won't catch this if we exec, apparently.
-    rm -f "$NEOVIM_RESTART_FLAG"
+    rm -f "$NEOVIM_SESSION_FLAG"
 
     unset PROJECT_ROOT
     unset PYTHONPATH
-    unset NEOVIM_RESTART_FLAG
+    unset NEOVIM_SESSION_FLAG
 
     exec "$0" "$@"
 fi

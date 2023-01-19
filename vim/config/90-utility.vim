@@ -12,12 +12,12 @@ function CurrentBufferPath()
 endfunction
 
 function RestartNeovim()
-    call writefile(['1'], expand('$NEOVIM_RESTART_FLAG'))
+    call writefile(['1'], expand('$NEOVIM_SESSION_FLAG'))
     execute 'qa'
 endfunction
 
 function FQuit()
-    call writefile(['0'], expand('$NEOVIM_RESTART_FLAG'))
+    call writefile(['0'], expand('$NEOVIM_SESSION_FLAG'))
     execute 'qa'
 endfunction
 
