@@ -7,6 +7,8 @@ fi
 script_dir=$(dirname "$0")
 cd "$script_dir"
 
+setopt null_glob
+
 function generate_config() {
     # wm should be one of i3 or sway.
     #
