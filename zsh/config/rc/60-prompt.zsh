@@ -37,6 +37,9 @@ function record_lastrc() {
 }
 
 function kube_ctx_indicator() {
+    if [[ "$PROMPT_SHOW_KUBECTX" != 1 ]]; then
+        return
+    fi
     # NOTE: This isn't 100% proper for looking up the current
     # Kubernetes context, but it avoids forking a process so
     # it is somewhat faster than invoking kubectl.
