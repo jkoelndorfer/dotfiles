@@ -1,24 +1,68 @@
 #!/bin/bash
 
-left_mouse_button=1
-right_mouse_button=3
-
-script_name=$(basename "$0")
-if [[ "$script_name" == 'hold-left-click' ]]; then
-    button=$left_mouse_button
-elif [[ "$script_name" == 'hold-right-click' ]]; then
-    button=$right_mouse_button
-else
-    echo "Unknown mode: $0" >&2
-    exit 1
-fi
-
-xdotool mouseup "$button"
+RC_UNRECOGNIZED_BUTTON=10
 
 # Grim Dawn has some trouble holding down the left mouse button
 # when mousedown/mouseup events come in too quickly - it won't
 # always hold the button down. It seems to work better if we
 # add a short delay.
-sleep 0.2
+release_click_delay=0.2
 
-xdotool mousedown "$button"
+function p() {
+    local str_tmpl=$1
+    printf "${str_tmpl}\n" "$@"
+}
+
+function click_wayland() {
+    local button=$1
+    local button_code
+    if [[ "$button" == 'left' ]]; then
+        button_code='BTN_LEFT'
+    elif [[ "$button" == 'right' ]]; then
+        button_code='BTN_RIGHT'
+    else
+        p 'unrecognized button: %s' "$button" >&2
+        exit "$RC_UNRECOGNIZED_BUTTON"
+    fi
+
+    local mouse_device; mouse_device=$(find /dev/input/by-id -mindepth 1 -name '*-event-mouse' | grep -E -v '\-if[0-9]+-' | head -n1)
+    sudo evemu-event "$mouse_device" \
+        --type EV_KEY \
+        --code "$button_code" \
+        --value 0
+    sleep "$release_click_delay"
+    sudo evemu-event "$mouse_device" \
+        --type EV_KEY \
+        --code "$button_code" \
+        --value 1
+}
+
+function click_x11() {
+    local button=$1
+    local button_code
+
+    if [[ "$button" == 'left' ]]; then
+        button_code='1'
+    elif [[ "$button" == 'right' ]]; then
+        button_code='3'
+    else
+        p 'unrecognized button: %s' >&2
+        exit "$RC_UNRECOGNIZED_BUTTON"
+    fi
+
+    xdotool mouseup "$button_code"
+    sleep "$release_click_delay"
+    xdotool mousedown "$button"
+}
+
+script_name=$(basename "$0")
+if [[ "$script_name" == 'hold-left-click' ]]; then
+    button='left'
+elif [[ "$script_name" == 'hold-right-click' ]]; then
+    button='right'
+else
+    echo "Unknown mode: $0" >&2
+    exit 1
+fi
+
+"click_${XDG_SESSION_TYPE}" "$button"
