@@ -30,7 +30,23 @@ function awkcf() {
 # This function invokes grep, but always includes the first line of input in its output.
 # Useful for include headers from programs like ps.
 function hgrep() {
-    local h; read h; echo "$h"
+    local num_lines=1
+    if [[ "$1" =~ ^-n([0-9]+)? ]]; then
+        shift
+        if [[ -n "${match[1]}" ]]; then
+            num_lines=${match[1]}
+        else
+            num_lines=$1
+            shift
+        fi
+    fi
+
+    local h
+    for i in $(seq 1 "$num_lines"); do
+        read -r h
+        printf '%s\n' "$h"
+    done
+
     grep "$@"
 }
 
