@@ -19,7 +19,17 @@ config_warnings=$({
     fi
 })
 
-if [[ -n "$config_warnings" && -o interactive ]]; then
+if [[ "$ASCIINEMA_REC" == '1' ]]; then
+    # Don't print configuration warnings if we're doing an asciinema recording.
+    return
+fi
+
+if ! [[ -o interactive ]]; then
+    # Don't print configuration warnings in a non-interactive shell.
+    return
+fi
+
+if [[ -n "$config_warnings" ]]; then
     print_config_warnings
     echo "$config_warnings" >&2
 fi

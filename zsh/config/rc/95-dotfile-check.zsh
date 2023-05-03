@@ -35,6 +35,14 @@ function dotfile_status() {
     fi
 }
 
-if [[ -o interactive ]]; then
-    dotfile_status >&2
+if [[ "$ASCIINEMA_REC" == '1' ]]; then
+    # Don't print the status of dotfiles if we're doing an asciinema recording.
+    return
 fi
+
+if ! [[ -o interactive ]]; then
+    # Don't print the status of dotfiles in a non-interactive shell.
+    return
+fi
+
+dotfile_status >&2
