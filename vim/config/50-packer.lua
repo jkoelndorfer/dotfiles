@@ -101,10 +101,10 @@ return require('packer').startup(function(use)
   -- Provides a file tree.
   use {
     'nvim-neo-tree/neo-tree.nvim',
-	requires = {
-	  'nvim-lua/plenary.nvim',
-	  'kyazdani42/nvim-web-devicons', -- optional
-	  'MunifTanjim/nui.nvim',
+  requires = {
+      'nvim-lua/plenary.nvim',
+      'kyazdani42/nvim-web-devicons', -- optional
+      'MunifTanjim/nui.nvim',
     },
   }
 
