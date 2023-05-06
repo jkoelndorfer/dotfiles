@@ -1,6 +1,11 @@
 local obsidian = require('obsidian')
-local obsidian_dir = vim.fn.expand('$HOME/sync/obsidian')
+local obsidian_dir = vim.env.OBSIDIAN_DIR
 local obsidian_notebook = vim.env.OBSIDIAN_NOTEBOOK
+
+if obsidian_dir == nil then
+  vim.notify('$OBSIDIAN_DIR not set; skipping Obsidian setup')
+  return
+end
 
 if obsidian_notebook == nil then
     vim.notify('$OBSIDIAN_NOTEBOOK not set; skipping Obsidian setup')

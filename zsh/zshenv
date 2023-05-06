@@ -8,6 +8,7 @@ unsetopt GLOBAL_RCS
 
 export DOTFILE_DIR="$HOME/.dotfiles"
 export ZSH_LIB_DIR="$DOTFILE_DIR/zsh/lib"
+export OBSIDIAN_DIR="$HOME/sync/obsidian"
 _last_dotfile_install_path="$HOME/.cache/last-dotfile-install"
 
 c_search_directories=("$HOME/projects" "$HOME/src")
