@@ -1,3 +1,36 @@
 #!/bin/bash
 
-tmux new-window "$@"
+window_name=''
+directory=''
+while [[ "$#" -gt 0 ]]; do
+	case "$1" in
+		--name)
+			shift
+			window_name=$1
+			shift
+			;;
+		--directory)
+			shift
+			directory=$1
+			shift
+			;;
+		--)
+			break
+			;;
+		*)
+			printf 'invalid argument: %s\n' "$1" >&2
+			exit 100
+			;;
+	esac
+done
+if [[ -z "$window_name" ]]; then
+	printf 'missing required argument --name\n' >&2
+	exit 101
+fi
+if [[ -n "$directory" ]]; then
+	tmux_args=(-c "$directory")
+else
+	tmux_args=()
+fi
+
+tmux new-window -S -n "$window_name" "${tmux_args[@]}" "$@"
