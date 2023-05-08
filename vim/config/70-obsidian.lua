@@ -19,6 +19,16 @@ if not file_exists(obsidian_notebook_dir) then
     return
 end
 
+function note_id(title)
+  local normalized_title
+  if title ~= nil then
+    normalized_title = title:gsub(' ', '-'):gsub('[^A-Za-z0-9-]', ''):lower()
+  else
+    normalized_title = os.date('%Y-%m-%dT%H:%M')
+  end
+  return normalized_title
+end
+
 obsidian.setup({
   dir = obsidian_dir,
 
@@ -27,6 +37,8 @@ obsidian.setup({
   daily_notes = {
     folder = vim.fs.normalize('$OBSIDIAN_NOTEBOOK/notes/daily'),
   },
+
+  note_id_func = note_id,
 
   completion = {
     nvim_cmp = true,
