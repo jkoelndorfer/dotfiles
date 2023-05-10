@@ -204,3 +204,9 @@ function urldecode() {
 function ls-env-vars() {
     awk 'BEGIN { for(v in ENVIRON) print v }' | sort -u
 }
+
+# Executes a command verbosely (similar to set -x).
+function v() {
+    printf '+ %s\n' "$*" >&2
+    "$@"
+}
