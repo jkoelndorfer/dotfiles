@@ -20,5 +20,10 @@ function kubepod() {
 
 function kubepodlogs() {
     local selected_pod=$(kubepod)
+    if [[ -z "$selected_pod" ]]; then
+        printf 'no pod selected\n' >&2
+        return 1
+    fi
+    printf 'getting logs for pod %s\n' "$selected_pod" >&2
     kubectl logs "$selected_pod" "$@"
 }
