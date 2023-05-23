@@ -133,16 +133,17 @@ return require('packer').startup(function(use)
   -- Provides function argument hints in a popup window as you type.
   use 'ray-x/lsp_signature.nvim'
 
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  }
+
   ------------------
   -- PRODUCTIVITY --
   ------------------
   use {
-    'epwalsh/obsidian.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim',         -- This is a hard requirement.
-      'hrsh7th/nvim-cmp',              -- Optional; enables completion.
-      'nvim-telescope/telescope.nvim', -- Optional; enables telescope integration.
-    },
+    'nvim-neorg/neorg',
+    run = ':Neorg sync-parsers', -- This is required configuration.
   }
 
   -----------
