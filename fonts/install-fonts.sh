@@ -1,13 +1,42 @@
-#!/bin/bash
+#!/bin/zsh
 
-mononoki_mono_url='https://github.com/ryanoasis/nerd-fonts/raw/v2.0.0/patched-fonts/Mononoki/Regular/complete/mononoki-Regular%20Nerd%20Font%20Complete%20Mono.ttf'
-mononoki_mono_file='mononoki-Regular Nerd Font Complete Mono.ttf'
+source "$DOTFILE_DIR/zsh/lib/misc.zsh"
+
+function font_variant_name() {
+    local font_variant=$1
+
+    sed -r -e 's/-//g' <<<"$font_variant"
+}
+
+function font_path() {
+    local font_name=$1
+    local font_variant=$2
+
+    printf 'patched-fonts/%s/%s' "$font_name" "$font_variant"
+}
+
+function font_file_name() {
+    local font_name=$1
+    local font_variant=$2
+
+    printf '%sNerdFontMono-%s.ttf' "$font_name" "$(font_variant_name "$font_variant")"
+}
+
+font_name='Mononoki'
+font_rev='HEAD'
+variants=(Regular Italic Bold Bold-Italic)
+
 fonts_dir="$HOME/.fonts"
-
 mkdir -p "$fonts_dir"
 cd "$fonts_dir"
 
-if ! [[ -f "$mononoki_mono_file" ]]; then
-    curl -L -o "$mononoki_mono_file" "$mononoki_mono_url"
-    fc-cache -fv
-fi
+for font_variant in "${variants[@]}"; do
+    font_file_name=$(font_file_name "$font_name" "$font_variant")
+    font_url="https://github.com/ryanoasis/nerd-fonts/raw/${font_rev}/$(font_path "$font_name" "$font_variant")/$(urlencode "$(font_file_name "$font_name" "$font_variant")")"
+    printf 'downloading font: %s\n' "$font_url" >&2
+
+    if ! [[ -f "$font_file_name" ]]; then
+        curl -L -o "$font_file_name" "$font_url"
+    fi
+done
+fc-cache -fv
