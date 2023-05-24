@@ -26,3 +26,6 @@ vim.cmd([[
 
 local colors_rc = vim.env.DOTFILE_DIR .. '/theme/' .. vim.env.DESKTOP_THEME .. '/vim-colors.lua'
 dofile(colors_rc)
+
+vim.cmd([[highlight @text.emphasis gui=italic]])
+vim.cmd([[highlight @text.strong gui=bold]])
