@@ -24,14 +24,6 @@ function shell_profile_indicator() {
     [[ -n "$SHELL_PROFILE" ]] && echo -n "%F{blue} $SHELL_PROFILE "
 }
 
-function rc_indicator() {
-    local color='green'
-    if [[ "$last_rc" != '0' ]]; then
-        color='red'
-    fi
-    echo -n "%F{$color}>%f"
-}
-
 function record_lastrc() {
     last_rc="$?"
 }
@@ -72,12 +64,16 @@ function terraform_version_indicator() {
     fi
 }
 
-function user_indicator() {
+function user_rc_indicator() {
+    local prompt_symbol='$'
     local color='green'
     if [[ "$EUID" == '0' ]]; then
+        prompt_symbol='#'
+    fi
+    if [[ "$last_rc" != '0' ]]; then
         color='red'
     fi
-    echo -n "%F{$color}>%f"
+    echo -n "%F{$color}${prompt_symbol}%f "
 }
 
 function vimode_indicator() {
@@ -141,6 +137,6 @@ function git_upstream() {
     git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_indicator)$(rc_indicator) '
+PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator) $(user_rc_indicator)'
 zle -N zle-keymap-select
 zle -N accept-line
