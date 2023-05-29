@@ -17,7 +17,7 @@ function cwd_indicator() {
 }
 
 function host_indicator() {
-    [[ -n "$SSH_CONNECTION" ]] && echo -n '%F{white}力 %m%f '
+    [[ -n "$SSH_CONNECTION" ]] && echo -n '%F{white}󰒍 %m%f '
 }
 
 function shell_profile_indicator() {
