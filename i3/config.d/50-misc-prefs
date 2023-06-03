@@ -1,4 +1,0 @@
-focus_follows_mouse no
-
-# Sometimes qutebrowser steals focus while I am doing stuff. It's annoying.
-focus_on_window_activation urgent
