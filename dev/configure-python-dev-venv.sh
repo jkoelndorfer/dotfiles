@@ -1,5 +1,9 @@
 #!/bin/zsh -l
 
+if [[ -d "$PYTHON_DEV_VENV" ]]; then
+    exit 0
+fi
+
 mkdir -p "$PYTHON_DEV_VENV"
 cd "$PYTHON_DEV_VENV"
 
