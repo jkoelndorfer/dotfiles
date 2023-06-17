@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -o pipefail
+
+function p() {
+	local fmts=$1
+	shift
+	printf "${fmts}\n" "$@"
+}
+
+script_dir=$(dirname "$(readlink -f "$0")")
+cd "$script_dir" || exit 1
+
+virtualenv_dir="$PWD/.venv"
+requirements_lock="$PWD/requirements.lock"
+
+if ! [[ -d "$virtualenv_dir" ]]; then
+	p 'no virtualenv exists; creating virtualenv' >&2
+	do_create_venv=1
+elif [[ "$(stat -c '%Y' "$requirements_lock")" -gt "$(stat -c '%Y' "$virtualenv_dir")" ]]; then
+	p 'virtualenv exists but requirements.lock is newer; recreating virtualenv' >&2
+	do_create_venv=1
+fi
+
+if [[ "$do_create_venv" == 1 ]]; then
+	rm -rf "$virtualenv_dir"
+	virtualenv -p python3 "$virtualenv_dir"
+fi
+source "${virtualenv_dir}/bin/activate"
+if [[ "$do_create_venv" == 1 ]]; then
+	pip install -r "$requirements_lock"
+fi
+
+p 'starting ststatus'
+exec ./ststatus.py
