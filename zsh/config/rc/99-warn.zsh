@@ -10,8 +10,8 @@ function print_config_warnings() {
 }
 
 config_warnings=$({
-    if [[ -z "$ST_CENTRAL_DEVICE_ID" && -z "$SSH_CONNECTION" ]]; then
-        echo '* $ST_CENTRAL_DEVICE_ID is not configured; set it in ~/.zshenv.secret'
+    if [[ -z "$SYNCTHING_CENTRAL_DEVICE_ID" && -z "$SSH_CONNECTION" ]]; then
+        echo '* $SYNCTHING_CENTRAL_DEVICE_ID is not configured; set it in ~/.zshenv.secret'
     fi
 
     if [[ -z "$DISPLAYNAME_CENTER" && -z "$SSH_CONNECTION" ]]; then

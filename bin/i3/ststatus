@@ -38,12 +38,12 @@ function s() {
     curl -s -H "X-API-Key: $st_api_key" "$@" "http://127.0.0.1:8384/rest/$suburl"
 }
 
-if [[ -z "$ST_CENTRAL_DEVICE_ID" ]]; then
+if [[ -z "$SYNCTHING_CENTRAL_DEVICE_ID" ]]; then
     status  "$COLORSCHEME_RED"
     exit 0
 fi
 st_connections=$(s system/connections)
-st_status=$(s system/connections | jq -r ".connections.\"${ST_CENTRAL_DEVICE_ID}\".connected" 2>/dev/null)
+st_status=$(s system/connections | jq -r ".connections.\"${SYNCTHING_CENTRAL_DEVICE_ID}\".connected" 2>/dev/null)
 if [[ -z "$st_connections" ]]; then
     status  "$COLORSCHEME_RED"
 elif [[ "$st_status" == 'true' ]]; then
