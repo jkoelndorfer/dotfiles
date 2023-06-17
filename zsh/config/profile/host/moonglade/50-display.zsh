@@ -1,1 +1,0 @@
-export DISPLAYNAME_CENTER='eDP-1'
