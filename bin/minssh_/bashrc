@@ -1,7 +1,0 @@
-# Ignore duplicates and commands preceeded by a space in history.
-export HISTCONTROL=ignoreboth
-set -o vi
-if [[ -z "$prompthostname" ]]; then
-    prompthostname="$HOSTNAME"
-fi
-PS1="\e[39;40m \u@${prompthostname} \e[30;44m \w \e[0m\n$ "

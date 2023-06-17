@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Moves the currently window to the selected workspace.
-script_dir="$(dirname "$0")"
-selected_workspace="$("$script_dir/wssel" '缾  ')"
-
-[[ -z "$selected_workspace" ]] && exit 1
-
-i3-msg move container to workspace "$selected_workspace"

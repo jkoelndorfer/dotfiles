@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-if [[ -n "$WAYLAND_DISPLAY" ]]; then
-    pkill -USR1 swayidle
-else
-    loginctl lock-session
-fi

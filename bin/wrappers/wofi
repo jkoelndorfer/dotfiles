@@ -1,9 +1,0 @@
-#!/bin/bash
-
-display_profile=$("$DOTFILE_DIR/bin/gui/display-profile")
-
-exec /usr/bin/wofi \
-    --style="$HOME/.config/wofi/style-$display_profile.css" \
-    --show=dmenu \
-    --hide-scroll \
-    "$@"

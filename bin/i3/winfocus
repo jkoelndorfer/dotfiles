@@ -1,7 +1,0 @@
-#!/bin/bash
-
-script_dir="$(dirname "$0")"
-win_id="$("$script_dir/winsel" '缾')"
-[[ -z "$win_id" ]] && exit 1
-
-i3-msg "[con_id=$win_id] focus"

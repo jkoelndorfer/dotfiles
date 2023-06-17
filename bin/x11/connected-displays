@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# This script prints a list of currently active displays for our X server
-# to stdout.
-
-xrandr --query | grep ' connected' | awk '{ print $1 }'
