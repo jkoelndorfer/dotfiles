@@ -1,5 +1,6 @@
 -- Close a buffer
-vim.api.nvim_set_keymap('n', '<Leader>bd', ':bp | bd<CR>', { noremap = true })
+-- Taken from https://stackoverflow.com/a/8585343
+vim.api.nvim_set_keymap('n', '<Leader>bd', ':bp | sp | bn | bd<CR>', { noremap = true })
 
 -- Maintain visual mode selection when adjusting indentation
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true })
