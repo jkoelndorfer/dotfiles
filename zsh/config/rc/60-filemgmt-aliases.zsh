@@ -63,6 +63,9 @@ function extract-archive() {
         application/x-rar)
             unrar x "$archive_path"
             ;;
+        application/x-xz)
+            xz --decompress "$archive_path"
+            ;;
         *)
             echo "unrecognized archive type: $file_mime_type"
             return 1
