@@ -9,6 +9,7 @@ local treesitter_configs = require('nvim-treesitter.configs')
 -- On Mac, `brew install gcc` and `CC=gcc-13 nvim` seemed to get things working.
 treesitter_configs.setup({
   ensure_installed = {
+    'go',
     'lua',
     'markdown',
     'norg',
