@@ -19,3 +19,6 @@ vim/spell
 # Ignore python cache files
 .mypy_cache
 __pycache__
+
+# Ignore virtualenv directories
+.venv
