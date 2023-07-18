@@ -7,7 +7,7 @@ let g:neomake_message_sign = {
      \   'text': '',
      \   'texthl': 'NeomakeMessageSign',
      \ }
-let g:neomake_info_sign = {'text': 'כֿ', 'texthl': 'NeomakeInfoSign'}
+let g:neomake_info_sign = {'text': '', 'texthl': 'NeomakeInfoSign'}
 
 " NeoVim supports 'virtual text' on a line so you can display linting
 " and other messages specific to a line when that line is selected.
