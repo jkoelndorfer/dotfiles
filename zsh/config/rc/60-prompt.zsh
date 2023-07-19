@@ -42,7 +42,7 @@ function kube_ctx_indicator() {
     local kube_config_content=$(< "$kube_config")
     if [[ "$kube_config_content" =~ 'current-context: *([0-9A-Za-z_-]+)' ]]; then
         local current_kube_ctx=${match[1]}
-        echo "%F{cyan}ﴱ $current_kube_ctx "
+        echo "%F{cyan}󱃾 $current_kube_ctx "
     fi
 }
 
