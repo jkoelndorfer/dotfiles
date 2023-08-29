@@ -1,4 +1,4 @@
 STEAM_APPID='1245620'
 SYNC_DIR='elden-ring'
 
-symlink save "$(proton_steamuser_home)/Application Data/EldenRing/$(fromsoft_token)"
+symlink save "$(proton_steamuser_home)/Application Data/EldenRing/$(game_user_token)"
