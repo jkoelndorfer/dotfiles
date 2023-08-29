@@ -1,5 +1,8 @@
-STEAM_APPS_COMMON_DIR="$HOME/.steam/steam/steamapps/common"
-STEAM_COMPATDATA_DIR="$HOME/.steam/steam/steamapps/compatdata"
+if [[ -z "$STEAM_LIBRARY_ROOT" ]]; then
+	STEAM_LIBRARY_ROOT="$HOME/.steam/steam"
+fi
+STEAM_APPS_COMMON_DIR="${STEAM_LIBRARY_ROOT}/steamapps/common"
+STEAM_COMPATDATA_DIR="${STEAM_LIBRARY_ROOT}/steamapps/compatdata"
 SYNC_ROOT_DIR="$HOME/sync"
 _GAME_USER_TOKEN=''
 
