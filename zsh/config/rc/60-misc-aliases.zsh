@@ -11,6 +11,13 @@ function bw() {
     command bw "$@"
 }
 
+function sudo() {
+    command sudo \
+        --preserve-env=DOTFILE_DIR \
+        --preserve-env=SHELL_PROFILE_DIR \
+        "$@"
+}
+
 function weather() {
     curl wttr.in/"$1"
 }
