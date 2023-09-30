@@ -138,14 +138,6 @@ return require('packer').startup(function(use)
     run = ':TSUpdate',
   }
 
-  ------------------
-  -- PRODUCTIVITY --
-  ------------------
-  use {
-    'nvim-neorg/neorg',
-    run = ':Neorg sync-parsers', -- This is required configuration.
-  }
-
   -----------
   -- DIFFS --
   -----------

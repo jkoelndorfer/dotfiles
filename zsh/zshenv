@@ -12,7 +12,6 @@ export ZSH_LIB_DIR="$DOTFILE_DIR/zsh/lib"
 # By default, turn off wine debugging. It should be unset in
 # contexts where debug logs are required.
 export WINEDEBUG='-all'
-export NOTES_DIR="$HOME/sync/notes"
 _last_dotfile_install_path="$HOME/.cache/last-dotfile-install"
 
 c_search_directories=("$HOME/projects" "$HOME/src")
