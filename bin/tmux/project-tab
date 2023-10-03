@@ -10,6 +10,15 @@ fi
 
 cd "$dir"
 
+current_windows=$(tmux list-windows -F "#{window_name}:#{window_index}")
+window_name=$(basename "$dir")
+matching_window=$(awk -F: "\$1 == \"$window_name\" { print \$2 }" <<<"$current_windows")
+
+if [[ -n "$matching_window" ]]; then
+    tmux select-window -t "$matching_window"
+    exit "$?"
+fi
+
 # TMUX_PROJECT_TAB Indicates that applications are running
 # in a project tab.
 #
@@ -18,7 +27,7 @@ cd "$dir"
 # an editor, vim will automatically restart if running
 # in a project tab.
 tmux new-window -e TMUX_PROJECT_TAB=1 nvim \; \
-     rename-window "$(basename "$dir")" \; \
+     rename-window "$window_name" \; \
      split-window -v \; \
      resize-pane -y '30%' \; \
      split-window -h \; \
