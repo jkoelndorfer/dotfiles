@@ -13,7 +13,7 @@ function aws_profile_indicator() {
 }
 
 function cwd_indicator() {
-    echo -n '%F{blue} %1~%f '
+    echo -n '%F{blue} %3~%f '
 }
 
 function host_indicator() {
