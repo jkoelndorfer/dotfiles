@@ -1,19 +1,26 @@
 #!/bin/bash
 
-gcg='git config --global'
+function gcg() {
+	git config --global "$@"
+}
 
-$gcg color.ui 'auto'
-$gcg user.name 'John Koelndorfer'
-$gcg push.default 'simple'
+# Always start from a clean configuration.
+rm -f "${HOME}/.gitconfig"
+
+gcg color.ui 'auto'
+gcg user.name 'John Koelndorfer'
+gcg push.default 'simple'
 
 # Use personal e-mail for the dotfiles repository.
 git config user.email 'john@johnk.io'
 
-git config --global alias.current-branch 'rev-parse --abbrev-ref HEAD'
-git config --global alias.delete-branch "!~/dotfiles/git/delete-branch"
-git config --global alias.fix-authorship "!~/dotfiles/git/fix-authorship"
-git config --global alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/master"'
-git config --global alias.root 'rev-parse --show-toplevel'
-git config --global alias.fzf-log 'log --color=always --pretty=format:"%C(yellow)%h %C(green)%an %C(blue)%ad %C(reset)%s" --date=iso --abbrev-commit'
-git config --global alias.is-root-commit '!~/dotfiles/git/is-root-commit'
-git config --global diff.fbp.textconv "~/dotfiles/bin/gaming/factorio/deflate-blueprint"
+gcg alias.current-branch 'rev-parse --abbrev-ref HEAD'
+gcg alias.delete-branch "!~/dotfiles/git/delete-branch"
+gcg alias.fix-authorship "!~/dotfiles/git/fix-authorship"
+gcg alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/master"'
+gcg alias.root 'rev-parse --show-toplevel'
+gcg alias.fzf-log 'log --color=always --pretty=format:"%C(yellow)%h %C(green)%an %C(blue)%ad %C(reset)%s" --date=iso --abbrev-commit'
+gcg alias.is-root-commit '!~/dotfiles/git/is-root-commit'
+gcg diff.fbp.textconv "~/dotfiles/bin/gaming/factorio/deflate-blueprint"
+
+gcg 'url.ssh://git@github.com/.insteadOf' 'https://github.com/'
