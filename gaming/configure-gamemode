@@ -1,0 +1,12 @@
+#!/bin/bash
+
+gamemode_ini="${HOME}/.config/gamemode.ini"
+
+mkdir -p "$(dirname "$gamemode_ini")"
+cat > "$gamemode_ini" <<-EOF
+	[custom]
+	start = sudo --non-interactive ${DOTFILE_DIR}/bin/x11/gpufan 70
+	        ${DOTFILE_DIR}/bin/gui/mouseaccel off
+	end   = sudo --non-interactive ${DOTFILE_DIR}/bin/x11/gpufan auto
+	        ${DOTFILE_DIR}/bin/gui/mouseaccel on
+EOF
