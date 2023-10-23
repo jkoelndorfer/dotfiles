@@ -18,7 +18,7 @@ gcg alias.current-branch 'rev-parse --abbrev-ref HEAD'
 gcg alias.default-branch "!~/dotfiles/git/default-branch"
 gcg alias.delete-branch "!~/dotfiles/git/delete-branch"
 gcg alias.fix-authorship "!~/dotfiles/git/fix-authorship"
-gcg alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/master"'
+gcg alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/$(git default-branch)"'
 gcg alias.root 'rev-parse --show-toplevel'
 gcg alias.fzf-log 'log --color=always --pretty=format:"%C(yellow)%h %C(green)%an %C(blue)%ad %C(reset)%s" --date=iso --abbrev-commit'
 gcg alias.is-root-commit '!~/dotfiles/git/is-root-commit'
