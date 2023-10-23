@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Tries to determine the default branch for this repository.
+
+# Lists branches *WITHOUT* a leading asterisk for the active
+# branch.
+#
+# See https://stackoverflow.com/questions/51696931/list-all-local-git-branches-without-an-asterisk#comment90359143_51697007
+branch_list=$(git branch --format='%(refname:short)')
+
+candidate_default_branches=(
+	'master'
+	'main'
+)
+while read -r b; do
+	for c in "${candidate_default_branches[@]}"; do
+		if [[ "$b" == "$c" ]]; then
+			printf '%s\n' "$b"
+			exit 0
+		fi
+	done
+done <<<"$branch_list"
+
+printf 'could not determine repository default branch\n' >&2
+exit 1
