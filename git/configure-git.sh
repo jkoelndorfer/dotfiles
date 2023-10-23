@@ -15,6 +15,7 @@ gcg push.default 'simple'
 git config user.email 'john@johnk.io'
 
 gcg alias.current-branch 'rev-parse --abbrev-ref HEAD'
+gcg alias.default-branch "!~/dotfiles/git/default-branch"
 gcg alias.delete-branch "!~/dotfiles/git/delete-branch"
 gcg alias.fix-authorship "!~/dotfiles/git/fix-authorship"
 gcg alias.new-branch '!sh -c "git fetch; git checkout -b $1 origin/master"'
