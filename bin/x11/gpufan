@@ -1,6 +1,19 @@
 #!/bin/bash
 
-gpu_hwmon=$(find /sys/class/drm/card0/device/hwmon -mindepth 1 -maxdepth 1 -type d -name 'hwmon*')
+if [[ "$EUID" != 0 ]]; then
+    echo 'you must be root to run this script' >&2
+    exit 1
+fi
+
+gpu_hwmon=$(find /sys/class/drm/card*/device/hwmon -mindepth 1 -maxdepth 1 -type d -name 'hwmon*')
+
+if [[ -z "$gpu_hwmon" ]]; then
+    echo 'could not find a GPU; exiting' >&2
+    exit 1
+elif [[ "$(wc -l <<<"$gpu_hwmon")" -gt 1 ]]; then
+    echo 'found more than one GPU; exiting like a coward' >&2
+    exit 1
+fi
 
 function set_gpu_fan_control_mode() {
     local mode=$1
