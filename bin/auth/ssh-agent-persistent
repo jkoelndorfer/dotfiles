@@ -4,8 +4,8 @@ RC_SSH_AGENT_REACHED_HAS_IDENTITIES=0
 RC_SSH_AGENT_REACHED_NO_IDENTITIES=1
 
 umask 077
-TEMPDIR="/tmp/ssh-agent-persistent-${UID}"
-SSH_PERSIST_FILE="${TEMPDIR}/env"
+TEMPDIR="${HOME}/.cache"
+SSH_PERSIST_FILE="${TEMPDIR}/ssh-agent-persistent"
 
 mkdir -p "$TEMPDIR" >/dev/null 2>&1
 if ! [[ -O "$TEMPDIR" && -d "$TEMPDIR" ]]; then
