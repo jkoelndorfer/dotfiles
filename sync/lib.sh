@@ -10,6 +10,23 @@ function errmsg() {
 	echo "$@" >&2
 }
 
+function force_cp() {
+	local src=$1
+	local dest=$2
+
+	if [[ -z "$src" ]]; then
+		errmsg "$0: missing required src"
+		exit 1
+	fi
+
+	if [[ -z "$dest" ]]; then
+		errmsg "$0: missing required dest"
+	fi
+
+	rm -rf "$dest"
+	cp -rv "$src" "$dest"
+}
+
 function game_user_token() {
 	# FromSoft games (Dark Souls 1, 2, 3, and Elden Ring, at least) have a
 	# data directory with a subdirectory whose name consists of hexadecimal digits.
