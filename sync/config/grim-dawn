@@ -1,15 +1,24 @@
 STEAM_APPID='219990'
 SYNC_DIR='grim-dawn'
 
-GRIM_DAWN_DIR="$(proton_steamuser_home)/My Documents/My Games/Grim Dawn"
-symlink save "$GRIM_DAWN_DIR/save"
+# The directory where Grim Dawn is installed.
+#
+# This can change if Steam is configured to use a non-default storage directory.
+GRIM_DAWN_INSTALL_DIR="${HOME}/.local/share/Steam/steamapps/common/Grim Dawn"
+
+# The directory where save files and settings are located.
+GRIM_DAWN_STATE_DIR="$(proton_steamuser_home)/My Documents/My Games/Grim Dawn"
+
+symlink save "${GRIM_DAWN_STATE_DIR}/save"
 
 function postsetup() {
-    local options_path="$GRIM_DAWN_DIR/Settings/options.txt"
+    local local_settings_dir="${GRIM_DAWN_STATE_DIR}/Settings"
+    local local_options_path="${local_settings_dir}/options.txt"
+    local sync_settings_dir="$(sync_dir)/settings"
 
-    if [[ -f "$options_path" ]]; then
+    if [[ -f "$local_options_path" ]]; then
         echo 'Setting "cloudSaving = false" in options.txt' >&2
-        sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$options_path"
+        sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$local_options_path"
     else
         {
             echo "Could not locate Grim Dawn's options.txt at '$options_path'"
@@ -17,4 +26,10 @@ function postsetup() {
             echo 'Uncheck Options > Gameplay > Cloud Saving.'
         } >&2
     fi
+
+    for f in keybindings.txt text_en ui; do
+        force_cp "${sync_settings_dir}/${f}" "${local_settings_dir}/${f}"
+    done
+
+    force_cp "$(sync_dir)/mods/grim-ui-x-mod-strategist/Grim UI X-Mod" "${GRIM_DAWN_INSTALL_DIR}/mods/Grim UI X-Mod"
 }
