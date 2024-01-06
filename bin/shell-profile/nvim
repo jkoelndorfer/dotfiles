@@ -32,7 +32,7 @@ elif [[ -f "$PROJECT_ROOT/Pipfile" ]]; then
 fi
 
 if [[ "$is_python" == '1' ]]; then
-    addl_python_path="$PROJECT_ROOT:$PROJECT_ROOT/test:$PROJECT_ROOT/tests"
+    addl_python_path="$PROJECT_ROOT:$PROJECT_ROOT/src:$PROJECT_ROOT/test:$PROJECT_ROOT/tests"
     if [[ -n "$PYTHONPATH" ]]; then
         PYTHONPATH="$addl_python_path:$PYTHONPATH"
     else
