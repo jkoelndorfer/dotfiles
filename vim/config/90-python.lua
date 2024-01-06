@@ -6,7 +6,21 @@ function ruff_on_attach(client, bufnr)
   client.server_capabilities.hoverProvider = false
 end
 
+function ruff_lsp_format()
+  vim.lsp.buf.format({
+    async = false,
+    filter = function(client) return client.name ~= "ruff" end,
+  })
+end
+
 configure_lsp("python", "ruff_lsp", {"ruff-lsp"}, ruff_on_attach)
 
-vim.api.nvim_exec("let g:pymode_options_max_line_length=" .. max_line_length, nil)
-vim.api.nvim_exec("let g:pymode_lint=0", nil) -- ruff will lint for us
+vim.api.nvim_create_augroup("PythonAutofmt", { clear = true })
+vim.api.nvim_create_autocmd(
+  {"BufWritePre"},
+  {
+    pattern = {"*.py"},
+    callback = ruff_lsp_format,
+    group = "PythonAutofmt",
+  }
+)
