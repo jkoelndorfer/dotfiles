@@ -33,15 +33,6 @@ function configure_lsp(filetype, lsp, cmd, on_attach)
   if cmd ~= nil then
     lsp_setup['cmd'] = cmd
   end
-
-  vim.api.nvim_create_autocmd(
-    {"FileType"},
-    {
-      pattern = filetype,
-      callback = function()
-        l = lspconfig[lsp]
-        l.setup(lsp_setup)
-      end,
-    }
-  )
+  l = lspconfig[lsp]
+  l.setup(lsp_setup)
 end
