@@ -1,3 +1,3 @@
-PYTHON_DEV_VENV="$HOME/.cache/python-venvs/neovim-dev"
-
-export PYTHON_DEV_VENV
+function python-setup-dev() {
+    pip install neovim ruff-lsp
+}
