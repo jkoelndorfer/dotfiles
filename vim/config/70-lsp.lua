@@ -23,10 +23,10 @@ local lsp_cap = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_c
 function configure_lsp(filetype, lsp, cmd, on_attach)
   local lsp_setup = {
     capabilities = lsp_cap,
-    on_attach = function()
+    on_attach = function(client, bufnr)
       lsp_signature.on_attach(vim.g.lsp_signature_config)
       if on_attach ~= nil then
-        on_attach()
+        on_attach(client, bufnr)
       end
     end
   }
