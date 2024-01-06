@@ -9,3 +9,4 @@ end
 configure_lsp("python", "ruff_lsp", {"ruff-lsp"}, ruff_on_attach)
 
 vim.api.nvim_exec("let g:pymode_options_max_line_length=" .. max_line_length, nil)
+vim.api.nvim_exec("let g:pymode_lint=0", nil) -- ruff will lint for us
