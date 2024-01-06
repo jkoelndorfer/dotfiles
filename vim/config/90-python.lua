@@ -1,5 +1,9 @@
-max_line_length = 88 -- this is ruff's default
-configure_lang_settings("python", 4, max_line_length, false)
+configure_lang_settings({
+  filetype = "python",
+  indent_size = 4,
+  max_line_len = 88,
+  indent_with_tabs = false,
+})
 configure_lsp("python", "pyright", {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'}, nil)
 
 function ruff_on_attach(client, bufnr)
