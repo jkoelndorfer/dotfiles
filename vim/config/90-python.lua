@@ -1,4 +1,4 @@
-max_line_length = 120
+max_line_length = 88 -- this is ruff's default
 configure_lang_settings("python", 4, max_line_length, false)
 configure_lsp("python", "pyright", {vim.env.DOTFILE_DIR .. '/dev/language-servers/python'}, nil)
 
