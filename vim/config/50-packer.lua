@@ -173,12 +173,6 @@ return require('packer').startup(function(use)
   -- integration, a ton of useful commands, and snippets.
   use {'fatih/vim-go', run = ':GoUpdateBinaries' }
 
-  -- Provides syntax highlighting and improved editing for Python.
-  use 'python-mode/python-mode'
-
-  -- Formats Python code in accordance with the exceptionally precise Black standard.
-  use { 'psf/black', tag = 'stable' }
-
   -- Provides syntax highlighting for Terraform.
   use 'hashivim/vim-terraform'
 
