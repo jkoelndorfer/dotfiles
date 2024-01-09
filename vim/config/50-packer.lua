@@ -75,6 +75,9 @@ return require('packer').startup(function(use)
   -- Provides :Git commands that behave better than simply invoking :!git.
   use 'tpope/vim-fugitive'
 
+  -- Allows using fugitive's :GBrowse for GitHub remotes
+  use 'tpope/vim-rhubarb'
+
   -- Show VCS diffs in the sign column.
   use 'mhinz/vim-signify'
 
