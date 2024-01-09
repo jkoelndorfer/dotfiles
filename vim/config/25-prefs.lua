@@ -97,6 +97,8 @@ vim.api.nvim_set_option('backspace', 'indent,eol,start')
 -- Show the partial normal-mode command being inputted.
 vim.api.nvim_set_option('showcmd', true)
 
+vim.api.nvim_set_option('diffopt', 'filler,algorithm:minimal,linematch:60,closeoff')
+
 -- Configure undo.
 vim.api.nvim_create_augroup("Undo", { clear = true })
 vim.api.nvim_create_autocmd({"BufEnter"}, { command = 'set undofile', group = "Undo" })
