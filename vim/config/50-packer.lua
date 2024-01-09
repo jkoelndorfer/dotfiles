@@ -141,16 +141,6 @@ return require('packer').startup(function(use)
     run = ':TSUpdate',
   }
 
-  -----------
-  -- DIFFS --
-  -----------
-
-  -- Use the Patience diff algorithm to produce (potentially) better diffs.
-  use 'chrisbra/vim-diff-enhanced'
-
-  -- Highlight the exact differences between two files in diff mode.
-  use 'jkoelndorfer/diffchar.vim'
-
   ----------------------
   -- TMUX INTEGRATION --
   ----------------------
