@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This script blocks until the process matching the first argument exits.
+#
+# Its primary use is pairing forking programs with gamemoderun, so game
+# mode remains enabled until the program has actually exited.
+
+match=$1
+
+while pgrep -f "$1" >/dev/null 2>&1; do
+	sleep 3
+done
