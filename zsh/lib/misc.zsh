@@ -141,19 +141,19 @@ function find-and-replace() {
     fi
 
     local rs=$(echo -e '\x1e')
+    local sed=sed
 
-    # GNU sed requires different arguments for in-place editing of files than
-    # BSD sed. In particular, sed on macOS requires an empty argument to -i
-    # while GNU sed complains if it receives one.
-    local in_place_args=()
-    if (sed --version 2>&1 || true) | grep -q 'GNU'; then
-        in_place_args=('--in-place')
-    else
-        in_place_args=('-i' '')
+    # Mac's sed frequently causes me grief. It's not argument
+    # compatible with GNU sed and cannot handle the record separator
+    # character in a sed command.
+    #
+    # Ensure we always use GNU sed.
+    if [[ "$(uname)" == 'Darwin' ]]; then
+        sed=gsed
     fi
     find "$target" -type f -print0 |
         grep --invert-match -z '/.git/' |
-        xargs -0 sed -r "${in_place_args[@]}" -e "s${rs}${search}${rs}${replace}${rs}"
+        xargs -0 "$sed" -r --in-place -e "s${rs}${search}${rs}${replace}${rs}"
 }
 
 function sjoin() {
