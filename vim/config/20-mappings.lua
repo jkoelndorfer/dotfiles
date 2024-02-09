@@ -20,6 +20,3 @@ end
 -- Disable ex mode. Who even uses that?
 vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gQ', '<Nop>', { noremap = true })
-
--- Make j and k move up and down according to how the file is
--- currently rendered, not linewise.
