@@ -20,3 +20,6 @@ end
 -- Disable ex mode. Who even uses that?
 vim.api.nvim_set_keymap('n', 'Q', '<Nop>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gQ', '<Nop>', { noremap = true })
+
+-- Shortcut for quitting an entire tmux project tab.
+vim.api.nvim_set_keymap('n', 'QQQ', ':QuitTab<CR>', { noremap = true })
