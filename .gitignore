@@ -16,6 +16,9 @@ vim/undo
 # Ignore downloaded vim spell files
 vim/spell
 
+# Ignore lazyvim generated files.
+vim/lazyvim.json
+
 # Ignore python cache files
 .mypy_cache
 __pycache__
