@@ -1,0 +1,6 @@
+STEAM_APPID='2379780'
+SYNC_DIR='balatro'
+
+symlink profiles/1 "$(proton_steamuser_home)/AppData/Roaming/Balatro/1"
+symlink profiles/2 "$(proton_steamuser_home)/AppData/Roaming/Balatro/2"
+symlink profiles/3 "$(proton_steamuser_home)/AppData/Roaming/Balatro/3"
