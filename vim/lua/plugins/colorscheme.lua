@@ -1,5 +1,9 @@
+vim.g.nord_borders = true
+
 return {
-	{ "shaunsingh/nord.nvim" },
+	{
+		"shaunsingh/nord.nvim",
+	},
 
 	{
 		"LazyVim/LazyVim",
