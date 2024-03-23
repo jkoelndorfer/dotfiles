@@ -1,0 +1,3 @@
+SYNC_DIR='minecraft'
+
+symlink atlauncher/instances "$HOME/.local/share/atlauncher/instances"
