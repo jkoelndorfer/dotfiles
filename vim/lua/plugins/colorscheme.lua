@@ -2,7 +2,7 @@ vim.g.nord_borders = true
 
 return {
 	{
-		"shaunsingh/nord.nvim",
+		"gbprod/nord.nvim",
 	},
 
 	{
