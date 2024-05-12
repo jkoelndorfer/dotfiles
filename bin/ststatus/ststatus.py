@@ -122,13 +122,13 @@ class SyncthingSystemTrayApp:
             signal.signal(s, signal.SIG_DFL)
 
     def configure_syncthing_client(self) -> None:
-        default_syncthing_config_path = Path.home() / ".config" / "syncthing" / "config.xml"
+        default_syncthing_config_path = Path.home() / ".local" / "state" / "syncthing" / "config.xml"
         default_syncthing_url = "http://localhost:8384"
 
         syncthing_config_path = environ.get("SYNCTHING_CONFIG_PATH", default_syncthing_config_path)
         syncthing_url = environ.get("SYNCTHING_URL", default_syncthing_url)
         xml_handler = SyncthingXMLHandler()
-        xml_parse(syncthing_config_path, xml_handler)
+        xml_parse("file://" + str(syncthing_config_path), xml_handler)
 
         if not xml_handler.syncthing_api_key:
             raise SyncthingConfigParseError("Failed getting API key from Syncthing configuration")
