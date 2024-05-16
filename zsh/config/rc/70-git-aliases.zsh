@@ -102,6 +102,7 @@ function git() {
         fzf-log
         log
         ls-files
+        ls-remote
         pull
         rev-list
         rev-parse
