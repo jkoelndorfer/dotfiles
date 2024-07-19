@@ -83,11 +83,18 @@ function gr() {
 
 function git() {
     local git_args=("$@")
-    local user_email_config=$(command git config --local -l 2>/dev/null | grep -E '^\s*user\.email\s*=')
+    local git_alt_dir_args=()
 
     while [[ "$1" =~ ^--? ]]; do
+        if [[ "$1" == '-C' ]]; then
+          git_alt_dir_args=("$1" "$2")
+          shift
+        fi
         shift
     done
+
+    local user_email_config=$(command git "${git_alt_dir_args[@]}" config --local -l 2>/dev/null | grep -E '^\s*user\.email\s*=')
+
     local subfunc=$1
     local allowed_subfuncs=(
         blame
