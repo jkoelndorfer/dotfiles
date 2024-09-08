@@ -1,0 +1,88 @@
+#!/usr/bin/zsh
+
+function cleanup() {
+  if [[ -n "$launch_script_path" ]]; then
+    rm -f "$launch_script_path"
+  fi
+}
+
+# Fixes an issue described in a Reddit thread [1] where libraries
+# that Steam injects using LD_PRELOAD can cause frame drops after
+# the game has been running for some amount of time.
+#
+# [1]: https://www.reddit.com/r/linux_gaming/comments/16pcndk/gw2_lagging_after_exactly_26_minutes/
+export LD_PRELOAD=''
+
+# $GUILD_WARS_2_LAUNCHER_PATH should be the path to the Guild Wars 2
+# launcher on the filesystem, i.e. "Gw2-64.exe".
+#
+# It can be found in a Steam data directory under:
+# steamapps/common/Guild Wars 2/Gw2-64.exe
+if [[ -z "$GUILD_WARS_2_LAUNCHER_PATH" ]]; then
+	printf 'expected $GUILD_WARS_2_LAUNCHER_PATH to have path to Guild Wars 2 launcher\n' >&2
+	exit 1
+fi
+
+# $BLISH_HUD_PATH is the path to the Blish HUD [2] executable.
+#
+# [2]: https://blishhud.com/
+if [[ -z "$BLISH_HUD_PATH" ]]; then
+	printf 'expected $BLISH_HUD_PATH to have the path to the Blish HUD\n' >&2
+	exit 1
+fi
+
+launcher_args=()
+while ! [[ "$1" =~ /proton$ ]]; do
+	launcher_args=("${launcher_args[@]}" "$1")
+	shift
+done
+proton_args=("$@")
+
+read -r -d '' launch_script <<-'EOF'
+	#!/bin/bash
+	set -x
+	"$@" -provider Portal &
+	gw2_pid=$!
+
+  # It sure would be nice if Blish HUD worked.
+  # Maybe some day.
+  if false; then
+    sleep 10
+    cd "$(dirname "$BLISH_HUD_PATH")"
+    "$1" run "$BLISH_HUD_PATH"
+  fi
+
+	wait "$gw2_pid"
+EOF
+
+launch_script_path=$(mktemp --tmpdir 'gw2-launch-script.XXXXXX')
+if [[ -z "$launch_script_path" ]]; then
+	printf 'failed to create launch script temp file\n' >&2
+	exit 1
+fi
+
+printf '%s\n' "$launch_script" >"$launch_script_path"
+chmod +x "$launch_script_path"
+
+# See https://github.com/ValveSoftware/gamescope/issues/605#issuecomment-1243080163:
+#
+# > This is an issue with SDL2 2.24.0. A change in its code seems to force
+# > Gamescope to try to do compositing with Wayland, which Gamescope doesn't
+# > support. The solution is to run Gamescope with the environmental variable
+# > `SDL_VIDEODRIVER=x11`. I had this issue on Fedora Rawhide, and doing this
+# > fixed my issue.
+#
+# Interestingly, Guild Wars seems to work *sometimes* with without this environment
+# variable set. But sometimes the gamescope window will not appear, even though
+# the game appears to be running.
+export SDL_VIDEODRIVER=x11
+
+gamemoderun \
+	gamescope \
+  --backend sdl \
+  --force-grab-cursor \
+	-W 3840 -H 2160 \
+	-w 3840 -h 2160 \
+	-- \
+	"${launcher_args[@]}" \
+	"$launch_script_path" "${proton_args[@]}"
