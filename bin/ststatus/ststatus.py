@@ -122,7 +122,7 @@ class SyncthingSystemTrayApp:
             signal.signal(s, signal.SIG_DFL)
 
     def configure_syncthing_client(self) -> None:
-        default_syncthing_config_path = Path.home() / ".local" / "state" / "syncthing" / "config.xml"
+        default_syncthing_config_path = Path.home() / ".config" / "syncthing" / "config.xml"
         default_syncthing_url = "http://localhost:8384"
 
         syncthing_config_path = environ.get("SYNCTHING_CONFIG_PATH", default_syncthing_config_path)
