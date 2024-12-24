@@ -7,14 +7,14 @@ local logo = [[
          ╚═══╝  ╚═╝╚═╝     ╚═╝
 ]]
 
-logo = string.rep("\n", 8) .. logo .. "\n\n"
-
 return {
-	"nvimdev/dashboard-nvim",
+	"snacks.nvim",
 
 	opts = {
-		config = {
-			header = vim.split(logo, "\n"),
+		dashboard = {
+			preset = {
+				header = logo,
+			},
 		},
 	},
 }
