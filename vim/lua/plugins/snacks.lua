@@ -16,5 +16,10 @@ return {
 				header = logo,
 			},
 		},
+		scroll = {
+			filter = function()
+				return false
+			end,
+		},
 	},
 }
