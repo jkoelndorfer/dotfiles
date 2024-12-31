@@ -1,0 +1,157 @@
+#!/bin/bash
+
+set -euo pipefail
+
+script_path=$(readlink -f "$0")
+script_dir=$(dirname "$script_path")
+cd "$script_dir"
+
+archlinux_src_image='archlinux:latest'
+target_image='johnk-archlinux:latest'
+
+# Taken from https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1195-L1238
+#
+# These are required for a proper Distrobox container.
+base_packages=(
+  bash
+  bash-completion
+  bc
+  curl
+  diffutils
+  findutils
+  glibc
+  glibc-locales
+  gnupg
+  iputils
+  inetutils
+  keyutils
+  less
+  lsof
+  man-db
+  man-pages
+  mlocate
+  mtr
+  ncurses
+  nss-mdns
+  openssh
+  pigz
+  pinentry
+  procps-ng
+  rsync
+  shadow
+  sudo
+  tcpdump
+  time
+  traceroute
+  tree
+  tzdata
+  unzip
+  util-linux
+  util-linux-libs
+  vte-common
+  wget
+  words
+  xorg-xauth
+  zip
+  mesa
+  vulkan-intel
+  vulkan-radeon
+)
+
+personal_packages=(
+  base-devel
+  fzf
+  git
+  man-db
+  neovim
+  python3
+  ripgrep
+  tmux
+  which
+  zsh
+)
+
+function install_pacman_packages() {
+  local working_ctr=$1
+  shift
+
+  # --disable-sandbox is needed for pacman to work correctly
+  # with older kernels.
+  #
+  # See https://bbs.archlinux.org/viewtopic.php?id=299402.
+  buildah run "$working_ctr" -- pacman -Syu --disable-sandbox --noconfirm "$@"
+}
+
+build_phase=${1:-}
+
+if [[ -z "$build_phase" ]]; then
+  printf 'missing required build phase argument; expected one of "base", "packages", "config", "distrobox"\n' >&2
+  exit 1
+fi
+
+base_image='johnk-archlinux:base'
+packages_image='johnk-archlinux:packages'
+config_image='johnk-archlinux:config'
+distrobox_image='johnk-archlinux:distrobox'
+
+case "$build_phase" in
+base)
+  working_ctr=$(buildah from "$archlinux_src_image")
+
+  # In Arch's docker container image, pacman is configured to skip
+  # extracting documentation. Override this behavior.
+  #
+  # See:
+  #
+  # * https://github.com/archlinux/archlinux-docker/blob/61cb892bfc251e46f73e716ceb3b903ec4e9e725/pacman-conf.d-noextract.conf
+  # * https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1182-L1186
+  buildah run "$working_ctr" -- sed -i -e '/NoExtract/d' /etc/pacman.conf
+  install_pacman_packages "$working_ctr" "${distrobox_packages[@]}"
+  buildah commit "$working_ctr" "$base_image"
+  ;&
+
+packages)
+  working_ctr=$(buildah from --pull=never "$base_image")
+  install_pacman_packages "$working_ctr" "${personal_packages[@]}"
+  buildah commit "$working_ctr" "$packages_image"
+  ;&
+
+config)
+  working_ctr=$(buildah from --pull=never "$packages_image")
+  buildah copy "$working_ctr" 'files/etc/profile.d/99-exec-zsh.sh' '/etc/profile.d/99-exec-zsh.sh'
+  buildah copy "$working_ctr" 'files/etc/locale.gen' '/etc/locale.gen'
+  buildah copy "$working_ctr" 'files/etc/locale.conf' '/etc/locale.conf'
+  buildah run "$working_ctr" -- locale-gen
+  buildah run "$working_ctr" -- mandb -c
+  buildah commit "$working_ctr" "$config_image"
+  ;&
+
+distrobox)
+  if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
+    printf 'cannot run distrobox creation step from within distrobox\n' >&2
+    printf 'run build from "distrobox" step on host\n' >&2
+    exit 16
+  fi
+
+  working_ctr=$(buildah from --pull=never "$config_image")
+
+  buildah copy "$working_ctr" 'files/usr/local/bin/johnk-distrobox-pre-init' '/usr/local/bin/johnk-distrobox-pre-init'
+  buildah copy "$working_ctr" 'files/usr/local/bin/johnk-distrobox-init' '/usr/local/bin/johnk-distrobox-init'
+
+  buildah commit "$working_ctr" "$target_image"
+
+  distrobox rm -f arch
+  distrobox create \
+    --name arch \
+    --image "localhost/${target_image}" \
+    --hostname "arch.$(hostname -s)" \
+    --pre-init-hooks '/usr/local/bin/johnk-distrobox-pre-init' \
+    --init-hooks '/usr/local/bin/johnk-distrobox-init' \
+    --yes
+  ;;
+
+*)
+  printf 'invalid build phase "%s"; expected one of "base", "packages", "config", "distrobox"\n' >&2
+  exit 1
+  ;;
+esac

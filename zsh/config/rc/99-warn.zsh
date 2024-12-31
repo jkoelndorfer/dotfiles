@@ -25,6 +25,12 @@ if ! [[ -o interactive ]]; then
     return
 fi
 
+if [[ -n "$DISTROBOX_ENTER_PATH" ]] || [[ -n "$TOOLBOX_PATH" ]]; then
+  # Don't print configuration warnings if we're running via a
+  # Distrobox or Toolbox container.
+  return
+fi
+
 if [[ -n "$config_warnings" ]]; then
     print_config_warnings
     echo "$config_warnings" >&2

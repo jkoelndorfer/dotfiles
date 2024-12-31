@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# This skips distrobox's initial setup for Arch. Our custom image handles
+# all the needed packages. If the container is broken, try getting rid of
+# these bits.
+#
+# See https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1172-L1269
+ln -sf /usr/local/bin/pacman /usr/bin/true

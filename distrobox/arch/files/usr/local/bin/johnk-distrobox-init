@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This reverts the pre-init hook overriding pacman.
+rm -f /usr/local/bin/pacman
+
+host_exec_programs=(
+  buildah
+  distrobox
+  podman
+)
+
+for program in "${host_exec_programs[@]}"; do
+  ln -sf /usr/bin/distrobox-host-exec "/usr/local/bin/${program}"
+done
