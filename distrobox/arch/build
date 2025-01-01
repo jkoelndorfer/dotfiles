@@ -106,7 +106,7 @@ base)
   # * https://github.com/archlinux/archlinux-docker/blob/61cb892bfc251e46f73e716ceb3b903ec4e9e725/pacman-conf.d-noextract.conf
   # * https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1182-L1186
   buildah run "$working_ctr" -- sed -i -e '/NoExtract/d' /etc/pacman.conf
-  install_pacman_packages "$working_ctr" "${distrobox_packages[@]}"
+  install_pacman_packages "$working_ctr" "${base_packages[@]}"
   buildah commit "$working_ctr" "$base_image"
   ;&
 
