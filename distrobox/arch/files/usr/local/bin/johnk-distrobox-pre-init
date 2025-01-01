@@ -5,4 +5,5 @@
 # these bits.
 #
 # See https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1172-L1269
-ln -sf /usr/local/bin/pacman /usr/bin/true
+mv /usr/bin/pacman /usr/bin/pacman.bak
+ln -sf /usr/bin/true /usr/bin/pacman
