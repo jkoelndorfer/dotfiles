@@ -4,6 +4,7 @@ for pfx in '' '/usr' '/usr/local'; do
 done
 unset pfx
 
+pathmunge "${HOME}/.local/bin"
 pathmunge "$HOME/bin"
 pathmunge "$DOTFILE_DIR/bin"
 
