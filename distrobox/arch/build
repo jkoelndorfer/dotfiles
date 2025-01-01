@@ -96,7 +96,7 @@ distrobox_image='johnk-archlinux:distrobox'
 
 case "$build_phase" in
 base)
-  working_ctr=$(buildah from "$archlinux_src_image")
+  working_ctr=$(buildah from --pull=always "$archlinux_src_image")
 
   # In Arch's docker container image, pacman is configured to skip
   # extracting documentation. Override this behavior.
