@@ -8,6 +8,7 @@ cd "$script_dir"
 
 archlinux_src_image='archlinux:latest'
 target_image='johnk-archlinux:latest'
+distrobox_name='arch'
 
 # Taken from https://github.com/89luca89/distrobox/blob/3bac964bf0952674848dce170af8b41d743abe57/distrobox-init#L1195-L1238
 #
@@ -69,6 +70,13 @@ personal_packages=(
   tmux
   which
   zsh
+
+  # Needed for clipboard automation -- specifically supporting tmux-yank [1].
+  # The binaries from these packages need to be exported back to the host system.
+  #
+  # [1]: https://github.com/tmux-plugins/tmux-yank
+  xclip
+  wl-clipboard
 )
 
 function install_pacman_packages() {
@@ -80,6 +88,12 @@ function install_pacman_packages() {
   #
   # See https://bbs.archlinux.org/viewtopic.php?id=299402.
   buildah run "$working_ctr" -- pacman -Syu --disable-sandbox --noconfirm "$@"
+}
+
+function export_command() {
+  local cmd=$1
+
+  distrobox-enter "$distrobox_name" -e /usr/bin/distrobox-export --bin "$cmd"
 }
 
 build_phase=${1:-}
@@ -142,12 +156,14 @@ distrobox)
 
   distrobox rm -f arch
   distrobox create \
-    --name arch \
+    --name "$distrobox_name" \
     --image "localhost/${target_image}" \
     --hostname "arch.$(hostname -s)" \
     --pre-init-hooks '/usr/local/bin/johnk-distrobox-pre-init' \
     --init-hooks '/usr/local/bin/johnk-distrobox-init' \
     --yes
+  export_command /usr/bin/wl-copy
+  export_command /usr/bin/xclip
   ;;
 
 *)
