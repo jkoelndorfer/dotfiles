@@ -88,7 +88,7 @@
   <Action name="close-session" shortcut=""/>
   <Action name="copy-input-to-none" shortcut=""/>
   <Action name="copy-input-to-selected-tabs" shortcut=""/>
-  <Action name="edit_copy_contextmenu" shortcut="Ctrl+Shift+C"/>
+  <Action name="edit_copy_contextmenu" shortcut=""/>
   <Action name="edit_find" shortcut=""/>
   <Action name="edit_find_next" shortcut=""/>
   <Action name="edit_find_prev" shortcut=""/>
