@@ -1,4 +1,5 @@
 VIMODE='insert'
+DISTROBOX_HOST_HOSTNAME=''
 
 if [[ "$SHELL_NAME" == 'zsh' ]]; then
 	setopt PROMPT_SUBST
@@ -56,15 +57,36 @@ function cwd_indicator() {
 
 function host_indicator() {
 	local host_text
+	local printed=''
+	local do_print=0
+
 	if [[ "$SHELL_NAME" == 'bash' ]]; then
 		host_text='\h'
 	elif [[ "$SHELL_NAME" == 'zsh' ]]; then
 		host_text='%m'
 	fi
 
-	if [[ -n "$SSH_CONNECTION" ]]; then
-		printf -n '%s󰒍 %s%s ' "$(pc "$fg_white")" "$host_text" "$(pc "$reset_color")"
+	if [[ -n "$DISTROBOX_NAME" ]]; then
+		printed=" ${DISTROBOX_NAME} 󰒍 $(distrobox_host_hostname)"
+	elif [[ -n "$SSH_CONNECTION" ]]; then
+		printed="󰒍 ${host_text}"
 	fi
+
+	if [[ -n "$printed" ]]; then
+		printf '%s%s%s ' "$(pc "$fg_white")" "$printed" "$(pc "$reset_color")"
+	fi
+}
+
+function distrobox_host_hostname() {
+	if [[ -z "$DISTROBOX_NAME" ]]; then
+		return
+	fi
+
+	if [[ -z "$DISTROBOX_HOST_HOSTNAME" ]]; then
+		DISTROBOX_HOST_HOSTNAME=$(distrobox-host-exec hostname -s)
+	fi
+
+	printf '%s' "$DISTROBOX_HOST_HOSTNAME"
 }
 
 function shell_profile_indicator() {
