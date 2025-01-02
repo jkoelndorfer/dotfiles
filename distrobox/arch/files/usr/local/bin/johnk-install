@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -euo pipefail
+
+username=$(id -un)
+if [[ "$username" == 'root' ]]; then
+  mkdir '/home/nobody'
+  chown 'nobody:nobody' '/home/nobody'
+  usermod --home '/home/nobody' 'nobody'
+
+  # `makepkg -si` absolutely refuses to run as root, but it requires some
+  # root privileges because it may need root access to install dependencies
+  # via `pacman`. Additionally, it will require root access when it installs
+  # the built package.
+  #
+  # To work around this, we grant "nobody" access to use sudo during the build.
+  # Then we can run `makepkg -si` as "nobody".
+  sudoers_ctrbuild='/etc/sudoers.d/ctrbuild'
+  printf 'nobody ALL=(ALL:ALL) NOPASSWD:ALL\n' >> "$sudoers_ctrbuild"
+  chown 'root:root' "$sudoers_ctrbuild"
+  chmod 400 "$sudoers_ctrbuild"
+
+  # Unexpire the password for the nobody user. It's expired by default.
+  #
+  # sudo is unhappy if the user's password is expired.
+  chage -E '2300-01-01' 'nobody'
+
+  sudo -u 'nobody' "$0"
+else
+  # URL where the yay archive can be downloaded from.
+  yay_archive_url='https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz'
+
+  yay_tmpdir=$(mktemp -d --tmpdir 'yay.XXXXXX')
+  cd "$yay_tmpdir"
+  curl -L "$yay_archive_url" >'yay.tar.gz'
+  tar -xzf 'yay.tar.gz'
+  cd yay
+  makepkg -si --noconfirm
+
+  cd /
+  rm -rf "$yay_tmpdir"
+fi
