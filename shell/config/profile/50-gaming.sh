@@ -1,4 +1,4 @@
-source "${DOTFILE_DIR}/zsh/lib/system.zsh"
+source "${DOTFILE_DIR}/shell/lib/system.sh"
 
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 

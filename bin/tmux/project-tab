@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source "$ZSH_LIB_DIR/misc.zsh"
+source "$SH_LIB_DIR/misc.sh"
 dir=$(selectdir)
 
 if [[ -z "$dir" ]]; then

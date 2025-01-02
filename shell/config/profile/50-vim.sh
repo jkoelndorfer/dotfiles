@@ -12,5 +12,7 @@ if which nvim &>/dev/null; then
     export EDITOR=$(which nvim)
 elif which vim &>/dev/null; then
     export EDITOR=$(which vim)
+elif which vi &>/dev/null; then
+    export EDITOR=$(which vi)
 fi
 export VISUAL="$EDITOR"

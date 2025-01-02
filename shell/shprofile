@@ -1,0 +1,19 @@
+# bash does not have an equivalent to zsh's "zshenv".
+#
+# Here we fake it by forcibly sourcing it in the profile file.
+if [[ -n "$BASH_VERSION" ]]; then
+	source "${HOME}/.dotfiles/shell/shenv"
+fi
+
+source "$SH_LIB_DIR/path.sh"
+
+for f in "$DOTFILE_DIR"/shell/config/profile/*.sh; do
+    source "$f"
+done
+
+local_profile="$HOME/.profile.local"
+if [[ -f "$local_profile" ]]; then
+    source "$local_profile"
+fi
+
+# vim: ft=sh

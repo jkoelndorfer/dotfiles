@@ -1,0 +1,43 @@
+export DOTFILE_DIR="$HOME/.dotfiles"
+export SH_LIB_DIR="$DOTFILE_DIR/shell/lib"
+
+if [[ -n "$BASH_VERSION" ]]; then
+  SHELL_NAME='bash'
+elif [[ -n "$ZSH_VERSION" ]]; then
+  SHELL_NAME='zsh'
+else
+  printf 'cannot determine current shell\n' >&2
+  printf 'shell initialization cannot continue\n' >&2
+  return 1
+fi
+
+# Don't source system-wide rc files.
+#
+# My dotfiles do a lot, and these sometimes just screw things up.
+#
+# I'd rather integrate machine-specific stuff into my dotfiles
+# as I need it.
+#
+# Unfortunately, bash does not have an equivalent option.
+if [[ "$SHELL_NAME" == 'zsh' ]]; then
+  unsetopt GLOBAL_RCS
+fi
+
+# By default, turn off wine debugging. It should be unset in
+# contexts where debug logs are required.
+export WINEDEBUG='-all'
+_last_dotfile_install_path="$HOME/.cache/last-dotfile-install"
+
+c_search_directories=("$HOME/projects" "$HOME/src")
+
+local_env="$HOME/.shenv.local"
+if [[ -f "$local_env" ]]; then
+  source "$local_env"
+fi
+
+secret_env="$HOME/.shenv.secret"
+if [[ -f "$secret_env" ]]; then
+  source "$secret_env"
+fi
+
+# vim: ft=sh

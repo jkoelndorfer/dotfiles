@@ -9,11 +9,13 @@ pathmunge "$_go_local_path/bin"
 unset _go_local_path
 
 (
-    IFS=':'
-    setopt sh_word_split
-    for d in $GOPATH; do
-        if ! [[ -d "$d" ]]; then
-            mkdir -p "$d"
-        fi
-    done
+	IFS=':'
+	if [[ "$SHELL_NAME" == 'zsh' ]]; then
+		setopt sh_word_split
+	fi
+	for d in $GOPATH; do
+		if ! [[ -d "$d" ]]; then
+			mkdir -p "$d"
+		fi
+	done
 )

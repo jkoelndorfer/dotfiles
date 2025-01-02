@@ -1,0 +1,21 @@
+# bash does not have an equivalent to zsh's "zshenv".
+#
+# Here we fake it by forcibly sourcing it in the rc file.
+if [[ -n "$BASH_VERSION" ]]; then
+	source "${HOME}/.dotfiles/shell/shenv"
+fi
+
+for f in "$DOTFILE_DIR"/shell/config/rc/*.sh; do
+    source "$f"
+done
+
+_shrc_local="$HOME/.shrc.local"
+if [[ -f "$_shrc_local" ]]; then
+    source "$_shrc_local"
+fi
+unset _shrc_local
+
+# Clear status code from anything else that may have executed previously
+return 0
+
+# vim: ft=sh
