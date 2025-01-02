@@ -3,11 +3,17 @@
 # Determines what appears in the "host" field
 # of the tmux status bar.
 
+source "${SH_LIB_DIR}/system.sh"
+
 tmux_host_file="$HOME/.config/tmux-host"
 if [[ -f "$tmux_host_file" ]]; then
-	host=$(< "$tmux_host_file")
+	host=$(<"$tmux_host_file")
 else
-	host=$(hostname -s)
+	host="󰒍 $(hostname -s)"
+
+	if [[ -n "$DISTROBOX_NAME" ]]; then
+		host=" ${DISTROBOX_NAME} 󰒍 $(distrobox-host-exec hostname -s)"
+	fi
 fi
 
 if [[ -z "$host" ]]; then
