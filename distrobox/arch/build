@@ -169,6 +169,7 @@ distrobox)
     --name "$distrobox_name" \
     --image "localhost/${target_image}" \
     --hostname "arch.$(hostname -s)" \
+    --additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
     --pre-init-hooks '/usr/local/bin/johnk-distrobox-pre-init' \
     --init-hooks '/usr/local/bin/johnk-distrobox-init' \
     --yes
