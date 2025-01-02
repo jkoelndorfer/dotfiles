@@ -99,12 +99,12 @@ function export_command() {
 build_phase=${1:-}
 
 if [[ -z "$build_phase" ]]; then
-  printf 'missing required build phase argument; expected one of "base", "packages", "config", "distrobox"\n' >&2
+  printf 'missing required build phase argument; expected one of "base", "install", "config", "distrobox"\n' >&2
   exit 1
 fi
 
 base_image='johnk-archlinux:base'
-packages_image='johnk-archlinux:packages'
+install_image='johnk-archlinux:install'
 config_image='johnk-archlinux:config'
 distrobox_image='johnk-archlinux:distrobox'
 
@@ -124,14 +124,14 @@ base)
   buildah commit "$working_ctr" "$base_image"
   ;&
 
-packages)
+install)
   working_ctr=$(buildah from --pull=never "$base_image")
   install_pacman_packages "$working_ctr" "${personal_packages[@]}"
-  buildah commit "$working_ctr" "$packages_image"
+  buildah commit "$working_ctr" "$install_image"
   ;&
 
 config)
-  working_ctr=$(buildah from --pull=never "$packages_image")
+  working_ctr=$(buildah from --pull=never "$install_image")
   buildah copy "$working_ctr" 'files/etc/profile.d/99-exec-zsh.sh' '/etc/profile.d/99-exec-zsh.sh'
   buildah copy "$working_ctr" 'files/etc/locale.gen' '/etc/locale.gen'
   buildah copy "$working_ctr" 'files/etc/locale.conf' '/etc/locale.conf'
@@ -167,7 +167,7 @@ distrobox)
   ;;
 
 *)
-  printf 'invalid build phase "%s"; expected one of "base", "packages", "config", "distrobox"\n' >&2
+  printf 'invalid build phase "%s"; expected one of "base", "install", "config", "distrobox"\n' >&2
   exit 1
   ;;
 esac
