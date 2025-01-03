@@ -1,9 +1,11 @@
 <?xml version='1.0'?>
 <!DOCTYPE gui SYSTEM 'kpartgui.dtd'>
-<gui name="session" version="35">
+<gui name="session" version="36">
  <MenuBar>
   <Menu name="file">
    <Action group="session-operations" name="file_save_as"/>
+   <Action group="session-operations" name="file-autosave"/>
+   <Action group="session-operations" name="stop-autosave"/>
    <Separator group="session-operations"/>
    <Action group="session-operations" name="file_print"/>
    <Separator group="session-operations"/>
@@ -49,6 +51,15 @@
    <Action group="session-settings" name="switch-profile"/>
   </Menu>
  </MenuBar>
+ <ToolBar name="sessionToolbar">
+  <text>Session Toolbar</text>
+  <index>1</index>
+  <Spacer/>
+  <Action name="edit_copy"/>
+  <Action name="edit_paste"/>
+  <Action name="edit_find"/>
+  <Action name="hamburger_menu"/>
+ </ToolBar>
  <Menu name="session-popup-menu">
   <Action name="edit_copy_contextmenu"/>
   <Action name="edit_copy_contextmenu_in"/>
@@ -74,16 +85,7 @@
   <Action name="switch-profile"/>
   <Action name="edit-current-profile"/>
  </Menu>
- <ToolBar name="sessionToolbar">
-  <text>Session Toolbar</text>
-  <index>1</index>
-  <Spacer/>
-  <Action name="edit_copy"/>
-  <Action name="edit_paste"/>
-  <Action name="edit_find"/>
-  <Action name="hamburger_menu"/>
- </ToolBar>
- <ActionProperties scheme="Default">
+ <ActionProperties>
   <Action name="clear-history-and-reset" shortcut=""/>
   <Action name="close-session" shortcut=""/>
   <Action name="copy-input-to-none" shortcut=""/>
