@@ -1,6 +1,6 @@
-#!/bin/zsh
+#!/bin/bash
 
-source "$DOTFILE_DIR/zsh/lib/misc.zsh"
+source "$DOTFILE_DIR/shell/lib/misc.sh"
 
 function font_variant_name() {
     local font_variant=$1
