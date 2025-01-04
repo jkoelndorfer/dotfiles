@@ -1,4 +1,4 @@
 STEAM_APPID='275850'
-SYNC_DIR='no-mans-sky'
+SYNC_DIR='game-saves/no-mans-sky'
 
 symlink save "$(proton_steamuser_home)/AppData/Roaming/HelloGames/NMS"

@@ -1,5 +1,5 @@
 STEAM_APPID='105600'
-SYNC_DIR='terraria'
+SYNC_DIR='game-saves/terraria'
 
 symlink Players "$HOME/.local/share/Terraria/Players"
 symlink Worlds "$HOME/.local/share/Terraria/Worlds"

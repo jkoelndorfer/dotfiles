@@ -1,5 +1,5 @@
 STEAM_APPID='394510'
-SYNC_DIR='helldivers'
+SYNC_DIR='game-saves/helldivers'
 
 presetup_confirmation <<EOF
 In order to prevent Steam from clobbering your saves

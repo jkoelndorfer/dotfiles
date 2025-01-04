@@ -1,4 +1,4 @@
 STEAM_APPID='1426210'
-SYNC_DIR='it-takes-two'
+SYNC_DIR='game-saves/it-takes-two'
 
 symlink save "$(proton_steamuser_home)/AppData/Local/ItTakesTwo"

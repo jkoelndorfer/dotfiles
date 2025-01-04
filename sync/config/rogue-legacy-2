@@ -2,5 +2,5 @@
 # It's here for reference purposes.
 STEAM_APPID='1253920'
 
-SYNC_DIR='rogue-legacy-2'
+SYNC_DIR='game-saves/rogue-legacy-2'
 symlink save "$HOME/.config/unity3d/Cellar Door Games/Rogue Legacy 2/Saves"

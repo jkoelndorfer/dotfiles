@@ -1,5 +1,5 @@
 STEAM_APPID='1794680'
-SYNC_DIR='vampire-survivors'
+SYNC_DIR='game-saves/vampire-survivors'
 
 app_data_dir="$(proton_steamuser_home)/AppData/Roaming/Vampire_Survivors"
 

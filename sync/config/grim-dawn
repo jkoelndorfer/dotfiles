@@ -1,5 +1,5 @@
 STEAM_APPID='219990'
-SYNC_DIR='grim-dawn'
+SYNC_DIR='game-saves/grim-dawn'
 
 # The directory where Grim Dawn is installed.
 #

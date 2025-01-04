@@ -1,4 +1,4 @@
 STEAM_APPID='374320'
-SYNC_DIR='dark-souls-3'
+SYNC_DIR='game-saves/dark-souls-3'
 
 symlink save "$(proton_steamuser_home)/AppData/Roaming/DarkSoulsIII/$(game_user_token)"

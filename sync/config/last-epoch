@@ -1,5 +1,5 @@
 STEAM_APPID='899770'
-SYNC_DIR='last-epoch'
+SYNC_DIR='game-saves/last-epoch'
 
 # Last Epoch has a native Linux client but I have fiddled with Proton
 # to see if better performance could be achieved.

@@ -1,5 +1,5 @@
-SYNC_DIR='slay-the-spire'
-SLAY_THE_SPIRE_DIR="$HOME/.local/share/Steam/steamapps/common/SlayTheSpire"
+SYNC_DIR='game-saves/slay-the-spire'
+SLAY_THE_SPIRE_DIR="${STEAM_APPS_COMMON_DIR}/SlayTheSpire"
 
 for d in preferences runs saves; do
     symlink "$d" "${SLAY_THE_SPIRE_DIR}/${d}"

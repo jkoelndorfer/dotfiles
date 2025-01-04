@@ -1,4 +1,4 @@
-SYNC_DIR='hellpoint'
+SYNC_DIR='game-saves/hellpoint'
 
 HELLPOINT_DIR="$HOME/.config/unity3d/Cradle Games/Hellpoint"
 
