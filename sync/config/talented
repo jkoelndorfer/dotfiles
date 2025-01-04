@@ -1,0 +1,4 @@
+STEAM_APPID='2435090'
+SYNC_DIR='game-saves/talented'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/TurtleFox Games/Talented"
