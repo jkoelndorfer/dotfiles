@@ -13,6 +13,6 @@ symlink local-storage "$local_storage_dir"
 # in the game install path. It will automatically copy that data back into place
 # if the main file is missing (are there other conditions? don't know). In order
 # to make sure we're using ONE save file, we'll clear out the backup.
-steam_install_dir="$HOME/.steam/steam/steamapps/common/Vampire Survivors"
+steam_install_dir="${STEAM_APPS_COMMON_DIR}/Vampire Survivors"
 backup_save_data_dir="$steam_install_dir/resources/app/.webpack/renderer"
 rm -v -f "$backup_save_data_dir"/*.sav

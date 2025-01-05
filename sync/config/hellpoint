@@ -1,5 +1,5 @@
 SYNC_DIR='game-saves/hellpoint'
 
-HELLPOINT_DIR="$HOME/.config/unity3d/Cradle Games/Hellpoint"
+HELLPOINT_DIR="${STEAM_HOME}/.config/unity3d/Cradle Games/Hellpoint"
 
 symlink cfg-saves "$HELLPOINT_DIR"

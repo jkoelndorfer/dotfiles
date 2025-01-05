@@ -1,3 +1,3 @@
 SYNC_DIR='game-saves/chronicon'
 
-symlink save "$HOME/.config/Chronicon/save"
+symlink save "${STEAM_HOME}/.config/Chronicon/save"
