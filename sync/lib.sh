@@ -1,5 +1,11 @@
+# If the Flatpak version of Steam, set this to
+# the directory that the "user's home" will be located
+# in. Probably: "${HOME}/.var/app/com.valvesoftware.Steam"
+if [[ -z "$STEAM_HOME" ]]; then
+	STEAM_HOME="${HOME}"
+fi
 if [[ -z "$STEAM_LIBRARY_ROOT" ]]; then
-	STEAM_LIBRARY_ROOT="$HOME/.steam/steam"
+	STEAM_LIBRARY_ROOT="${STEAM_HOME}/.steam/steam"
 fi
 STEAM_APPS_COMMON_DIR="${STEAM_LIBRARY_ROOT}/steamapps/common"
 STEAM_COMPATDATA_DIR="${STEAM_LIBRARY_ROOT}/steamapps/compatdata"

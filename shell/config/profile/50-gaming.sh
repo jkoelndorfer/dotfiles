@@ -10,8 +10,8 @@ export DXVK_STATE_CACHE_PATH="${HOME}/.cache/dxvk"
 # See https://wiki.winehq.org/Wine-Staging_Environment_Variables.
 export STAGING_SHARED_MEMORY=1
 
-# If running on an atomic Linux host, set STEAM_LIBRARY_ROOT
-# to the path used by the Steam flatpak.
+# If running on an atomic Linux host, set STEAM_HOME to the path
+# used by the Steam flatpak.
 if is-atomic-linux-host; then
-  export STEAM_LIBRARY_ROOT="${HOME}/.var/app/com.valvesoftware.Steam/.steam/steam"
+  export STEAM_HOME="${HOME}/.var/app/com.valvesoftware.Steam"
 fi
