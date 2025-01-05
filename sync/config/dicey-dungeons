@@ -1,0 +1,5 @@
+# The Steam app ID is not needed for this game; it's here for reference.
+STEAM_APPID='861540'
+SYNC_DIR='game-saves/dicey-dungeons'
+
+symlink save "${STEAM_HOME}/.local/share/Terry Cavanagh Games/diceydungeons"
