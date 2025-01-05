@@ -1,0 +1,24 @@
+#!/bin/bash
+
+script_path=$(readlink -f "$0")
+script_dir=$(dirname "$script_path")
+
+source "${script_dir}/../sync/lib.sh"
+
+steam_flatpak='com.valvesoftware.Steam'
+
+function steam-flatpak-is-installed() {
+	flatpak run --command=true "$steam_flatpak"
+}
+
+if ! steam-flatpak-is-installed; then
+	printf 'Steam Flatpak is not installed; skipping\n' >&2
+	exit 0
+fi
+
+if ! [[ -d "$SYNC_ROOT_DIR" ]]; then
+	printf 'sync directory "%s" is not present; skipping\n' >&2
+	exit 0
+fi
+
+flatpak override --user 'com.valvesoftware.Steam' --filesystem="${SYNC_ROOT_DIR}/game-saves"
