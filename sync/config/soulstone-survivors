@@ -1,0 +1,4 @@
+STEAM_APPID=2066020
+SYNC_DIR="game-saves/soulstone-survivors"
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/Game Smithing/Soulstone Survivors"
