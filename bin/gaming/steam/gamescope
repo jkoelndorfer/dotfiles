@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# This script is a wrapper for Gamescope that unsets LD_PRELOAD,
+# then invokes the passed command with LD_PRELOAD set.
+#
+# This fixes a bug that causes stuttering after playing games
+# in Gamescope after 20-45 minutes on Linux.
+#
+# See:
+#
+# https://github.com/ValveSoftware/gamescope/issues/163
+# https://github.com/ValveSoftware/steam-for-linux/issues/11446
+
+if [[ "$DOTFILES_GAMESCOPE_WRAPPER_INVOKED" == 1 ]]; then
+  printf '%s: wrapper is recursively invoking itself; bailing out\n' "$0" >&2
+  exit 1
+fi
+
+export DOTFILES_GAMESCOPE_WRAPPER_INVOKED=1
+
+gamescope_args=()
+exe=()
+
+while [[ "$1" != '--' ]] && [[ "$#" != 0 ]]; do
+  gamescope_args=("${gamescope_args[@]}" "$1")
+  shift
+done
+
+shift # Remove --
+exe=("$@")
+
+if [[ "${#exe[@]}" == 0 ]]; then
+  printf '%s: no executable for gamescope; did you separate args with "--"?\n' "$0" >&2
+  exit 1
+fi
+
+next_gamescope=$(which -a gamescope | tail -n+2 | head -n1)
+if [[ -z "$next_gamescope" ]]; then
+  printf '%s: could not find next gamescope to invoke\n' "$0" >&2
+  exit 1
+fi
+
+ld_preload_prev="$LD_PRELOAD"
+unset LD_PRELOAD
+exec "$next_gamescope" "${gamescope_args[@]}" -- env LD_PRELOAD="$ld_preload_prev" "${exe[@]}"
