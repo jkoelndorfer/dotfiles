@@ -13,6 +13,3 @@ fi
 pathmunge "${HOME}/.local/bin"
 pathmunge "$HOME/bin"
 pathmunge "$DOTFILE_DIR/bin"
-
-export SHELL_PROFILE_DIR="$DOTFILE_DIR/bin/shell-profile"
-pathmunge "$SHELL_PROFILE_DIR"
