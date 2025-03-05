@@ -6,7 +6,7 @@ function nonshprofile_cmd() {
             echo "$p"
             break
         fi
-    done <<< "$(which -a "$cmd")"
+    done <<< "$(which -a "$cmd" 2>/dev/null)"
 }
 
 function nonshprofile() {
