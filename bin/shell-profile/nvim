@@ -51,8 +51,18 @@ else
     echo '0' > "$NEOVIM_SESSION_FLAG"
 fi
 
-next_nvim=$(nonshprofile_cmd 'nvim')
-"${cmd[@]}" "$next_nvim" "$@"
+next_editor=$(
+    first \
+        "$(nonshprofile_cmd 'nvim')" \
+        "$(nonshprofile_cmd 'vim')" \
+        "$(nonshprofile_cmd 'vi')"
+)
+if [[ -z "$next_editor" ]]; then
+    printf 'could not find vim to launch\n' >&2
+    exit 1
+fi
+
+"${cmd[@]}" "$next_editor" "$@"
 
 session_cmd=$(< "$NEOVIM_SESSION_FLAG")
 if [[ "$session_cmd" == '1' ]]; then

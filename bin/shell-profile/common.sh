@@ -1,3 +1,12 @@
+function first() {
+    while [[ "$#" -gt 0 ]]; do
+        if [[ -n "$1" ]]; then
+            printf "$1"
+        fi
+        shift
+    done
+}
+
 function nonshprofile_cmd() {
     local cmd=$1; shift
 
