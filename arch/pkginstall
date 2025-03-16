@@ -1,4 +1,0 @@
-#!/bin/bash
-
-pacman -S dunst rofi i3-gaps i3lock maim mesa-demos noto-fonts-emoji noto-fonts-cjk ttf-font-awesome adobe-source-code-pro-fonts xss-lock xcursor-bluecurve unclutter ttf-dejavu playerctl jq xclip imagemagick feh numlockx fzf
-yay -S polybar xinit-xsession ttf-material-icons
