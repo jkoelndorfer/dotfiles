@@ -65,6 +65,7 @@ personal_packages=(
   devtools
   fzf
   git
+  jujutsu
   man-db
   neovim
   python3
