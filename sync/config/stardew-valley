@@ -1,0 +1,6 @@
+# Steam app ID is not needed for this sync config.
+# It's here for reference purposes.
+STEAM_APPID='413150'
+
+SYNC_DIR='game-saves/stardew-valley'
+symlink save "${STEAM_HOME}/.config/StardewValley/Saves"
