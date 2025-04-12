@@ -6,6 +6,7 @@ if [[ -n "$BASH_VERSION" ]]; then
 fi
 
 source "$SH_LIB_DIR/path.sh"
+source "$SH_LIB_DIR/shell.sh"
 
 for f in "$DOTFILE_DIR"/shell/config/profile/*.sh; do
     source "$f"
@@ -14,6 +15,10 @@ done
 local_profile="$HOME/.profile.local"
 if [[ -f "$local_profile" ]]; then
     source "$local_profile"
+fi
+
+if [[ "$SHELL_NAME" == 'bash' ]] && is-interactive-shell; then
+    source "${DOTFILE_DIR}/shell/shrc"
 fi
 
 # vim: ft=sh
