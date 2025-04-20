@@ -27,6 +27,11 @@ rc="$?"
 # This way, the user will continue to get warnings about needing to run the
 # install script if dotfile installation fails.
 if [[ "$rc" == 0 ]]; then
-    zsh -l -c 'date +%s > "$_last_dotfile_install_path"' > /dev/null 2>&1
+    # When installing on a new fresh system, we need to ensure that
+    # $last_dotfile_install_path is set -- so we explicitly source
+    # the environment here.
+    source "${DOTFILE_DIR}/shell/shenv"
+
+    date +%s > "$_last_dotfile_install_path" 2>&1
 fi
 exit "$rc"
