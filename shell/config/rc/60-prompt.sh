@@ -48,11 +48,17 @@ function aws_profile_indicator() {
 function cwd_indicator() {
 	local cwd_text
 	if [[ "$SHELL_NAME" == 'bash' ]]; then
-		cwd_text="$(basename "$PWD")"
+		local prompt_pwd="$PWD"
+		if [[ "$prompt_pwd" == "$HOME"* ]]; then
+			prompt_pwd="~${prompt_pwd##$HOME}"
+		fi
+		if [[ "$prompt_pwd" =~ [^/]+/([^/]+\/[^/]+\/[^/]+)$ ]]; then
+			prompt_pwd=${BASH_REMATCH[1]}
+		fi
 	elif [[ "$SHELL_NAME" == 'zsh' ]]; then
-		cwd_text='%3~'
+		prompt_pwd='%3~'
 	fi
-	printf "%s %s%s " "$(pc "$fg_blue")" "$cwd_text" "$(pc "$reset_color")"
+	printf "%s %s%s " "$(pc "$fg_blue")" "$prompt_pwd" "$(pc "$reset_color")"
 }
 
 function host_indicator() {
