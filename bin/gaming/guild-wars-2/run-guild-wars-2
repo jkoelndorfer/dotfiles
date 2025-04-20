@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 
 function cleanup() {
   if [[ -n "$launch_script_path" ]]; then

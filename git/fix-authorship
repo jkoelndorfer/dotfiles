@@ -1,4 +1,4 @@
-#!/bin/zsh -l
+#!/bin/bash
 
 earliest_commit=$1
 
