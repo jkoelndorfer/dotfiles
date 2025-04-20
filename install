@@ -11,9 +11,10 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-# Some install scripts depend on DOTFILE_DIR being set, which will not be the
-# case in brand new environments.
-export DOTFILE_DIR="$HOME/.dotfiles"
+# When installing on a new fresh system, we need to ensure that
+# $DOTFILE_DIR and $last_dotfile_install_path are set -- so we
+# explicitly source the environment here.
+source "${BASEDIR}/shell/shenv"
 
 if [[ ! "$DISPLAY" =~ ^: ]]; then
     # Configuring X11 junk isn't appropriate when the display
@@ -27,11 +28,6 @@ rc="$?"
 # This way, the user will continue to get warnings about needing to run the
 # install script if dotfile installation fails.
 if [[ "$rc" == 0 ]]; then
-    # When installing on a new fresh system, we need to ensure that
-    # $last_dotfile_install_path is set -- so we explicitly source
-    # the environment here.
-    source "${DOTFILE_DIR}/shell/shenv"
-
     date +%s > "$_last_dotfile_install_path" 2>&1
 fi
 exit "$rc"
