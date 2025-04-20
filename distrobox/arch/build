@@ -144,8 +144,8 @@ aurhelper)
   working_ctr=$(buildah from --pull=never "$base_image")
 
   install_packages "$working_ctr" 'pacman' "${aur_helper_packages[@]}"
-  buildah copy "$working_ctr" 'files/usr/local/bin/johnk-install' '/usr/local/bin/johnk-install'
-  buildah run "$working_ctr" -- '/usr/local/bin/johnk-install'
+  buildah copy "$working_ctr" 'files/usr/local/bin/aurhelper-install' '/usr/local/bin/aurhelper-install'
+  buildah run "$working_ctr" -- '/usr/local/bin/aurhelper-install'
 
   buildah commit "$working_ctr" "$aurhelper_image"
   ;&
