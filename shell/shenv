@@ -11,6 +11,24 @@ else
   return 1
 fi
 
+# Force symbolic link resolution for $HOME.
+#
+# Fedora Kinoite symlinks /home to /var/home. It's reasonable to do
+# and works in most cases but there are some minor problems that
+# arise from doing it [1] so we band-aid those here as best we can. [2]
+#
+# [1]: Most notably, dotbot incorrectly calculates symbolic link
+# targets when it performs dotfile installation. This causes
+# the ./install script to break things when run in the host
+# context on a Fedora Kinoite system.
+#
+# [2]: We could (and do) also just change the user's home in
+# /etc/passwd. While that is the most proper solution, it is also
+# system-level configuration outside the scope of this repository
+# that must be remembered. This approach fixes dotbot installation,
+# at least, which is the primary concern.
+export HOME=$(realpath "$HOME")
+
 # Don't source system-wide rc files.
 #
 # My dotfiles do a lot, and these sometimes just screw things up.
