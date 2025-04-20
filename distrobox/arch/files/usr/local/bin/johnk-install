@@ -27,16 +27,16 @@ if [[ "$username" == 'root' ]]; then
 
   sudo -u 'nobody' "$0"
 else
-  # URL where the yay archive can be downloaded from.
-  yay_archive_url='https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz'
+  # URL where the paru archive can be downloaded from.
+  paru_archive_url='https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz'
 
-  yay_tmpdir=$(mktemp -d --tmpdir 'yay.XXXXXX')
-  cd "$yay_tmpdir"
-  curl -L "$yay_archive_url" >'yay.tar.gz'
-  tar -xzf 'yay.tar.gz'
-  cd yay
+  paru_tmpdir=$(mktemp -d --tmpdir 'paru.XXXXXX')
+  cd "$paru_tmpdir"
+  curl -L "$paru_archive_url" >'paru.tar.gz'
+  tar -xzf 'paru.tar.gz'
+  cd paru
   makepkg -si --noconfirm
 
   cd /
-  rm -rf "$yay_tmpdir"
+  rm -rf "$paru_tmpdir"
 fi

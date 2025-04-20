@@ -60,8 +60,12 @@ base_packages=(
   vulkan-radeon
 )
 
-personal_packages=(
+# These packages are required to install the AUR helper.
+aur_helper_packages=(
   base-devel
+)
+
+personal_packages=(
   devtools
   fzf
   git
@@ -99,11 +103,15 @@ function export_command() {
 build_phase=${1:-}
 
 if [[ -z "$build_phase" ]]; then
-  printf 'missing required build phase argument; expected one of "base", "install", "config", "distrobox"\n' >&2
+  {
+    printf 'missing required build phase argument; expected one of: '
+    printf '"base", "aurhelper", "install", "config", "distrobox"\n'
+  } >&2
   exit 1
 fi
 
 base_image='johnk-archlinux:base'
+aurhelper_image='johnk-archlinux:aurhelper'
 install_image='johnk-archlinux:install'
 config_image='johnk-archlinux:config'
 distrobox_image='johnk-archlinux:distrobox'
@@ -132,12 +140,20 @@ base)
   buildah commit "$working_ctr" "$base_image"
   ;&
 
-install)
+aurhelper)
   working_ctr=$(buildah from --pull=never "$base_image")
 
-  install_packages "$working_ctr" 'pacman' "${personal_packages[@]}"
+  install_packages "$working_ctr" 'pacman' "${aur_helper_packages[@]}"
   buildah copy "$working_ctr" 'files/usr/local/bin/johnk-install' '/usr/local/bin/johnk-install'
   buildah run "$working_ctr" -- '/usr/local/bin/johnk-install'
+
+  buildah commit "$working_ctr" "$aurhelper_image"
+  ;&
+
+install)
+  working_ctr=$(buildah from --pull=never "$aurhelper_image")
+
+  install_packages "$working_ctr" 'paru' "${personal_packages[@]}"
   buildah commit "$working_ctr" "$install_image"
   ;&
 
@@ -179,7 +195,7 @@ distrobox)
   ;;
 
 *)
-  printf 'invalid build phase "%s"; expected one of "base", "install", "config", "distrobox"\n' >&2
+  printf 'invalid build phase "%s"; expected one of "base", "aurhelper", "install", "config", "distrobox"\n' >&2
   exit 1
   ;;
 esac
