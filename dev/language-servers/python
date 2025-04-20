@@ -1,9 +1,9 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -eo pipefail
 
-source "$DOTFILE_DIR/zsh/lib/misc.zsh"
-source "$DOTFILE_DIR/zsh/lib/path.zsh"
+source "${SH_LIB_DIR}/misc.sh"
+source "${SH_LIB_DIR}/path.sh"
 
 function venv_site_packages() {
     local venv=$1
