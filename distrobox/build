@@ -1,0 +1,203 @@
+#!/bin/bash
+set -euo pipefail
+
+# Distrobox Image Builder
+# =======================
+#
+# This script builds container images for use with Distrobox
+# on atomic Linux systems.
+#
+# Builds are powered by a config file, not unlike what Distrobox
+# provides as built-in functionality. However, unlike Distrobox,
+# build steps are persisted as container image layers. This allows
+# for more stability: a container can be recreated from a known
+# state instead of re-running a set of build steps and hoping
+# for the best.
+
+# Path to the build config file for the container.
+build_config=${1:-}
+
+# Name of the build phase to start the build from.
+#
+# Build phases that occur before the given phase will
+# be skipped; an existing container image will be used.
+#
+# This is useful for rapidly testing changes in later
+# build phases.
+#
+# Note: it is an error to start from a build phase that has
+# never been run.
+initial_build_phase=${2:-}
+
+# Stores the previous phase's image. This is used to provide
+# a working container for each build phase.
+previous_phase_image=''
+
+function main() {
+	source "$build_config"
+
+	# Run build steps from the build config directory so that files are
+	# referenced relative to the build config.
+	build_config_dir=$(dirname "$build_config")
+	cd "$build_config_dir"
+
+	validate_initial_build_phase
+	validate_build_config
+	run_build_phases
+	distrobox_configure
+}
+
+function buildah() {
+	printf '+ buildah %s\n' "$*" >&2
+	command buildah "$@"
+}
+
+function run_build_phases() {
+	local run_this_build_phase=0
+	local p
+
+
+	# The first build phase is always based on the container source image.
+	local previous_phase_image=$src_image
+
+	# The container image for the current build phase.
+	local current_phase_image
+
+	# The first build phase requires a source image.
+	#
+	# It should always be pulled so that it is up-to-date.
+	local buildah_from_pull='always'
+
+	# The current working container.
+	local working_ctr
+
+	for p in "${build_phases[@]}"; do
+		current_phase_image=$(full_image_name "$image_name" "$p")
+
+		if [[ "$p" == "$initial_build_phase" ]]; then
+			run_this_build_phase=1
+		fi
+
+		if [[ "$run_this_build_phase" == 1 ]]; then
+			working_ctr="$(buildah from --pull="$buildah_from_pull" "$previous_phase_image")"
+			run_single_build_phase "$p" "$working_ctr"
+			printf 'Committing to image %s\n' "$current_phase_image" >&2
+			buildah commit "$working_ctr" "$current_phase_image"
+			buildah rm "$working_ctr"
+		fi
+		previous_phase_image=$current_phase_image
+
+		# After the first build phase, intermediate images will only
+		# exist locally. Pulls should never be attempted.
+		buildah_from_pull='never'
+	done
+	buildah tag "$previous_phase_image" "$(full_image_name "$image_name" 'latest')"
+}
+
+function run_single_build_phase() {
+	local phase=$1
+	local working_ctr=$2
+	{
+		printf '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n'
+		printf '    Build Phase %s\n' "$p"
+		printf '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n'
+	} >&2
+	"build_phase_${phase}" "$working_ctr"
+	{
+		printf '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n'
+		printf '    Completed Build Phase %s\n' "$p"
+		printf '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n'
+	} >&2
+}
+
+function distrobox_configure() {
+  if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
+    printf 'cannot run distrobox creation step from within distrobox\n' >&2
+    printf 'run build from "distrobox_configure" step on host\n' >&2
+    exit 16
+  fi
+
+  distrobox rm -f "$distrobox_name"
+  distrobox create \
+	--name "$distrobox_name" \
+	--image "$(full_image_name "${image_name}" 'latest')" \
+	--hostname "${distrobox_name}.$(hostname -s)" \
+	--additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
+		"${addl_distrobox_args[@]}" \
+	--yes
+}
+
+function validate_script_arguments() {
+	if [[ -z "$build_config" ]]; then
+		printf 'fatal: expected first parameter to be path to build config\n' >&2
+		exit 1
+	fi
+
+	if [[ -z "$initial_build_phase" ]]; then
+		printf 'fatal: expected second parameter to be initial build phase\n' >&2
+		exit 1
+	fi
+}
+
+function validate_build_config() {
+	for reqd_config in addl_distrobox_args build_phases distrobox_name image_name src_image; do
+		if ! [[ -v "${reqd_config}" ]]; then
+			printf 'fatal: build config missing required parameter %s\n' "$reqd_config" >&2
+			exit 2
+		fi
+	done
+
+	if [[ "${#build_phases[@]}" == 0 ]]; then
+		printf 'fatal: must have at least one build phase\n' >&2
+		exit 3
+	fi
+
+	local missing_build_phase_func=0
+	local p
+	for p in "${build_phases[@]}"; do
+		if ! type "build_phase_${p}" >/dev/null 2>&1; then
+			printf 'fatal: missing required build phase function build_phase_%s\n' "$p" >&2
+			missing_build_phase_func=1
+		fi
+	done
+	if [[ "$missing_build_phase_func" == 1 ]]; then
+		exit 4
+	fi
+}
+
+function validate_initial_build_phase() {
+	local p
+	local initial_build_phase_is_valid=0
+
+	if [[ "$initial_build_phase" == 'distrobox_configure' ]]; then
+		return 0
+	fi
+
+	for p in "${build_phases[@]}"; do
+		if [[ "$initial_build_phase" == "$p" ]]; then
+			initial_build_phase_is_valid=1
+			break
+		fi
+	done
+
+	if [[ "$initial_build_phase_is_valid" == 0 ]]; then
+		{
+			printf 'selected initial build phase is not valid; expected one of: '
+			for p in "${build_phases[@]}"; do
+				printf '"%s", ' "$p"
+			done
+			printf 'distrobox_configure\n'
+		} >&2
+		exit 1
+	fi
+}
+
+function full_image_name() {
+	local image_name=$1
+	local build_phase=$2
+
+	printf 'localhost/%s:%s' "$image_name" "$build_phase"
+}
+
+main
+# vim: noet
