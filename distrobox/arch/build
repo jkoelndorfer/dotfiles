@@ -100,12 +100,16 @@ function export_command() {
   distrobox-enter "$distrobox_name" -e /usr/bin/distrobox-export --bin "$cmd"
 }
 
+function build_phase_list() {
+  printf 'expected one of: "base", "aurhelper", "install", "config", "init", "distrobox"\n'
+}
+
 build_phase=${1:-}
 
 if [[ -z "$build_phase" ]]; then
   {
-    printf 'missing required build phase argument; expected one of: '
-    printf '"base", "aurhelper", "install", "config", "distrobox"\n'
+    printf 'missing required build phase argument; '
+    build_phase_list
   } >&2
   exit 1
 fi
@@ -114,7 +118,6 @@ base_image='johnk-archlinux:base'
 aurhelper_image='johnk-archlinux:aurhelper'
 install_image='johnk-archlinux:install'
 config_image='johnk-archlinux:config'
-distrobox_image='johnk-archlinux:distrobox'
 
 case "$build_phase" in
 base)
@@ -167,19 +170,21 @@ config)
   buildah commit "$working_ctr" "$config_image"
   ;&
 
-distrobox)
-  if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
-    printf 'cannot run distrobox creation step from within distrobox\n' >&2
-    printf 'run build from "distrobox" step on host\n' >&2
-    exit 16
-  fi
-
+init)
   working_ctr=$(buildah from --pull=never "$config_image")
 
   buildah copy "$working_ctr" 'files/usr/local/bin/johnk-distrobox-pre-init' '/usr/local/bin/johnk-distrobox-pre-init'
   buildah copy "$working_ctr" 'files/usr/local/bin/johnk-distrobox-init' '/usr/local/bin/johnk-distrobox-init'
 
   buildah commit "$working_ctr" "$target_image"
+  ;&
+
+distrobox)
+  if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
+    printf 'cannot run distrobox creation step from within distrobox\n' >&2
+    printf 'run build from "distrobox" step on host\n' >&2
+    exit 16
+  fi
 
   distrobox rm -f arch
   distrobox create \
@@ -195,7 +200,10 @@ distrobox)
   ;;
 
 *)
-  printf 'invalid build phase "%s"; expected one of "base", "aurhelper", "install", "config", "distrobox"\n' >&2
+  {
+    printf 'invalid build phase "%s"; ' "$build_phase"
+    build_phase_list
+  } >&2
   exit 1
   ;;
 esac
