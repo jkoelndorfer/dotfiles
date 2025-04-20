@@ -13,6 +13,13 @@ function is-atomic-linux-host() {
   "${cmd[@]}" >/dev/null 2>&1
 }
 
+# Returns true if this shell is running directly
+# in an atomic Linux system context (i.e. not
+# within a container / distrobox).
+function in-atomic-linux-context() {
+  is-atomic-linux-host && ! in-distrobox
+}
+
 # Returns true if the shell is running inside
 # a distrobox container.
 function in-distrobox() {
