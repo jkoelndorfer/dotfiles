@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source "$DOTFILE_DIR/shell/shenv"
 source "$SH_LIB_DIR/misc.sh"
 dir=$(selectdir)
 
