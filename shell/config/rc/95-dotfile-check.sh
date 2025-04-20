@@ -7,7 +7,14 @@ function dotfile_status() {
 
 	local unpublished_commit_count=$(git_unpublished_commits)
 	local last_commit_timestamp=$(_git_last_commit_timestamp)
-	local last_install_run_timestamp=$( (<"$_last_dotfile_install_path" || echo '0') 2>/dev/null)
+
+	local last_install_run_timestamp
+	if [[ -f "$_last_dotfile_install_path" ]]; then
+		local last_install_run_timestamp=$(<"$_last_dotfile_install_path")
+	fi
+	if [[ -z "$last_install_run_timestamp" ]]; then
+		last_install_run_timestamp=0
+	fi
 	if [[ "$unpublished_commit_count" -gt 0 ]]; then
 		local unpublished_commit_msg="${fg_yellow} $unpublished_commit_count unpublished commits${color_reset}"
 	fi
