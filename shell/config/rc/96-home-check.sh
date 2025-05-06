@@ -8,7 +8,7 @@ function home_symlink_check() {
 		# because Macs do things like this.
 		return 0
 	fi
-	real_home=$(realpath "$userdb_home")
+	real_home=$(readlink -f "$userdb_home")
 
 	if [[ "$userdb_home" != "$real_home" ]]; then
 		printf '%s user DB $HOME does not match real path to home%s\n' "$fg_yellow" "$color_reset"
