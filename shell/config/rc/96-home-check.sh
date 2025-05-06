@@ -3,6 +3,11 @@ function home_symlink_check() {
 	local real_home
 
 	userdb_home=$(getent passwd "$USER" | awk -F: '{ print $6 }')
+	if [[ -z "$userdb_home" ]]; then
+		# Looking up the user's home failed. We're probably on a Mac,
+		# because Macs do things like this.
+		return 0
+	fi
 	real_home=$(realpath "$userdb_home")
 
 	if [[ "$userdb_home" != "$real_home" ]]; then
