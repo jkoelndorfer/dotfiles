@@ -1,0 +1,5 @@
+#!/bin/bash -l
+
+source "${DOTFILE_DIR}/shell/shenv"
+
+printf 'include %s/theme/%s/kitty.conf\n' "$DOTFILE_DIR" "$DESKTOP_THEME"
