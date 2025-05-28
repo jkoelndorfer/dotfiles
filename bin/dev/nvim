@@ -1,0 +1,87 @@
+#!/bin/bash
+
+script_path=$(readlink -f "$0")
+
+function cleanup() {
+	if [[ -n "$NEOVIM_SESSION_FLAG" ]]; then
+		rm -f "$NEOVIM_SESSION_FLAG"
+	fi
+}
+
+function next_cmd() {
+	local cmd=$1
+	local candidate_cmd
+	local candidate_full_path
+	while read -r candidate_cmd; do
+		candidate_full_path=$(readlink -f "$candidate_cmd")
+		if [[ "$candidate_full_path" != "$script_path" ]]; then
+			printf '%s\n' "$candidate_full_path"
+			return 0
+		fi
+	done <<<"$(which -a "$cmd")"
+}
+
+trap cleanup EXIT
+
+PROJECT_ROOT=$(git root 2>/dev/null)
+if [[ -n "$PROJECT_ROOT" ]]; then
+	export PROJECT_ROOT
+fi
+
+# If we're situated in a Python project, ensure that PYTHONPATH
+# includes the current project directory. This helps the language
+# server find code for autocompletion.
+is_python=0
+declare -a cmd=()
+if [[ -d "$PROJECT_ROOT/.venv" ]]; then
+	is_python=1
+	source "$PROJECT_ROOT/.venv/bin/activate"
+elif [[ -f "$PROJECT_ROOT/pyproject.toml" ]]; then
+	is_python=1
+	cmd=(poetry run)
+elif [[ -f "$PROJECT_ROOT/Pipfile" ]]; then
+	is_python=1
+	cmd=(pipenv run)
+fi
+
+if [[ "$is_python" == '1' ]]; then
+	addl_python_path="$PROJECT_ROOT:$PROJECT_ROOT/src:$PROJECT_ROOT/test:$PROJECT_ROOT/tests"
+	if [[ -n "$PYTHONPATH" ]]; then
+		PYTHONPATH="$addl_python_path:$PYTHONPATH"
+	else
+		PYTHONPATH="$addl_python_path"
+	fi
+	export PYTHONPATH
+fi
+
+neovim_session_flag_dir="$HOME/.local/johnk/neovim/session-flags"
+mkdir -p "$neovim_session_flag_dir"
+NEOVIM_SESSION_FLAG=$(mktemp "$neovim_session_flag_dir/XXXXXX")
+export NEOVIM_SESSION_FLAG
+if [[ "$TMUX_PROJECT_TAB" == '1' ]]; then
+	echo '1' >"$NEOVIM_SESSION_FLAG"
+else
+	echo '0' >"$NEOVIM_SESSION_FLAG"
+fi
+
+next_editor=$(next_cmd 'nvim')
+if [[ -z "$next_editor" ]]; then
+	printf 'could not find vim to launch\n' >&2
+	exit 1
+fi
+
+"${cmd[@]}" "$next_editor" "$@"
+
+session_cmd=$(<"$NEOVIM_SESSION_FLAG")
+if [[ "$session_cmd" == '1' ]]; then
+	# The trap won't catch this if we exec, apparently.
+	rm -f "$NEOVIM_SESSION_FLAG"
+
+	unset PROJECT_ROOT
+	unset PYTHONPATH
+	unset NEOVIM_SESSION_FLAG
+
+	exec "$0" "$@"
+elif [[ "$session_cmd" == '2' && -n "$TMUX" ]]; then
+	tmux kill-window
+fi
