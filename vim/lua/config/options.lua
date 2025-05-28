@@ -5,5 +5,6 @@
 vim.o.clipboard = nil
 
 vim.opt.listchars = "tab: ,trail: "
--- Highlight trailing whitespace because it's wrong and I hate it.
-vim.cmd([[match ErrorMsg '\s\+$']])
+
+-- Define a match group for trailing whitespace because it's wrong and I hate it.
+vim.cmd([[match TrailingWhitespace '\s\+$']])

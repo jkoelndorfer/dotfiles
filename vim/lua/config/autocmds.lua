@@ -16,3 +16,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.o.expandtab = false
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*" },
+	callback = function()
+		-- Loading vim doesn't trigger the BufEnter event, so the dashboard
+		-- will not have trailing whitespace highlighted in red.
+		vim.cmd([[highlight link TrailingWhitespace ErrorMsg]])
+	end,
+})
