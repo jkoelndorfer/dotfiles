@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# This script configures the fan AMD RX 7000+ series GPUs.
+# See https://docs.kernel.org/gpu/amdgpu/thermal.html for more information.
+
+gpu_fan_ctrl=$(printf '%s' /sys/class/drm/card?/device/gpu_od/fan_ctrl)
+
+if [[ -z "$gpu_fan_ctrl" ]]; then
+  {
+    printf 'could not find GPU fan control interface\n'
+    printf 'ensure kernel parameter `amdgpu.ppfeaturemask=0xffffffff` is set\n'
+  } >&2
+  exit 1
+fi
+
+gpu_fan_curve="${gpu_fan_ctrl}/fan_curve"
+
+function fan_curve_stage() {
+  local index=$1
+  local temp_c=$2
+  local fan_pct=$3
+
+  printf '%s %s %s\n' "$index" "$temp_c" "$fan_pct" >"$gpu_fan_curve"
+}
+
+function fan_curve_commit() {
+  printf 'c\n' >"$gpu_fan_curve"
+}
+
+function set_fan_parameter() {
+  local parameter=$1
+  local value=$2
+
+  local f="${gpu_fan_ctrl}/${parameter}"
+
+  printf '%s\n' "$value" > "$f"
+  printf 'c\n' > "$f"
+}
+
+fan_curve_stage 1 30  30
+fan_curve_stage 2 50  60
+fan_curve_stage 3 70  80
+fan_curve_stage 4 80 100
+fan_curve_commit
+
+set_fan_parameter 'fan_minimum_pwm'               15
+set_fan_parameter 'fan_target_temperature'        50
+set_fan_parameter 'fan_zero_rpm_stop_temperature' 25
+set_fan_parameter 'fan_zero_rpm_enable'            0
+
+cat "$gpu_fan_curve"
