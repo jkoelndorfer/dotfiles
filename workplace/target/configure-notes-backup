@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# WARN: In order for this script to work properly under launchd, you *must*
+# grant "full disk access" to /bin/bash in System Settings.
+
+LAUNCH_AGENTS_DIR="${HOME}/Library/LaunchAgents"
+NOTES_BACKUP_PLIST="${LAUNCH_AGENTS_DIR}/NotesBackup.plist"
+
+function is_target_system() {
+  type jamf >/dev/null 2>&1
+}
+
+if ! is_target_system; then
+  printf 'not a Target-managed device; skipping\n' >&2
+  exit 0
+fi
+
+mkdir -p "$LAUNCH_AGENTS_DIR"
+ln -sf ../../.dotfiles/workplace/target/NotesBackup.plist "$NOTES_BACKUP_PLIST"
+launchctl bootout "gui/$(id -u)" "$NOTES_BACKUP_PLIST"
+launchctl load "$NOTES_BACKUP_PLIST"

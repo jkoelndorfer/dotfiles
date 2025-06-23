@@ -1,0 +1,20 @@
+#!/bin/bash -l
+
+set -eo pipefail
+
+source "${HOME}/.shenv.local"
+
+if [[ -z "$OBSIDIAN_VAULT_DIRECTORY" ]]; then
+  printf 'missing required environment variable OBSIDIAN_VAULT_DIRECTORY\n' >&2
+  exit 1
+fi
+
+if [[ -z "$OBSIDIAN_VAULT_BACKUP_ARCHIVE_TARGET" ]]; then
+  printf 'missing required environment variable OBSIDIAN_VAULT_BACKUP_ARCHIVE_TARGET\n' >&2
+  exit 1
+fi
+
+set -u
+
+cd "$OBSIDIAN_VAULT_DIRECTORY"
+tar -czf "$OBSIDIAN_VAULT_BACKUP_ARCHIVE_TARGET" .
