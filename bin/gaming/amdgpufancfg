@@ -40,8 +40,8 @@ function set_fan_parameter() {
 set_fan_parameter 'fan_zero_rpm_stop_temperature' 25
 set_fan_parameter 'fan_zero_rpm_enable'            0
 
-fan_curve_stage 0 25 15
-fan_curve_stage 1 40 20
+fan_curve_stage 0 30 20
+fan_curve_stage 1 50 30
 fan_curve_stage 2 60 50
 fan_curve_stage 3 70 80
 fan_curve_stage 4 85 100
