@@ -14,10 +14,5 @@
 
     <key>StartInterval</key>
     <integer>86400</integer>
-
-    <key>StandardOutPath</key>
-    <string>/tmp/myscript.out</string>
-    <key>StandardErrorPath</key>
-    <string>/tmp/myscript.err</string>
 </dict>
 </plist>
