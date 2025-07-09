@@ -27,3 +27,24 @@ function kubepodlogs() {
     printf 'getting logs for pod %s\n' "$selected_pod" >&2
     kubectl logs "$selected_pod" "$@"
 }
+
+function kubectl() {
+    local kube_context
+    local kubectl_args=("$@")
+    for idx in $(seq 0 "$#"); do
+        if [[ "${kubectl_args[$idx]}" == '--context' ]]; then
+            local next_idx=$((idx + 1))
+            kube_context="${kubectl_args[${next_idx}]}"
+            if [[ -z "$kube_context" ]]; then
+                printf '%s: fatal: --context passed but no context provided\n' "$0" >&2
+                return 1
+            fi
+            break
+        fi
+    done
+    if [[ -z "$kube_context" ]]; then
+        kube_context=$(command kubectl config current-context)
+    fi
+    printf 'kube context: %s\n' "$kube_context" >&2
+    command kubectl "$@"
+}
