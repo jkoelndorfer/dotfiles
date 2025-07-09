@@ -31,7 +31,7 @@ function kubepodlogs() {
 function kubectl() {
 	local kube_context
 	local kubectl_args=("$@")
-	for idx in $(seq 0 "$#"); do
+	for idx in $(seq 0 "${#kubectl_args[@]}"); do
 		if [[ "${kubectl_args[$idx]}" == '--context' ]]; then
 			local next_idx=$((idx + 1))
 			kube_context="${kubectl_args[${next_idx}]}"
