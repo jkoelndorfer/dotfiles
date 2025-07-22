@@ -99,6 +99,7 @@ function git() {
 		pull
 		rev-list
 		rev-parse
+		root
 		show
 		status
 	)
