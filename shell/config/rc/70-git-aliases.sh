@@ -104,21 +104,21 @@ function git() {
 	)
 
 	local f
-  local ok=0
+	local ok=0
 	if [[ -z "$user_email_config" ]]; then
 		for f in "${allowed_subfuncs[@]}"; do
 			if [[ "$subfunc" == "$f" ]]; then
-        ok=1
+				ok=1
 			fi
 		done
-  else
-    ok=1
-  fi
+	else
+		ok=1
+	fi
 
-  if [[ "$ok" == 0 ]]; then
-    echo 'fatal: set git config option `user.email` for this repository' >&2
-    return 1
-  fi
+	if [[ "$ok" == 0 ]]; then
+		echo 'fatal: set git config option `user.email` for this repository' >&2
+		return 1
+	fi
 
 	command git "${git_args[@]}"
 }
