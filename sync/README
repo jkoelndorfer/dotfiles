@@ -1,3 +1,5 @@
+# Cloud Sync Configuration
+
 This directory contains Syncthing setup helpers and configuration so
 that application persisted data automatically lands in Syncthing
 directories.
@@ -5,3 +7,111 @@ directories.
 We're interested in saved game data in particular so that we have
 a versioned, cloud-synced backup. It's a little better than what
 Steam provides. :-)
+
+## Quickstart Guide
+
+Run the `setup` script and give it the path to a _sync config_
+in order to create the necessary symlinks to point an application's
+data directory at a directory managed by Syncthing. For example:
+
+```bash
+$ ./setup config/elden-ring
+'[...]/.steam/steam/steamapps/compatdata/1245620/pfx/drive_c/users/steamuser/Application Data/EldenRing/[...]' -> '[...]/sync/game-saves/elden-ring/save'
+```
+
+All done! Elden Ring will now store its read data from and write data to the sync directory.
+
+## Creating a New Sync Config
+
+The most basic sync config contains a `SYNC_DIR` and a `symlink` statement.
+Here's an example for Factorio:
+
+```bash
+SYNC_DIR='game-saves/factorio'
+
+symlink 'dot-factorio' "${STEAM_HOME}/.factorio"
+```
+
+Here, `SYNC_DIR` describes where this application's data lives relative to the
+`SYNC_ROOT_DIRECTORY`.
+
+Next is a `symlink` statement, which indicates that a symbolic link should be
+created. Here, `${STEAM_HOME}/.factorio` will point at the `dot-factorio` directory
+underneath the `SYNC_DIR`.
+
+### Proton Games
+
+Games run via Steam's [Proton](https://github.com/ValveSoftware/Proton) store their
+data in a `compatdata` directory which is nested deeply under `~/.steam`. We have
+some helpers to make configuring these a bit easier. Here's an example configuration
+for No Man's Sky:
+
+```bash
+STEAM_APPID='275850'
+SYNC_DIR='game-saves/no-mans-sky'
+
+symlink save "$(proton_steamuser_home)/AppData/Roaming/HelloGames/NMS"
+```
+
+Here, `STEAM_APPID` is the unique identifier for the game on Steam. 
+
+The `symlink` statement makes use of shell command substitution to calculate the
+home directory of `steamuser` in the game's Wine prefix via the `proton_steamuser_home`
+function.
+
+Proton-based games always (or nearly always?) store their data under `$(proton_steamuser_home)`.
+
+You must set `STEAM_APPID` to make use of `$(proton_steamuser_home)`.
+
+## Reference
+
+This section contains reference information for the functionality provided by `setup` and `lib.sh`.
+
+### `SYNC_ROOT_DIRECTORY`
+
+`SYNC_ROOT_DIRECTORY` is the directory under which all Syncthing-managed directories reside.
+It *must* be set in the environment when the `setup` script is executed. Set it in shell RC
+files (or similar).
+
+Example value: `${HOME}/sync`
+
+### `SYNC_DIR`
+
+`SYNC_DIR` is set in each sync config. It describes where an application's data lives
+_relative to_ the `SYNC_ROOT_DIRECTORY`. This value *must* be set in a valid sync config.
+
+Example value: `game-saves/elden-ring`
+
+### `STEAM_APPID`
+
+`STEAM_APPID` is the Steam application ID. This ID is unique to every game on Steam.
+
+You can get it by pulling it from the game's Store page URL or looking the game up
+on [steamdb.info](https://steamdb.info). Example: No Man's Sky's, store page URL is
+https://store.steampowered.com/app/275850/No_Mans_Sky/. The app ID, 275850, is
+displayed clearly in the URL.
+
+Example value: `275850`
+
+### `symlink`
+
+`symlink` is a function that can be called to configure an application data symlink. A
+_useful_ sync config will call this at least once.
+
+Usage: `symlink SYNC_DATA_DIR APPLICATION_DATA_DIR`
+
+`SYNC_DATA_DIR` is the directory _relative to_ `SYNC_DIR` that the created symlink will
+point to.
+
+`APPLICATION_DATA_DIR` is the absolute path where the application stores its data. This
+directory will be replaced with a symlink that points at `SYNC_DATA_DIR`.
+
+### `proton_steamuser_home`
+
+`proton_steamuser_home` is a helper function that calculates the path to a Proton
+application's data directory. You *must* set `STEAM_APPID` in the sync config in
+order to use this function.
+
+Example usage: `symlink save "$(proton_steamuser_home)/AppData/Roaming/HelloGames/NMS"`
+
+This function will expand to a path like: `${HOME}/.steam/steam/steamapps/compatdata/${STEAM_APPID}/pfx/drive_c/users/steamuser`.
