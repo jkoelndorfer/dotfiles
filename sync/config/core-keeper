@@ -1,0 +1,9 @@
+STEAM_APPID='1621690'
+SYNC_DIR='game-saves/core-keeper'
+
+steamid3_account=$(game_data 'steamid3-account')
+linux_native_dir="${STEAM_HOME}/.config/unity3d/Pugstorm/Core Keeper/Steam/${steamid3_account}"
+proton_dir="$(proton_steamuser_home)/AppData/LocalLow/Pugstorm/Core Keeper/Steam/${steamid3_account}"
+
+symlink save "$linux_native_dir"
+symlink save "$proton_dir"
