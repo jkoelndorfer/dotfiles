@@ -1,4 +1,4 @@
 STEAM_APPID='1942280'
 SYNC_DIR='game-saves/brotato'
 
-symlink save "$(proton_steamuser_home)/AppData/Roaming/Brotato/$(game_user_token)"
+symlink save "$(proton_steamuser_home)/AppData/Roaming/Brotato/$(game_data 'steamid64')"

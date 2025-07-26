@@ -10,7 +10,6 @@ fi
 STEAM_APPS_COMMON_DIR="${STEAM_LIBRARY_ROOT}/steamapps/common"
 STEAM_COMPATDATA_DIR="${STEAM_LIBRARY_ROOT}/steamapps/compatdata"
 SYNC_ROOT_DIR="$HOME/sync"
-_GAME_USER_TOKEN=''
 
 function errmsg() {
 	echo "$@" >&2
@@ -33,35 +32,25 @@ function force_cp() {
 	cp -rv "$src" "$dest"
 }
 
-function game_user_token() {
-	# FromSoft games (Dark Souls 1, 2, 3, and Elden Ring, at least) have a
-	# data directory with a subdirectory whose name consists of hexadecimal digits.
+function game_data() {
+	# Some games save their data in a directory based on an online user ID.
 	#
-	# Additionally, some other games store their data in a subdirectory that appears
-	# to be a random number or string.
+	# For games distributed by Steam, this is often some form of the account's
+	# Steam ID [1]. In order to support the varying forms that a game might use
+	# to represent the Steam ID (and prevent account ID exposure), we store the
+	# ID in the sync directory.
 	#
-	# I don't know what the name of the subdirectory represents. Perhaps some type of
-	# online user ID? If that is the case, I don't want to store it in version control.
-	# Instead, store it in a file inside the sync directory. It would be possible to
-	# determine the token automatically, but only if the game has been launched and
-	# created save data locally.
-	#
-	# Symlinking the root data directory would be easier, but that usually also
-	# contains graphics configuration which will vary from system to system. It
-	# should not be synced.
+	# [1]: https://developer.valvesoftware.com/wiki/SteamID
+	local data_file
+	data_file="$(sync_dir)/${1}"
 
-	if [[ -n "$_GAME_USER_TOKEN" ]]; then
-		echo "$_GAME_USER_TOKEN"
-		return 0
-	fi
-
-	local game_user_token_path="$(sync_dir)/game-user-token"
-	_GAME_USER_TOKEN=$(< "$game_user_token_path")
-	if [[ -z "$_GAME_USER_TOKEN" ]]; then
-		errmsg "Error determing game user token from '$game_user_token_path'"
+	local data
+	data=$(<"$data_file")
+	if [[ -z "$data" ]]; then
+		errmsg "Error reading data from '$data_file'"
 		exit 1
 	fi
-	echo "$_GAME_USER_TOKEN"
+	echo "$data"
 }
 
 function presetup_confirmation() {

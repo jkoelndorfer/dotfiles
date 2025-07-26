@@ -1,4 +1,4 @@
 STEAM_APPID='335300'
 SYNC_DIR='game-saves/dark-souls-2'
 
-symlink save "$(proton_steamuser_home)/AppData/Roaming/DarkSoulsII/$(game_user_token)"
+symlink save "$(proton_steamuser_home)/AppData/Roaming/DarkSoulsII/$(game_data 'steamid64-hex')"
