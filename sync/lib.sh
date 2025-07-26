@@ -56,7 +56,7 @@ function game_data() {
 function presetup_confirmation() {
 	cat >&2
 	local confirmed
-    read -p 'proceed? (y/n) ' confirmed < /dev/tty
+	read -p 'proceed? (y/n) ' confirmed </dev/tty
 	if ! [[ "$(echo "$confirmed" | tr '[:upper:]' '[:lower:'])" =~ ^(yes|y)$ ]]; then
 		errmsg "Aborting setup"
 		exit 1
