@@ -1,0 +1,4 @@
+STEAM_APPID='2784470'
+SYNC_DIR='game-saves/9-kings'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/SadSocket/9Kings"
