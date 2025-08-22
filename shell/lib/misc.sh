@@ -152,7 +152,7 @@ function find-and-replace() {
         sed=gsed
     fi
     find "$target" -type f -print0 |
-        grep --invert-match -z '/.git/' |
+        grep --invert-match -z -e '/.git/' -e '/.jj/' |
         xargs -0 "$sed" -r --in-place -e "s${rs}${search}${rs}${replace}${rs}g"
 }
 
