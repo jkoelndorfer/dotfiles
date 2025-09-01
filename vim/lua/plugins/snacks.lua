@@ -12,6 +12,7 @@ return {
 
 	opts = {
 		dashboard = {
+			enabled = false,
 			preset = {
 				header = logo,
 			},

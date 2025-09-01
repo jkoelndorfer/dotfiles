@@ -17,11 +17,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	pattern = { "*" },
+-- The VimEnter autocmd doesn't work properly with LazyVim.
+--
+-- See https://github.com/LazyVim/LazyVim/issues/2592.
+vim.api.nvim_create_autocmd({ "User" }, {
+	pattern = { "LazyVimKeymaps" },
 	callback = function()
-		-- Loading vim doesn't trigger the BufEnter event, so the dashboard
-		-- will not have trailing whitespace highlighted in red.
 		vim.cmd([[highlight link TrailingWhitespace ErrorMsg]])
 	end,
 })
