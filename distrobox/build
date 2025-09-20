@@ -44,6 +44,9 @@ function main() {
 	validate_initial_build_phase
 	validate_build_config
 	run_build_phases
+	if [[ "$rootful_container" == 'true' ]]; then
+		copy_image_to_root_storage "$(full_image_name "$image_name" 'latest')"
+	fi
 	distrobox_configure
 }
 
@@ -110,12 +113,34 @@ function run_single_build_phase() {
 	} >&2
 }
 
+function copy_image_to_root_storage() {
+	local ctr=$1
+	local image_path="localhost::${1}"
+
+	{
+		printf '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n'
+		printf '    Copying Image to Root Storage\n'
+		printf '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n'
+	} >&2
+
+	sudo podman image scp "$(id -u)@${image_path}" "root@${image_path}"
+
+	{
+		printf '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n'
+		printf '    Completed Copying Image to Root Storage\n'
+		printf '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n'
+	} >&2
+}
+
 function distrobox_configure() {
   if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
     printf 'cannot run distrobox creation step from within distrobox\n' >&2
     printf 'run build from "distrobox_configure" step on host\n' >&2
     exit 16
   fi
+	if [[ "$rootful_container" ]]; then
+		addl_distrobox_args=("${addl_distrobox_args[@]}" '--root')
+	fi
 
   distrobox rm -f "$distrobox_name"
   distrobox create \
