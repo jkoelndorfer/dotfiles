@@ -59,7 +59,6 @@ function run_build_phases() {
 	local run_this_build_phase=0
 	local p
 
-
 	# The first build phase is always based on the container source image.
 	local previous_phase_image=$src_image
 
@@ -133,23 +132,23 @@ function copy_image_to_root_storage() {
 }
 
 function distrobox_configure() {
-  if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
-    printf 'cannot run distrobox creation step from within distrobox\n' >&2
-    printf 'run build from "distrobox_configure" step on host\n' >&2
-    exit 16
-  fi
+	if [[ -n "${DISTROBOX_ENTER_PATH:-}" ]]; then
+		printf 'cannot run distrobox creation step from within distrobox\n' >&2
+		printf 'run build from "distrobox_configure" step on host\n' >&2
+		exit 16
+	fi
 	if [[ "$rootful_container" ]]; then
 		addl_distrobox_args=("${addl_distrobox_args[@]}" '--root')
 	fi
 
-  distrobox rm -f "$distrobox_name"
-  distrobox create \
-	--name "$distrobox_name" \
-	--image "$(full_image_name "${image_name}" 'latest')" \
-	--hostname "${distrobox_name}.$(hostname -s)" \
-	--additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
+	distrobox rm -f "$distrobox_name"
+	distrobox create \
+		--name "$distrobox_name" \
+		--image "$(full_image_name "${image_name}" 'latest')" \
+		--hostname "${distrobox_name}.$(hostname -s)" \
+		--additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
 		"${addl_distrobox_args[@]}" \
-	--yes
+		--yes
 }
 
 function validate_script_arguments() {
