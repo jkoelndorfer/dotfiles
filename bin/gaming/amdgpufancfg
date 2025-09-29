@@ -40,11 +40,10 @@ function set_fan_parameter() {
 set_fan_parameter 'fan_zero_rpm_stop_temperature' 25
 set_fan_parameter 'fan_zero_rpm_enable'            0
 
-fan_curve_stage 0 30 20
-fan_curve_stage 1 50 30
-fan_curve_stage 2 60 50
-fan_curve_stage 3 70 80
-fan_curve_stage 4 85 100
+fan_curve_stage 0 50 20
+fan_curve_stage 1 60 30
+fan_curve_stage 2 70 50
+fan_curve_stage 4 80 100
 fan_curve_commit
 
 cat "$gpu_fan_curve"
