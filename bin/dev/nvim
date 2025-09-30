@@ -2,6 +2,8 @@
 
 script_path=$(readlink -f "$0")
 
+source "${DOTFILE_DIR}/shell/lib/tool-manager.sh"
+
 function cleanup() {
 	if [[ -n "$NEOVIM_SESSION_FLAG" ]]; then
 		rm -f "$NEOVIM_SESSION_FLAG"
