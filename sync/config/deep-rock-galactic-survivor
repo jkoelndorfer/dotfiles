@@ -1,0 +1,4 @@
+STEAM_APPID='2321470'
+SYNC_DIR='game-saves/deep-rock-galactic-survivor'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/Funday Games/DRG Survivor/steam"
