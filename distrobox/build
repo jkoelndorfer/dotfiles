@@ -55,6 +55,50 @@ function buildah() {
 	command buildah "$@"
 }
 
+# Joins all arguments together by the given delimiter.
+function join() {
+	local delimiter=$1
+	shift
+
+	python3 -c 'import sys; print(sys.argv[1].join(sys.argv[2:]))' "$delimiter" "$@"
+}
+
+# Discovers additional volumes on the system that should be mounted
+# into the container.
+function addl_volumes() {
+	local mount_dirs=$(awk '{ print $2 }' <'/proc/mounts')
+
+	# These mounts, and any mounts underneath them, will never be
+	# explicitly added as a distrobox container volume.
+	local excluded_prefixes=(
+		'/boot'
+		'/dev'
+		'/proc'
+		'/tmp'
+		'/run'
+		'/var/lib/containers'
+		'/var/lib/nfs'
+		'/sys'
+		'/sysroot'
+	)
+
+	# These mounts will be excluded as distrobox container volumes.
+	#
+	# Mounts underneath them may still be added as distrobox container volumes.
+	local excluded_directories=(
+		'/'
+		'/etc'
+
+		# Distrobox should include these automatically.
+		'/var'
+		'/var/home'
+	)
+	printf '%s' "$mount_dirs" |
+		grep -v -E \
+			-e "^($(join '|' "${excluded_prefixes[@]}"))(/|$)" \
+			-e "^($(join '|' "${excluded_directories[@]}"))$"
+}
+
 function run_build_phases() {
 	local run_this_build_phase=0
 	local p
@@ -143,12 +187,19 @@ function distrobox_configure() {
 	fi
 
 	distrobox rm "${rootful_args[@]}" -f "$distrobox_name"
+
+	local addl_volume_flags=()
+	while read -r v; do
+		addl_volume_flags+=('--volume' "${v}:${v}:rw")
+	done <<<"$(addl_volumes)"
+
 	distrobox create \
 		--name "$distrobox_name" \
 		--image "$(full_image_name "${image_name}" 'latest')" \
 		--hostname "${distrobox_name}.$(hostname -s)" \
 		--additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
 		"${rootful_args[@]}" \
+		"${addl_volume_flags[@]}" \
 		"${addl_distrobox_args[@]}" \
 		--yes
 }
