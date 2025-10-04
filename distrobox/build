@@ -137,16 +137,18 @@ function distrobox_configure() {
 		printf 'run build from "distrobox_configure" step on host\n' >&2
 		exit 16
 	fi
+	local rootful_args=()
 	if [[ "$rootful_container" ]]; then
-		addl_distrobox_args=("${addl_distrobox_args[@]}" '--root')
+		rootful_args=('--root')
 	fi
 
-	distrobox rm -f "$distrobox_name"
+	distrobox rm "${rootful_args[@]}" -f "$distrobox_name"
 	distrobox create \
 		--name "$distrobox_name" \
 		--image "$(full_image_name "${image_name}" 'latest')" \
 		--hostname "${distrobox_name}.$(hostname -s)" \
 		--additional-flags "-e DISTROBOX_NAME=${distrobox_name}" \
+		"${rootful_args[@]}" \
 		"${addl_distrobox_args[@]}" \
 		--yes
 }
