@@ -3,3 +3,5 @@ STEAM_APPID='861540'
 SYNC_DIR='game-saves/dicey-dungeons'
 
 symlink save "${STEAM_HOME}/.local/share/Terry Cavanagh Games/diceydungeons"
+
+# vim: ft=sh

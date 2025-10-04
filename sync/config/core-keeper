@@ -7,3 +7,5 @@ proton_dir="$(proton_steamuser_home)/AppData/LocalLow/Pugstorm/Core Keeper/Steam
 
 symlink save "$linux_native_dir"
 symlink save "$proton_dir"
+
+# vim: ft=sh

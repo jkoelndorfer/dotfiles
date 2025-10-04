@@ -4,3 +4,5 @@ STEAM_APPID='413150'
 
 SYNC_DIR='game-saves/stardew-valley'
 symlink save "${STEAM_HOME}/.config/StardewValley/Saves"
+
+# vim: ft=sh

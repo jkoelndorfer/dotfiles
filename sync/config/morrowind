@@ -1,3 +1,5 @@
 SYNC_DIR='morrowind'
 
 symlink 'saves' "$HOME/.local/share/openmw/saves"
+
+# vim: ft=sh

@@ -3,3 +3,5 @@ SYNC_DIR='game-saves/terraria'
 
 symlink Players "${STEAM_HOME}/.local/share/Terraria/Players"
 symlink Worlds "${STEAM_HOME}/.local/share/Terraria/Worlds"
+
+# vim: ft=sh

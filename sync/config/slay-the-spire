@@ -2,5 +2,7 @@ SYNC_DIR='game-saves/slay-the-spire'
 SLAY_THE_SPIRE_DIR="${STEAM_APPS_COMMON_DIR}/SlayTheSpire"
 
 for d in preferences runs saves; do
-    symlink "$d" "${SLAY_THE_SPIRE_DIR}/${d}"
+	symlink "$d" "${SLAY_THE_SPIRE_DIR}/${d}"
 done
+
+# vim: ft=sh

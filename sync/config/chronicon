@@ -1,3 +1,5 @@
 SYNC_DIR='game-saves/chronicon'
 
 symlink save "${STEAM_HOME}/.config/Chronicon/save"
+
+# vim: ft=sh

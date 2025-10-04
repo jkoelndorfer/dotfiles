@@ -1,3 +1,5 @@
 SYNC_DIR='game-saves/factorio'
 
 symlink 'dot-factorio' "${STEAM_HOME}/.factorio"
+
+# vim: ft=sh

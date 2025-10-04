@@ -6,3 +6,5 @@ SYNC_DIR='game-saves/last-epoch'
 symlink saves "$(proton_steamuser_home)/AppData/LocalLow/Eleventh Hour Games/Last Epoch/Saves"
 
 symlink saves "$HOME/.config/unity3d/Eleventh Hour Games/Last Epoch/Saves"
+
+# vim: ft=sh

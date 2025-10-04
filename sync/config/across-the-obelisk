@@ -1,3 +1,5 @@
 SYNC_DIR='game-saves/across-the-obelisk'
 
 symlink save "${STEAM_HOME}/.config/unity3d/Dreamsite Games/AcrossTheObelisk/$(game_data 'steamid64')"
+
+# vim: ft=sh

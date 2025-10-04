@@ -4,3 +4,5 @@ STEAM_APPID='1253920'
 
 SYNC_DIR='game-saves/rogue-legacy-2'
 symlink save "${STEAM_HOME}/.config/unity3d/Cellar Door Games/Rogue Legacy 2/Saves"
+
+# vim: ft=sh

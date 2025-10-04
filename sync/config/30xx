@@ -2,3 +2,5 @@ STEAM_APPID='1029210'
 SYNC_DIR='game-saves/30xx'
 
 symlink save "$(proton_steamuser_home)/Documents/30XX"
+
+# vim: ft=sh

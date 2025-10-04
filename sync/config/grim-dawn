@@ -12,24 +12,26 @@ GRIM_DAWN_STATE_DIR="$(proton_steamuser_home)/My Documents/My Games/Grim Dawn"
 symlink save "${GRIM_DAWN_STATE_DIR}/save"
 
 function postsetup() {
-    local local_settings_dir="${GRIM_DAWN_STATE_DIR}/Settings"
-    local local_options_path="${local_settings_dir}/options.txt"
-    local sync_settings_dir="$(sync_dir)/settings"
+	local local_settings_dir="${GRIM_DAWN_STATE_DIR}/Settings"
+	local local_options_path="${local_settings_dir}/options.txt"
+	local sync_settings_dir="$(sync_dir)/settings"
 
-    if [[ -f "$local_options_path" ]]; then
-        echo 'Setting "cloudSaving = false" in options.txt' >&2
-        sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$local_options_path"
-    else
-        {
-            echo "Could not locate Grim Dawn's options.txt at '$options_path'"
-            echo 'You must disable cloud saves manually in Grim Dawn.'
-            echo 'Uncheck Options > Gameplay > Cloud Saving.'
-        } >&2
-    fi
+	if [[ -f "$local_options_path" ]]; then
+		echo 'Setting "cloudSaving = false" in options.txt' >&2
+		sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$local_options_path"
+	else
+		{
+			echo "Could not locate Grim Dawn's options.txt at '$options_path'"
+			echo 'You must disable cloud saves manually in Grim Dawn.'
+			echo 'Uncheck Options > Gameplay > Cloud Saving.'
+		} >&2
+	fi
 
-    for f in keybindings.txt text_en ui; do
-        force_cp "${sync_settings_dir}/${f}" "${local_settings_dir}/${f}"
-    done
+	for f in keybindings.txt text_en ui; do
+		force_cp "${sync_settings_dir}/${f}" "${local_settings_dir}/${f}"
+	done
 
-    force_cp "$(sync_dir)/mods/grim-ui-x-mod-strategist/Grim UI X-Mod" "${GRIM_DAWN_INSTALL_DIR}/mods/Grim UI X-Mod"
+	force_cp "$(sync_dir)/mods/grim-ui-x-mod-strategist/Grim UI X-Mod" "${GRIM_DAWN_INSTALL_DIR}/mods/Grim UI X-Mod"
 }
+
+# vim: ft=sh

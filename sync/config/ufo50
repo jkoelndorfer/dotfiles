@@ -2,3 +2,5 @@ STEAM_APPID='1147860'
 SYNC_DIR='game-saves/ufo50'
 
 symlink save "$(proton_steamuser_home)/AppData/Local/ufo50"
+
+# vim: ft=sh

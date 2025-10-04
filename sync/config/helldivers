@@ -11,3 +11,5 @@ Uncheck "Keep game saves in the Steam Cloud for HELLDIVERS".
 EOF
 
 symlink saves "$(proton_steamuser_home)/Application Data/Arrowhead/Helldivers/saves"
+
+# vim: ft=sh

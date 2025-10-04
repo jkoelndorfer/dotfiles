@@ -2,3 +2,5 @@ STEAM_APPID='692850'
 SYNC_DIR='game-saves/bloodstained-ritual-of-the-night'
 
 symlink Saved/SaveGames "$(proton_steamuser_home)/AppData/Local/BloodstainedRotN/Saved/SaveGames"
+
+# vim: ft=sh

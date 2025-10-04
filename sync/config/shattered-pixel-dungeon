@@ -2,3 +2,5 @@ STEAM_APPID='1769170'
 SYNC_DIR='game-saves/shattered-pixel-dungeon'
 
 symlink save "${STEAM_HOME}/.local/share/.shatteredpixel/shattered-pixel-dungeon"
+
+# vim: ft=sh

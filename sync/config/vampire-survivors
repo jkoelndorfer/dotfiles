@@ -16,3 +16,5 @@ symlink local-storage "$local_storage_dir"
 steam_install_dir="${STEAM_APPS_COMMON_DIR}/Vampire Survivors"
 backup_save_data_dir="$steam_install_dir/resources/app/.webpack/renderer"
 rm -v -f "$backup_save_data_dir"/*.sav
+
+# vim: ft=sh

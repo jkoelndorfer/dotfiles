@@ -2,3 +2,5 @@ STEAM_APPID='1245620'
 SYNC_DIR='game-saves/elden-ring'
 
 symlink save "$(proton_steamuser_home)/Application Data/EldenRing/$(game_data 'steamid64')"
+
+# vim: ft=sh
