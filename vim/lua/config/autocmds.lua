@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 --
 -- https://stackoverflow.com/questions/33815600/indenting-heredocs-with-spaces
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "shell" },
+	pattern = { "bash", "sh", "zsh" },
 	callback = function()
 		vim.o.expandtab = false
 	end,
