@@ -1,0 +1,5 @@
+STEAM_APPID='427410'
+SYNC_DIR='game-saves/abiotic-factor'
+
+symlink save "$(proton_steamuser_home)/AppData/Local/AbioticFactor/Saved/SaveGames"
+
