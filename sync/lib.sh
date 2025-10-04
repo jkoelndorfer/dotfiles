@@ -10,7 +10,10 @@ STEAM_LIBRARY_FOLDERS_VDF="${DEFAULT_STEAM_LIBRARY_ROOT}/config/libraryfolders.v
 SYNC_ROOT_DIR="$HOME/sync"
 
 function errmsg() {
-	echo "$@" >&2
+	local m=$1
+	shift
+
+	printf "${m}\n" "$@" >&2
 }
 
 function force_cp() {
@@ -45,17 +48,17 @@ function game_data() {
 	local data
 	data=$(<"$data_file")
 	if [[ -z "$data" ]]; then
-		errmsg "Error reading data from '$data_file'"
+		errmsg "Error reading data from '%s'" "$data_file"
 		exit 1
 	fi
-	echo "$data"
+	printf '%s\n' "$data"
 }
 
 function presetup_confirmation() {
 	cat >&2
 	local confirmed
 	read -p 'proceed? (y/n) ' confirmed </dev/tty
-	if ! [[ "$(echo "$confirmed" | tr '[:upper:]' '[:lower:'])" =~ ^(yes|y)$ ]]; then
+	if ! [[ "$(tr '[:upper:]' '[:lower:'] <<<"$confirmed")" =~ ^(yes|y)$ ]]; then
 		errmsg "Aborting setup"
 		exit 1
 	fi
@@ -135,7 +138,7 @@ function sync_dir() {
 		errmsg "$0: SYNC_DIR must be set!"
 		exit 1
 	fi
-	echo "${SYNC_ROOT_DIR}/${SYNC_DIR}"
+	printf '%s\n' "${SYNC_ROOT_DIR}/${SYNC_DIR}"
 }
 
 function symlink_abs() {

@@ -7,12 +7,12 @@ application=$1
 set -e
 
 if [[ -z "$application" ]]; then
-	echo "$0: You must specify the path to the application to configure syncing for" >&2
+	printf '%s: You must specify the path to the application to configure syncing for\n' "$0" >&2
 	exit 1
 fi
 
 if ! [[ -f "$application" ]]; then
-	echo "$0: no such configuration: $application" >&2
+	printf "%s: no such configuration: %s\n" "$0" "$application" >&2
 	exit 2
 fi
 

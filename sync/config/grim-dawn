@@ -17,13 +17,13 @@ function postsetup() {
 	local sync_settings_dir="$(sync_dir)/settings"
 
 	if [[ -f "$local_options_path" ]]; then
-		echo 'Setting "cloudSaving = false" in options.txt' >&2
+		printf 'Setting "cloudSaving = false" in options.txt\n' >&2
 		sed --in-place -r -e 's#^\s*cloudSaving\s*=.*$#cloudSaving = false#' "$local_options_path"
 	else
 		{
-			echo "Could not locate Grim Dawn's options.txt at '$options_path'"
-			echo 'You must disable cloud saves manually in Grim Dawn.'
-			echo 'Uncheck Options > Gameplay > Cloud Saving.'
+			printf "Could not locate Grim Dawn's options.txt at '%s'\n" "$options_path"
+			printf 'You must disable cloud saves manually in Grim Dawn.\n'
+			printf 'Uncheck Options > Gameplay > Cloud Saving.\n'
 		} >&2
 	fi
 
