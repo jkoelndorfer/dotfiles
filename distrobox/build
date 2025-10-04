@@ -210,7 +210,7 @@ function validate_initial_build_phase() {
 			for p in "${build_phases[@]}"; do
 				printf '"%s", ' "$p"
 			done
-			printf 'distrobox_configure\n'
+			printf '"distrobox_configure"\n'
 		} >&2
 		exit 1
 	fi
