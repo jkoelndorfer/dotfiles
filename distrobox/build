@@ -44,9 +44,23 @@ function main() {
 	validate_initial_build_phase
 	validate_build_config
 	run_build_phases
+
+	local latest_img=$(full_image_name "$image_name" 'latest')
+	local do_root_img_copy=0
 	if [[ "$rootful_container" == 'true' ]]; then
-		copy_image_to_root_storage "$(full_image_name "$image_name" 'latest')"
+		local root_latest_img=$(sudo podman images -q "$latest_img")
+		if [[ "$initial_build_phase" != 'distrobox_configure' ]] || [[ -z "$root_latest_img" ]]; then
+			# Either the image was rebuilt, or root storage does not currently
+			# have a copy of the image. The image should be copied to root
+			# storage.
+			do_root_img_copy=1
+		fi
 	fi
+
+	if [[ "$do_root_img_copy" == '1' ]]; then
+		copy_image_to_root_storage "$latest_img"
+	fi
+
 	distrobox_configure
 }
 
@@ -116,6 +130,15 @@ function run_build_phases() {
 
 	# The current working container.
 	local working_ctr
+
+	# If the initial build phase is "distrobox_configure", there's nothing
+	# to do here. Bail early.
+	#
+	# This isn't technically necessary but it does save an unsightly
+	# `buildah tag` invocation.
+	if [[ "$initial_build_phase" == 'distrobox_configure' ]]; then
+		return 0
+	fi
 
 	for p in "${build_phases[@]}"; do
 		current_phase_image=$(full_image_name "$image_name" "$p")
