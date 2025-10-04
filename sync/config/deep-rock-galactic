@@ -1,6 +1,8 @@
 STEAM_APPID='548430'
 SYNC_DIR='game-saves/deep-rock-galactic'
 
-symlink save "${STEAM_APPS_COMMON_DIR}/Deep Rock Galactic/FSD/Saved/SaveGames"
+drg_dir=$(steamapps_common_dir 'Deep Rock Galactic')
+saves_dir="${drg_dir}/FSD/Saved/SaveGames"
+symlink save "$saves_dir"
 
 # vim: ft=sh

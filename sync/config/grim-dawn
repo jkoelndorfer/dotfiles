@@ -4,7 +4,7 @@ SYNC_DIR='game-saves/grim-dawn'
 # The directory where Grim Dawn is installed.
 #
 # This can change if Steam is configured to use a non-default storage directory.
-GRIM_DAWN_INSTALL_DIR="${STEAM_APPS_COMMON_DIR}/.local/share/Steam/steamapps/common/Grim Dawn"
+GRIM_DAWN_INSTALL_DIR="$(steamapps_common_dir 'Grim Dawn')"
 
 # The directory where save files and settings are located.
 GRIM_DAWN_STATE_DIR="$(proton_steamuser_home)/My Documents/My Games/Grim Dawn"

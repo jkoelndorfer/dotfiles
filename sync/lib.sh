@@ -4,11 +4,9 @@
 if [[ -z "$STEAM_HOME" ]]; then
 	STEAM_HOME="${HOME}"
 fi
-if [[ -z "$STEAM_LIBRARY_ROOT" ]]; then
-	STEAM_LIBRARY_ROOT="${STEAM_HOME}/.steam/steam"
-fi
-STEAM_APPS_COMMON_DIR="${STEAM_LIBRARY_ROOT}/steamapps/common"
-STEAM_COMPATDATA_DIR="${STEAM_LIBRARY_ROOT}/steamapps/compatdata"
+
+DEFAULT_STEAM_LIBRARY_ROOT="${STEAM_HOME}/.steam/steam"
+STEAM_LIBRARY_FOLDERS_VDF="${DEFAULT_STEAM_LIBRARY_ROOT}/config/libraryfolders.vdf"
 SYNC_ROOT_DIR="$HOME/sync"
 
 function errmsg() {
@@ -63,11 +61,53 @@ function presetup_confirmation() {
 	fi
 }
 
+function steamapps_common_dir() {
+	local subdir=$1
+
+	find_in_library_dir "steamapps/common/${subdir}"
+}
+
+function _app_compatdata_dir() {
+	local steam_appid=$1
+
+	find_in_library_dir "steamapps/compatdata/${steam_appid}"
+}
+
+function app_compatdata_dir() {
+	# Sourcing scripts should set STEAM_APPID as configuration.
+	if [[ -z "$STEAM_APPID" ]]; then
+		errmsg "$0: STEAM_APPID must be set!"
+		exit 1
+	fi
+
+	_app_compatdata_dir "$STEAM_APPID"
+}
+
+function find_in_library_dir() {
+	local relative_path=$1
+	local d
+	local tried_path
+
+	while read -r d; do
+		tried_path="${d}/${relative_path}"
+		if [[ -e "$tried_path" ]]; then
+			printf '%s\n' "$tried_path"
+			return 0
+		fi
+	done <<<"$(steam_library_directories)"
+
+	errmsg "${0}: fatal: could not find "${relative_path}" in any library directories" >&2
+	exit 1
+}
+
 # This function is separate for easy testing in a REPL environment. :-)
 function _proton_steamuser_home() {
 	local steam_appid=$1
+	local steam_library_dir
+	local compat_datadir
+	local steam_appdir
 
-	echo "${STEAM_COMPATDATA_DIR}/${steam_appid}/pfx/drive_c/users/steamuser"
+	printf '%s\n' "$(_app_compatdata_dir "$steam_appid")/pfx/drive_c/users/steamuser"
 }
 
 function proton_steamuser_home() {
@@ -77,6 +117,16 @@ function proton_steamuser_home() {
 		exit 1
 	fi
 	_proton_steamuser_home "$STEAM_APPID"
+}
+
+function steam_library_directories() {
+	if [[ -z "$_STEAM_LIBRARY_DIRECTORIES" ]]; then
+		_STEAM_LIBRARY_DIRECTORIES=$(
+			grep -F '"path"' "$STEAM_LIBRARY_FOLDERS_VDF" |
+				awk -F'"' '{ print $4 }'
+		)
+	fi
+	printf '%s\n' "$_STEAM_LIBRARY_DIRECTORIES"
 }
 
 function sync_dir() {
