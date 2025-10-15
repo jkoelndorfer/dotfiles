@@ -1,0 +1,4 @@
+STEAM_APPID='3405340'
+SYNC_DIR='game-saves/megabonk'
+
+symlink save/CloudDir "${STEAM_HOME}/.config/unity3d/Ved/Megabonk/Saves/CloudDir"
