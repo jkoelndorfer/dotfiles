@@ -197,12 +197,14 @@ function accept-line() {
 
 function git_indicator() {
 	if in_git_repo; then
-		printf "%s %s%s " "$(pc "$fg_green")" "$(git_branch)" "$(pc "$reset_color")"
+		printf "%s %s%s " "$(pc "$fg_green")" "$(git_commit)" "$(pc "$reset_color")"
 		local unpublished=$(git_unpushed_commits_indicator)
 		if [[ -n "$unpublished" ]]; then
 			echo -n "$unpublished "
 		fi
+		return 0
 	fi
+	return 1
 }
 
 function git_unpublished_commits() {
@@ -220,11 +222,39 @@ function git_branch() {
 	git rev-parse --abbrev-ref HEAD 2>/dev/null
 }
 
+function git_commit() {
+	git rev-parse --short HEAD 2>/dev/null
+}
+
 function git_upstream() {
 	git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(git_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator)$(user_rc_indicator)'
+function in_jj_repo() {
+	jj status --quiet >/dev/null 2>&1
+}
+
+function jj_indicator() {
+	if in_jj_repo; then
+		printf "%s %s%s " "$(pc "$fg_green")" "$(jj_change)" "$(pc "$reset_color")"
+		return 0
+	fi
+	return 1
+}
+
+function jj_change() {
+	jj log \
+		--revisions @ \
+		--no-pager \
+		--no-graph \
+		--template 'self.change_id().short(8) ++ " " ++ self.commit_id().short(8)'
+}
+
+function vcs_indicator() {
+	jj_indicator || git_indicator
+}
+
+PS1='$(host_indicator)$(cwd_indicator)$(vcs_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator)$(user_rc_indicator)'
 
 if [[ "$SHELL_NAME" == 'zsh' ]]; then
 	zle -N zle-keymap-select
