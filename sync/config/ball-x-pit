@@ -1,0 +1,6 @@
+STEAM_APPID='2062430'
+SYNC_DIR='game-saves/ball-x-pit'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/Kenny Sun/BALL x PIT"
+
+# vim: ft=sh
