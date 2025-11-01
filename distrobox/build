@@ -69,6 +69,11 @@ function buildah() {
 	command buildah "$@"
 }
 
+function distrobox() {
+	printf '+ distrobox %s\n' "$*" >&2
+	command distrobox "$@"
+}
+
 # Joins all arguments together by the given delimiter.
 function join() {
 	local delimiter=$1
