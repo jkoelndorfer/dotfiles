@@ -218,6 +218,9 @@ function distrobox_configure() {
 
 	local addl_volume_flags=()
 	while read -r v; do
+		if [[ -z "$v" ]]; then
+			continue
+		fi
 		addl_volume_flags+=('--volume' "${v}:${v}:rw")
 	done <<<"$(addl_volumes)"
 
