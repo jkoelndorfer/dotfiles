@@ -1,0 +1,6 @@
+STEAM_APPID='1607680'
+SYNC_DIR='game-saves/bread-and-fred'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/SandCastles/Bread_Fred"
+
+# vim: ft=sh
