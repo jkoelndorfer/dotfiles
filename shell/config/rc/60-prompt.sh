@@ -118,10 +118,23 @@ function kube_ctx_indicator() {
 	fi
 	local kube_config_content=$(<"$kube_config")
 	local kube_context_regex='current-context: *([0-9A-Za-z_-]+)'
+
+	# The context name for a GKE cluster is quite verbose by default.
+	# It has the form:
+	#
+	#   gke_${GCP_PROJECT_NAME}-${REGION}_${GKE_CLUSTER_NAME}
+	#
+	# For my purposes now, the cluster name is sufficient.
+	local kube_context_regex_abbrev='_([0-9A-Za-z-]+)$'
 	local current_kube_ctx
+	local current_kube_ctx_display
 	if [[ "$kube_config_content" =~ $kube_context_regex ]]; then
 		current_kube_ctx=$(regex-match 1)
-		printf "%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx"
+		current_kube_ctx_display=$current_kube_ctx_display
+		if [[ "$current_kube_ctx" =~ $kube_context_regex_abbrev ]]; then
+			current_kube_ctx_display=$(regex-match 1)
+		fi
+		printf "%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx_display"
 	fi
 }
 
