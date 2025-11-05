@@ -137,12 +137,6 @@ function terraform_workspace_indicator() {
 	fi
 }
 
-function terraform_version_indicator() {
-	if [[ -n "$TERRAFORM_VERSION" ]]; then
-		echo "%sTF %s%s " "$(pc "$fg_magenta")" "$TERRAFORM_VERSION" "$(pc "$reset_color")"
-	fi
-}
-
 function user_rc_indicator() {
 	local prompt_symbol='$'
 	local color=$(pc "$fg_green")
@@ -254,7 +248,7 @@ function vcs_indicator() {
 	jj_indicator || git_indicator
 }
 
-PS1='$(host_indicator)$(cwd_indicator)$(vcs_indicator)$(terraform_version_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator)$(user_rc_indicator)'
+PS1='$(host_indicator)$(cwd_indicator)$(vcs_indicator)$(terraform_workspace_indicator)$(kube_ctx_indicator)$(shell_profile_indicator)$(aws_profile_indicator)$(vimode_indicator)$(user_rc_indicator)'
 
 if [[ "$SHELL_NAME" == 'zsh' ]]; then
 	zle -N zle-keymap-select
