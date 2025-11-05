@@ -106,9 +106,6 @@ function record_lastrc() {
 }
 
 function kube_ctx_indicator() {
-	if [[ "$PROMPT_SHOW_KUBECTX" != 1 ]]; then
-		return
-	fi
 	# NOTE: This isn't 100% proper for looking up the current
 	# Kubernetes context, but it avoids forking a process so
 	# it is somewhat faster than invoking kubectl.
@@ -134,7 +131,7 @@ function kube_ctx_indicator() {
 		if [[ "$current_kube_ctx" =~ $kube_context_regex_abbrev ]]; then
 			current_kube_ctx_display=$(regex-match 1)
 		fi
-		printf "%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx_display"
+		printf "\n%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx_display"
 	fi
 }
 
