@@ -72,6 +72,26 @@ function kubectl() {
 	command kubectl "${addl_args[@]}" "$@"
 }
 
+function kube-set-session-ctx() {
+	local ctx=$1
+
+	if [[ -z "$ctx" ]]; then
+		printf '%s: fatal: missing required kube context argument\n' >&2
+		return 1
+	fi
+	SESSION_KUBECTX=$1
+}
+
+function kube-set-session-namespace() {
+	local namespace=$1
+
+	if [[ -z "$namespace" ]]; then
+		printf '%s: fatal: missing required kube namespace argument\n' >&2
+		return 1
+	fi
+	SESSION_KUBE_NAMESPACE=$1
+}
+
 function kube_default_context() {
 	local ctx
 	if [[ -n "$SESSION_KUBECTX" ]]; then
