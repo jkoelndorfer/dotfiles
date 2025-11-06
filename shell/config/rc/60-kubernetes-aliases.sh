@@ -1,7 +1,3 @@
-function kubectx-show() {
-	PROMPT_SHOW_KUBECTX=1
-}
-
 # Quick switcher for Kubernetes contexts.
 function kubectx() {
 	local selected_ctx_line=$(kubectl config get-contexts | fzf --header-lines=1)
