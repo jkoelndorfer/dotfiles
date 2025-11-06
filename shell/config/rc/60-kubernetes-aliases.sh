@@ -29,22 +29,86 @@ function kubepodlogs() {
 }
 
 function kubectl() {
+	local a
+	local next_a
+	local addl_args
 	local kube_context
+	local kube_namespace
 	local kubectl_args=("$@")
+	local next_idx
+
 	for idx in $(seq 0 "${#kubectl_args[@]}"); do
-		if [[ "${kubectl_args[$idx]}" == '--context' ]]; then
-			local next_idx=$((idx + 1))
-			kube_context="${kubectl_args[${next_idx}]}"
+		a="${kubectl_args[$idx]}"
+		next_idx=$((idx + 1))
+		next_a="${kubectl_args[${next_idx}]}"
+
+		if [[ "$a" == '--context' ]]; then
+			kube_context="$next_a"
 			if [[ -z "$kube_context" ]]; then
 				printf '%s: fatal: --context passed but no context provided\n' "$0" >&2
 				return 1
 			fi
-			break
+		fi
+
+		if [[ "$a" == '--namespace' || "$a" == '-n' ]]; then
+			kube_namespace="$next_a"
+			if [[ -z "$kube_namespace" ]]; then
+				printf '%s: fatal: --namespace passed but no namespace provided\n' "$0" >&2
+				return 1
+			fi
 		fi
 	done
+
 	if [[ -z "$kube_context" ]]; then
-		kube_context=$(command kubectl config current-context)
+		kube_context=$(kube_default_context)
+		addl_args=('--context' "$kube_context")
 	fi
-	printf 'kube context: %s\n' "$kube_context" >&2
-	command kubectl "$@"
+
+	if [[ -z "$kube_namespace" ]]; then
+		kube_namespace=$(kube_default_namespace)
+		addl_args=("${addl_args[@]}" '--namespace' "$kube_namespace")
+	fi
+
+	if [[ -z "$kube_context" ]]; then
+		kube_context=$(kube_default_context)
+	fi
+	printf 'kube namespace@context: %s@%s\n' "${kube_namespace}" "${kube_context}" >&2
+	command kubectl "${addl_args[@]}" "$@"
+}
+
+function kube_default_context() {
+	local ctx
+	if [[ -n "$SESSION_KUBECTX" ]]; then
+		ctx="$SESSION_KUBECTX"
+	else
+		ctx=$(kube_config_current_context)
+	fi
+	printf '%s\n' "$ctx"
+}
+
+function kube_config_current_context() {
+	# NOTE: This isn't 100% proper for looking up the current
+	# Kubernetes context, but it avoids forking a process so
+	# it is somewhat faster than invoking kubectl.
+	local kube_config="$HOME/.kube/config"
+	if ! [[ -f "$kube_config" ]]; then
+		return
+	fi
+	local kube_config_content=$(<"$kube_config")
+	local kube_context_regex='current-context: *([0-9A-Za-z_-]+)'
+	local current_kube_ctx
+	if [[ "$kube_config_content" =~ $kube_context_regex ]]; then
+		current_kube_ctx=$(regex-match 1)
+	fi
+	printf '%s\n' "$current_kube_ctx"
+}
+
+function kube_default_namespace() {
+	local namespace
+	if [[ -n "$SESSION_KUBE_NAMESPACE" ]]; then
+		namespace="$SESSION_KUBE_NAMESPACE"
+	else
+		namespace='default'
+	fi
+	printf '%s\n' "$namespace"
 }

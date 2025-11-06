@@ -106,15 +106,7 @@ function record_lastrc() {
 }
 
 function kube_ctx_indicator() {
-	# NOTE: This isn't 100% proper for looking up the current
-	# Kubernetes context, but it avoids forking a process so
-	# it is somewhat faster than invoking kubectl.
-	local kube_config="$HOME/.kube/config"
-	if ! [[ -f "$kube_config" ]]; then
-		return
-	fi
-	local kube_config_content=$(<"$kube_config")
-	local kube_context_regex='current-context: *([0-9A-Za-z_-]+)'
+	local current_kube_ctx=$(kube_config_current_context)
 
 	# The context name for a GKE cluster is quite verbose by default.
 	# It has the form:
@@ -123,16 +115,11 @@ function kube_ctx_indicator() {
 	#
 	# For my purposes now, the cluster name is sufficient.
 	local kube_context_regex_abbrev='_([0-9A-Za-z-]+)$'
-	local current_kube_ctx
-	local current_kube_ctx_display
-	if [[ "$kube_config_content" =~ $kube_context_regex ]]; then
-		current_kube_ctx=$(regex-match 1)
-		current_kube_ctx_display=$current_kube_ctx_display
-		if [[ "$current_kube_ctx" =~ $kube_context_regex_abbrev ]]; then
-			current_kube_ctx_display=$(regex-match 1)
-		fi
-		printf "\n%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx_display"
+	local current_kube_ctx_display=$current_kube_ctx
+	if [[ "$current_kube_ctx" =~ $kube_context_regex_abbrev ]]; then
+		current_kube_ctx_display=$(regex-match 1)
 	fi
+	printf "\n%s󱃾 %s@%s " "$(pc "$fg_cyan")" "$(kube_default_namespace)" "$current_kube_ctx_display"
 }
 
 function terraform_workspace_indicator() {
