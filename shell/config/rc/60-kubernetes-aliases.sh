@@ -68,8 +68,9 @@ function kubectl() {
 	if [[ -z "$kube_context" ]]; then
 		kube_context=$(kube_default_context)
 	fi
-	printf 'kube namespace@context: %s@%s\n' "${kube_namespace}" "${kube_context}" >&2
-	command kubectl "${addl_args[@]}" "$@"
+	local cmd=("${addl_args[@]}" "$@")
+	printf '+ kubectl %s\n' "${cmd[*]}" >&2
+	command kubectl "${cmd[@]}"
 }
 
 function kube-set-session-ctx() {
