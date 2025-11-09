@@ -7,7 +7,7 @@ function kubectx() {
 
 function kubesh() {
 	local selected_pod=$(kubepod)
-	kubectl exec -it "$selected_pod" bash
+	kubectl exec -it "$selected_pod" -- bash
 }
 
 function kubepod() {
