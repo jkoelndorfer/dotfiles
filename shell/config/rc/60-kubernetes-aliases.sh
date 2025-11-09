@@ -7,6 +7,9 @@ function kubectx() {
 
 function kubesh() {
 	local selected_pod=$(kubepod)
+	if [[ -z "$selected_pod" ]]; then
+		return 1
+	fi
 	kubectl exec -it "$selected_pod" -- bash
 }
 
