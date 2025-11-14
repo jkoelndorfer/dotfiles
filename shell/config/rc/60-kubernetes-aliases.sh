@@ -5,16 +5,74 @@ function kubectx() {
 	kubectl config use-context "$selected_ctx"
 }
 
-function kubesh() {
-	local selected_pod=$(kubepod)
-	if [[ -z "$selected_pod" ]]; then
+function kubex() {
+	local cmd=("$@")
+	local default_sh_cmd
+	read -r -d '' default_sh_cmd <<-'EOF'
+		if [ "$(which bash 2>/dev/null)" != "" ]; then
+			exec bash
+		else
+			exec sh
+		fi
+	EOF
+	if [[ "$#" -eq 0 ]]; then
+		cmd=('sh' '-c' "$default_sh_cmd")
+	fi
+
+	local selected_ctr=$(kubectr)
+
+	if [[ -z "$selected_ctr" ]]; then
 		return 1
 	fi
-	kubectl exec -it "$selected_pod" -- bash
+
+	local pod_namespace=$(awk '{ print $1 }' <<<"$selected_ctr")
+	local pod_name=$(awk '{ print $2 }' <<<"$selected_ctr")
+	local ctr_name=$(awk '{ print $3 }' <<<"$selected_ctr")
+	command kubectl \
+		--namespace "$pod_namespace" \
+		exec -it "$pod_name" \
+		--container "$ctr_name" \
+		-- \
+		"${cmd[@]}"
+}
+
+function kubectr() {
+	local tab=$(printf "\t")
+	local go_template
+	read -r -d '' go_template <<-'EOF'
+		{{- range .items -}}
+			{{ $podNamespace := .metadata.namespace -}}
+			{{ $podName := .metadata.name -}}
+			{{ $ctrStatuses := .status.containerStatuses -}}
+			{{ range .spec.containers -}}
+				{{ $ctrName := .name -}}
+				{{ $ctrStatus := "" -}}
+				{{ range $ctrStatuses -}}
+					{{ if eq .name $ctrName -}}
+						{{ if .state.running -}}
+							{{ $ctrStatus = "Running" -}}
+						{{ else if .state.waiting -}}
+							{{ $ctrStatus = .state.waiting.reason -}}
+						{{ else if .state.terminated -}}
+							{{ $ctrStatus = .state.terminated.reason -}}
+						{{ end -}}
+					{{ end -}}
+				{{ end -}}
+			{{ if eq $ctrStatus "Running" -}}
+				{{ printf "%s\t%s\t%s\t%s\t%s" $podNamespace $podName .name $ctrStatus .image }}
+			{{ end -}}
+			{{ end -}}
+		{{ end -}}
+	EOF
+
+	{
+		printf '%s\t%s\t%s\t%s\t%s\n' "NAMESPACE" "POD NAME" "CTR NAME" "CTR STATUS" "IMAGE"
+		command kubectl get -A pods -o go-template --template="$go_template"
+	} | column -t -s "$tab" | fzf --header-lines=1
 }
 
 function kubepod() {
-	kubectl get pods | fzf --header-lines=1 | awk '{ print $1 }'
+	kubectl get -A pods | fzf --header-lines=1
 }
 
 function kubepodlogs() {
@@ -23,8 +81,10 @@ function kubepodlogs() {
 		printf 'no pod selected\n' >&2
 		return 1
 	fi
+	local pod_namespace=$(awk '{ print $1 }' <<<"$selected_pod")
+	local pod_name=$(awk '{ print $2 }' <<<"$selected_pod")
 	printf 'getting logs for pod %s\n' "$selected_pod" >&2
-	kubectl logs "$selected_pod" "$@"
+	kubectl --namespace "$pod_namespace" logs "$pod_name" "$@"
 }
 
 function kubectl() {
