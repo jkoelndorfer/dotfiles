@@ -1,8 +1,27 @@
 # Quick switcher for Kubernetes contexts.
 function kubectx() {
-	local selected_ctx_line=$(kubectl config get-contexts | fzf --header-lines=1)
-	local selected_ctx=$(echo "$selected_ctx_line" | sed -r -e 's/^\*//' | awk '{ print $1 }')
+	local selected_ctx=$(kube-select-ctx)
+	if [[ -z "$selected_ctx" ]]; then
+		return 1
+	fi
+	SESSION_KUBECTX=$selected_ctx
+}
+
+function kube-global-ctx() {
+	local selected_ctx=$(kube-select-ctx)
+	if [[ -z "$selected_ctx" ]]; then
+		return 1
+	fi
 	kubectl config use-context "$selected_ctx"
+}
+
+function kube-select-ctx() {
+	local selected_ctx_line=$(kubectl config get-contexts | fzf --header-lines=1)
+	if [[ -z "$selected_ctx_line" ]]; then
+		printf '%s: no kube context selected\n' "$0" >&2
+		return 1
+	fi
+	sed -r -e 's/^\*//' <<<"$selected_ctx_line" | awk '{ print $1 }'
 }
 
 function kubex() {
@@ -92,7 +111,6 @@ function kubectl() {
 	local next_a
 	local addl_args
 	local kube_context
-	local kube_namespace
 	local kubectl_args=("$@")
 	local next_idx
 
@@ -108,14 +126,6 @@ function kubectl() {
 				return 1
 			fi
 		fi
-
-		if [[ "$a" == '--namespace' || "$a" == '-n' ]]; then
-			kube_namespace="$next_a"
-			if [[ -z "$kube_namespace" ]]; then
-				printf '%s: fatal: --namespace passed but no namespace provided\n' "$0" >&2
-				return 1
-			fi
-		fi
 	done
 
 	if [[ -z "$kube_context" ]]; then
@@ -123,37 +133,9 @@ function kubectl() {
 		addl_args=('--context' "$kube_context")
 	fi
 
-	if [[ -z "$kube_namespace" ]]; then
-		kube_namespace=$(kube_default_namespace)
-		addl_args=("${addl_args[@]}" '--namespace' "$kube_namespace")
-	fi
-
-	if [[ -z "$kube_context" ]]; then
-		kube_context=$(kube_default_context)
-	fi
 	local cmd=("${addl_args[@]}" "$@")
 	printf '+ kubectl %s\n' "${cmd[*]}" >&2
 	command kubectl "${cmd[@]}"
-}
-
-function kube-set-session-ctx() {
-	local ctx=$1
-
-	if [[ -z "$ctx" ]]; then
-		printf '%s: fatal: missing required kube context argument\n' >&2
-		return 1
-	fi
-	SESSION_KUBECTX=$1
-}
-
-function kube-set-session-namespace() {
-	local namespace=$1
-
-	if [[ -z "$namespace" ]]; then
-		printf '%s: fatal: missing required kube namespace argument\n' >&2
-		return 1
-	fi
-	SESSION_KUBE_NAMESPACE=$1
 }
 
 function kube_default_context() {
@@ -177,18 +159,10 @@ function kube_config_current_context() {
 	local kube_config_content=$(<"$kube_config")
 	local kube_context_regex='current-context: *([0-9A-Za-z_-]+)'
 	local current_kube_ctx
-	if [[ "$kube_config_content" =~ $kube_context_regex ]]; then
+	if [[ -n "$SESSION_KUBECTX" ]]; then
+		current_kube_ctx=$SESSION_KUBECTX
+	elif [[ "$kube_config_content" =~ $kube_context_regex ]]; then
 		current_kube_ctx=$(regex-match 1)
 	fi
 	printf '%s\n' "$current_kube_ctx"
-}
-
-function kube_default_namespace() {
-	local namespace
-	if [[ -n "$SESSION_KUBE_NAMESPACE" ]]; then
-		namespace="$SESSION_KUBE_NAMESPACE"
-	else
-		namespace='default'
-	fi
-	printf '%s\n' "$namespace"
 }

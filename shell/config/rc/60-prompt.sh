@@ -119,7 +119,7 @@ function kube_ctx_indicator() {
 	if [[ "$current_kube_ctx" =~ $kube_context_regex_abbrev ]]; then
 		current_kube_ctx_display=$(regex-match 1)
 	fi
-	printf "\n%s󱃾 %s@%s " "$(pc "$fg_cyan")" "$(kube_default_namespace)" "$current_kube_ctx_display"
+	printf "\n%s󱃾 %s " "$(pc "$fg_cyan")" "$current_kube_ctx_display"
 }
 
 function terraform_workspace_indicator() {
