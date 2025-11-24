@@ -1,15 +1,7 @@
-for pfx in '' '/usr' '/usr/local'; do
-    pathmunge "${pfx}/bin"
-    pathmunge "${pfx}/sbin"
-done
-unset pfx
+export PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 HOMEBREW_BIN_DIR='/opt/homebrew/bin'
 
 if [[ -d "$HOMEBREW_BIN_DIR" ]]; then
-  pathmunge "$HOMEBREW_BIN_DIR"
+	pathmunge "$HOMEBREW_BIN_DIR"
 fi
-
-pathmunge "${HOME}/.local/bin"
-pathmunge "$HOME/bin"
-pathmunge "$DOTFILE_DIR/bin"
