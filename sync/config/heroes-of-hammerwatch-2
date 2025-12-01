@@ -1,0 +1,6 @@
+STEAM_APPID='619820'
+SYNC_DIR='game-saves/heroes-of-hammerwatch-2'
+
+symlink save "$(steamapps_common_dir 'Heroes of Hammerwatch 2')/saves"
+
+# vim: ft=sh
