@@ -103,6 +103,14 @@ function find_in_library_dir() {
 	exit 1
 }
 
+function find_proton_cloudsave_dir() {
+	local steam_appid=$1
+
+	local app_dir=$(_app_compatdata_dir "$steam_appid")
+	find "$app_dir" -type d -iname '*save*'
+	find "$(_proton_steamuser_home "$steam_appid")" -iname steam_autocloud.vdf
+}
+
 # This function is separate for easy testing in a REPL environment. :-)
 function _proton_steamuser_home() {
 	local steam_appid=$1
