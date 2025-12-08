@@ -1,0 +1,6 @@
+STEAM_APPID='1903340'
+SYNC_DIR='game-saves/clair-obscur-expedition-33'
+
+symlink save "$(proton_steamuser_home)/AppData/Local/Sandfall/Saved/SaveGames/$(game_data 'steamid64')"
+
+# vim: ft=sh
