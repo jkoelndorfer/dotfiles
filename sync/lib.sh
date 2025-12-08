@@ -16,17 +16,56 @@ function errmsg() {
 	printf "${m}\n" "$@" >&2
 }
 
+# You're looking at this and probably wondering: why is this
+# here? You have `set -e` in the setup script. This is stupid.
+#
+# I agree with that! Here's the problem: `set -e` doesn't actually
+# seem to stop execution when the symlink function gets called.
+#
+# Maybe it's because of some shenanigans with subshells and string
+# interpolation. I don't know.
+#
+# Anyway, here's a workaround.
+function fail_flag_setup() {
+	FAIL_FLAG_PATH=$(mktemp --tmpdir 'dotfiles.sync.fail.XXXXXX')
+	export FAIL_FLAG_PATH
+	trap fail_flag_cleanup EXIT
+	printf '0\n' >"$FAIL_FLAG_PATH"
+}
+
+function fail_flag_cleanup() {
+	if [[ -n "$FAIL_FLAG_PATH" ]]; then
+		rm -f "$FAIL_FLAG_PATH"
+	fi
+}
+
+function fail() {
+	errmsg "$@"
+	printf '1\n' >"$FAIL_FLAG_PATH"
+	exit 1
+}
+
+function is_failed() {
+	local fail=$(<"$FAIL_FLAG_PATH")
+
+	if [[ "$fail" == '1' ]]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
 function force_cp() {
 	local src=$1
 	local dest=$2
 
 	if [[ -z "$src" ]]; then
-		errmsg "$0: missing required src"
+		fail "$0: missing required src"
 		exit 1
 	fi
 
 	if [[ -z "$dest" ]]; then
-		errmsg "$0: missing required dest"
+		fail "$0: missing required dest"
 	fi
 
 	rm -rf "$dest"
@@ -48,7 +87,7 @@ function game_data() {
 	local data
 	data=$(<"$data_file")
 	if [[ -z "$data" ]]; then
-		errmsg "Error reading data from '%s'" "$data_file"
+		fail "Error reading data from '%s'" "$data_file"
 		exit 1
 	fi
 	printf '%s\n' "$data"
@@ -59,7 +98,7 @@ function presetup_confirmation() {
 	local confirmed
 	read -p 'proceed? (y/n) ' confirmed </dev/tty
 	if ! [[ "$(tr '[:upper:]' '[:lower:'] <<<"$confirmed")" =~ ^(yes|y)$ ]]; then
-		errmsg "Aborting setup"
+		fail "Aborting setup"
 		exit 1
 	fi
 }
@@ -79,7 +118,7 @@ function _app_compatdata_dir() {
 function app_compatdata_dir() {
 	# Sourcing scripts should set STEAM_APPID as configuration.
 	if [[ -z "$STEAM_APPID" ]]; then
-		errmsg "$0: STEAM_APPID must be set!"
+		fail "$0: STEAM_APPID must be set!"
 		exit 1
 	fi
 
@@ -99,8 +138,7 @@ function find_in_library_dir() {
 		fi
 	done <<<"$(steam_library_directories)"
 
-	errmsg "${0}: fatal: could not find "${relative_path}" in any library directories" >&2
-	exit 1
+	fail "${0}: fatal: could not find "${relative_path}" in any library directories" >&2
 }
 
 function find_proton_cloudsave_dir() {
@@ -117,14 +155,18 @@ function _proton_steamuser_home() {
 	local steam_library_dir
 	local compat_datadir
 	local steam_appdir
+	compat_datadir=$(_app_compatdata_dir "$steam_appid")
 
-	printf '%s\n' "$(_app_compatdata_dir "$steam_appid")/pfx/drive_c/users/steamuser"
+	if [[ -z "$compat_datadir" ]]; then
+		exit 1
+	fi
+	printf '%s\n' "${compat_datadir}/pfx/drive_c/users/steamuser"
 }
 
 function proton_steamuser_home() {
 	# Sourcing scripts should set STEAM_APPID as configuration.
 	if [[ -z "$STEAM_APPID" ]]; then
-		errmsg "$0: STEAM_APPID must be set!"
+		fail "$0: STEAM_APPID must be set!"
 		exit 1
 	fi
 	_proton_steamuser_home "$STEAM_APPID"
@@ -143,7 +185,7 @@ function steam_library_directories() {
 function sync_dir() {
 	# Config scripts should set SYNC_DIR as configuration.
 	if [[ -z "$SYNC_DIR" ]]; then
-		errmsg "$0: SYNC_DIR must be set!"
+		fail "$0: SYNC_DIR must be set!"
 		exit 1
 	fi
 	printf '%s\n' "${SYNC_ROOT_DIR}/${SYNC_DIR}"
@@ -152,6 +194,10 @@ function sync_dir() {
 function symlink_abs() {
 	local target=$1
 	local link=$2
+
+	if is_failed; then
+		exit 1
+	fi
 
 	local link_parent_dir="$(dirname "$link")"
 	if ! mkdir -p "$link_parent_dir"; then

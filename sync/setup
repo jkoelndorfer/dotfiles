@@ -4,7 +4,7 @@
 # syncing for.
 application=$1
 
-set -e
+set -eo pipefail
 
 if [[ -z "$application" ]]; then
 	printf '%s: You must specify the path to the application to configure syncing for\n' "$0" >&2
@@ -19,6 +19,7 @@ fi
 script_dir=$(dirname "$(readlink -f "$0")")
 
 source "${script_dir}/lib.sh"
+fail_flag_setup
 source "$application"
 
 if type postsetup &>/dev/null; then
