@@ -11,16 +11,17 @@ function cleanup() {
 }
 
 function next_cmd() {
-	local cmd=$1
 	local candidate_cmd
 	local candidate_full_path
-	while read -r candidate_cmd; do
-		candidate_full_path=$(readlink -f "$candidate_cmd")
-		if [[ "$candidate_full_path" != "$script_path" ]]; then
-			printf '%s\n' "$candidate_full_path"
-			return 0
-		fi
-	done <<<"$(which -a "$cmd")"
+	for c in "$@"; do
+		while read -r candidate_cmd; do
+			candidate_full_path=$(readlink -f "$candidate_cmd")
+			if [[ -n "$candidate_full_path" ]] && [[ "$candidate_full_path" != "$script_path" ]]; then
+				printf '%s\n' "$candidate_full_path"
+				return 0
+			fi
+		done <<<"$(which -a "$c" 2>/dev/null)"
+	done
 }
 
 trap cleanup EXIT
@@ -66,7 +67,7 @@ else
 	echo '0' >"$NEOVIM_SESSION_FLAG"
 fi
 
-next_editor=$(next_cmd 'nvim')
+next_editor=$(next_cmd 'nvim' 'vim' 'vi')
 if [[ -z "$next_editor" ]]; then
 	printf 'could not find vim to launch\n' >&2
 	exit 1
