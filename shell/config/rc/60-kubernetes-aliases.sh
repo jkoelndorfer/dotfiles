@@ -1,18 +1,30 @@
 # Quick switcher for Kubernetes contexts.
 function kubectx() {
-	local selected_ctx=$(kube-select-ctx)
-	if [[ -z "$selected_ctx" ]]; then
-		return 1
-	fi
-	SESSION_KUBECTX=$selected_ctx
-}
+	local global=0
 
-function kube-global-ctx() {
+	while [[ "$#" -gt 0 ]]; do
+		case "$1" in
+		-g | --global)
+			global=1
+			;;
+		*)
+			printf 'unrecognized option: %s\n' "$1" >&2
+			return 1
+			;;
+		esac
+		shift
+	done
+
 	local selected_ctx=$(kube-select-ctx)
 	if [[ -z "$selected_ctx" ]]; then
 		return 1
 	fi
-	kubectl config use-context "$selected_ctx"
+
+	if [[ "$global" == 1 ]]; then
+		kubectl config use-context "$selected_ctx"
+	else
+		SESSION_KUBECTX=$selected_ctx
+	fi
 }
 
 function kube-select-ctx() {
