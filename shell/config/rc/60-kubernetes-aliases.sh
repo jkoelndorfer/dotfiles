@@ -21,6 +21,7 @@ function kubectx() {
 	fi
 
 	if [[ "$global" == 1 ]]; then
+		unset SESSION_KUBECTX
 		kubectl config use-context "$selected_ctx"
 	else
 		SESSION_KUBECTX=$selected_ctx
