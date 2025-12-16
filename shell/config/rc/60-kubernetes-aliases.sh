@@ -169,7 +169,7 @@ function kube_config_current_context() {
 		return
 	fi
 	local kube_config_content=$(<"$kube_config")
-	local kube_context_regex="current-context: *(\S+)"
+	local kube_context_regex="current-context: ([a-zA-Z0-9._-]+)"
 	local current_kube_ctx
 	if [[ -n "$SESSION_KUBECTX" ]]; then
 		current_kube_ctx=$SESSION_KUBECTX
