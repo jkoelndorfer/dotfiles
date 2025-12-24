@@ -1,0 +1,6 @@
+STEAM_APPID='2742830'
+SYNC_DIR='game-saves/monster-train-2'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/Shiny Shoe/MonsterTrain2"
+
+# vim: ft=sh
