@@ -1,0 +1,6 @@
+STEAM_APPID='1030300'
+SYNC_DIR='game-saves/hollow-knight-silksong'
+
+symlink save "${STEAM_HOME}/.config/unity3d/Team Cherry/Hollow Knight Silksong/$(game_data 'steamid3-account')"
+
+# vim: ft=sh
