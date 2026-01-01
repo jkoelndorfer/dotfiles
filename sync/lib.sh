@@ -145,7 +145,7 @@ function find_proton_cloudsave_dir() {
 	local steam_appid=$1
 
 	local app_dir=$(_app_compatdata_dir "$steam_appid")
-	find "$app_dir" -type d -iname '*save*'
+	find "$app_dir" -iname '*save*'
 	find "$(_proton_steamuser_home "$steam_appid")" -iname steam_autocloud.vdf
 }
 
