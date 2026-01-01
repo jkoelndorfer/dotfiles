@@ -1,0 +1,6 @@
+STEAM_APPID='1966720'
+SYNC_DIR='game-saves/lethal-company'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/ZeekerssRBLX/Lethal Company"
+
+# vim: ft=sh
