@@ -1,0 +1,4 @@
+STEAM_APPID='526870'
+SYNC_DIR='game-saves/satisfactory'
+
+symlink save "$(proton_steamuser_home)/AppData/Local/FactoryGame/Saved/SaveGames/$(game_data 'steamid64')"
