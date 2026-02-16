@@ -1,0 +1,4 @@
+#!/bin/bash
+
+jj git fetch --all-remotes
+jj rebase "$@"

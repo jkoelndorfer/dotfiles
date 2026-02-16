@@ -1,4 +1,4 @@
-export PATH="${HOME}/bin:${HOME}/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+export PATH="${HOME}/bin:${HOME}/.local/bin:${DOTFILE_DIR}/jj/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 HOMEBREW_BIN_DIR='/opt/homebrew/bin'
 

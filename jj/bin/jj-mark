@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# This script creates a `jj` bookmark, configures it to track
+# the given remote, and pushes the bookmark to the remote.
+
+revision='@'
+bookmark=''
+do_push=0
+remote='origin'
+
+while [[ "$#" -gt 0 ]]; do
+	case "$1" in
+	-b | --bookmark)
+		shift
+		bookmark=$1
+		shift
+		;;
+	-p | --push)
+		shift
+		do_push=1
+		;;
+	--remote)
+		shift
+		remote=$1
+		shift
+		;;
+	-r | --revision)
+		shift
+		revision=$1
+		shift
+		;;
+	*)
+		printf 'unrecognized argument: %s\n' "$1" >&2
+		shift
+		exit 1
+		;;
+	esac
+done
+
+if [[ -z "$bookmark" ]]; then
+	printf 'must specify bookmark name (-b or --bookmark)\n' >&2
+	exit 1
+fi
+
+jj bookmark set --revision "$revision" --allow-backwards "$bookmark"
+jj bookmark track "$bookmark" --remote "$remote"
+if [[ "$do_push" == 1 ]]; then
+	jj git push --bookmark "$bookmark"
+fi
