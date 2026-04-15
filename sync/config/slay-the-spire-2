@@ -1,0 +1,6 @@
+STEAM_APPID='2868840'
+SYNC_DIR='game-saves/slay-the-spire-2'
+
+symlink save "${STEAM_HOME}/.local/share/SlayTheSpire2/steam/$(game_data 'steamid64')"
+
+# vim: ft=sh
