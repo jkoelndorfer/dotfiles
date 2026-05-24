@@ -1,0 +1,7 @@
+STEAM_APPID='3124540'
+SYNC_DIR='game-saves/far-far-west'
+
+symlink saves "$(proton_steamuser_home)/AppData/Local/FarFarWest/Saved/SaveGames"
+
+# vim: ft=sh
+
