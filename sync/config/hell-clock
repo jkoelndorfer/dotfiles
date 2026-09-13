@@ -1,0 +1,4 @@
+STEAM_APPID='1782460'
+SYNC_DIR='game-saves/hell-clock'
+
+symlink save "$(proton_steamuser_home)/AppData/LocalLow/Rogue Snail/Hell Clock"
