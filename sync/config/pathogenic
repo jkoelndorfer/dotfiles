@@ -1,0 +1,4 @@
+STEAM_APPID='3808690'
+SYNC_DIR='game-saves/pathogenic'
+
+symlink userdata "${STEAM_HOME}/.local/share/godot/app_userdata/Pathogenic"
