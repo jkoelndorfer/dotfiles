@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This script invokes the steam binary inside Steam's Flatpak.
+#
+# It can be used to enable other programs to invoke Steam.
+#
+# Copy this script into a directory as "steam.sh" and point
+# r2modman at it to enable launching via r2modman.
+exec flatpak run com.valvesoftware.Steam "$@"

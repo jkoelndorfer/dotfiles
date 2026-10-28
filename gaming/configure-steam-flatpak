@@ -33,8 +33,9 @@ gamescope_flatpak_bin_dir='/usr/lib/extensions/vulkan/gamescope/bin'
 # https://github.com/ValveSoftware/gamescope/issues/835#issuecomment-2361846080
 # https://github.com/ValveSoftware/gamescope/issues/1225
 flatpak override --user 'com.valvesoftware.Steam' \
-  --filesystem="${SYNC_ROOT_DIR}/game-saves" \
-  --filesystem="${gaming_steam_dir}" \
-  --env='SDL_VIDEODRIVER=x11' \
-  --env="PATH=${gaming_steam_dir}:${default_path}:${gamescope_flatpak_bin_dir}" \
-  --env='ENABLE_GAMESCOPE_WSI=0'
+	--filesystem="${SYNC_ROOT_DIR}/game-saves" \
+	--filesystem="${HOME}/.config/r2modmanPlus-local" \
+	--filesystem="${gaming_steam_dir}" \
+	--env='SDL_VIDEODRIVER=x11' \
+	--env="PATH=${gaming_steam_dir}:${default_path}:${gamescope_flatpak_bin_dir}" \
+	--env='ENABLE_GAMESCOPE_WSI=0'
