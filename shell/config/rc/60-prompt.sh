@@ -73,7 +73,7 @@ function host_indicator() {
 	fi
 
 	if [[ -n "$CONTAINER_NAME" ]]; then
-		printed=" ${CONTAINER_NAME} 󰒍 $(distrobox_host_hostname)"
+		printed=" ${CONTAINER_NAME} 󰒍 ${CONTAINER_HOST_HOSTNAME}"
 	elif [[ -n "$SSH_CONNECTION" ]]; then
 		printed="󰒍 ${host_text}"
 	fi

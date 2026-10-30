@@ -228,7 +228,7 @@ function distrobox_configure() {
 		--name "$distrobox_name" \
 		--image "$(full_image_name "${image_name}" 'latest')" \
 		--hostname "${distrobox_name}.$(hostname -s)" \
-		--additional-flags "-e CONTAINER_NAME=${distrobox_name}" \
+		--additional-flags "-e CONTAINER_NAME=${distrobox_name} -e CONTAINER_HOST_HOSTNAME=$(hostname -s)" \
 		"${rootful_args[@]}" \
 		"${addl_volume_flags[@]}" \
 		"${addl_distrobox_args[@]}" \
