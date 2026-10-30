@@ -17,6 +17,10 @@ function is-interactive-shell() {
 	return 8
 }
 
+function is-zsh() {
+	[[ -n "$ZSH_VERSION" ]] && command -v emulate >/dev/null 2>&1
+}
+
 function regex-match() {
 	local idx=$1
 
