@@ -9,6 +9,6 @@
 # running zsh for us.
 
 zsh_path='/usr/bin/zsh'
-if [[ "$0" != "$zsh_path" ]]; then
-  exec "$zsh_path" -l
+if [[ "$0" != "$zsh_path" ]] && is-interactive-shell; then
+	exec "$zsh_path" -l
 fi
