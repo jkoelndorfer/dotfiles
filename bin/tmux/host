@@ -11,8 +11,8 @@ if [[ -f "$tmux_host_file" ]]; then
 else
 	host="󰒍 $(hostname -s)"
 
-	if [[ -n "$DISTROBOX_NAME" ]]; then
-		host=" ${DISTROBOX_NAME} 󰒍 $(distrobox-host-exec hostname -s)"
+	if [[ -n "$CONTAINER_NAME" ]]; then
+		host=" ${CONTAINER_NAME} 󰒍 $(distrobox-host-exec hostname -s)"
 	fi
 fi
 

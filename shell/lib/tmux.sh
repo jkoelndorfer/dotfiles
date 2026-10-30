@@ -70,7 +70,7 @@ function tmux-reload-environment() {
 function tmux() {
   local tmux_addl_args
   if in-distrobox; then
-    tmux_addl_args=('-L' "$DISTROBOX_NAME")
+    tmux_addl_args=('-L' "$CONTAINER_NAME")
   else
     tmux_addl_args=()
   fi
