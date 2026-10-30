@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# sbctr -- Sandbox Container
+#
+# Podman container used for sandboxing.
+
+podman run \
+	--rm \
+	-it \
+	--userns='keep-id' \
+	--cap-drop='ALL' \
+	--security-opt='no-new-privileges' \
+	--init \
+	-e 'CONTAINER_NAME=sandbox' \
+	-e "CONTAINER_HOST_HOSTNAME=$(hostname -s)" \
+	-e "DOTFILE_DIR=${DOTFILE_DIR}" \
+	-e "HOME=${HOME}" \
+	-e "TERM=${TERM}" \
+	-e "SHELL=/bin/bash" \
+	-v "${HOME}/sbctr/home:${HOME}" \
+	-w "${HOME}" \
+	--hostname 'sbctr' \
+	--entrypoint "[\"${SHELL}\", \"-l\"]" \
+	johnk-archlinux:latest
