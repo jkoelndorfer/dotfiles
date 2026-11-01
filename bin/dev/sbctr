@@ -18,6 +18,8 @@ podman run \
 	-e "TERM=${TERM}" \
 	-e "SHELL=/bin/bash" \
 	-v "${HOME}/sbctr/home:${HOME}" \
+	-v "${HOME}/dotfiles:${HOME}/dotfiles:ro" \
+	-v "${HOME}/src:${HOME}/src:ro" \
 	-w "${HOME}" \
 	--hostname 'sbctr' \
 	--entrypoint "[\"${SHELL}\", \"-l\"]" \
