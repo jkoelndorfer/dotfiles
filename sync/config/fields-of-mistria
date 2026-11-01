@@ -1,0 +1,6 @@
+STEAM_APPID='2142790'
+SYNC_DIR='game-saves/fields-of-mistria'
+
+symlink 'save' "${STEAM_HOME}/.local/share/FieldsOfMistria/saves"
+
+# vim: ft=sh
