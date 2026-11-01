@@ -1,17 +1,14 @@
-# See https://github.com/jj-vcs/jj/discussions/5812.
-
-"$schema" = 'https://jj-vcs.github.io/jj/prerelease/config-schema.json'
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
 
 [user]
-name = 'John Koelndorfer'
-# e-mail is configured per repository
+name = "John Koelndorfer"
+email = "john@koelndorfer.com"
 
 [revset-aliases]
-'trunk()' = 'latest((present(master) | present(main)) & remote_bookmarks())'
-
-'stack()' = 'ancestors(reachable(@, mutable()), 2)'
-'stack(x)' = 'ancestors(reachable(x, mutable()), 2)'
-'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
+"trunk()" = "latest((present(master) | present(main)) & remote_bookmarks())"
+"stack()" = "ancestors(reachable(@, mutable()), 2)"
+"stack(x)" = "ancestors(reachable(x, mutable()), 2)"
+"stack(x, n)" = "ancestors(reachable(x, mutable()), n)"
 
 [aliases]
 mark = ["util", "exec", "--", "jj-mark"]
