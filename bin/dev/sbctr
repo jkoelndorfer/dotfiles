@@ -21,6 +21,7 @@ podman run \
 	-v "${HOME}/sbctr/home:${HOME}" \
 	-v "${HOME}/dotfiles:${HOME}/dotfiles:ro" \
 	-v "${HOME}/src:${HOME}/src:ro" \
+	-v '/etc/localtime:/etc/localtime:ro' \
 	--workdir "${HOME}" \
 	--hostname 'sbctr' \
 	--entrypoint "[\"${SHELL}\", \"-l\"]" \
