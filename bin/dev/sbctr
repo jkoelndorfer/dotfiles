@@ -15,6 +15,7 @@ podman run \
 	-e "CONTAINER_HOST_HOSTNAME=$(hostname -s)" \
 	-e "HOME=${HOME}" \
 	-e "TERM=${TERM}" \
+	-e "READ_ONLY_DOTFILES=true" \
 	-e "SHELL=/bin/bash" \
 	-v "${HOME}/sbctr/home:${HOME}" \
 	-v "${HOME}/dotfiles:${HOME}/dotfiles:ro" \
