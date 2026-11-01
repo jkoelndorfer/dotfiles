@@ -13,7 +13,6 @@ podman run \
 	--init \
 	-e 'CONTAINER_NAME=sandbox' \
 	-e "CONTAINER_HOST_HOSTNAME=$(hostname -s)" \
-	-e "DOTFILE_DIR=${DOTFILE_DIR}" \
 	-e "HOME=${HOME}" \
 	-e "TERM=${TERM}" \
 	-e "SHELL=/bin/bash" \
