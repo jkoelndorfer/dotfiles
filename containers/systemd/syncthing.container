@@ -17,15 +17,12 @@ RestartSec=10s
 TimeoutStartSec=900
 
 [Container]
-Image=docker.io/linuxserver/syncthing:1.28.1
+Image=docker.io/syncthing/syncthing:2.1.7
 Network=host
 
-User=root
 Environment=STGUIADDRESS=127.0.0.1:8384
-Environment=PUID=%U
-Environment=PGID=%G
-UserNS=keep-id:uid=%U,gid=%G
-Volume=%h/.config/syncthing:/config:Z
+UserNS=keep-id
+Volume=%h/.config/syncthing:/var/syncthing/config:Z
 Volume=%h/sync:%h/sync:z
 
 [Install]
