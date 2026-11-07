@@ -26,7 +26,7 @@ Environment=PUID=%U
 Environment=PGID=%G
 UserNS=keep-id:uid=%U,gid=%G
 Volume=%h/.config/syncthing:/config:Z
-Volume=%h/sync:/data/sync:z
+Volume=%h/sync:%h/sync:z
 
 [Install]
 WantedBy=default.target
