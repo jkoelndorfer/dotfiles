@@ -1,0 +1,8 @@
+# https://store.steampowered.com/app/1203620/Enshrouded/
+
+STEAM_APPID='1203620'
+SYNC_DIR='game-saves/enshrouded'
+
+symlink save "$(proton_steamuser_home)/Saved Games/keen games/Enshrouded"
+
+# vim: ft=sh
