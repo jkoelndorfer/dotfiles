@@ -1,0 +1,22 @@
+# vmagent scrape.yml
+# ==================
+#
+# The scrape configuration of vmagent.container. vmagent replaces %{NAME} with
+# the environment variable NAME [1].
+#
+# [1]: https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/#environment-variables
+
+global:
+  # Matches the homelab's VictoriaMetrics, so that the dashboards' rate windows
+  # suit every host.
+  scrape_interval: 30s
+
+scrape_configs:
+  - job_name: node
+    static_configs:
+      - targets: ["127.0.0.1:9100"]
+    relabel_configs:
+      # A name reads better than an address in dashboards, and every host
+      # scrapes its exporter at the same address.
+      - target_label: instance
+        replacement: "%{METRICS_INSTANCE}"

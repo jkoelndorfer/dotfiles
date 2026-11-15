@@ -1,0 +1,58 @@
+# node-exporter.container
+# =======================
+#
+# The Prometheus node exporter [1], which reports this host's metrics: CPU,
+# memory, hardware sensors (temperatures, fans, power), disks, filesystems,
+# network interfaces, and GPUs that the kernel's DRM drivers report on, such as
+# amdgpu. vmagent.container scrapes it and pushes the metrics to the homelab.
+#
+# It listens only on localhost. It runs in the host's network namespace, so that
+# it reports the host's interfaces, and in its PID namespace, so that it reads
+# the host's mounts. It reads the host's /proc, /sys and root filesystem, mounted
+# read only.
+#
+# SELinux labeling is disabled, because the container cannot read the host's
+# /proc, /sys and root filesystem under its usual label.
+#
+# [1]: https://github.com/prometheus/node_exporter
+
+[Unit]
+Description=Prometheus node exporter
+Documentation=https://github.com/prometheus/node_exporter
+ConditionPathExists=%h/.config/homelab/metrics.env
+
+[Quadlet]
+# This skips waiting on podman-user-wait-network-online.service, which
+# is buggy.
+#
+# https://blog.podman.io/2024/10/podman-5-3-changes-for-improved-networking-experience-with-pasta/
+# https://github.com/podman-container-tools/podman/issues/24796#issuecomment-2527769896
+DefaultDependencies=false
+
+[Container]
+Image=docker.io/prom/node-exporter:v1.12.1
+ContainerName=node-exporter
+Network=host
+PodmanArgs=--pid=host
+SecurityLabelDisable=true
+ReadOnly=true
+NoNewPrivileges=true
+DropCapability=ALL
+Volume=/proc:/host/proc:ro
+Volume=/sys:/host/sys:ro
+Volume=/:/host/root:ro,rslave
+Exec=--path.procfs=/host/proc \
+	--path.sysfs=/host/sys \
+	--path.rootfs=/host/root \
+	--path.udev.data=/host/root/run/udev/data \
+	--web.listen-address=127.0.0.1:9100 \
+	--collector.drm \
+	--collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/credentials/.+|run/user/.+)($$|/) \
+	--collector.netdev.device-exclude=^(lo|veth.+|podman.+)$$ \
+	--collector.netclass.ignored-devices=^(lo|veth.+|podman.+)$$
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

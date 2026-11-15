@@ -1,0 +1,73 @@
+# vmagent.container
+# =================
+#
+# vmagent [1], which scrapes node-exporter.container and pushes the metrics to
+# the homelab's VictoriaMetrics, through its remote write endpoint.
+#
+# Samples are labeled with job="node" and instance set to this host's short
+# hostname, which systemd gives as %l. The homelab's host dashboard selects a
+# host by its instance label.
+#
+# vmagent buffers samples on disk, in the vmagent-data volume, while the homelab
+# cannot be reached, and sends them once it can.
+#
+# Its configuration comes from:
+#
+#   * scrape.yml, in the dotfiles.
+#   * ~/.env.homelab, which gives HOMELAB_DOMAIN, HOMELAB_METRICS_USERNAME and
+#     HOMELAB_METRICS_PASSWORD. Podman reads it as an environment file, so each
+#     line must be NAME=value: no export, and no quotes, which Podman would keep
+#     as part of the value.
+#
+# The flags refer to those variables as %%{NAME}. systemd turns %% into %, and
+# vmagent replaces %{NAME} with the variable from its environment [2]. systemd
+# cannot expand them itself, as $NAME: the file is passed to Podman, so the
+# variables exist only inside the container. This also keeps the password out of
+# the podman command line, which ps and systemctl status show.
+#
+# SELinux labeling is disabled, so that vmagent can read scrape.yml from the
+# dotfiles without relabeling them.
+#
+# [1]: https://docs.victoriametrics.com/victoriametrics/vmagent/
+# [2]: https://docs.victoriametrics.com/victoriametrics/single-server-victoriametrics/#environment-variables
+
+[Unit]
+Description=vmagent
+Documentation=https://docs.victoriametrics.com/victoriametrics/vmagent/
+Wants=node-exporter.service
+After=node-exporter.service
+ConditionPathExists=%h/.config/homelab/metrics.env
+
+[Quadlet]
+# This skips waiting on podman-user-wait-network-online.service, which
+# is buggy.
+#
+# https://blog.podman.io/2024/10/podman-5-3-changes-for-improved-networking-experience-with-pasta/
+# https://github.com/podman-container-tools/podman/issues/24796#issuecomment-2527769896
+DefaultDependencies=false
+
+[Container]
+Image=docker.io/victoriametrics/vmagent:v1.154.1
+ContainerName=vmagent
+Network=host
+SecurityLabelDisable=true
+ReadOnly=true
+NoNewPrivileges=true
+DropCapability=ALL
+EnvironmentFile=%h/.config/homelab/metrics.env
+Environment=METRICS_INSTANCE=%l
+Volume=%h/.dotfiles/containers/systemd/vmagent/scrape.yml:/etc/vmagent/scrape.yml:ro
+Volume=vmagent-data:/data
+Exec=-httpListenAddr=127.0.0.1:8429 \
+	-promscrape.config=/etc/vmagent/scrape.yml \
+	-remoteWrite.url=https://%%{HOMELAB_METRICS_HOSTNAME}/api/v1/write \
+	-remoteWrite.basicAuth.username=%%{HOMELAB_METRICS_USERNAME} \
+	-remoteWrite.basicAuth.password=%%{HOMELAB_METRICS_PASSWORD} \
+	-remoteWrite.tmpDataPath=/data \
+	-remoteWrite.maxDiskUsagePerURL=1GiB
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
