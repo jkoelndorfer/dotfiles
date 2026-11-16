@@ -6,13 +6,11 @@
 LAUNCH_AGENTS_DIR="${HOME}/Library/LaunchAgents"
 NOTES_BACKUP_PLIST="${LAUNCH_AGENTS_DIR}/NotesBackup.plist"
 
-function is_target_system() {
-  type jamf >/dev/null 2>&1
-}
+source "${SH_LIB_DIR}/workplace.sh"
 
 if ! is_target_system; then
-  printf 'not a Target-managed device; skipping\n' >&2
-  exit 0
+	printf 'not a Target-managed device; skipping\n' >&2
+	exit 0
 fi
 
 mkdir -p "$LAUNCH_AGENTS_DIR"
