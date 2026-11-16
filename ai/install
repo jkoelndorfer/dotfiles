@@ -1,0 +1,8 @@
+#!/bin/bash
+
+script_path=$(readlink -f "$0")
+script_dir=$(dirname "$script_path")
+
+claude_dir="${HOME}/.claude"
+mkdir -p "$claude_dir"
+cp -f "${script_dir}/AGENTS.md" "${claude_dir}/CLAUDE.md"
