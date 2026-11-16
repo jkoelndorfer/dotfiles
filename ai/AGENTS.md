@@ -11,8 +11,8 @@ Sandbox Container
   These repositories are checkouts just for you; the user does not work in
   them directly.
     * Manage the state of these repositories as you see fit.
-    * When finalizing work in these repositories, ensure you create a commit so
-      the user can fetch it.
+    * When finalizing work in these repositories, ensure you create a commit,
+      pointed to by a branch, so the user can fetch it.
 
 * `${HOME}/src` contains the user's repository checkouts.
     * You cannot write to anything located in `${HOME}/src`.
