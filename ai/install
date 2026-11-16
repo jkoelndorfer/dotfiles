@@ -1,8 +1,24 @@
 #!/bin/bash
 
+set -eo pipefail
+
 script_path=$(readlink -f "$0")
 script_dir=$(dirname "$script_path")
+
+source "${SH_LIB_DIR}/workplace.sh"
+
+cd "$script_dir"
 
 claude_dir="${HOME}/.claude"
 mkdir -p "$claude_dir"
 cp -f "${script_dir}/AGENTS.md" "${claude_dir}/CLAUDE.md"
+
+if is_target_system; then
+	dayton_skill_dir="${HOME}/.config/dayton/custom/skills"
+	mkdir -p "$dayton_skill_dir"
+	find skills/ -type d -mindepth 1 -maxdepth 1 -print0 | while read -r -d '' skill_dir; do
+		this_dayton_skill_dir="${dayton_skill_dir}/$(basename "$skill_dir")"
+		rm -rf "$this_dayton_skill_dir"
+		cp -r "$skill_dir" "$this_dayton_skill_dir"
+	done
+fi
