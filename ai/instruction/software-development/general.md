@@ -49,6 +49,13 @@ Design
   configuration, and definitions.
 * Validate input at system boundaries. Internal code may trust validated
   data.
+* Avoid duplicate validation on inputs that your system does not own. For
+  example, if passing arguments to an upstream API, you should not perform
+  the same validation as the upstream does. There should be a compelling
+  argument for duplicate validation logic if it is implemented.
+  * This **does not** apply to adding additional constraints at validation
+    time. Additional constraints would not qualify as duplicate validation
+    logic.
 * Prefer designs that make invalid states unrepresentable.
 * Prefer a few absolute constraints over many edge cases, exceptions, and
   gotchas.
